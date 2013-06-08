@@ -1,0 +1,80 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+
+
+    <div class="stage">
+        <h1>Inbox</h1>
+        <h3>Subtitel steht hier </h3>
+
+
+        <div class="projectInfo">
+            12 neue Nachrichten &nbsp;&nbsp;&nbsp;
+            4 Projekte&nbsp;&nbsp;&nbsp;13 To-DOs&nbsp;&nbsp;&nbsp;
+            2 Termine
+
+        </div>
+
+
+        <br>
+        <h2>Neue Nachrichten</h2>
+        <div class="projectListItem">
+            <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" class="listIcon"/>
+            Klaus &nbsp;&nbsp; Hier kommen die letzten 5mails and notes
+        </div>
+        <div class="projectListItem">
+            Icon &nbsp;&nbsp; Klaus &nbsp;&nbsp; Hier kommen die letzten 5mails and notes
+        </div>       
+        <div class="projectListItem">
+            Icon &nbsp;&nbsp; Klaus &nbsp;&nbsp; Hier kommen die letzten 5mails and notes
+        </div>
+        <div class="projectListItem">
+            Icon &nbsp;&nbsp; Klaus &nbsp;&nbsp; Hier kommen die letzten 5mails and notes
+        </div>
+        Fussnote & Link -> alle anzeigen
+        <br>
+
+        <br /><br />
+        <h2>Projekte</h2>
+        <f:for each="{projects}" as="project">
+            <div class="projectListItem">
+                <div class="listIcon">
+                    <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+                </div>
+                <div class="listProjectTitle">
+                    <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
+                       {project.projectTitle}
+                    </f:link.action>
+                </div>
+                <div class="listProjectShort">
+                    {project.projectShort}
+                </div>
+                <div class="listProjectInfo">
+                | 16 offene ToDos | Verbleibene Zeit: 3.5h | Termin:
+                </div>
+            </div>
+        </f:for>    
+
+        <br>
+        <f:link.action action="projectNew" controller="Project">
+            >>neues Projekt hinzufügen
+        </f:link.action>
+
+     
+        
+        
+        
+        <br ><br>
+        <h2>ToDos aus allen Listen:</h2>
+
+        <br>
+        • Edit Form für Todos erstellen
+        <br>
+        • Zeiterfassung einbauen
+        <br>
+        • single Project Seite mit TABs -> Gespäche | ToDos | Time | Fakturiert
+        <br>
+    </div>
+
+
+</f:section>
