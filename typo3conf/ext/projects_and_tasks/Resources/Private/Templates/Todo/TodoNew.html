@@ -1,0 +1,112 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+<f:section name="main">
+
+
+    <div id="pat">
+        <div class="stage">
+
+            <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
+                <h1>  {project.projectTitle}</h1>
+            </f:link.action>
+
+            <h3>{project.projectShort}</h3>
+
+            <f:link.action action="projectEdit" controller="Project"arguments="{project:project}">
+                Projekt bearbeiten
+            </f:link.action>
+
+            <div class="projectInfo">
+                12 Nachrichten &nbsp;&nbsp;&nbsp;13 To-DOs&nbsp;&nbsp;&nbsp;
+                4 Dateien&nbsp;&nbsp;&nbsp;6 Dokumente&nbsp;&nbsp;&nbsp;2 Termine
+
+            </div>
+
+            <br/><br />   
+            <h2>{todolist.todolistTitel}</h2>
+            {todolist.todolistDescription}
+
+            <!--The form -->
+            <f:form method="post" controller="Todo" action="todoCreate" name="todo" object="{todo}"   >
+
+                <div class="stageItemTable">
+
+                    <!--hidden fields -->
+                    <f:form.textfield property="todoList" value="{todo.todoList}" class="hidden" />
+                    <f:form.textfield property="todoNr" value="{todo.todoNr}" class="hidden" />
+              
+                    <!-- regular Fields -->
+
+                    <div class="stageItemTableLabel">
+                        Titel
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.textfield property="todoTitle" value="{todo.todoTitle}" class="fullWidth" />
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+                    <div class="stageItemTableLabel">
+                        KText
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.textarea  cols="45" rows="3" property="todoDescription" value="{todo.todoDescription}" />
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+                    <div class="stageItemTableLabel">
+                        Status / Typ 
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.select property="todoStatus" options="{status}" optionValueField="" optionLabelField="" />
+                        <f:form.select property="todoTyp" options="{typ}" optionValueField="typ" optionLabelField="id" />
+
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+
+
+                    <div class="stageItemTableLabel">
+                        Assigned Klaus: 4 / Zeitbedarf
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.select property="todoAssigned" options="{user}" optionValueField="uid" optionLabelField="username" />
+
+                        <f:form.select property="todoPlantime" options="{plantime}" optionValueField="" optionLabelField="" />
+
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+                    <div class="stageItemTableLabel">
+                        Datum / Ende
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.textfield  class="datepicker" property="todoDate" value="{todo.Date}" />
+                        <f:form.textfield class="datepicker" property="todoEnd" value="{todo.End}" />
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+                </div>
+
+
+
+
+                <div class="formrow buttonrow">
+
+                    <input type="button"  class="button lightbox-close" value="abbrechen"  />
+                    <f:form.submit name="mySubmit" value="speichern" class="button" />
+
+                    <input type="button"  class="button lightbox-close" value="schließen"  />
+
+                </div>
+            </f:form>
+
+
+            <!-- The List -->
+            <br /><br />
+             <f:link.action action="showPdf" controller="Todo" arguments="{todolist: todolist.uid}">
+            >>pdf
+        </f:link.action>
+            <f:render partial="Todos/TodoList" arguments="{todos:todosAllFromList}" />
+        </div></div>
+
+</f:section>

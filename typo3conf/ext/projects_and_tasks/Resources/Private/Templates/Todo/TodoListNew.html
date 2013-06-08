@@ -1,0 +1,50 @@
+
+<div id="pat">
+    <div class="stage"><f:debug>{todolist}</f:debug>
+        <h1>Neue Todo Liste anlegen:</h1>
+        <f:form method="post" controller="Todo" action="todoListCreate" name="todolist" object="{todolist}"   >
+
+            <div class="stageItemTable">
+
+                <!--hidden fields -->
+                <f:form.textfield property="todolistProject" value="{todolist.todolistProject}" class="fullWidth" />
+               
+                <!-- regular Fields -->
+
+
+
+
+                <div class="stageItemTableLabel">
+                    TodoList Titel
+                </div>
+                <div class="stageItemTableContent">
+                    <f:form.textfield property="todolistTitel" value="{todolist.todolistTitle}" class="fullWidth" />
+                </div>
+                <div class="stageItemTableDivider"></div>
+
+                <div class="stageItemTableLabel">
+                    Kurztext
+                </div>
+                <div class="stageItemTableContent">
+                    <f:form.textarea  cols="45" rows="3" property="todolistDescription" value="{todolist.todolistDescription}" />
+                </div>
+                <div class="stageItemTableDivider"></div>
+
+                
+
+            </div>
+
+
+
+
+            <div class="formrow buttonrow">
+
+                <input type="button"  class="button lightbox-close" value="abbrechen"  />
+                <f:form.submit name="mySubmit" value="speichern" class="button" />
+
+                <input type="button"  class="button lightbox-close" value="schließen"  />
+
+            </div>
+        </f:form>
+    </div></div>
+

@@ -1,0 +1,29 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}        
+
+
+<f:for each="{todos}" as="item">
+
+    <div class="projectListItem">
+        <div class="listIcon">
+            <vh:todotype typ="{item.todoTyp}" status="{item.todoStatus}" />
+        </div>
+        <div class="listTodoTitle"">
+            <f:link.action action="todoEdit" controller="Todo"arguments="{todo:item.uid}">
+                {item.todoNr} | {item.todoTitle}
+            </f:link.action>
+        </div>
+        <div class="listTodoText">
+            <f:format.crop maxCharacters="60" append="&nbsp;[...]">{item.todoDescription}</f:format.crop>
+        </div>
+        <div class="listTodoAssigned">
+            {item.todoAssigned.firstName}
+        </div>
+        <div class="listTodoTime">
+            <vh:plantime time="{item.todoPlantime}" />
+        </div>
+                <div class="listTodoDate">
+           <f:format.date format="d.m.Y">{item.todoDate}</f:format.date>
+        </div>
+    </div>
+
+</f:for>

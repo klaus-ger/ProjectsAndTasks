@@ -1,0 +1,473 @@
+@font-face { 
+    font-family: 'LatoRegular'; 
+    src: url('../fonts/Lato-Reg-webfont.eot#') format('eot'), 
+        url('../fonts/Lato-Reg-webfont.woff') format('woff'), 
+        url('../fonts/Lato-Reg-webfont.ttf') format('truetype'), 
+        url('../fonts/Lato-Reg-webfont.svg#svgFontName') format('svg'); 
+}
+@font-face { 
+    font-family: 'LatoRegularItalic'; 
+    src: url('../fonts/Lato-RegIta-webfont.eot#') format('eot'), 
+        url('../fonts/Lato-RegIta-webfont.woff') format('woff'), 
+        url('../fonts/Lato-RegIta-webfont.ttf') format('truetype'), 
+        url('../fonts/Lato-RegIta-webfont.svg#svgFontName') format('svg'); 
+}
+@font-face { 
+    font-family: 'LatoBold'; 
+    src: url('../fonts/Lato-Bol-webfont.eot#') format('eot'), 
+        url('../fonts/Lato-Bol-webfont.woff') format('woff'), 
+        url('../fonts/Lato-Bol-webfont.ttf') format('truetype'), 
+        url('../fonts/Lato-Bol-webfont.svg#svgFontName') format('svg'); 
+}
+@font-face { 
+    font-family: 'LatoBoldItalic'; 
+    src: url('../fonts/Lato-BolIta-webfont.eot#') format('eot'), 
+        url('../fonts/Lato-BolIta-webfont.woff') format('woff'), 
+        url('../fonts/Lato-BolIta-webfont.ttf') format('truetype'), 
+        url('../fonts/Lato-BolIta-webfont.svg#svgFontName') format('svg'); 
+}
+
+@font-face { 
+    font-family: 'LatoLight'; 
+    src: 
+        url('../fonts/Lato-Lig.ttf') format('truetype'); 
+}
+
+html {
+    height: 101%;
+    background: url("../Img/page_bg.png") repeat scroll 0 0 #fff;
+}
+body {
+    width: 980px;
+    margin: 0 auto;
+
+}
+
+#pat {
+    font: 14px/22px 'LatoRegular',Arial,Helvetica,sans-serif;
+    color: #091022;
+    word-spacing:2.63333px;
+}
+
+/* HEADER SECTION ***********************/
+#pat #header {
+
+}
+#pat .header-top {
+
+}
+#pat .header-sub {
+
+}
+
+/* MENU SECTION ************************/
+#pat .menu {
+    float: left; 
+    width: 160px; 
+    margin-left: 20px;
+}
+
+#pat .menu ul.menu-level1 li {
+    margin:0;
+    padding: 0;
+}
+
+#pat ul.menu-level2 {
+    margin-left: 10px;
+}
+
+/* STAGE SECTION *************************/
+#pat .stage {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+
+    display: block;
+    float: left;
+    margin: 90px 10px 0 10px;
+    width: 100%;
+    box-shadow: 0 0 3px 3px #ccc;
+    padding: 40px;
+}
+
+
+/* typografie ********************************/
+#pat a {
+    color: #666;
+    text-decoration: none;
+}
+#pat h1 {
+    font-size: 24px;
+    line-height: 26px;
+    margin: 10px 0 10px 0;
+    font-family: 'LatoBold';
+}
+
+#pat h2 {
+    color: #800000;
+    font-size: 18px;
+    font-family: 'LatoBold';
+}
+
+#pat h3 {
+    font-size: 18px;
+    color: #BB9977;
+}
+
+#pat h4 {
+    font-size: 16px;
+    font-family: 'LatoBold';
+}
+
+/* Singel Project Stage ***************/
+
+/*project-header */
+#pat .project-header-left{
+    width: 800px;
+    float: left;
+}
+#pat .project-header-right{
+    width: 180px;
+    float: left;
+}
+#pat .project-header-right table{
+    font-family: 'LatoLight'; 
+    color: #666;
+    font-size: 12px;
+    margin-top: 25px;
+}
+#pat .projectInfo {
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+    padding: 10px 0;
+    color: #0077b3;
+    font-size: 16px;
+    font-family: 'LatoBold';
+}
+
+/* List views allgemein */
+#pat .projectListItem{
+    border-bottom: 1px solid #ededed;
+    padding: 5px 0;
+    color: #666;
+    font-family: "LatoLight";
+    font-size: 12px;
+}
+#pat .listIcon {
+    display: inline-block;
+    vertical-align: middle;
+}
+/* ToDo List */
+#pat .listTodoTitle{
+    font-family: "LatoBold";
+    padding-left: 15px;
+    display: inline-block;
+    width: 300px;
+}
+
+#pat .listTodoText {
+    padding-left: 15px;
+    display: inline-block;
+    width: 390px
+}
+#pat .listTodoAssigned {
+    padding-left: 15px;
+    display: inline-block;
+    width: 50px
+}
+#pat .listTodoTime {
+    padding-left: 15px;
+    display: inline-block;
+    width: 50px
+}
+#pat .listTodoDate {
+    padding-left: 15px;
+    display: inline-block;
+    width: 65px
+}
+#pat .listTodoFooter {
+    margin-top:10px;
+    color: #666;
+    font-size: 11px;
+}
+/* Leistungen List */
+#pat .listLeistungTitel {
+     font-family: "LatoBold";
+    padding-left: 15px;
+    display: inline-block;
+    width: 300px;
+}
+/* Project List */
+
+#pat .listProjectTitle{
+    font-family: "LatoBold";
+    font-size: 12px;
+    padding-left: 15px;
+    display: inline-block;
+    width: 130px;
+}
+#pat .listProjectShort{
+    font-family: "LatoLight";
+    font-size: 12px;
+    width: 400px;
+    display: inline-block;
+}
+
+#pat .listProjectInfo {
+    font-family: "LatoLight";
+    font-size: 12px;
+    padding-left: 15px;
+    display: inline-block;
+    width: 380px;
+    text-align: right;
+}
+
+
+
+
+.button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:10px;
+	font-weight:normal;
+	padding:0px 18px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+}.button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}.button:active {
+	position:relative;
+	top:1px;
+}
+/* This imageless css button was generated by CSSButtonGenerator.com */
+
+/*****************************************/
+#pat .stagenav {
+    background-color: #800000;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: #FFFFFF;
+    font-size: 11px;
+    height: 30px;
+    line-height: 11px;
+    padding: 7px 0 0 10px;
+
+}
+#pat .leftStage, #pat .rightStage {
+    display: block;
+    float: left;
+    padding: 10px;
+    width: 700px;
+}
+#pat .rightStage {
+    width: 300px;
+}
+
+#pat .stageItem {
+    border: 1px solid #CCCCCC;
+    margin-bottom: 10px;
+}
+
+#pat .stageItemTop {
+    background-color: #F7F2E0;
+    border-bottom: 1px solid #CCCCCC;
+    color: #666666;
+    font-size: 11px;
+    font-weight: bold;
+    height: 22px;
+    line-height: 11px;
+}
+
+#pat .stageItemTopText {
+    font-size: 11px;
+    padding: 5px 0 0 10px;
+}
+
+#pat .stageItemContent {
+    color: #666666;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 10px;
+}
+
+#pat .stageItemTable {
+    color: #666666;
+    font-size: 12px;
+}
+
+#pat .stageItemTableLabel {
+    background-color: #FCFCFC;
+    color: #999999;
+    float: left;
+    padding: 5px 10px;
+    width: 90px;
+}
+#pat .stageItemTableContent {
+    margin-left: 110px;
+    padding: 5px 10px;
+}
+
+#pat .stageItemTableDivider {
+    background-color: #E2E2E2;
+    clear: both;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+}
+
+#pat textarea.dynamisch {
+    width:530px; 
+    line-height:20px; 
+    height:16px;
+    color: #666;
+    border: none;
+}
+/* STAGE PLANBOARD ************************/
+/* Tabs */
+#pat .tabmenu.active, #pat .tabmenu  {
+    background-color: #ededed;
+
+    color: #666666;
+    font-size: 11px;
+    font-weight: bold;
+    height: 22px;
+    line-height: 11px;
+    width: 150px;
+    border: 1px solid #CCCCCC;
+    text-align: center;
+    display: inline-block;
+    line-height: 22px;
+}
+#pat .tabmenu.active {
+    background-color: #F7F2E0; 
+    border-bottom: 1px solid #f7f2e0;
+}
+
+#pat .tabstage {
+    border: 1px solid #CCCCCC;
+}
+/*Comment List */
+#pat .commentList {
+    padding: 0 !important;
+}
+#pat .commentListHeader {
+    display: block;
+    padding: 5px 10px;
+    background-color: #FCFCFC;
+}
+
+#pat .commentListDate, #pat .commentListTitle,
+#pat .commentListTyp, #pat .commentListStatus {
+    width: 60px;
+    display: block;
+    float: left;
+}
+#pat .commentListTitle {
+    width: 200px;
+}
+
+#pat .commentListDeteails {
+    clear: both;
+    padding: 5px 10px;
+    display: block;
+}
+
+
+/* Buglist */
+#pat .bugListHeader {
+    background-color: #FCFCFC;
+    color: #999999;
+    float: left;
+    padding: 5px 10px;
+    width: 97%;
+}
+
+#pat .bugListNo, #pat .bugListTitel, #pat .bugListStatus, #pat .bugListReferenzInline {
+    width: 40px;
+    display: block;
+    float: left;
+}
+#pat .bugListReferenzInline {
+    width: auto;
+}
+#pat .bugListTitel {
+    width: auto;
+    overflow: hidden;
+}
+#pat .bugListStatus {
+    float: right !important;
+}
+
+#pat .bugListDescription, #pat .bugListComment {
+    color: #666666;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 3px 10px;  
+}
+
+#pat .bugListFooter {
+    color: #999999;
+    float: left;
+    padding: 3px 10px;
+}
+
+#pat .bugListReferenz, #pat .bugListType,
+#pat .bugListeTime, #pat .bugListEdit {
+    width: 90px;
+    float: left;
+    display: block;
+}
+
+/* Time List */
+#pat .timeListHeader {
+    background-color: #FCFCFC;
+    color: #999999;
+    float: left;
+    padding: 5px 10px;
+    width: 97%;
+}
+#pat .timeListDate, #pat .timeListTitle, #pat .timeListTyp, #pat .timeListStatus {
+    width: 50px;
+    display: block;
+    float: left;
+}
+#pat .timeListTitle {
+    width: auto;
+}
+
+#pat .timeListWorktime {
+    float: right;
+    width: 50px;
+}
+/* Bug Form */
+#pat input.fullWidth {
+    width: 280px;
+}
+
+
+.clear {
+    clear: both;
+}
+#pat .hidden {
+    display: none !important;
+}
+/* Bug Form */
+label {
+    float: left;
+    width: 100px;
+    display: block;
+}

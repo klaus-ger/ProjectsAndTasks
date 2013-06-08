@@ -1,0 +1,57 @@
+<f:form method="post" controller="PlanBoard" action="timeUpdate" name="time" object="{time}"   >
+
+    <div class="stageItemTable">
+
+        <!--hidden fields -->
+        <div class="stageItemTableContent xhidden">
+            <f:form.textfield id="jqTimeFormUid" property="time.uid" value="{time.uid}" class="xhidden" />  
+        </div>
+        
+        <div class="stageItemTableContent xhidden">
+            <f:form.textfield id="jqTimeFormPlan" property="time.timePlan" value="{bug.bugPlan}" class="w300" />
+        </div>
+        <div class="stageItemTableDivider"></div>
+        
+        <!-- regular Fields -->
+        
+        <div class="stageItemTableLabel">
+            Time Titel
+        </div>
+        <div class="stageItemTableContent">
+            <f:form.textfield id="jqBugTimeTitel" property="time.timeTitle" value="{time.timeTitle}" class="fullWidth" />
+            
+        </div>
+        <div class="stageItemTableDivider"></div>
+        
+        <div class="stageItemTableLabel">
+            Text
+        </div>
+        <div class="stageItemTableContent">
+            <f:form.textarea  id="jqTtimeText" cols="45" rows="3" property="time.timeText" value="{time.timeText}" />
+         </div>
+        <div class="stageItemTableDivider"></div>
+        
+        <div class="stageItemTableLabel">
+           Datum / Start / End
+        </div>
+        <div class="stageItemTableContent">
+           <f:form.textfield id="jqBugFormType" property="time.timeDate" value="{time.TimeDate}" class="w300" />
+           <f:form.textfield id="jqBugFormType" property="time.timeStart" value="{time.TimeStart}" class="w300" />
+           <f:form.textfield id="jqBugFormStatus" property="time.timeEnd" value="{time.timeEnd}" class="w300" />
+        </div>
+        <div class="stageItemTableDivider"></div>
+
+    </div>
+
+
+
+
+    <div class="formrow buttonrow">
+
+        <input type="button"  class="button lightbox-close" value="abbrechen"  />
+        <f:form.submit name="mySubmit" value="speichern" class="button" />
+
+        <input type="button"  class="button lightbox-close" value="schließen"  />
+
+    </div>
+</f:form>

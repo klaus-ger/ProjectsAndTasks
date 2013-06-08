@@ -1,0 +1,84 @@
+    
+<div class="tabmenu active" id="jqtabtask">Tasks</div>
+<div class="tabmenu"  id="jqtabnote">Notes</div>
+<div class="tabmenu"  id="jqtabtime">Time</div>
+
+<div class="tabstage" id="jq-tab-task-stage">
+
+    <div id="bugForm" class="hidden">
+        <f:render partial="PlanBoard/Bugedit" arguments="{_all}" /> 
+    </div>
+    
+    <div class="stageItemTable" >
+        <div class="bugListHeader jqNewBug">
+            <span class="bugListNo"></span>
+            <span class="bugListTitel">Neuen Task hinzufügen</span>
+            
+        </div>
+    </div>
+    
+    <div class="stageItemTable" id="jqTaskList">
+        <div class="bugListHeader">
+            <span class="bugListNo">#222</span>
+            <span class="bugListTitel">Dies ist mein Bug Titel</span>
+            <span class="bugListStatus">offen</span>
+        </div>
+        <div class="bugListDeteails">
+            <div class="bugListDescription">
+                Vorgänge: Übersicht: beim Anklicken einer Rechnungszeile: Button
+
+            </div>
+            <div class="bugListComment">
+                Controller und jQuery Funktion ergänzt. 15.05 | 0,5 h
+            </div>
+            <div class="bugListFooter">
+                <span class="bugListReferenz">#0001</span>
+                <span class="bugListType">FEAT</span>
+                <span class="bugListeTime">0:25h</span>
+                <span class="bugListeEdit">edit</span>
+            </div>
+        </div>
+
+        <div class="stageItemTableDivider"></div>
+
+
+    </div>
+     
+
+</div>
+
+<div class="tabstage hidden" id="jq-tab-note-stage">
+
+    <div id="commentForm" class="hidden">
+        <f:render partial="PlanBoard/CommentEdit" arguments="{_all}" /> 
+    </div>
+
+    <div class="stageItemContent commentList" id ="jqPlanComments">
+        Hier steht mein Text...
+    </div>
+
+    <div class="stageItemContent commentList" >
+        <div class="bugListHeader" style="border:1px solid #ccc;"> 
+            <div class="jqNewComment">Einen neuen Kommentar hinzufügen</div>
+        </div>
+    </div> 
+
+</div>
+
+<div class="tabstage hidden" id="jq-tab-time-stage">
+
+    <div id="timeForm" class="hidden">
+        <f:render partial="PlanBoard/TimeEdit" arguments="{_all}" /> 
+    </div>
+
+    <div class="stageItemContent commentList" >
+        <div class="timeListHeader">
+            <div class="jq-form-time-new-click">Einen neuen Zeiteintrag eingeben</div>
+        </div>
+    </div> 
+    
+     <div class="stageItemContent commentList" id="jqPlanTime">
+       .
+    </div>
+
+</div>

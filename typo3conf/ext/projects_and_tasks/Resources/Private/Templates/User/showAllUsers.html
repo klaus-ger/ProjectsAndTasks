@@ -1,0 +1,32 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="stage">
+        <h1>Alle Benutzer</h1>
+        <f:debug>{users}</f:debug>
+        <f:debug>{user}</f:debug>
+        <f:link.action action="userNew" controller="User">
+            Neuen User anlegen
+        </f:link.action>
+
+
+        <div class="projectInfo">
+            12 Nachrichten &nbsp;&nbsp;&nbsp;13 To-DOs&nbsp;&nbsp;&nbsp;
+            4 Dateien&nbsp;&nbsp;&nbsp;6 Dokumente&nbsp;&nbsp;&nbsp;2 Termine
+
+        </div>
+
+
+        <br>
+        <h2>User</h2>
+        <f:for each="{users}" as="user">
+            <div class="projectListItem">
+                <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
+                {user.userFirstName} | {user.userLastName}
+                </f:link.action>
+                | 16 offene ToDos | Verbleibene Zeit: 3.5h | Termin:
+            </div>
+        </f:for>  
+    </div>
+
+</f:section>

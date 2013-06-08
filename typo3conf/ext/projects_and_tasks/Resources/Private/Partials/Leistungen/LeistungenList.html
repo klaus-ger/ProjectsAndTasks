@@ -1,0 +1,26 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}   
+
+<f:for each="{works}" as="work">
+    <div class="projectListItem">
+        <div class="listIcon">
+            <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+        </div>
+        <div class="listLeistungTitel">
+            <f:link.action action="workEdit" controller="Work"arguments="{work:work.uid}">
+                {work.workTitle}
+            </f:link.action>
+        </div>
+        <div class="listTodoText">
+            <f:format.crop maxCharacters="60" append="&nbsp;[...]">{work.workDescription}</f:format.crop>
+        </div>
+        <div class="listTodoAssigned">
+            {work.workUser.firstName}
+        </div>
+        <div class="listTodoTime">
+             <vh:worktime start="{work.workStart}" end="{work.workEnd}"/>
+        </div>
+                <div class="listTodoDate">
+           <f:format.date format="d.m.Y">{work.workDate}</f:format.date>
+        </div>
+    </div>
+</f:for>

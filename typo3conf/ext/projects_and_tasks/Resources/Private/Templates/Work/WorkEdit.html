@@ -1,0 +1,108 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+<f:section name="main">
+
+
+<div id="pat">
+    <div class="stage">
+            
+            <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
+                     <h1>  {project.projectTitle}</h1>
+            </f:link.action>
+            
+            <h3>{project.projectShort}</h3>
+
+            <f:link.action action="projectEdit" controller="Project"arguments="{project:project}">
+                Leistungen bearbeiten
+            </f:link.action>
+
+            <div class="projectInfo">
+                12 Nachrichten &nbsp;&nbsp;&nbsp;13 To-DOs&nbsp;&nbsp;&nbsp;
+                4 Dateien&nbsp;&nbsp;&nbsp;6 Dokumente&nbsp;&nbsp;&nbsp;2 Termine
+
+            </div>
+            
+         <br/><br />   
+        <h2>Leistungen</h2>
+        
+        
+        <!--The form -->
+        <f:form method="post" controller="Work" action="workCreate" name="work" object="{work}"   >
+
+            <div class="stageItemTable">
+
+                <!--hidden fields -->
+                <f:form.textfield property="workProject" value="{work.workProject}" class="hidden" />
+               
+                <!-- regular Fields -->
+
+                <div class="stageItemTableLabel">
+                    Titel
+                </div>
+                <div class="stageItemTableContent">
+                    <f:form.textfield property="workTitle" value="{work.workTitle}" class="fullWidth" />
+                </div>
+                <div class="stageItemTableDivider"></div>
+
+                <div class="stageItemTableLabel">
+                    KText
+                </div>
+                <div class="stageItemTableContent">
+                    <f:form.textarea  cols="45" rows="3" property="workDescription" value="{work.workDescription}" />
+                </div>
+                <div class="stageItemTableDivider"></div>
+
+                <div class="stageItemTableLabel">
+                    Status / Typ
+                </div>
+                <div class="stageItemTableContent">
+                <f:form.select property="workStatus" options="{workstatus}" optionValueField="" optionLabelField="" />
+                 
+                </div>
+                <div class="stageItemTableDivider"></div>
+                
+                
+                
+                <div class="stageItemTableLabel">
+                    Assigned Klaus: 4
+                </div>
+                <div class="stageItemTableContent">
+                   <f:form.textfield  property="workUser" value="{work.workUser}" />
+                </div>
+                <div class="stageItemTableDivider"></div>
+                
+                <div class="stageItemTableLabel">
+                    Datum / Ende
+                </div>
+                <div class="stageItemTableContent">
+                   <f:form.textfield  class="datepicker" property="workDate" value="{work.workDate-> f:format.date( format: 'd.m.Y' )}" />
+                 
+                   <f:form.select property="workStart" options="{time}" optionValueField="" optionLabelField="" />
+                   <f:form.select property="workEnd" options="{time}" optionValueField="" optionLabelField="" />
+               
+                </div>
+                <div class="stageItemTableDivider"></div>
+
+            </div>
+
+
+
+
+            <div class="formrow buttonrow">
+
+                <input type="button"  class="button lightbox-close" value="abbrechen"  />
+                <f:form.submit name="mySubmit" value="speichern" class="button" />
+
+                <input type="button"  class="button lightbox-close" value="schließen"  />
+
+            </div>
+        </f:form>
+        
+        
+        <!-- The List -->
+        <br /><br />
+        <h2>Alle Leistungen</h2>
+        <f:render partial="Leistungen/LeistungenList" arguments="{works:works}" />
+    </div></div>
+
+</f:section>

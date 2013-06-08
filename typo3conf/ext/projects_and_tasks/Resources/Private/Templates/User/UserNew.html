@@ -1,0 +1,72 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <f:debug>{user}</f:debug>
+    <div class="stage">
+        <h1>Neuen Benutzer anlegen</h1>
+
+
+        <div class="projectInfo">
+            12 Nachrichten &nbsp;&nbsp;&nbsp;13 To-DOs&nbsp;&nbsp;&nbsp;
+            4 Dateien&nbsp;&nbsp;&nbsp;6 Dokumente&nbsp;&nbsp;&nbsp;2 Termine
+
+        </div>
+
+
+        <f:form method="post" controller="User" action="userCreate" name="user" object="{User}"   >
+
+            <div class="stageItemTable">
+
+                <!--hidden fields -->
+     
+
+                <!-- regular Fields -->
+
+
+
+
+                <div class="stageItemTableLabel">
+                    User Name
+                </div>
+                <div class="stageItemTableContent">
+                    <f:form.textfield property="userFirstName" value="{user.userFirstName}" class="fullWidth" />
+                    <f:form.textfield property="userLastName" value="{user.userLastName}" class="fullWidth" />
+                </div>
+                <div class="stageItemTableDivider"></div>
+
+                <div class="stageItemTableLabel">
+                    Telefon
+                </div>
+                <div class="stageItemTableContent">
+                    <f:form.textfield property="userTel" value="{user.userTel}" class="fullWidth" />
+                    <f:form.textfield property="userMobil" value="{user.Mobil}" class="fullWidth" />
+                </div>
+                <div class="stageItemTableDivider"></div>
+                
+                <div class="stageItemTableLabel">
+                    Password
+                </div>
+                <div class="stageItemTableContent">
+                    <f:form.textfield property="userPass" value="{user.userPass}" class="fullWidth" />
+                </div>
+                <div class="stageItemTableDivider"></div>
+
+               
+
+
+            </div>
+
+
+
+
+            <div class="formrow buttonrow">
+
+                <input type="button"  class="button lightbox-close" value="abbrechen"  />
+                <f:form.submit name="mySubmit" value="speichern" class="button" />
+
+                <input type="button"  class="button lightbox-close" value="schließen"  />
+
+            </div>
+        </f:form>
+
+</f:section>

@@ -1,0 +1,54 @@
+<f:form method="post" controller="PlanBoard" action="commentUpdate" name="comment" object="{comment}"   >
+
+    <div class="stageItemTable">
+
+        <!--hidden fields -->
+        <div class="stageItemTableContent hidden">
+            <f:form.textfield id="jqCommentFormUid" property="comment.uid" value="{comment.uid}" class="xhidden" />  
+        </div>
+        
+        <div class="stageItemTableContent hidden">
+            <f:form.textfield id="jqCommentFormPlan" property="comment.commentPlan" value="{comment.comentPlan}" class="w300" />
+        </div>
+        <div class="stageItemTableDivider"></div>
+        
+        <!-- regular Fields -->
+        <div class="stageItemTableLabel">
+            Comment Titel
+        </div>
+        <div class="stageItemTableContent">
+            <f:form.textfield id="jqCommentFormTitel" property="comment.commentTitle" value="{comment.commentTitle}" class="fullWidth" />
+        </div>
+        <div class="stageItemTableDivider"></div>
+        
+        <div class="stageItemTableLabel">
+            Datum/Typ/Stat
+        </div>
+        <div class="stageItemTableContent">
+            <f:form.textfield id="jqCommentFormDatum" property="comment.commentDatum" value="{comment.commentDatum}" class="datepicker" />
+            <f:form.textfield id="jqCommentFormTyp" property="comment.commentTyp" value="{comment.commentTyp}" class="w300" />
+            <f:form.textfield id="jqCommentFormStatus" property="comment.commentStatus" value="{comment.commentStatus}" class="w300" />
+        </div>
+        <div class="stageItemTableDivider"></div>
+
+        <div class="stageItemTableLabel">
+            Text
+        </div>
+        <div class="stageItemTableContent">
+            <f:form.textarea  id="jqCommentFormText" cols="65" rows="6" property="comment.commentText" value="{comment.commentText}" />
+         </div>
+        <div class="stageItemTableDivider"></div>
+        
+        
+    </div>
+
+
+    <div class="formrow buttonrow">
+
+        <input type="button"  class="button lightbox-close" value="abbrechen"  />
+        <f:form.submit name="mySubmit" value="speichern" class="button" />
+
+        <input type="button"  class="button lightbox-close" value="schließen"  />
+
+    </div>
+</f:form>
