@@ -5,40 +5,9 @@
     
     <div id="pat">
         <div class="stage">
-            <div class="project-header-left">
-                <h1>{project.projectTitle} - Übersicht</h1>
-                <h3>{project.projectShort}</h3>
 
-                <f:link.action action="projectEdit" controller="Project"arguments="{project:project}">
-                    Projekt bearbeiten
-                </f:link.action>
-            </div>
+            <f:render partial="Project/ProjectHeader" arguments="{_all}" />
             
-            <div class="project-header-right">
-                <table>
-                    <tr>
-                        <td>Budget:&nbsp;</td>
-                        <td><vh:plantime time="{project.projectBudgetTime}" /></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{project.projectBudgetMoney} €</td>
-                    </tr>
-                    <tr>
-                        <td>Ist:</td>
-                        <td><vh:plantime time="{istTime}" /></td>
-                    </tr>
-                </table>
-                 
-            </div>
-            
-            <div class="clear"></div>
-            
-            <div class="projectInfo">
-                12 Nachrichten &nbsp;&nbsp;&nbsp;13 To-DOs&nbsp;&nbsp;&nbsp;
-                4 Dateien&nbsp;&nbsp;&nbsp;6 Dokumente&nbsp;&nbsp;&nbsp;2 Termine
-
-            </div>
             
             <div class="projectMenu">
                 Übersicht | Projektdetails | Nachrichten | Todos | Leistungen | Fakturierung |

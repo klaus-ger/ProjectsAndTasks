@@ -1,6 +1,6 @@
 <?php
 
-namespace T3developer\Projectsandtasks\Controller;
+namespace T3developer\ProjectsAndTasks\Controller;
 
 /* * *************************************************************
  *  Copyright notice
@@ -28,7 +28,7 @@ namespace T3developer\Projectsandtasks\Controller;
 /**
  *
  *
- * @package commentreply
+ * @package projects_and_tasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -122,17 +122,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             }
         }
         
-        //wortime
-        $work = $this->workRepository->findByWorkProject($project->getUid());
-        $istTime = 0;
-        foreach ($work as $single) {
-            $start = $single->getWorkStart();
-            $end   = $single->getWorkEnd();
-            $time = $end - $start;
-            $istTime = $istTime + $time;
-        }
+        $work = $this->workRepository->findByWorkProject($projectUid);
+
         
-        $this->view->assign('istTime', $istTime);
+        $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('user', $this->user);
         $this->view->assign('project', $project);
         $this->view->assign('todos', $todos);
@@ -195,6 +188,51 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->projectRepository->add($project);
 
         $this->redirect('index', 'Inbox');
+    }
+    
+    /*
+     * Finds Data for Project Header Partial
+     * @param $projectUid
+     * @return array
+     */
+   function findProjectHeader($projectUid) {
+        //get the project
+        $project = $this->projectRepository->findByUid($projectUid);
+        
+        //get the worktime
+        $work = $this->workRepository->findByWorkProject($projectUid);
+        $istTime = 0;
+        foreach ($work as $single) {
+            $start = $single->getWorkStart();
+            $end   = $single->getWorkEnd();
+            $time = $end - $start;
+            $istTime = $istTime + $time;
+        }
+        
+        //get the notes
+        $notes = 'xy';
+        
+        //get the todos
+        $todos = 'xy';
+        
+        //get the files
+        $files = "xy";
+        
+        //get the documents
+        $documents = "xy";
+        
+        //get the dates
+        $dates = 'xy';
+        
+        $projectHeader['project']   = $project;
+        $projectHeader['istTime']      = $istTime;
+        $projectHeader['notes']     = $notes;
+        $projectHeader['todos']     = $todos;
+        $projectHeader['files']     = $files;
+        $projectHeader['documents'] = $documents;
+        $projectHeader['dates']     = $dates;
+        
+        return $projectHeader;
     }
 
     public function checkLogIn() {

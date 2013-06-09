@@ -5,7 +5,7 @@ namespace T3developer\Projectsandtasks\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 
+ *  (c) 2013 Klaus Heuer <klaus.heuer@t3-developer.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,12 +28,14 @@ namespace T3developer\Projectsandtasks\Controller;
 /**
  *
  *
- * @package commentreply
+ * @package projects_and_tasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
 class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
+
+ 
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
      */
@@ -58,6 +60,11 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * @var \T3developer\ProjectsAndTasks\Utility\Pdf  
      */
     protected $pdfUtility;
+
+    /**
+     * @var T3developer\ProjectsAndTasks\Controller\ProjectController  
+     */
+    protected $project;
 
     /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\TodolistRepository $todolistRepository
@@ -90,13 +97,21 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     public function injectProjectRepository(\t3developer\ProjectsAndTasks\Domain\Repository\ProjectRepository $projectRepository) {
         $this->projectRepository = $projectRepository;
     }
-    
-     /**
+
+    /**
      *       
      * @param \T3developer\ProjectsAndTasks\Utility\Pdf $pdfUtility    
      */
-    public function injectPdf(\T3developer\ProjectsAndTasks\Utility\Pdf $pdfUtility ) {
-        $this->pdfUtility  = $pdfUtility ;
+    public function injectPdf(\T3developer\ProjectsAndTasks\Utility\Pdf $pdfUtility) {
+        $this->pdfUtility = $pdfUtility;
+    }
+
+    /**
+     *       
+     * @param \T3developer\ProjectsAndTasks\Controller\ProjectController $project
+     */
+    public function injectProject(\T3developer\ProjectsAndTasks\Controller\ProjectController $project) {
+        $this->project = $project;
     }
 
     /**
@@ -181,7 +196,7 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $todoList = $this->todolistRepository->findByUid($list);
         $todosAllFromList = $this->todoRepository->findByTodoList($list);
         $project = $this->projectRepository->findByUid($todoList->getTodolistProject());
-
+        
         $this->view->assign('user', $this->userRepository->findAll());
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         $this->view->assign('plantime', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkTime());
@@ -210,7 +225,7 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->redirect('todoNew', 'Todo', NULL, Array('list' => $todo->getTodolist()));
     }
 
-        /*
+    /*
      * New Todo Action
      */
 
@@ -222,7 +237,9 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $todoList = $this->todolistRepository->findByUid($todoEdit->getTodoList());
         $todosAllFromList = $this->todoRepository->findByTodoList($todoEdit->getTodoList());
         $project = $this->projectRepository->findByUid($todoList->getTodolistProject());
-
+        
+       
+        $this->view->assign('projectHeader', $this->project->findProjectHeader('1'));
         $this->view->assign('user', $this->userRepository->findAll());
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         $this->view->assign('plantime', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkTime());
@@ -232,8 +249,8 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->view->assign('todosAllFromList', $todosAllFromList);
         $this->view->assign('todo', $todoEdit);
     }
-    
-     /*
+
+    /*
      * Update Todolist Action
      * 
      * @param \T3developer\ProjectsAndTasks\Domain\Model\Todo $todo
@@ -246,11 +263,11 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         //   $todo->setTodoOwner($userUid);
         $this->todoRepository->update($todo);
-        
+
 
         $this->redirect('todoNew', 'Todo', NULL, Array('list' => $todo->getTodolist()));
-    }   
-    
+    }
+
     /**
      * Show PDF Action
      *
@@ -260,12 +277,12 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      */
     public function showPdfAction() {
         $todoListUid = $this->request->getArgument('todolist');
-        $todoList = $this->todolistRepository->findByUid($todoListUid );
+        $todoList = $this->todolistRepository->findByUid($todoListUid);
         $todos = $this->todoRepository->findByTodoList($todoList->getUid());
-       //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListUid);
+        //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListUid);
         return $this->pdfUtility->createTodoPdf($todoList, $todos);
     }
-    
+
     public function checkLogIn() {
 
         $user = $GLOBALS['TSFE']->fe_user->user;

@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Utility;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Michael Gläßer <michael.glaesser@pinkiwi.de>
+ *  
  *
  *  All rights reserved
  *

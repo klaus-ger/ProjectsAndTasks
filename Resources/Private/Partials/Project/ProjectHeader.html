@@ -1,0 +1,47 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+
+<vh:comment>
+    /* Partial Project Header
+     * All datas were collected in the function "findProjectHeader" in ProjectController
+     *
+     * Version 1.0 Build 6.6.2013 klaus.heuer@t3-developer.com
+     */
+</vh:comment>
+
+<div class="project-header-left">
+    <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
+        <h1>  {projectHeader.project.projectTitle} - Übersicht</h1>
+    </f:link.action>
+    
+    <h3>{projectHeader.project.projectShort}</h3>
+
+    <f:link.action action="projectEdit" controller="Project"arguments="{project:project}">
+        Projekt bearbeiten
+    </f:link.action>
+</div>
+
+<div class="project-header-right">
+    <table>
+        <tr>
+            <td>Budget:&nbsp;</td>
+            <td><vh:plantime time="{projectHeader.project.projectBudgetTime}" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{projectHeader.project.projectBudgetMoney} €</td>
+        </tr>
+        <tr>
+            <td>Ist:</td>
+            <td><vh:plantime time="{projectHeader.istTime}" /></td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="clear"></div>
+
+<div class="projectInfo">
+    {projectHeader.notes} Nachrichten &nbsp;&nbsp;&nbsp;{projectHeader.todos} To-DOs&nbsp;&nbsp;&nbsp;
+    {projectHeader.files} Dateien&nbsp;&nbsp;&nbsp;{projectHeader.documents} Dokumente&nbsp;&nbsp;&nbsp;{projectHeader.dates} Termine
+
+</div>
