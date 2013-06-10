@@ -76,20 +76,65 @@ body {
     margin-left: 10px;
 }
 
-/* STAGE SECTION *************************/
-#pat .stage {
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
+/*Tab Menu */
+#pat .tabmenu {
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 24px;
+     position: relative;
+     font-size: 11px;
 
-    display: block;
+}
+#pat .tabmenu li {
+    margin: 0 10px;
+    padding: 0 10px;
+    border: 1px solid #AAA;
+    background: #ECECEC;
+    display: inline-block;
     float: left;
-    margin: 90px 10px 0 10px;
-    width: 100%;
-    box-shadow: 0 0 3px 3px #ccc;
-    padding: 40px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #666;
+}
+
+#pat .tabmenu li {
+    background:      -o-linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+    background:     -ms-linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+    background:    -moz-linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+    background: -webkit-linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+    background: linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 #FFF;
+    text-shadow: 0 1px #FFF;
+    xmargin: 0 -5px;
+    padding: 0 20px;
+}
+
+#pat .tabmenu li.selected {
+    background: #FFF;
+    color: #666;
 }
 
 
+
+
+/* STAGE SECTION *************************/
+#pat .stage, #pat .stage-header {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: block;
+    float: left;
+    margin: 0;
+    width: 100%;
+    box-shadow: 0 3px 3px 3px #ccc;
+    padding: 40px;
+}
+
+#pat .stage-header {
+    margin: 0;
+    padding: 40px 40px 0 40px;
+}
 /* typografie ********************************/
 #pat a {
     color: #666;
@@ -337,25 +382,7 @@ body {
     border: none;
 }
 /* STAGE PLANBOARD ************************/
-/* Tabs */
-#pat .tabmenu.active, #pat .tabmenu  {
-    background-color: #ededed;
 
-    color: #666666;
-    font-size: 11px;
-    font-weight: bold;
-    height: 22px;
-    line-height: 11px;
-    width: 150px;
-    border: 1px solid #CCCCCC;
-    text-align: center;
-    display: inline-block;
-    line-height: 22px;
-}
-#pat .tabmenu.active {
-    background-color: #F7F2E0; 
-    border-bottom: 1px solid #f7f2e0;
-}
 
 #pat .tabstage {
     border: 1px solid #CCCCCC;

@@ -122,7 +122,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             }
         }
         
-        $work = $this->workRepository->findByWorkProject($projectUid);
+        $work = $this->workRepository->findByWorkProject($project->getUid());
 
         
         $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));

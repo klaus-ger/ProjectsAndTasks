@@ -60,6 +60,11 @@ class WorkController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     protected $workRepository;
 
     /**
+     * @var T3developer\ProjectsAndTasks\Controller\ProjectController  
+     */
+    protected $project;
+
+    /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\TodolistRepository $todolistRepository
      * @return void
      */
@@ -100,6 +105,14 @@ class WorkController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
 
     /**
+     *       
+     * @param \T3developer\ProjectsAndTasks\Controller\ProjectController $project
+     */
+    public function injectProject(\T3developer\ProjectsAndTasks\Controller\ProjectController $project) {
+        $this->project = $project;
+    }
+
+    /**
      * Initializes the current action 
      * @return void 
      */
@@ -111,7 +124,6 @@ class WorkController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
                     ->forProperty('workDate')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
         }
-
     }
 
     /*
@@ -126,11 +138,10 @@ class WorkController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $workList = $this->workRepository->findByWorkProject($project);
 
-        $project = $this->projectRepository->findByUid($project);
-
+        
+        $this->view->assign('projectHeader', $this->project->findProjectHeader($project));
         $this->view->assign('workstatus', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkStatus());
         $this->view->assign('time', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTime());
-        $this->view->assign('project', $project);
         $this->view->assign('works', $workList);
         $this->view->assign('work', $newWork);
     }
@@ -163,11 +174,10 @@ class WorkController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $workEdit = $this->workRepository->findByUid($workeditUid);
 
         $workList = $this->workRepository->findByWorkProject($workEdit->getWorkProject());
-        $project = $this->projectRepository->findByUid($workEdit->getWorkProject());
-
+        
         $this->view->assign('workstatus', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkStatus());
         $this->view->assign('time', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTime());
-        $this->view->assign('project', $project);
+        $this->view->assign('projectHeader', $this->project->findProjectHeader($workEdit->getWorkProject()));
         $this->view->assign('works', $workList);
         $this->view->assign('work', $workEdit);
     }

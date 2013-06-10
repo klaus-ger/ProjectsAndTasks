@@ -195,13 +195,12 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $todoList = $this->todolistRepository->findByUid($list);
         $todosAllFromList = $this->todoRepository->findByTodoList($list);
-        $project = $this->projectRepository->findByUid($todoList->getTodolistProject());
         
+        $this->view->assign('projectHeader', $this->project->findProjectHeader($todoList->getTodolistProject()));
         $this->view->assign('user', $this->userRepository->findAll());
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         $this->view->assign('plantime', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkTime());
         $this->view->assign('typ', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTodoTyp());
-        $this->view->assign('project', $project);
         $this->view->assign('todolist', $todoList);
         $this->view->assign('todosAllFromList', $todosAllFromList);
         $this->view->assign('todo', $newtodo);

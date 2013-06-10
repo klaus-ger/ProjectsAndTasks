@@ -4,14 +4,14 @@
 <f:section name="main">
     
     <div id="pat">
-        <div class="stage">
+        <div class="stage-header">
 
             <f:render partial="Project/ProjectHeader" arguments="{_all}" />
             
+        </div>
+        
+        <div class="stage">
             
-            <div class="projectMenu">
-                Übersicht | Projektdetails | Nachrichten | Todos | Leistungen | Fakturierung |
-            </div>
             <f:format.html>
                 {project.projectText}
             </f:format.html>
