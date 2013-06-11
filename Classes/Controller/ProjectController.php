@@ -130,6 +130,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('project', $project);
         $this->view->assign('todos', $todos);
         $this->view->assign('works', $work);
+        $this->view->assign('menu', '1');
     }
 
     /*
@@ -213,8 +214,28 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $notes = 'xy';
         
         //get the todos
-        $todos = 'xy';
-        
+        $todoLists = $this->todolistRepository->findByTodolistProject($project->getUid());
+        $todos['all'] = 0;
+        $todos['open'] = 0;
+        if ($todoLists[0] != ''){
+            foreach ($todoLists as $lists){
+                $all = $this->todoRepository->countAllPerList($lists->getUid());
+                $open = $this->todoRepository->countOpenPerList($lists->getUid());
+                $todos['all'] = $todos['all'] + $all;
+                $todos['open']= $todos['open'] + $open;
+                }
+        }
+        if($todoLists[1] != '') {
+            $todos['list']='multi';
+        }
+        if(($todoLists[1] == '') && ($todoLists[0] != '')){
+            $todos['listUid']=$todoLists[0]->getUid();
+            $todos['list']='single';
+        }
+        if($todoLists[0] == ''){
+            $todos['list']='new';
+        }    
+           
         //get the files
         $files = "xy";
         
@@ -225,7 +246,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $dates = 'xy';
         
         $projectHeader['project']   = $project;
-        $projectHeader['istTime']      = $istTime;
+        $projectHeader['istTime']   = $istTime;
         $projectHeader['notes']     = $notes;
         $projectHeader['todos']     = $todos;
         $projectHeader['files']     = $files;

@@ -34,8 +34,6 @@ namespace T3developer\Projectsandtasks\Controller;
  */
 class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-
- 
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
      */
@@ -150,6 +148,31 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
 
     /*
+     * Shows more than one todoList
+     * 
+     */
+
+    public function todoShowMultiAction() {
+        $project = $this->request->getArgument('project');
+        //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($project);
+
+        //load todo lists, todos and count itemss
+        $todoLists = $this->todolistRepository->findByTodolistProject($project);
+        if ($todoLists[0] != ''){
+            foreach ($todoLists as $lists){
+                $todos[$lists->getUid()]['lists'] = $lists;
+                $todos[$lists->getUid()]['all'] = $this->todoRepository->countAllPerList($lists->getUid());
+                $todos[$lists->getUid()]['open'] = $this->todoRepository->countOpenPerList($lists->getUid());
+                $todos[$lists->getUid()]['todos'] = $this->todoRepository->findByListAndStatus($lists->getUid(), '6');
+            }
+        }
+
+        $this->view->assign('projectHeader', $this->project->findProjectHeader($project));
+        $this->view->assign('todos', $todos);
+        $this->view->assign('menu', '4');
+    }
+
+    /*
      * New TodoList Action
      */
 
@@ -161,8 +184,10 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $newtodolist->setTodolistProject($project);
 
+        $this->view->assign('projectHeader', $this->project->findProjectHeader($project));
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         $this->view->assign('todolist', $newtodolist);
+        $this->view->assign('menu', '4');
     }
 
     /*
@@ -195,7 +220,7 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $todoList = $this->todolistRepository->findByUid($list);
         $todosAllFromList = $this->todoRepository->findByTodoList($list);
-        
+
         $this->view->assign('projectHeader', $this->project->findProjectHeader($todoList->getTodolistProject()));
         $this->view->assign('user', $this->userRepository->findAll());
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
@@ -204,6 +229,7 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->view->assign('todolist', $todoList);
         $this->view->assign('todosAllFromList', $todosAllFromList);
         $this->view->assign('todo', $newtodo);
+        $this->view->assign('menu', '4');
     }
 
     /*
@@ -236,8 +262,8 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $todoList = $this->todolistRepository->findByUid($todoEdit->getTodoList());
         $todosAllFromList = $this->todoRepository->findByTodoList($todoEdit->getTodoList());
         $project = $this->projectRepository->findByUid($todoList->getTodolistProject());
-        
-       
+
+
         $this->view->assign('projectHeader', $this->project->findProjectHeader($project->getUid()));
         $this->view->assign('user', $this->userRepository->findAll());
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
@@ -247,6 +273,7 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->view->assign('todolist', $todoList);
         $this->view->assign('todosAllFromList', $todosAllFromList);
         $this->view->assign('todo', $todoEdit);
+        $this->view->assign('menu', '4');
     }
 
     /*

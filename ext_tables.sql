@@ -151,7 +151,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_work (
 );
 
 
-CREATE TABLE tx_projectsandtasks_domain_model_plancomment (
+CREATE TABLE tx_projectsandtasks_domain_model_message (
     uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -160,12 +160,12 @@ CREATE TABLE tx_projectsandtasks_domain_model_plancomment (
     deleted tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     hidden tinyint(4) unsigned DEFAULT '0' NOT NULL, 
 	
-    plan_comment_title varchar(30) DEFAULT '' NOT NULL,
-    plan_comment_text text,
-    plan_comment_date int(11) DEFAULT '0' NOT NULL,
-    plan_comment_plan int(11) DEFAULT '0' NOT NULL,
-    plan_comment_status int(3) DEFAULT '0' NOT NULL,
-    plan_comment_typ int(3) DEFAULT '0' NOT NULL,
+    message_title varchar(30) DEFAULT '' NOT NULL,
+    message_text text,
+    message_date int(11) DEFAULT '0' NOT NULL,
+    message_project int(11) DEFAULT '0' NOT NULL,
+    message_status int(3) DEFAULT '0' NOT NULL,
+    message_sender int(11) DEFAULT '0' NOT NULL,
 
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,
