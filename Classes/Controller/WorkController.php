@@ -144,6 +144,7 @@ class WorkController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->view->assign('time', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTime());
         $this->view->assign('works', $workList);
         $this->view->assign('work', $newWork);
+        $this->view->assign('menu', '5');
     }
 
     /*

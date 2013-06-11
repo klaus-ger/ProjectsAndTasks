@@ -14,7 +14,7 @@
             <h1>  {projectHeader.project.projectTitle} - Übersicht</h1>
         </f:link.action>
 
-        <h3>{projectHeader.project.projectShort}</h3>
+        
 
         <f:link.action action="projectEdit" controller="Project"arguments="{project:projectHeader.project}">
             Projekt bearbeiten
@@ -22,68 +22,79 @@
     </div>
 
     <div class="project-header-right">
-        <table>
+        <table class="work-budget-stat">
             <tr>
-                <td>Budget:&nbsp;</td>
-                <td><vh:plantime time="{projectHeader.project.projectBudgetTime}" /></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>{projectHeader.project.projectBudgetMoney} €</td>
-            </tr>
-            <tr>
-                <td>Ist:</td>
-                <td><vh:plantime time="{projectHeader.istTime}" /></td>
+                <td class="worktime_percent" width="{projectHeader.work.percent}%"><vh:plantime time="{projectHeader.istTime}" /></td>
+                <td class="worktime_slide"><vh:plantime time="{projectHeader.project.projectBudgetTime}" /></td>
             </tr>
         </table>
+        <div class="worktime-table-sub">
+        Budget: {projectHeader.project.projectBudgetMoney} €
+        </div>
 
     </div>
 
     <div class="clear"></div>
-<!--
-    <div class="projectInfo">
-        {projectHeader.notes} Nachrichten &nbsp;&nbsp;&nbsp;
-        {projectHeader.todos} To-DOs&nbsp;&nbsp;&nbsp;
-        {projectHeader.files} Dateien&nbsp;&nbsp;&nbsp;
-        {projectHeader.documents} Dokumente&nbsp;&nbsp;&nbsp;
-        {projectHeader.dates} Termine
 
-    </div>
--->
 </div>
-<br />
+<div class="stage-header-shield">
 
-<div class="projectMenu">
-    <ul class="tabmenu">
-        <li class="{f:if(condition:'{menu}==1',then:'selected',else:'')}">
+<div class="stage-header-menu">
+    
+        <div class="{f:if(condition:'{menu}==1',then:'item selected',else:'item')}">
             <f:link.action action="projectShow" controller="Project"arguments="{project:projectHeader.project}">
                 Übersicht
             </f:link.action>
-        </li>
-        <li>Projektdetails</li>
-        <li>Nachrichten (na)</li>
+        </div>
+        <div class="item">
+            <a href="#">
+              Projektdetails (na/na)  
+            </a>
+        </div>
+        <div class="item">
+            <a href="#">
+              Nachrichten (na/na)  
+            </a>
+        </div>
         
-        <li class="{f:if(condition:'{menu}==4',then:'selected',else:'')}">
+        <div class="{f:if(condition:'{menu}==4',then:'item selected',else:'item')}">
             <f:if condition="{0:projectHeader.todos.list}=={0:'multi'}">
                  <f:link.action action="todoShowMulti" controller="Todo"arguments="{project:projectHeader.project}">
-                    ToDos ({projectHeader.todos.all}/{projectHeader.todos.open})
+                    ToDos ({projectHeader.todos.open}/{projectHeader.todos.all})
                 </f:link.action>
             </f:if>
             <f:if condition="{0:projectHeader.todos.list}=={0:'single'}">
                 <f:link.action action="todoNew" controller="Todo"arguments="{list:projectHeader.todos.listUid}">
-                    ToDos ({projectHeader.todos.all}/{projectHeader.todos.open})
+                    ToDos ({projectHeader.todos.open}/{projectHeader.todos.all})
                 </f:link.action>
             </f:if>
            <f:if condition="{0:projectHeader.todos.list}=={0:'new'}">
                 <f:link.action action="todoListNew" controller="Todo"arguments="{project:projectHeader.project}">
-                    ToDos ({projectHeader.todos.all}/{projectHeader.todos.open})
+                    ToDos ({projectHeader.todos.open}/{projectHeader.todos.all})
                 </f:link.action>
             </f:if>
-        </li>
+        </div>
             
-        <li>Leistungen (na/na)</li>
-        <li>Fakturierung (na)</li>
+        <div class="{f:if(condition:'{menu}==5',then:'item selected',else:'item')}">
+            <f:link.action action="workNew" controller="Work"arguments="{project:projectHeader.project}">
+                Leistungen (na/{projectHeader.work.all})
+            </f:link.action>
+        </div>
+        <div class="item">
+            <a href="#">
+              Fakturierung (na/na)  
+            </a>
+        </div>
 
-    </ul>
 
+</div>
+    <div class="stage-header-decription">
+    <p>{projectHeader.project.projectShort}</p>
+    </div>
+    
+    <div class="stage-header-decription {f:if(condition:'{menu}==1',then:'',else:'hidden')}">
+    <f:format.html>
+                {project.projectText}
+            </f:format.html>
+    </div>
 </div>

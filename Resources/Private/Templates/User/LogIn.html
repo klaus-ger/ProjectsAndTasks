@@ -1,7 +1,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <f:debug>{user}</f:debug>
+
     <div class="stage">
         <h1>Log in</h1>
 
@@ -11,6 +11,7 @@
             4 Dateien&nbsp;&nbsp;&nbsp;6 Dokumente&nbsp;&nbsp;&nbsp;2 Termine
 
         </div>
+
 
             <form class=""
                   action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}"
@@ -38,6 +39,7 @@
                         <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
                     </div>
                 </fieldset>
-            </form>  
+            </form>    
+
 
 </f:section>

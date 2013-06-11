@@ -60,6 +60,19 @@ class UserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->userRepository = $userRepository;
     }
 
+    
+    public function indexAction() {
+        
+         $user = $GLOBALS['TSFE']->fe_user->user;
+ 
+        if ($user == FALSE) {
+          
+            $this->redirect('logIn');
+        } else {
+           
+            $this->redirect('index', 'Inbox');
+        }
+    }
     /*
      * Shows the log-in Form
      */
@@ -90,6 +103,8 @@ class UserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
     public function logInAction() {
 
+            
+            
         if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'])) {
             $_params = array();
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'] as $funcRef) {
@@ -151,6 +166,8 @@ class UserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $this->redirect('showAllUsers');
     }
+    
+    
 
 }
 

@@ -35,11 +35,11 @@
 
 html {
     height: 101%;
-    background: url("../Img/xtexture.jpg") repeat scroll 0 0 #fafafa;
+    
 }
 body {
-    width: 980px;
-    margin: 0 auto;
+    
+    margin: 0 ;
 
 }
 
@@ -51,20 +51,93 @@ body {
 
 /* HEADER SECTION ***********************/
 #pat #header {
-
+    height: 30px;
+    background-color: #666;
+    position: fixed;
+    width: 100%;
+    margin: 0;
+    z-index: 999;
+    border-bottom: 1px solid #000;
 }
-#pat .header-top {
 
+#pat .header-inner {
+    width: 920px;
+    margin: 0 auto;
+    color: #ededed;
 }
-#pat .header-sub {
-
+#pat .header-inner h1 {
+    float: left;
+    font-size: 90%;
+    line-height: 14px;
 }
 
-/* MENU SECTION ************************/
-#pat .menu {
+#pat .header-inner p, #pat .header-inner a {
+    color: #ededed;
+      display: inline-block;
+    margin: 6px 10px;
+    float: left;
+}
+#pat .divider {
+    background-color: #999;
+    border-right: 1px solid #000;
+    float: left;
+    height: 30px;
+    margin: 0px 10px;
+    width: 1px;
+}
+
+/* Stage Header Section */
+
+#pat .stage-header {
+    width: 920px;
+    margin: 30px auto;
+}
+
+#pat .stage-header .titel {
+    font-size: 21px;
+}
+#pat .stage-header-shield {
+    border-radius: 6px;
+    border: 1px solid #e6e6e6;
+}
+#pat .stage-header-menu {
+    height: 35px;
+  
+     background-image:linear-gradient(#FAFAFA, #EAEAEA);
+}
+
+#pat .stage-header-menu .item{
+    float: left;
+    padding: 0 20px;
+     border-right: 1px solid rgba(255, 255, 255, 0.7);
+     color: #666;
+     line-height: 33px;
+}
+
+#pat .stage-header-menu .item.selected{
+     background-color: #F2f2f2;
+    border-bottom: 2px solid #B9A551;
+}
+#pat .stage-header-menu .item a{
+    font-size: 12px;
+    line-height: 21px;
+    color: #666;
+    text-shadow: 0 1px 0 #ededed;
+}
+
+#pat .stage-header-decription {
+    margin: 10px;
+}
+/* Stage MENU SECTION ************************/
+#pat .stagemenu {
     float: left; 
-    width: 160px; 
-    margin-left: 20px;
+    width: 920px;  
+}
+
+/* Stage */
+#pat .stage {
+    width: 920px;
+    margin: 30px auto;
 }
 
 #pat .menu ul.menu-level1 li {
@@ -122,25 +195,9 @@ body {
 
 
 
-/* STAGE SECTION *************************/
-#pat .stage, #pat .stage-header {
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    display: block;
-    float: left;
-    margin: 0;
-    width: 100%;
-    box-shadow: 0 3px 3px 3px #ccc;
-    padding: 40px;
-}
-#pat .stage {
-    border-top: none;
-}
-#pat .stage-header {
-    margin: 0;
-    padding: 40px 40px 0 40px;
-    background-color: #ededed;
-}
+
+
+
 /* typografie ********************************/
 #pat a {
     color: #666;
@@ -168,23 +225,26 @@ body {
     font-size: 16px;
     font-family: 'LatoBold';
 }
-
+#pat p {
+    font-size: 12px;
+    color: #666;
+}
 /* Singel Project Stage ***************/
 
 /*project-header */
 #pat .project-header-left{
-    width: 800px;
+    width:715px;
     float: left;
 }
 #pat .project-header-right{
-    width: 180px;
+    width: 200px;
     float: left;
 }
 #pat .project-header-right table{
     font-family: 'LatoLight'; 
     color: #666;
     font-size: 12px;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 #pat .projectInfo {
     border-top: 1px solid #666;
@@ -194,7 +254,30 @@ body {
     font-size: 16px;
     font-family: 'LatoBold';
 }
-
+/* Budget Stats */
+#pat table.work-budget-stat {
+    width: 200px;
+    border: 1px solid #e6e6e6;
+    height: 10px;
+}
+#pat td.worktime_percent {
+    background-color: #e5e5e5;
+    font-size: 8px;
+    height: 10px;
+    text-align: right;
+    padding: 0 5px;
+}
+#pat td.worktime_slide {
+    background-color: #f6f6f6;
+    font-size: 8px;
+    text-align: right;
+    padding: 0 5px;
+}
+#pat .worktime-table-sub {
+    font-size: 11px;
+    color: #999;
+    text-align: right;
+}
 /* List views allgemein */
 #pat .projectListItem{
     border-bottom: 1px solid #ededed;
@@ -212,13 +295,13 @@ body {
     font-family: "LatoBold";
     padding-left: 15px;
     display: inline-block;
-    width: 300px;
+    width: 280px;
 }
 
 #pat .listTodoText {
     padding-left: 15px;
     display: inline-block;
-    width: 390px
+    width: 350px
 }
 #pat .listTodoAssigned {
     padding-left: 15px;
@@ -245,7 +328,7 @@ body {
      font-family: "LatoBold";
     padding-left: 15px;
     display: inline-block;
-    width: 300px;
+    width: 275px;
 }
 /* Project List */
 
@@ -259,7 +342,7 @@ body {
 #pat .listProjectShort{
     font-family: "LatoLight";
     font-size: 12px;
-    width: 400px;
+    width: 340px;
     display: inline-block;
 }
 
@@ -308,7 +391,7 @@ body {
 
 /*****************************************/
 #pat .stagenav {
-    background-color: #800000;
+    xxbackground-color: #800000;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     color: #FFFFFF;
@@ -334,7 +417,7 @@ body {
 }
 
 #pat .stageItemTop {
-    background-color: #F7F2E0;
+   xxxbackground-color: #F7F2E0;
     border-bottom: 1px solid #CCCCCC;
     color: #666666;
     font-size: 11px;

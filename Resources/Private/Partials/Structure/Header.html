@@ -1,13 +1,21 @@
 <div id="header">
-    <h1><em>PROJECTS and TASKS</em></h1>
+    <div class="header-inner">
+    <h1 ><em>PROJECTS and TASKS</em></h1>
+    
+    <div class="divider"></div>
     
     <f:link.action action="index" controller="Inbox">
         Inbox
     </f:link.action>
-    &nbsp; | &nbsp;
+  
+      <div class="divider"></div>
+      
     <f:link.action action="showAllUsers" controller="User">
         User
     </f:link.action>
-    &nbsp;&nbsp;&nbsp;&nbsp;Hallo {user.firstName}!
-
+        <div class="divider"></div>
+        <p>Hallo {user.firstName}!</p>
+    </div>
 </div>
+<div class="clear"></div>
+<br />

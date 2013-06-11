@@ -200,6 +200,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         //get the project
         $project = $this->projectRepository->findByUid($projectUid);
         
+        
         //get the worktime
         $work = $this->workRepository->findByWorkProject($projectUid);
         $istTime = 0;
@@ -208,6 +209,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $end   = $single->getWorkEnd();
             $time = $end - $start;
             $istTime = $istTime + $time;
+        }
+        $budgetTime = $project->getProjectBudgetTime();
+        $budgetTime = intval($budgetTime);
+        if($budgetTime != 0) {
+           $workTemp['percent'] = $istTime * 100 / intval($budgetTime);
         }
         
         //get the notes
@@ -236,9 +242,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $todos['list']='new';
         }    
            
-        //get the files
-        $files = "xy";
-        
+        //get the work
+        $work = '';
+        $work['all'] = count($work = $this->workRepository->findByWorkProject($projectUid));
+        $work['percent']=$workTemp['percent'] ; 
         //get the documents
         $documents = "xy";
         
@@ -249,7 +256,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $projectHeader['istTime']   = $istTime;
         $projectHeader['notes']     = $notes;
         $projectHeader['todos']     = $todos;
-        $projectHeader['files']     = $files;
+        $projectHeader['work']      = $work;
         $projectHeader['documents'] = $documents;
         $projectHeader['dates']     = $dates;
         

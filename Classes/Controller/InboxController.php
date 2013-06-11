@@ -83,6 +83,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($user == null) {
             $this->redirect('logIn', 'User');
         } else {
+            
             $this->user = $this->userRepository->findByUid($user['uid']);
         }
     }
