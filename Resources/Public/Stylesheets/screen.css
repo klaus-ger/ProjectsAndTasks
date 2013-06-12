@@ -149,55 +149,6 @@ body {
     margin-left: 10px;
 }
 
-/*Tab Menu */
-#pat .tabmenu {
-    text-align: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    line-height: 24px;
-     position: relative;
-     font-size: 11px;
-
-}
-#pat .tabmenu li {
-    margin: 0 0px;
-    padding: 0 10px;
-    border: 1px solid #AAA;
-    background: #ECECEC;
-    display: inline-block;
-    float: left;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    color: #666;
-}
-
-#pat .tabmenu li {
-    background:      -o-linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
-    background:     -ms-linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
-    background:    -moz-linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
-    background: -webkit-linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
-    background: linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
-    box-shadow: 1px -1px 2px rgba(0, 0, 0, 0.2), inset 0 1px 0 #FFF;
-    text-shadow: 0 1px #FFF;
-    xmargin: 0 -5px;
-    padding: 0 20px;
-    border-bottom: none;
-}
-
-#pat .tabmenu li.selected {
-    background: #FFF;
-    color: #666;
-    border-bottom: 1px solid #fff;
-    margin-bottom: -1px;
-}
-
-
-
-
-
-
-
 /* typografie ********************************/
 #pat a {
     color: #666;
@@ -211,7 +162,7 @@ body {
 }
 
 #pat h2 {
-    color: #800000;
+    color: #666;
     font-size: 18px;
     font-family: 'LatoBold';
 }
@@ -229,7 +180,7 @@ body {
     font-size: 12px;
     color: #666;
 }
-/* Singel Project Stage ***************/
+/* Singel Project Stage ********************************************************/
 
 /*project-header */
 #pat .project-header-left{
@@ -278,6 +229,20 @@ body {
     color: #999;
     text-align: right;
 }
+
+/* Project Stage ***/
+#pat .project-stage-left {
+    float: left;
+    width: 70%;
+}
+#pat .project-stage-right {
+    float: right;
+    width: 29%;
+    text-align: right;
+}
+
+
+
 /* List views allgemein */
 #pat .projectListItem{
     border-bottom: 1px solid #ededed;

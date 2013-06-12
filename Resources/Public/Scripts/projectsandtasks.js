@@ -37,7 +37,15 @@ jQuery("document").ready(function(){
         $( ".datepicker" ).datepicker();
         $( "#datepicker2" ).datepicker(); 
     
-        $( ".button" ).button();
+    
+     $('.form').hide();
+    $('.jqShowForm').click(function(e)  {  
+         $('.form').show();
+         $('html, body').animate({
+                scrollTop: 0
+            });
+         
+    });  
         
     //loadAjax();    
 

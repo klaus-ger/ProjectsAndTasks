@@ -73,5 +73,5 @@ page.includeJSFooter {
     tx_projects_file_5 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.9.2/development-bundle/ui/jquery.ui.datepicker.js
     #tx_projects_file_6 = EXT:projects/Resources/Public/Scripts/jquery-ui-1.9.2/development-bundle/ui/jquery.ui.button.js
     
-tx_projects_file_7 = EXT:projects_and_tasks/Resources/Public/Scripts/tx_projects.js
+tx_projects_file_7 = EXT:projects_and_tasks/Resources/Public/Scripts/projectsandtasks.js
 }
