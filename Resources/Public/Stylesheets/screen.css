@@ -255,6 +255,38 @@ body {
     display: inline-block;
     vertical-align: middle;
 }
+
+/* Message List */
+#pat .listMessageDate {
+    padding-left: 15px;
+    display: inline-block;
+    width: 50px
+}
+
+#pat .listMessageTitle{
+    font-family: "LatoBold";
+    padding-left: 15px;
+    display: inline-block;
+    width: 280px;
+}
+
+#pat .listMessageText {
+    padding-left: 15px;
+    display: inline-block;
+    width: 350px
+}
+
+#pat .listMessageSender {
+    padding-left: 15px;
+    display: inline-block;
+    width: 50px
+}
+
+#pat .listMessageStatus {
+    padding-left: 15px;
+    display: inline-block;
+    width: 50px
+}
 /* ToDo List */
 #pat .listTodoTitle{
     font-family: "LatoBold";

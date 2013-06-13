@@ -51,10 +51,10 @@
               Projektdetails (na/na)  
             </a>
         </div>
-        <div class="item">
-            <a href="#">
-              Nachrichten (na/na)  
-            </a>
+         <div class="{f:if(condition:'{menu}==3',then:'item selected',else:'item')}">
+            <f:link.action action="messageNew" controller="Message"arguments="{project:projectHeader.project.uid}">
+                Nachrichten (na/{projectHeader.messages.all})
+            </f:link.action>
         </div>
         
         <div class="{f:if(condition:'{menu}==4',then:'item selected',else:'item')}">

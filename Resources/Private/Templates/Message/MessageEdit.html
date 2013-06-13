@@ -24,7 +24,7 @@
             </div>
             <div class="project-stage-right">
                 <div class="button jqShowForm">
-                    Nachricht hinzufügen
+                    pdfExport
                 </div>
             </div>
 
@@ -33,24 +33,12 @@
 
 
             <!--The form -->
-            <div class="form">
-                <f:render partial="Message/MessageFormNew" arguments="{_all}" />
+            <div class="forms">
+                <f:render partial="Message/MessageFormEdit" arguments="{_all}" />
             </div>
 
-
-            <!-- The List -->
 
             
-            <f:render partial="Message/MessageList" arguments="{messages:messageList}" />
-
-            <br />
-            <div class="project-stage-left">
-            </div>
-            <div class="project-stage-right">
-                <div class="button jqShowForm">
-                    ToDo hinzufügen
-                </div>
-            </div>
 
         </div>
 

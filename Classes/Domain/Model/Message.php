@@ -41,7 +41,7 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @var \string
      * 
      */
-    protected $message_title;
+    protected $messageTitle;
 
     /**
      * The ProjectShort
@@ -55,7 +55,7 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @var \DateTime
      * 
      */
-    protected $messageDate ;
+    protected $messageDate;
 
     /**
      * The Task ProjectSort
@@ -73,17 +73,17 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     /**
      * The Task ProjectStatus
-     * @var \int
+     * @var \T3developer\ProjectsAndTasks\Domain\Model\User
      * 
      */
     protected $messageSender;
     
-    public function getMessage_title() {
-        return $this->message_title;
+    public function getMessageTitle() {
+        return $this->messageTitle;
     }
 
-    public function setMessage_title($message_title) {
-        $this->message_title = $message_title;
+    public function setMessageTitle($messageTitle) {
+        $this->messageTitle = $messageTitle;
     }
 
     public function getMessageText() {

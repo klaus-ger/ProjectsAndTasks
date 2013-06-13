@@ -1,0 +1,27 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}        
+
+
+<f:for each="{messages}" as="item">
+
+    <div class="projectListItem">
+        <div class="listMessageDate ">
+            <f:format.date format="d.m.Y">{item.messageDate}</f:format.date>
+        </div>
+        <div class="listMessageTitle"">
+            <f:link.action action="messageEdit" controller="Message"arguments="{messageUid:item.uid}">
+                {item.messageTitle}
+            </f:link.action>
+        </div>
+        <div class="listMessageText">
+            <f:format.crop maxCharacters="60" append="&nbsp;[...]">{item.messageText}</f:format.crop>
+        </div>
+        <div class="listMessageSender">
+            {item.messageSender.firstname}
+        </div>
+        <div class="listMessageStatus">
+            {item.messageStatus}
+        </div>
+
+    </div>
+
+</f:for>

@@ -40,6 +40,11 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $userRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository   
+     */
+    protected $messageRepository;
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectRepository   
      */
     protected $projectRepository;
@@ -63,6 +68,14 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @var T3developer\ProjectsAndTasks\Controller\ProjectController  
      */
     protected $project;
+
+    /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository $messageRepository
+     * @return void
+     */
+    public function injectMessageRepository(\T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository $messageRepository) {
+        $this->messageRepository = $messageRepository;
+    }
 
     /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\TodolistRepository $todolistRepository
@@ -118,26 +131,79 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function initializeAction() {
         // this configures the parsing
-        if (isset($this->arguments['todo'])) {
-            $this->arguments['todo']
+        if (isset($this->arguments['message'])) {
+            $this->arguments['message']
                     ->getPropertyMappingConfiguration()
-                    ->forProperty('todoDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
-        }
-        if (isset($this->arguments['todo'])) {
-            $this->arguments['todo']
-                    ->getPropertyMappingConfiguration()
-                    ->forProperty('todoEnd')
+                    ->forProperty('messageDate')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
         }
     }
 
-    public function indexAction() {
-        $projects = $this->projectRepository->findAll();
-        $this->view->assign('test', 'test');
+    /**
+     * Shows the Message Page with a form to create Messages
+     * 
+     * @param int $project The projectUid of the actual project
+     */
+    public function messageNewAction() {
+        $project = $this->request->getArgument('project');
+
+        $newMessage = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Message');
+
+        $newMessage->setMessageProject($project);
+
+
+        $this->view->assign('projectHeader', $this->project->findProjectHeader($project));
+        $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
+        $this->view->assign('user', $this->userRepository->findAll());
+        $this->view->assign('message', $newMessage);
+        $this->view->assign('messageList', $this->messageRepository->findByMessageProject($project));
+        $this->view->assign('menu', '3');
     }
 
-  
+    /**
+     * Create a new Message from Form
+     *
+     *  @param \T3developer\ProjectsAndTasks\Domain\Model\Message $message
+     * @dontvalidate $message
+     * @return void
+     */
+    public function messageCreateAction(\T3developer\ProjectsAndTasks\Domain\Model\Message $message) {
+        //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($message);
+        $this->messageRepository->add($message);
+
+        $this->redirect('messageNew', 'Message', NULL, Array('project' => $message->getMessageProject()));
+    }
+
+    /**
+     * Shows the Message Page with a form to edit Messages
+     * 
+     * @param int $messageUid The messageUid of the actual project
+     */
+    public function messageEditAction($messageUid) {
+
+        $message = $this->messageRepository->findByUid($messageUid);
+        $project = $this->projectRepository->findByUid($message->getMessageProject());
+
+        $this->view->assign('projectHeader', $this->project->findProjectHeader($project));
+        $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
+        $this->view->assign('user', $this->userRepository->findAll());
+        $this->view->assign('message', $message);
+        $this->view->assign('menu', '3');
+    }
+
+    /**
+     * Updates a new Message from Form
+     *
+     *  @param \T3developer\ProjectsAndTasks\Domain\Model\Message $message
+     * @dontvalidate $message
+     * @return void
+     */
+    public function messageUpdateAction(\T3developer\ProjectsAndTasks\Domain\Model\Message $message) {
+        //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($message);
+        $this->messageRepository->update($message);
+
+        $this->redirect('messageNew', 'Message', NULL, Array('project' => $message->getMessageProject()));
+    }
 
 }
 

@@ -54,11 +54,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $todoRepository;
 
-        /**
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\WorkRepository   
      */
     protected $workRepository;
-    
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository   
+     */
+    protected $messageRepository;
+
     /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\TodolistRepository $todolistRepository
      * @return void
@@ -89,19 +94,27 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function injectProjectRepository(\t3developer\ProjectsAndTasks\Domain\Repository\ProjectRepository $projectRepository) {
         $this->projectRepository = $projectRepository;
-        }
+    }
 
-      /**
+    /**
      *       
      * @param \t3developer\ProjectsAndTasks\Domain\Repository\WorkRepository $workRepository     
      */
     public function injectWorkRepository(\t3developer\ProjectsAndTasks\Domain\Repository\WorkRepository $workRepository) {
         $this->workRepository = $workRepository;
-        }      
-        
+    }
+
     public function indexAction() {
         $projects = $this->projectRepository->findAll();
         $this->view->assign('test', 'test');
+    }
+
+    /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository $messageRepository
+     * @return void
+     */
+    public function injectMessageRepository(\T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository $messageRepository) {
+        $this->messageRepository = $messageRepository;
     }
 
     /*
@@ -110,21 +123,21 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     public function projectShowAction(\t3developer\ProjectsAndTasks\Domain\Model\Project $project) {
         $this->checkLogIn();
-        
+
         //load todo lists, todos and count itemss
         $todoLists = $this->todolistRepository->findByTodolistProject($project->getUid());
-        if ($todoLists[0] != ''){
-            foreach ($todoLists as $lists){
+        if ($todoLists[0] != '') {
+            foreach ($todoLists as $lists) {
                 $todos[$lists->getUid()]['lists'] = $lists;
                 $todos[$lists->getUid()]['all'] = $this->todoRepository->countAllPerList($lists->getUid());
                 $todos[$lists->getUid()]['open'] = $this->todoRepository->countOpenPerList($lists->getUid());
                 $todos[$lists->getUid()]['todos'] = $this->todoRepository->findByListAndStatus($lists->getUid(), '6');
             }
         }
-        
+
         $work = $this->workRepository->findByWorkProject($project->getUid());
 
-        
+
         $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('user', $this->user);
         $this->view->assign('project', $project);
@@ -190,76 +203,77 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->redirect('index', 'Inbox');
     }
-    
+
     /*
      * Finds Data for Project Header Partial
      * @param $projectUid
      * @return array
      */
-   function findProjectHeader($projectUid) {
+
+    function findProjectHeader($projectUid) {
         //get the project
         $project = $this->projectRepository->findByUid($projectUid);
-        
-        
+
+
         //get the worktime
         $work = $this->workRepository->findByWorkProject($projectUid);
         $istTime = 0;
         foreach ($work as $single) {
             $start = $single->getWorkStart();
-            $end   = $single->getWorkEnd();
+            $end = $single->getWorkEnd();
             $time = $end - $start;
             $istTime = $istTime + $time;
         }
         $budgetTime = $project->getProjectBudgetTime();
         $budgetTime = intval($budgetTime);
-        if($budgetTime != 0) {
-           $workTemp['percent'] = $istTime * 100 / intval($budgetTime);
+        if ($budgetTime != 0) {
+            $workTemp['percent'] = $istTime * 100 / intval($budgetTime);
         }
-        
-        //get the notes
-        $notes = 'xy';
-        
+
+        //get the messages
+        $messages['all'] = count($this->messageRepository->findByMessageProject($project->getUid()) );
+
         //get the todos
         $todoLists = $this->todolistRepository->findByTodolistProject($project->getUid());
         $todos['all'] = 0;
         $todos['open'] = 0;
-        if ($todoLists[0] != ''){
-            foreach ($todoLists as $lists){
+        if ($todoLists[0] != '') {
+            foreach ($todoLists as $lists) {
                 $all = $this->todoRepository->countAllPerList($lists->getUid());
                 $open = $this->todoRepository->countOpenPerList($lists->getUid());
                 $todos['all'] = $todos['all'] + $all;
-                $todos['open']= $todos['open'] + $open;
-                }
+                $todos['open'] = $todos['open'] + $open;
+            }
         }
-        if($todoLists[1] != '') {
-            $todos['list']='multi';
+        if ($todoLists[1] != '') {
+            $todos['list'] = 'multi';
         }
-        if(($todoLists[1] == '') && ($todoLists[0] != '')){
-            $todos['listUid']=$todoLists[0]->getUid();
-            $todos['list']='single';
+        if (($todoLists[1] == '') && ($todoLists[0] != '')) {
+            $todos['listUid'] = $todoLists[0]->getUid();
+            $todos['list'] = 'single';
         }
-        if($todoLists[0] == ''){
-            $todos['list']='new';
-        }    
-           
+        if ($todoLists[0] == '') {
+            $todos['list'] = 'new';
+        }
+
         //get the work
         $work = '';
         $work['all'] = count($work = $this->workRepository->findByWorkProject($projectUid));
-        $work['percent']=$workTemp['percent'] ; 
+        $work['percent'] = $workTemp['percent'];
         //get the documents
         $documents = "xy";
-        
+
         //get the dates
         $dates = 'xy';
-        
-        $projectHeader['project']   = $project;
-        $projectHeader['istTime']   = $istTime;
-        $projectHeader['notes']     = $notes;
-        $projectHeader['todos']     = $todos;
-        $projectHeader['work']      = $work;
+
+        $projectHeader['project'] = $project;
+        $projectHeader['istTime'] = $istTime;
+        $projectHeader['messages'] = $messages;
+        $projectHeader['todos'] = $todos;
+        $projectHeader['work'] = $work;
         $projectHeader['documents'] = $documents;
-        $projectHeader['dates']     = $dates;
-        
+        $projectHeader['dates'] = $dates;
+
         return $projectHeader;
     }
 

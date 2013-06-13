@@ -123,6 +123,7 @@ class StaticValues {
      */
     public static function getAvailableWorkTime() {
         return array(
+            '900'  => '0,25 h',
             '1800' => '0,5 h',
             '3600' => '1 h',
             '5400' => '1,5 h',

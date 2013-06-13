@@ -47,9 +47,11 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
         $this->SetY(-15);
         $this->SetX(23);
         // Set font
-        $this->SetFont('TRADEGOTHICLT', '', 8);
+        $this->SetFont('TRADEGOTHICLT', '', 7);
         // Page number
         $this->Cell(0, 10, 'Seite ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'L', 0, '', 0, false, 'T', 'M');
+        $this->SetX(170);
+        $this->Cell(0, 10, 'ProjectsAndTasks V: 0.2', 0, false, 'L', 0, '', 0, false, 'T', 'M');
     }
 
     public function CreateTextBox($textval, $x = 0, $y, $width = 0, $height, $fontsize, $fontstyle = '', $align = 'L', $fill) {
@@ -65,7 +67,7 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
      */
     //public function createInvoice(Tx_PiFaktura_Domain_Model_Process $process, $saveOnly = TRUE) {
     public function createTodoPdf($todoList, $todos) {
-        
+
         // set document information
         $this->SetCreator(PDF_CREATOR);
         $this->SetAuthor('ProjectsAndTasks');
@@ -75,17 +77,17 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
 
         $this->AddPage();
         $this->SetAutoPageBreak(TRUE);
-        
+
         // Adressfeld
         $this->CreateTextBox($todoList->getTodolistTitel(), 00, 40, 80, 10, 9, 'B');
 
         $this->writeTodos($todos);
 
 
-        
 
 
-       // $this->SetAutoPageBreak(TRUE, 30);
+
+        // $this->SetAutoPageBreak(TRUE, 30);
         $this->setJPEGQuality(100);
         $this->SetMargins(0, 0, 0, true);
 
@@ -202,22 +204,20 @@ EOD;
         $pdf->Output('example_003.pdf', 'I');
     }
 
-    
-        public function writeTodos($todos) {
+    public function writeTodos($todos) {
 
-        
+
         // Colors, line width and bold font
         $this->SetFillColor(255, 255, 255);
         $this->SetTextColor(112, 113, 115);
-        $this->SetDrawColor(235,235,235);
-        
+        $this->SetDrawColor(235, 235, 235);
+
         $this->SetXY(00, 60);
 
-//        $this->CreateTextBox('Nr.', 0, 135, 5, 5, 4, '', 'C');
+//        $this->CreateTextBox('Nr.', 0, 10, 5, 5, 4, '', 'C');
 //        $this->CreateTextBox('Titel', 8, 135, 12, 5, 4, '', 'C');
 //        $this->CreateTextBox('Beschreibung', 20, 135, 85, 5, 4, '', 'L');
 //        $this->CreateTextBox('Status', 105, 135, 20, 5, 4, '', 'C');
-
         // Header
         //Spaltenbreiten in mm
 
@@ -226,55 +226,68 @@ EOD;
         $this->SetFont('helvetica', '', 7);
         $this->setCellPaddings(2, 2, 2, 2);
         $this->SetLineWidth(0.5);
-  
-  
+
+        $timeTotal = 0;
+        
         $y_start = 50;
         foreach ($todos as $row) {
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0)
+            //status
+            $openTime = 0;
+            if ($row->getTodoStatus() == '1') {
+                $status = 'offen';
+                $openTime = $row->getTodoPlantime();}
+            if ($row->getTodoStatus() == '3'){
+                $status = 'klären';
+                $openTime = 0;}
+            if ($row->getTodoStatus() == '6'){
+                $status = 'erledigt';
+                $openTime = 0;}
+            $id = '#' . str_pad($row->getTodoNr(), 3, "0", STR_PAD_LEFT);
+
+            //time
+            $time = $row->getTodoPlantime() / 3600;
+            $time = $time . ' h';
+
+            // BugId
+            $this->MultiCell(10, 0, $id, T, 'C', 0, 2, 20, $y_start, true, 0);
+            $y_bugid = $this->GetY();
+
+            // write the left cell
+            $this->MultiCell(40, 0, $row->getTodoTitle(), T, 'L', 0, 1, 30, $y_start, true, 0);
+
+
+
+            // write the right cell
+            $this->MultiCell(80, 0, $row->getTodoDescription(), T, 'L', 0, 1, 70, $y_start, true, 0);
+            $y_description = $this->GetY();
+
+            // write the right cell
+            $this->MultiCell(20, 0, $time, T, 'C', 0, 1, 150, $y_start, true, 0);
+
+            // write the right cell
+            $this->MultiCell(20, 0, $status, T, 'C', 0, 1, 170, $y_start, true, 0);
+
+            $timeTotal = $timeTotal + $openTime;
             
-        //status
-        if($row->getTodoStatus() == '1') $status = 'offen';
-        if($row->getTodoStatus() == '3') $status = 'klären';
-        if($row->getTodoStatus() == '6') $status = 'erledigt';
-         
-        $id = '#' .  str_pad( $row->getTodoNr(),3,"0",STR_PAD_LEFT); 
-       
+            if ($y_description > $y_bugid) {
+                $y_start = $y_description;
+            } else {
+                $y_start = $y_bugid;
+            }
 
-        // BugId
-        $this->MultiCell(10, 0, $id, T, 'C', 0, 2, 20, $y_start, true, 0);
-        $y_bugid = $this->GetY();
-        
-        // write the left cell
-        $this->MultiCell(40, 0, $row->getTodoTitle(), T, 'L', 0, 1, 30, $y_start, true, 0);
-
-        
-
-        // write the right cell
-        $this->MultiCell(80, 0, $row->getTodoDescription(), T, 'L', 0, 1, 70 ,$y_start, true, 0);
-        $y_description = $this->GetY();
-        
-        
-        // write the right cell
-        $this->MultiCell(20, 0, $status, T, 'C', 0, 1, 150 ,$y_start, true, 0);
-
-        
-        if ($y_description > $y_bugid) {
-            $y_start = $y_description;
-        } else {
-            $y_start = $y_bugid;
-        }
-
-        if ($y_start  >= 247) {
+            if ($y_start >= 247) {
                 $this->AddPage();
                 $y_start = 30;
+            }
         }
-        
-        
-        
-
-            
-        }
-        
+        $total = $timeTotal / 3600;
+        $total = $total . 'h';
+        $this->MultiCell(10, 0, '', T, 'C', 0, 2, 20, $y_start, true, 0);
+        $this->MultiCell(40, 0, 'Gesamt-Zeit Staus Offen:', T, 'L', 0, 1, 30, $y_start, true, 0);
+        $this->MultiCell(80, 0, '', T, 'L', 0, 1, 70, $y_start, true, 0);
+        $this->MultiCell(20, 0, $total, T, 'C', 0, 1, 150, $y_start, true, 0);
+        $this->MultiCell(20, 0, '', T, 'C', 0, 1, 170, $y_start, true, 0);
     }
 
 }

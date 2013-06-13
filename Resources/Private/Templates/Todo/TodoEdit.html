@@ -77,11 +77,15 @@
 
 
                 <div class="formrow buttonrow">
-
+                    <br />
                     <input type="button"  class="button lightbox-close" value="abbrechen"  />
+                    <f:link.action action="todoDelete" controller="Todo"arguments="{todo:todo}">
+                        <div class="button">löschen</div>
+            </f:link.action>
+                    
                     <f:form.submit name="mySubmit" value="speichern" class="button" />
-
-                    <input type="button"  class="button lightbox-close" value="schließen"  />
+                    
+                    
 
                 </div>
             </f:form>

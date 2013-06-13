@@ -9,7 +9,7 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
                 'Inbox'   => 'index',
 		'Project' => 'index, projectNew, projectCreate, projectShow, projectEdit, projectUpdate',
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
-                'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti',
+                'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
                 'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate'
                 
@@ -20,7 +20,7 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
 		'Inbox'   => 'index',
 		'Project' => 'index, projectNew, projectCreate, projectShow, projectEdit, projectUpdate',
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
-                'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti',
+                'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
                 'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate'
                 

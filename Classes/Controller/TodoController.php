@@ -294,6 +294,23 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->redirect('todoNew', 'Todo', NULL, Array('list' => $todo->getTodolist()));
     }
 
+        /*
+     * Delete Todo Action
+     * 
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Todo $todo
+     * @dontvalidate $todo
+     * @return void
+     */
+
+    public function todoDeleteAction(\T3developer\ProjectsAndTasks\Domain\Model\Todo $todo) {
+        
+
+        //   $todo->setTodoOwner($userUid);
+        $this->todoRepository->remove($todo);
+
+
+        $this->redirect('todoNew', 'Todo', NULL, Array('list' => $todo->getTodolist()));
+    }
     /**
      * Show PDF Action
      *
