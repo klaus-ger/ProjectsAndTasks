@@ -35,21 +35,24 @@ class WorkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
   //  protected $defaultOrderings = array('swCommentDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 	   
-//    
-//    /**
-//     * Find openProjects
-//     * 
-//     * @param $status
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Project
-//     */
-//    public function findByProjectsByStatus( $status) {
-//        $query = $this->createQuery();
-//        
-//        $query->matching(
-//                    $query->equals('status','0')
-//        );
-//        return $query->execute();
-//    } 
+    
+    /**
+     * Find work status verechenbar and open
+     * 
+     * @param $status $project
+     * @return Tx_ProjectsAndTasks_Domain_Model_Project
+     */
+    public function findByWorkByStatusAndProject( $status, $project) {
+        $query = $this->createQuery();
+        
+        $query->matching(
+            $query->logicalAnd(
+                    $query->equals('workStatus',$status),
+                    $query->equals('workProject',$project)
+                    )
+        );
+        return $query->execute();
+    } 
 //    
 //        /**
 //     * Find own Projects

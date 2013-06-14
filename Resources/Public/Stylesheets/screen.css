@@ -180,6 +180,36 @@ body {
     font-size: 12px;
     color: #666;
 }
+
+/* InBox Stage ********************************************************/
+#pat .inbox-left {
+    width: 450px;
+    float: left;
+}
+
+#pat .inbox-right {
+        width: 450px;
+    float: left;
+    margin-left: 15px;
+}
+
+/* Inbox list projects */
+.inbox-list-project-titel {
+    display: inline-block;
+    font-family: "LatoBold";
+    font-size: 12px;
+    padding-left: 15px;
+    width: 260px;
+}
+
+.inbox-list-project-todo {
+    display: inline-block;
+    font-family: "LatoRegular";
+    font-size: 12px;
+    padding-left: 15px;
+    width: 130px;
+}
+
 /* Singel Project Stage ********************************************************/
 
 /*project-header */

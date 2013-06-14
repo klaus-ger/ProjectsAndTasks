@@ -1,21 +1,100 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
 <f:layout name="Default" />
 
 <f:section name="main">
-
+   
 
     <div class="stage">
         <h1>Inbox</h1>
         <h3>Subtitel steht hier </h3>
+        <div class="stage-header-shield">
+
+            <div class="stage-header-menu">
+                <div class="{f:if(condition:'{menu}==1',then:'item selected',else:'item')}">
+                    <f:link.action action="projectShow" controller="Project"arguments="{project:projectHeader.project}">
+                       Übersicht
+                    </f:link.action>
+                </div>
+                
+                
+                <div class="{f:if(condition:'{menu}==1',then:'item selected',else:'item')}">
+                    <f:link.action action="projectShow" controller="Project"arguments="{project:projectHeader.project}">
+                        Projekte ({inboxHeader.projects.all})
+                    </f:link.action>
+                </div>
+ 
+                <div class="{f:if(condition:'{menu}==3',then:'item selected',else:'item')}">
+                    <f:link.action action="messageNew" controller="Message"arguments="{project:projectHeader.project.uid}">
+                        Nachrichten (na/na)
+                    </f:link.action>
+                </div>
+
+                <div class="{f:if(condition:'{menu}==4',then:'item selected',else:'item')}">
+                    
+                        <f:link.action action="todoShowMulti" controller="Todo"arguments="{project:projectHeader.project}">
+                            ToDos ({inboxHeader.todo.open}/{inboxHeader.todo.all})
+                        </f:link.action>
+                    
+                    
+                </div>
+
+                <div class="{f:if(condition:'{menu}==5',then:'item selected',else:'item')}">
+                    <f:link.action action="workNew" controller="Work"arguments="{project:projectHeader.project}">
+                        Leistungen (na/na)
+                    </f:link.action>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        Fakturierung (na/na)  
+                    </a>
+                </div>
 
 
-        <div class="projectInfo">
-            12 neue Nachrichten &nbsp;&nbsp;&nbsp;
-            4 Projekte&nbsp;&nbsp;&nbsp;13 To-DOs&nbsp;&nbsp;&nbsp;
-            2 Termine
+            </div>
+            <div class="stage-header-decription">
+                
+                <p>Summe aller Todos:<br>
+                    abrechenbare Leistungen: <vh:plantime time="{inboxHeader.work.all}" />
+                </p>
+            </div>
 
+            <div class="stage-header-decription {f:if(condition:'{menu}==1',then:'',else:'hidden')}">
+                <f:format.html>
+                    {project.projectText}
+                </f:format.html>
+            </div>
         </div>
 
+        <!------------------------------------------------------------------------------>
+        <br />
+        <div class="inbox-left">
+            <h2>Neue Nachrichten</h2> 
+        </div>
+        <div class="inbox-right">
+            <!-- stage right: projekte -->
+            <h2>Projekte</h2>
+            <f:for each="{projects}" as="project">
+                <div class="projectListItem">
+                    <div class="listIcon">
+                        <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+                    </div>
+                    <div class="inbox-list-project-titel">
+                        <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
+                            {project.projectTitle}
+                        </f:link.action>
+                    </div>
 
+                    <div class="inbox-list-project-todo">
+                        16 offene ToDos 
+                    </div>
+                </div>
+            </f:for>    
+
+            <br>
+            <f:link.action action="projectNew" controller="Project">
+                >>neues Projekt hinzufügen
+            </f:link.action>
+        </div>
         <br>
         <h2>Neue Nachrichten</h2>
         <div class="projectListItem">
@@ -36,34 +115,12 @@
 
         <br /><br />
         <h2>Projekte</h2>
-        <f:for each="{projects}" as="project">
-            <div class="projectListItem">
-                <div class="listIcon">
-                    <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
-                </div>
-                <div class="listProjectTitle">
-                    <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
-                       {project.projectTitle}
-                    </f:link.action>
-                </div>
-                <div class="listProjectShort">
-                    {project.projectShort}
-                </div>
-                <div class="listProjectInfo">
-                | 16 offene ToDos | Verbleibene Zeit: 3.5h | Termin:
-                </div>
-            </div>
-        </f:for>    
 
-        <br>
-        <f:link.action action="projectNew" controller="Project">
-            >>neues Projekt hinzufügen
-        </f:link.action>
 
-     
-        
-        
-        
+
+
+
+
         <br ><br>
         <h2>ToDos aus allen Listen:</h2>
 

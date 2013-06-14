@@ -259,6 +259,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         //get the work
         $work = '';
         $work['all'] = count($work = $this->workRepository->findByWorkProject($projectUid));
+        $work['open']= count($this->workRepository->findByWorkByStatusAndProject('5', $projectUid));
         $work['percent'] = $workTemp['percent'];
         //get the documents
         $documents = "xy";

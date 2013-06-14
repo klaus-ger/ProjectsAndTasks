@@ -45,6 +45,16 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $projectRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\WorkRepository   
+     */
+    protected $workRepository;
+    
+        /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TodoRepository   
+     */
+    protected $todoRepository;
+
+    /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository $userRepository
      * @return void
      */
@@ -60,6 +70,22 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->projectRepository = $projectRepository;
     }
 
+    /**
+     *       
+     * @param \t3developer\ProjectsAndTasks\Domain\Repository\WorkRepository $workRepository     
+     */
+    public function injectWorkRepository(\t3developer\ProjectsAndTasks\Domain\Repository\WorkRepository $workRepository) {
+        $this->workRepository = $workRepository;
+    }
+
+       /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\TodoRepository $todoRepository
+     * @return void
+     */
+    public function injectTodoRepository(\T3developer\ProjectsAndTasks\Domain\Repository\TodoRepository $todoRepository) {
+        $this->todoRepository = $todoRepository;
+    }
+    
     /*
      * 
      */
@@ -69,24 +95,68 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->checkLogIn();
 
         $projects = $this->projectRepository->findByOwner($this->user->getUid());
+
+
+        $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('user', $this->user);
         $this->view->assign('projects', $projects);
     }
+
+    /**
+     * Writes the Array for header Navigation
+     */
+    public function searchHeaderData() {
+
+        //projects
+        $projectsAll = count($projects = $this->projectRepository->findByOwner($this->user->getUid()));
+
+
+        //work
+        $workAll = $this->workRepository->findByWorkStatus('5');
+        $worktime = 0;
+        foreach ($workAll as $work) {
+            $start = $work->getWorkStart();
+            $end   = $work->getWorkEnd();
+            $time = $end - $start;
+            $worktime = $worktime + $time;
+        }
+        
+        //todo
+        
+       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($open);
+        $todosOpen = count($this->todoRepository->findByUserAndStatus($this->user->getUid(), '1'));
+        $todosCheck = count($this->todoRepository->findByUserAndStatus($this->user->getUid(), '3'));
+        $todosReady = count($this->todoRepository->findByUserAndStatus($this->user->getUid(), '6'));
+        
+        $todo['all'] = $todosOpen + $todosCheck + $todosReady;
+        $todo['open']= $todosOpen;
+        
+        
+        
+        $inboxHeader['projects']['all'] = $projectsAll;
+        $inboxHeader['work']['all'] = $worktime;
+        $inboxHeader['todo']['all'] = $todo['all'];
+        $inboxHeader['todo']['open'] = $todo['open'];
+
+        return $inboxHeader;
+    }
+
     /*
      * Shows the log-in Form
      */
 
     public function checkLogIn() {
 
-         $user = $GLOBALS['TSFE']->fe_user->user;
+        $user = $GLOBALS['TSFE']->fe_user->user;
 
         if ($user == null) {
             $this->redirect('logIn', 'User');
         } else {
-            
+
             $this->user = $this->userRepository->findByUid($user['uid']);
         }
     }
+
 }
 
 ?>

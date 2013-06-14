@@ -109,20 +109,24 @@ class TodoRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         
         
    
-//    /**
-//     * Find openProjects
-//     * 
-//     * @param $status
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Project
-//     */
-//    public function findByProjectsByStatus( $status) {
-//        $query = $this->createQuery();
-//        
-//        $query->matching(
-//                    $query->equals('status','0')
-//        );
-//        return $query->execute();
-//    } 
+    /**
+     * Find ToDos By User and Status
+     * Needed for the Inbox View
+     * 
+     * @param $user $status
+     * @return Tx_ProjectsAndTasks_Domain_Model_Project
+     */
+    public function findByUserAndStatus($user, $status) {
+        $query = $this->createQuery();
+        
+        $query->matching(
+                $query->logicalAnd(
+                    $query->equals('todoAssigned',$user),
+                    $query->equals('todoStatus',$status)
+                     )
+        );
+        return $query->execute();
+    } 
 //    
 //        /**
 //     * Find own Projects
