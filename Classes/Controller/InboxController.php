@@ -86,20 +86,63 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->todoRepository = $todoRepository;
     }
     
-    /*
+    /**
+     * Index Action
      * 
+     * Shows the index Page of this extension
      */
 
     public function indexAction() {
-//$newproject = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Project');
         $this->checkLogIn();
 
         $projects = $this->projectRepository->findByOwner($this->user->getUid());
 
-
         $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('user', $this->user);
         $this->view->assign('projects', $projects);
+        $this->view->assign('menu', '1');
+    }
+
+    /**
+     * show Work / Leistungen
+     * 
+     * shows a overview of actual work per user
+     */
+    public function showWorkAction(){
+        $this->checkLogIn();
+        //timestamps for actual week
+        $wochentag=date(w);
+        $aktuell=date('d,m,Y');
+        $aktuellArray = explode(',', $aktuell);
+        $moWT = intval($aktuellArray[0])-intval($wochentag)+1;
+        
+        $mo = mktime(0,0,0,$aktuellArray[1],$moWT, $aktuellArray[2]);
+        $di = mktime(0,0,0,$aktuellArray[1],$moWT +1 , $aktuellArray[2]);
+        $mi = mktime(0,0,0,$aktuellArray[1],$moWT +2 , $aktuellArray[2]);
+        $do = mktime(0,0,0,$aktuellArray[1],$moWT +3 , $aktuellArray[2]);
+        $fr = mktime(0,0,0,$aktuellArray[1],$moWT +4 , $aktuellArray[2]);
+        $sa = mktime(0,0,0,$aktuellArray[1],$moWT +5 , $aktuellArray[2]);
+        $so = mktime(0,0,0,$aktuellArray[1],$moWT +6 , $aktuellArray[2]);
+        $next = mktime(0,0,0,$aktuellArray[1],$moWT +7 , $aktuellArray[2]);
+        
+        $work['week']['mo']['date']= $mo;
+        $work['week']['di']['date']= $di;
+        $work['week']['mi']['date']= $mi;
+        $work['week']['do']['date']= $do;
+        $work['week']['fr']['date']= $fr;
+        $work['week']['sa']['date']= $sa;
+        $work['week']['so']['date']= $so;
+        $work['week']['mo']['results']=$this->workRepository->findWorkByStartEndUser($mo, $di, $this->user->getUid());
+        $work['week']['di']['results']=$this->workRepository->findWorkByStartEndUser($di, $mi, $this->user->getUid());
+        $work['week']['mi']['results']=$this->workRepository->findWorkByStartEndUser($mi, $do, $this->user->getUid());
+        $work['week']['do']['results']=$this->workRepository->findWorkByStartEndUser($do, $fr, $this->user->getUid());
+        $work['week']['fr']['results']=$this->workRepository->findWorkByStartEndUser($fr, $sa, $this->user->getUid());
+        $work['week']['sa']['results']=$this->workRepository->findWorkByStartEndUser($sa, $so, $this->user->getUid());
+        $work['week']['so']['results']=$this->workRepository->findWorkByStartEndUser($so, $next, $this->user->getUid());
+        
+        $this->view->assign('work', $work);
+        $this->view->assign('menu', '5');
+      
     }
 
     /**

@@ -1,7 +1,8 @@
 <?php
+
 namespace T3developer\ProjectsAndTasks\Domain\Repository;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2013 Klaus Heuer | t3-developer.com
@@ -22,7 +23,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
  *
@@ -32,27 +33,44 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
  *
  */
 class WorkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+    //  protected $defaultOrderings = array('swCommentDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
-  //  protected $defaultOrderings = array('swCommentDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
-	   
-    
     /**
      * Find work status verechenbar and open
      * 
      * @param $status $project
      * @return Tx_ProjectsAndTasks_Domain_Model_Project
      */
-    public function findByWorkByStatusAndProject( $status, $project) {
+    public function findByWorkByStatusAndProject($status, $project) {
         $query = $this->createQuery();
-        
+
         $query->matching(
-            $query->logicalAnd(
-                    $query->equals('workStatus',$status),
-                    $query->equals('workProject',$project)
-                    )
+                $query->logicalAnd(
+                        $query->equals('workStatus', $status), $query->equals('workProject', $project)
+                )
         );
         return $query->execute();
-    } 
+    }
+
+    /**
+     * Find work status by period and User
+     * 
+     * @param $status $project
+     * @return Tx_ProjectsAndTasks_Domain_Model_Project
+     */
+    public function findWorkByStartEndUser($start, $end, $user) {
+        $query = $this->createQuery();
+
+        $query->matching(
+                $query->logicalAnd(
+                    $query->greaterThan('workDate', $start), 
+                    $query->lessThanOrEqual('workDate', $end),
+                    $query->equals('workUser', $user)
+                )
+        );
+        return $query->execute();
+    }
+
 //    
 //        /**
 //     * Find own Projects
@@ -68,7 +86,6 @@ class WorkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 //        );
 //        return $query->execute();
 //    } 
-
 //    /**
 //     * Find plans by uid and pid
 //     * 
@@ -104,7 +121,6 @@ class WorkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 //        );
 //        return $query->execute();
 //    }
-    
 }
 
 ?>

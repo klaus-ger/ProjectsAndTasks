@@ -38,7 +38,7 @@ class Work extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     
     /**
      * The ProjectTitle
-     * @var \int
+     * @var \T3developer\ProjectsAndTasks\Domain\Model\Project
      * 
      */
     protected $workProject;
