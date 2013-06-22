@@ -1,0 +1,20 @@
+
+<div class="stage-sub-menu">
+
+<div class="{f:if(condition:'{submenu}==1',then:'item selected',else:'item')}">
+    <f:link.action action="projectShowDetails" controller="Project"arguments="{project:projectHeader.project}">
+        Details
+    </f:link.action>
+</div>
+<div class="{f:if(condition:'{submenu}==2',then:'item selected',else:'item')}">
+    <f:link.action action="projectEdit" controller="Project"arguments="{project:projectHeader.project}">
+        Projekt editieren
+    </f:link.action>
+</div>
+<div class="{f:if(condition:'{submenu}==3',then:'item selected',else:'item')}">
+    <f:link.action action="projectEditUserRights" controller="Project"arguments="{project:projectHeader.project}">
+        Project Member
+    </f:link.action>
+</div>
+    
+</div>

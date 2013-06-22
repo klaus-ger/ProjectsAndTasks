@@ -1,0 +1,76 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+
+<vh:comment>
+   /* Form: 
+    * 
+    *
+    * Version 1.0.1 Build 12.6.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
+
+
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div id="pat">
+
+        <div class="stage-header">
+            <f:render partial="Project/ProjectHeader" arguments="{_all}" />
+        </div>
+
+
+        <div class="stage">
+            <h2>Project Member</h2>
+            <f:render partial="Project/ProjectSubMenueProjectEdit" arguments="{_all}" />
+
+            <div class="project-stage-left">
+                <p> User hinzufügen </p>
+                <f:form method="post" controller="Project" action="projectUpdateUserRights" name="userrights" object="{userrights}"   >
+
+                    <!--hidden fields -->
+                    <f:form.hidden property="projectrightsProject" value="{projectHeader.project.uid}" class="fullWidth" />
+                    <f:form.hidden property="uid" value=""  />
+
+                    <!-- regular Fields -->
+                    <div class="projectdetails-form-puser-label">
+                        User
+                    </div>
+                    <div class="projectdetails-form-puser-label">
+                        <f:form.select prependOptionLabel="---" property="projectrightsUser" options="{user}" optionValueField="uid" optionLabelField="username" />
+                    </div>
+
+
+                    <div class="projectdetails-form-puser-label">
+                        Rechte
+                    </div>
+                    <div class="projectdetails-form-puser-label">
+                        <f:form.select prependOptionLabel="---" property="projectrightsRights" options="{rights}"  />
+                    </div>
+
+                    <div class="projectdetails-form-puser-label">
+                        <input type="button"  class="button" value="löschen"  />
+                        <f:form.submit name="mySubmit" value="speichern" class="button" />
+                    </div>
+                </f:form>
+                <br>
+                
+                
+                <p>Rechte bearbeiten</p>
+                <br />
+                <f:for each="{projectuser}" as="puser">
+                    <div class="projectdetails-list-puser-item">
+                        <div class="projectdetails-list-puser-name">
+                            {puser.projectrightsUser.username} | {puser.projectrightsRights}
+                            
+                        </div>
+                    
+                    </div>
+                <br />
+                </f:for>
+                
+                <div class="stageItemTableDivider"></div>
+            </div>
+        </div></div>
+    <br ><br>
+
+</f:section>

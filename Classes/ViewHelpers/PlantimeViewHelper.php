@@ -1,10 +1,11 @@
 <?php
 
 namespace T3developer\ProjectsAndTasks\ViewHelpers;
-/***************************************************************
+
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Klaus Heuer 
+ *  (c) 2012 Klaus Heuer <klaus.heuer@t3-developer.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,64 +23,40 @@ namespace T3developer\ProjectsAndTasks\ViewHelpers;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
+ * View Helper to calculate the time in hours
  *
- *
- * @package wfp2_dmc_stammdaten
+ * Usage in fluid form:  <vh time="{myObject}" />
+ *  
+ * @param int $time
+ * 
+ * * @package projects_and_tashs
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @author klaus heuer <norman.moeller@wfp2.com>
+ * @author klaus heuer <klaus.heuer@t3-developer.com>
+ *
  */
-
 class PlantimeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
-    /**
-     * Tx_Fluid_Core_ViewHelper_AbstractViewHelper
-     * View Helper to show the Status of a single Termin
-     * Relation of Booked Customers to total seats of the Veranstaltungsort
-     * 
-     * Usage in fluid form: 
-     * For the Icon class (green, orange or red)
-     *    <vh:BuchungStatus termin='{termin.uid}' result='class' /> 
-     *    output: 'label-success', 'label-warning', 'label-important', depending on the calculated booking level
-     *
-     * For the Text (Mobil View)
-     *    <vh:BuchungStatus termin='{termin.uid}' result='text' /> 
-     *    output: 'Noch Plätze frei', 'Nur noch wenige Plätze frei' .. etc
-     * 
-     *     
-     * 
-     * The limit for the orange Booking Level is defined in line 81 $bookingLine
-     *  
-     * @param int $time
-     * 
-     * 
 
-     */
-
-
-        
-        
-  
     /**
      * Main method of the View Helper
      * 
      * @param int $time
      * @param 
-      */
+     */
     public function render($time) {
-        
-        if($time != null) {
+
+        if ($time != null) {
             $plantime = $time / 60;
             $plantime = $plantime / 60 . ' h';
         } else {
             $plantime = '-';
         }
-        
-        return $plantime;
-      
 
-}
+        return $plantime;
+    }
+
 }
 
 ?>

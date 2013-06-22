@@ -6,8 +6,8 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
 	'patsystem',
 	array(
 		
-                'Inbox'   => 'index, showWork',
-		'Project' => 'index, projectNew, projectCreate, projectShow, projectEdit, projectUpdate',
+                'Inbox'   => 'index, showWork, projectsShow',
+		'Project' => 'projectShow, projectNew, projectCreate,  projectEdit, projectUpdate, projectShowDetails,projectEditUserRights, projectUpdateUserRights',
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
                 'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
@@ -17,8 +17,8 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
 	// non-cacheable actions
 	array(
                 
-		'Inbox'   => 'index, showWork',
-		'Project' => 'index, projectNew, projectCreate, projectShow, projectEdit, projectUpdate',
+		'Inbox'   => 'index, showWork, projectsShow',
+		'Project' => 'projectShow, projectNew, projectCreate,  projectEdit, projectUpdate, projectShowDetails,projectEditUserRights, projectUpdateUserRights',
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
                 'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',

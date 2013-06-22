@@ -1,0 +1,53 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="main">
+
+   
+    <div class="stage">
+        
+        <f:render partial="Inbox/InboxHeader" arguments="{_all}" />
+
+        <!------------------------------------------------------------------------------>
+        <br />
+
+
+        
+            
+            <!-- stage right: projekte -->
+            <h2>Projekte</h2>
+            <p> ToDo: hirachiche Abbildung der Projete und Sticky Funktion</p>
+            <f:for each="{projects}" as="project">
+                <div class="projectListItem">
+                    <div class="listIcon">
+                        <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+                    </div>
+                    <div class="inbox-list-project-titel">
+                        <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
+                            {project.projectrightsProject.projectTitle}
+                        </f:link.action>
+                    </div>
+
+                    <div class="inbox-list-project-todo">
+                        16 offene ToDos 
+                    </div>
+                </div>
+            </f:for>    
+
+            <br>
+            <f:link.action action="projectNew" controller="Project">
+                >>neues Projekt hinzufügen
+            </f:link.action>
+
+
+
+
+
+
+
+
+ 
+    </div>
+
+
+</f:section>

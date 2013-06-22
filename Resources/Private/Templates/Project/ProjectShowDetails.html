@@ -9,10 +9,11 @@
 
 
     <div class="stage">
-        <h2>Project bearbeiten:</h2>
-        
+        <h2>Projekt Details:</h2>
         <f:render partial="Project/ProjectSubMenueProjectEdit" arguments="{_all}" />
         
+        <div class="project-stage-left">
+             <h3>Details</h3>
         <f:form method="post" controller="Project" action="projectUpdate" name="project" object="{project}"   >
 
             <div class="stageItemTable">
@@ -30,14 +31,6 @@
                 </div>
                 <div class="stageItemTableDivider"></div>
 
-                <div class="projectdetails-form-puser-label">
-                        Unterprojekt von:
-                    </div>
-                    <div class="projectdetails-form-puser-label">
-                        <f:form.select prependOptionLabel="---" property="projectParent" options="{projects}"  />
-                    </div>
-                
-                
                 <div class="stageItemTableLabel">
                     Budget
                 </div>
@@ -80,6 +73,21 @@
 
             </div>
         </f:form>
+        </div>
+        <div class="project-stage-content-right">
+            <h3>Projekt User</h3>
+            
+            <f:for each="{projectuser}" as="puser">
+                <div class="projectdetails-list-puser-item">
+                    <div class="projectdetails-list-puser-name">
+                {puser.projectrightsUser.username}
+                    </div>
+                    <div class="projectdetails-list-puser-rights">
+                {puser.projectrightsRights}
+                    </div>
+                </div>
+            </f:for>
+        </div>
     </div></div>
 
 </f:section>

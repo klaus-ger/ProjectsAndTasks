@@ -2,68 +2,11 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    
+
 
     <div class="stage">
-        <h1>Inbox</h1>
-        <h2>Leistungen </h2>
-        <div class="stage-header-shield">
 
-            <div class="stage-header-menu">
-                <div class="{f:if(condition:'{menu}==1',then:'item selected',else:'item')}">
-                    <f:link.action action="projectShow" controller="Project"arguments="{project:projectHeader.project}">
-                        Übersicht
-                    </f:link.action>
-                </div>
-
-
-                <div class="{f:if(condition:'{menu}==2',then:'item selected',else:'item')}">
-                    <f:link.action action="projectShow" controller="Project"arguments="{project:projectHeader.project}">
-                        Projekte ({inboxHeader.projects.all})
-                    </f:link.action>
-                </div>
-
-                <div class="{f:if(condition:'{menu}==3',then:'item selected',else:'item')}">
-                    <f:link.action action="messageNew" controller="Message"arguments="{project:projectHeader.project.uid}">
-                        Nachrichten (na/na)
-                    </f:link.action>
-                </div>
-
-                <div class="{f:if(condition:'{menu}==4',then:'item selected',else:'item')}">
-
-                    <f:link.action action="todoShowMulti" controller="Todo"arguments="{project:projectHeader.project}">
-                        ToDos ({inboxHeader.todo.open}/{inboxHeader.todo.all})
-                    </f:link.action>
-
-
-                </div>
-
-                <div class="{f:if(condition:'{menu}==5',then:'item selected',else:'item')}">
-                    <f:link.action action="showWork" controller="Inbox">
-                        Leistungen (na/na)
-                    </f:link.action>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        Fakturierung (na/na)  
-                    </a>
-                </div>
-
-
-            </div>
-            <div class="stage-header-decription">
-
-                <p>Summe aller Todos:<br>
-                    abrechenbare Leistungen: <vh:plantime time="{inboxHeader.work.all}" />
-                </p>
-            </div>
-
-            <div class="stage-header-decription {f:if(condition:'{menu}==1',then:'',else:'hidden')}">
-                <f:format.html>
-                    {project.projectText}
-                </f:format.html>
-            </div>
-        </div>
+        <f:render partial="Inbox/InboxHeader" arguments="{_all}" />
 
         <!------------------------------------------------------------------------------>
         <br />
@@ -78,18 +21,18 @@
                     <f:for each="{day.results}" as="item">
                         <div class="inbox-list-work-item">
                             <div class="inbox-list-work-title">
-                            {item.workTitle}
+                                {item.workTitle}
                             </div>
                             <div class="inbox-list-work-project">
-                            {item.workProject.projectTitle}
+                                {item.workProject.projectTitle}
                             </div>
                             <div class="inbox-list-work-status">
                                 <f:if condition="{0:item.workStatus}=={0:'5'}">
-                                +
+                                    +
                                 </f:if>
                             </div>
                             <div class="inbox-list-work-time">
-                            <vh:worktime start="{item.workStart}" end="{item.workEnd}"/>
+                                <vh:worktime start="{item.workStart}" end="{item.workEnd}"/>
                             </div>
                         </div>
                     </f:for>
@@ -97,23 +40,67 @@
                 </f:for>
             </div>
         </div>
-       
+
         <div class="inbox-right">
             <!-- stage right: projekte -->
-            <h2>Historie</h2>
+            <h2>aktueller Monat</h2>
+            <div class="inbox-list-work">
+                <div class="inbox-list-work-item">
+                    <div class="inbox-list-work-title">
+                        Intern
+                    </div>
+                    <div class="inbox-list-work-project"></div>
+                    <div class="inbox-list-work-status">
+                        +
+                    </div>
+                    <div class="inbox-list-work-time">
+                        <vh:plantime time="{work.actualMonth.internal}" />
+                    </div>
+                </div>
 
-        
+                <div class="inbox-list-work-item">
+                    <div class="inbox-list-work-title">
+                        Kundenzeiten
+                    </div>
+                    <div class="inbox-list-work-project"></div>
+                    <div class="inbox-list-work-status">
+                        +
+                    </div>
+                    <div class="inbox-list-work-time">
+                        <vh:plantime time="{work.actualMonth.custom}" />
+                    </div>
+                </div>
+
+                <div class="inbox-list-work-item">
+                    <div class="inbox-list-work-title">
+                        Total
+                    </div>
+                    <div class="inbox-list-work-project"></div>
+                    <div class="inbox-list-work-status">
+                        {work.actualMonth.percent}%
+                    </div>
+                    <div class="inbox-list-work-time">
+                        <vh:plantime time="{work.actualMonth.total}" />
+                    </div>
+                </div>
+
+            </div>
+            <br>
+
+            <h2>Vormonat</h2>
+            <br />
+            <br />
+            <h2>Jahr</h2>
+            <p>
+            grafische Übersicht
+            Monatskalkulation splitten in %Custom Work 
+            von Gesamtmonat und eingetragenen zeiten. Kann durchaus 2-Spaltig sein.
+            </p>
+
+
+
+
         </div>
-        <br>
-        
-        
-
-
-
-
-
-
-    </div>
 
 
 </f:section>

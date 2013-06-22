@@ -65,6 +65,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $messageRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\Projectrights  
+     */
+    protected $projectrightsRepository;
+
+    /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\TodolistRepository $todolistRepository
      * @return void
      */
@@ -104,17 +109,20 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->workRepository = $workRepository;
     }
 
-    public function indexAction() {
-        $projects = $this->projectRepository->findAll();
-        $this->view->assign('test', 'test');
-    }
-
     /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository $messageRepository
      * @return void
      */
     public function injectMessageRepository(\T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository $messageRepository) {
         $this->messageRepository = $messageRepository;
+    }
+
+    /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\ProjectrightsRepository $projectrightsRepository
+     * @return void
+     */
+    public function injectProjectrightsRepository(\T3developer\ProjectsAndTasks\Domain\Repository\ProjectrightsRepository $projectrightsRepository) {
+        $this->projectrightsRepository = $projectrightsRepository;
     }
 
     /*
@@ -146,6 +154,79 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('menu', '1');
     }
 
+    /**
+     * Show Project Details
+     * 
+     */
+    public function projectShowDetailsAction(\t3developer\ProjectsAndTasks\Domain\Model\Project $project) {
+
+        $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
+        $this->view->assign('user', $this->user);
+        $this->view->assign('project', $project);
+        $this->view->assign('projectuser', $this->projectrightsRepository->findByProjectrightsProject($project->getUid()) );
+        $this->view->assign('menu', '2');
+        $this->view->assign('submenu', '1');
+    }
+
+    /**
+     * Show Project User Rights
+     * 
+     * Shows a list of all User of the project
+     * Shows a Form to create or edit a new Userrights
+     * 
+     */
+    public function projectEditUserRightsAction(\t3developer\ProjectsAndTasks\Domain\Model\Project $project) {
+        
+        $projectrights = $this->projectrightsRepository->findByProjectrightsProject($project->getUid());
+
+       
+        $this->view->assign('projectrights', $projectrights);
+        $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
+        $this->view->assign('user', $this->userRepository->findAll());
+        $this->view->assign('rights', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableUserRights());
+        $this->view->assign('projectuser', $this->projectrightsRepository->findByProjectrightsProject($project->getUid()) );
+        
+        $this->view->assign('project', $project);
+        $this->view->assign('menu', '2');
+        $this->view->assign('submenu', '3');
+    }
+
+    /**
+     * Updates or create a USer Right
+     * 
+     * We don't use objects here beacuse we manipulate the uid via jquery
+     * 
+     */
+    public function projectUpdateUserRightsAction() {
+        if($this->request->hasArgument('userrights')){
+            $userrights = $this->request->getArgument('userrights');
+        }
+  //     \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($userrights);
+        if($userrights['uid'] == null) {
+            $rights = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Projectrights');
+            $action = 'new';
+        }
+        if($userrights['uid'] != null) {
+            $rights = $this->projectrightsRepository->findByUid($projectright['uid']);
+            $action = 'update';
+        }
+        
+        $rights->setProjectrightsProject($userrights['projectrightsProject']);
+        $rights->setProjectrightsUser($userrights['projectrightsUser']);
+        $rights->setProjectrightsRights($userrights['projectrightsRights']);
+        
+        if($action == 'new'){
+            $this->projectrightsRepository->add($rights);
+        }
+        if($action == 'update'){
+            $this->projectrightsRepository->update($rights);
+        }
+        
+        $project = $this->projectRepository->findByUid($rights->getProjectrightsProject());
+         
+        $this->redirect('projectEditUserRights', 'Project', NULL, Array('project' => $project));
+        
+    }
     /*
      * New Project Action
      */
@@ -166,9 +247,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     public function projectEditAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
 
-
+        $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         $this->view->assign('project', $project);
+        $this->view->assign('menu', '1');
     }
 
     /*
@@ -231,7 +313,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         //get the messages
-        $messages['all'] = count($this->messageRepository->findByMessageProject($project->getUid()) );
+        $messages['all'] = count($this->messageRepository->findByMessageProject($project->getUid()));
 
         //get the todos
         $todoLists = $this->todolistRepository->findByTodolistProject($project->getUid());
@@ -259,7 +341,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         //get the work
         $work = '';
         $work['all'] = count($work = $this->workRepository->findByWorkProject($projectUid));
-        $work['open']= count($this->workRepository->findByWorkByStatusAndProject('5', $projectUid));
+        $work['open'] = count($this->workRepository->findByWorkByStatusAndProject('5', $projectUid));
         $work['percent'] = $workTemp['percent'];
         //get the documents
         $documents = "xy";

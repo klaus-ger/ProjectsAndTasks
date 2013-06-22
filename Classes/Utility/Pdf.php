@@ -32,7 +32,7 @@ namespace T3developer\ProjectsAndTasks\Utility;
  */
 class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
 
-    const DEFAULT_DIRECOTRY_FONTS = 'EXT:pi_faktura/Resources/Public/Fonts/';
+    const DEFAULT_DIRECOTRY_FONTS = 'EXT:projects_and_tasks/Classes/Utility/Tcpdf/fonts/';
 
     /*
      * Defines the standard Header for t3-developer
@@ -67,6 +67,8 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
      */
     //public function createInvoice(Tx_PiFaktura_Domain_Model_Process $process, $saveOnly = TRUE) {
     public function createTodoPdf($todoList, $todos) {
+        
+        //$this->addTTFfont( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(self::DEFAULT_DIRECOTRY_FONTS . 'latoregular.ttf', 'TrueTypeUnicode'));
 
         // set document information
         $this->SetCreator(PDF_CREATOR);
@@ -222,8 +224,8 @@ EOD;
         //Spaltenbreiten in mm
 
         $this->SetFillColor(235, 235, 235);
-        $this->SetTextColor(0);
-        $this->SetFont('helvetica', '', 7);
+        $this->SetTextColor(90,90,90);
+        $this->SetFont('lato', '', 7);
         $this->setCellPaddings(2, 2, 2, 2);
         $this->SetLineWidth(0.5);
 

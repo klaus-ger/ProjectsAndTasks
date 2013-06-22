@@ -11,9 +11,8 @@ page {
 
     10 = FLUIDTEMPLATE 
     10 {
-         file =  EXT:projects_and_tasks/Resources/Private/Page/Clear.html
+        file                =  EXT:projects_and_tasks/Resources/Private/Page/Clear.html
      
-
         partialRootPath     = EXT:projects_and_tasks/Resources/Private/Page/Partial/
         layoutRootPath      = EXT:projects_and_tasks/Resources/Private/Page/Layout/
     }

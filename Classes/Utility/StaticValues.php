@@ -73,6 +73,19 @@ class StaticValues {
         );
     }
     
+                /**
+     * Returns an array with all available UserRights
+     *
+     * @return array available status
+     */
+    public static function getAvailableUserRights() {
+        return array(
+            '1' => 'owner',
+            '2' => 'read',
+            '3' => 'edit',
+        );
+    }
+    
         /**
      * Returns an array with all available status
      *

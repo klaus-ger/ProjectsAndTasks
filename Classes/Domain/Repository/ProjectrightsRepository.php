@@ -32,66 +32,48 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class WorkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class ProjectrightsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     //  protected $defaultOrderings = array('swCommentDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
     /**
-     * Find work status verechenbar and open
+     * Find projects by User and sticky
      * 
-     * @param $status $project
-     * @return Tx_ProjectsAndTasks_Domain_Model_Project
+     * Used in the widget projects on the inbox index page
+     * 
+     * @param $userUid
+     * @return 
      */
-    public function findByWorkByStatusAndProject($status, $project) {
+    public function findByUserAndSticky($userUid) {
         $query = $this->createQuery();
-
+//        $query->setOrderings(array(
+//			'projectrightsProject.projectTitle' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+//                ));
         $query->matching(
                 $query->logicalAnd(
-                        $query->equals('workStatus', $status), $query->equals('workProject', $project)
+                        $query->equals('projectrightsUser', $userUid), 
+                        $query->equals('projectrightsSticky', '1')
                 )
         );
         return $query->execute();
     }
 
-    /**
-     * Find work status by period and User
-     * 
-     * @param $status $project
-     * @return Tx_ProjectsAndTasks_Domain_Model_Project
-     */
-    public function findWorkByStartEndUser($start, $end, $user) {
-        $query = $this->createQuery();
-
-        $query->matching(
-                $query->logicalAnd(
-                    $query->greaterThan('workDate', $start), 
-                    $query->lessThanOrEqual('workDate', $end),
-                    $query->equals('workUser', $user)
-                )
-        );
-        return $query->execute();
-    }
-    
-        /**
-     * Find work by period, User and Status
-     * 
-     * @param $status $project
-     * @return Tx_ProjectsAndTasks_Domain_Model_Project
-     */
-    public function findWorkByStartEndUserStatus($start, $end, $user, $status) {
-        $query = $this->createQuery();
-
-        $query->matching(
-                $query->logicalAnd(
-                    $query->greaterThan('workDate', $start), 
-                    $query->lessThanOrEqual('workDate', $end),
-                    $query->equals('workUser', $user),
-                    $query->equals('workStatus', $status)
-                )
-        );
-        return $query->execute();
-    }
-
-
+//    
+//    
+//    
+//    /**
+//     * Find openProjects
+//     * 
+//     * @param $status
+//     * @return Tx_ProjectsAndTasks_Domain_Model_Project
+//     */
+//    public function findByProjectsByStatus( $status) {
+//        $query = $this->createQuery();
+//        
+//        $query->matching(
+//                    $query->equals('status','0')
+//        );
+//        return $query->execute();
+//    } 
 //    
 //        /**
 //     * Find own Projects
@@ -107,23 +89,6 @@ class WorkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 //        );
 //        return $query->execute();
 //    } 
-//    /**
-//     * Find plans by uid and pid
-//     * 
-//     * @param $storagePid
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Plan
-//     */
-//    public function findByUidAndPid( $uid, $storagePid) {
-//        $query = $this->createQuery();
-//        $query->getQuerySettings()->setRespectStoragePage(FALSE);
-//        $query->matching(
-//        $query->logicalAnd(
-//            $query->equals('uid', $uid),
-//            $query->equals('pid', $storagePid)
-//            )
-//        );
-//        return $query->execute();
-//    }
 //
 //    /**
 //     * Find plans by parent and pid

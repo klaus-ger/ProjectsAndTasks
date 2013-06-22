@@ -46,10 +46,10 @@
                 Übersicht
             </f:link.action>
         </div>
-        <div class="item">
-            <a href="#">
-              Projektdetails (na/na)  
-            </a>
+        <div class="{f:if(condition:'{menu}==2',then:'item selected',else:'item')}">
+            <f:link.action action="projectShowDetails" controller="Project"arguments="{project:projectHeader.project}">
+                Projektdetails
+            </f:link.action>
         </div>
          <div class="{f:if(condition:'{menu}==3',then:'item selected',else:'item')}">
             <f:link.action action="messageNew" controller="Message"arguments="{project:projectHeader.project.uid}">
