@@ -132,8 +132,7 @@ $TCA['tx_projectsandtasks_domain_model_project'] = array(
                 'size' => 100,
             )
         ),
-        
-                'project_budget_time' => array(
+        'project_budget_time' => array(
             'exclude' => 0,
             'label' => 'Project Icon',
             'config' => array(
@@ -141,10 +140,17 @@ $TCA['tx_projectsandtasks_domain_model_project'] = array(
                 'size' => 100,
             )
         ),
-        
-                'project_budget_money' => array(
+        'project_budget_money' => array(
             'exclude' => 0,
             'label' => 'Project Icon',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'project_level' => array(
+            'exclude' => 0,
+            'label' => 'Project Level',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,

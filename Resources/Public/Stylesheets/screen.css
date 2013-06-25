@@ -209,6 +209,23 @@ body {
     color: #666;
 }
 
+/* General List Styling ********************************/
+#pat .general-list-row {
+    border-bottom: 1px solid #ededed;
+    padding: 5px 0;
+    color: #666;
+    font-family: "LatoLight";
+    font-size: 12px;
+}
+
+#pat .general-list-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+}
+
+
+
 /* InBox Stage ********************************************************/
 #pat .inbox-left {
     width: 450px;
@@ -221,6 +238,7 @@ body {
     margin-left: 15px;
 }
 
+/* InBox Widgets *****************************/
 /* Inbox list projects */
 .inbox-list-project-titel {
     display: inline-block;
@@ -272,6 +290,21 @@ body {
     display: inline-block;
     text-align: right;
 }
+
+/* InBox Show Project *****************************/
+.inbox-project-list-titel {
+    display: inline-block;
+    font-family: "LatoBold";
+    font-size: 12px;
+    padding-left: 15px;
+    width: 260px;
+}
+
+.inbox-project-list-sticky {
+    width: 130px;
+    display: inline-block;  
+}
+
 /* Singel Project Stage ********************************************************/
 
 /*project-header */
@@ -456,7 +489,7 @@ body {
     color: #666;
     font-family: "LatoLight";
     font-size: 12px;
-    
+
 }
 #pat .projectdetails-list-puser-name {
     font-family: "LatoLight";

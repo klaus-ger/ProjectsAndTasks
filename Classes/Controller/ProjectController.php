@@ -249,6 +249,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
+        $this->view->assign('projects', $this->projectRepository->findAll());
         $this->view->assign('project', $project);
         $this->view->assign('menu', '1');
     }
@@ -262,7 +263,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
 
     public function projectUpdateAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
-
+        $projectLevel = $this->findProjectLevel($project);
+        $project->setProjectLevel($projectLevel);
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($project);
         $this->projectRepository->update($project);
 
@@ -282,7 +284,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $project->setProjectOwner($userUid);
         $this->projectRepository->add($project);
-
+              
+        $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
+        
+        //create the userrights
+        $rights = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Projectrights');
+        $rights->setProjectrightsProject($project->getUid());
+        $rights->setProjectrightsUser($userUid);
+        $rights->setProjectrightsRights('1');
+        $this->projectrightsRepository->add($rights);
+        
         $this->redirect('index', 'Inbox');
     }
 
@@ -358,6 +369,33 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $projectHeader['dates'] = $dates;
 
         return $projectHeader;
+    }
+    
+    /**
+     * Find Project Level
+     * 
+     * 
+     */
+    public function findProjectLevel($project){
+        
+        if($project->getProjectParent() == 0){
+            $projectLevel = '1';
+        }else {
+            $parent = $this->projectRepository->findByUid($project->getProjectParent() );
+            if($parent->getProjectParent == 0) {
+                $projectLevel = '2';
+            } else {
+               $parent = $this->projectRepository->findByUid($parent->getProjectParent() );
+               if($parent->getProjectParent == 0) {
+                   $projectLevel = '3';
+               } else {
+                   $projectLevel = '4';
+               }
+            }
+        }
+        
+        return $projectLevel;
+            
     }
 
     public function checkLogIn() {

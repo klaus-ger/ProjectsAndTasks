@@ -6,7 +6,7 @@
     <div class="stage-header">
         <f:render partial="Project/ProjectHeader" arguments="{_all}" />
     </div>
-
+    
 
     <div class="stage">
         <h2>Project bearbeiten:</h2>
@@ -23,7 +23,7 @@
 
                 <!-- regular Fields -->
                 <div class="stageItemTableLabel">
-                    Project Titel
+                    Project Titel 
                 </div>
                 <div class="stageItemTableContent">
                     <f:form.textfield property="projectTitle" value="{project.projectTitle}" class="fullWidth" />
@@ -34,7 +34,7 @@
                         Unterprojekt von:
                     </div>
                     <div class="projectdetails-form-puser-label">
-                        <f:form.select prependOptionLabel="---" property="projectParent" options="{projects}"  />
+                        <f:form.select prependOptionLabel="---" property="projectParent" options="{projects}" optionValueField="uid" optionLabelField="projectTitle" />
                     </div>
                 
                 

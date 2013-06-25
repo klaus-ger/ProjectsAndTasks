@@ -3,41 +3,107 @@
 
 <f:section name="main">
 
-   
+
     <div class="stage">
-        
+
         <f:render partial="Inbox/InboxHeader" arguments="{_all}" />
 
         <!------------------------------------------------------------------------------>
         <br />
 
 
-        
-            
-            <!-- stage right: projekte -->
-            <h2>Projekte</h2>
-            <p> ToDo: hirachiche Abbildung der Projete und Sticky Funktion</p>
-            <f:for each="{projects}" as="project">
-                <div class="projectListItem">
-                    <div class="listIcon">
-                        <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+
+
+        <!-- stage right: projekte -->
+        <h2>Projekte</h2>
+
+        <div class="general-list-row">&nbsp;</div>
+        <f:for each="{projects}" as="project">
+
+            <!-- First Level Project -->
+            <div class="general-list-row">
+                <div class="general-list-icon">
+                    <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+                </div>
+                <div class="inbox-project-list-titel">
+                    <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
+                        {project.node.projectTitle}
+                    </f:link.action>
+                </div>
+                <div class="inbox-project-list-sticky">
+                    <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: project.node.uid}">
+                        sticky
+                    </f:link.action>
+                </div>
+            </div>
+
+
+            <f:for each="{project.subnodes}" as="level2">
+
+                <!-- Second Level Project -->
+                <div class="general-list-row">
+                    <div class="general-list-icon">
+
                     </div>
-                    <div class="inbox-list-project-titel">
-                        <f:link.action action="projectShow" controller="Project"arguments="{project:project}">
-                            {project.projectrightsProject.projectTitle}
+                    <div class="inbox-project-list-titel">
+                        <f:link.action action="projectShow" controller="Project"arguments="{project: level2.node}">
+                            --- {level2.node.projectTitle}<br>
                         </f:link.action>
                     </div>
-
-                    <div class="inbox-list-project-todo">
-                        16 offene ToDos 
+                    <div class="inbox-project-list-sticky">
+                        <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
+                            sticky
+                        </f:link.action>
                     </div>
                 </div>
-            </f:for>    
 
-            <br>
-            <f:link.action action="projectNew" controller="Project">
-                >>neues Projekt hinzufügen
-            </f:link.action>
+                <f:for each="{level2.subnodes}" as="level3">
+
+                    <!-- Third Level Projects -->
+                    <div class="general-list-row">
+                        <div class="general-list-icon">
+
+                        </div>
+                        <div class="inbox-project-list-titel">
+                            <f:link.action action="projectShow" controller="Project"arguments="{project: level3.node}">
+                                ------ {level3.node.projectTitle}<br>
+                            </f:link.action>
+                        </div>
+                        <div class="inbox-project-list-sticky">
+                            <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
+                                sticky
+                            </f:link.action>
+                        </div>
+                    </div>
+
+
+                    <f:for each="{level3.subnodes}" as="level4">
+
+                        <!-- Fourth Level Projects -->
+                        <div class="general-list-row">
+                            <div class="general-list-icon">
+
+                            </div>
+                            <div class="inbox-project-list-titel">
+                                <f:link.action action="projectShow" controller="Project"arguments="{project: level4}">
+                                    --------- {level4.projectTitle}<br>
+                                </f:link.action>
+                            </div>
+                            <div class="inbox-project-list-sticky">
+                                <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
+                                    sticky
+                                </f:link.action>
+                            </div>
+                        </div>
+                    </f:for>
+                </f:for>
+            </f:for>
+        </f:for>    
+
+        <br>
+        <f:link.action action="projectNew" controller="Project">
+            >>neues Projekt hinzufügen
+        </f:link.action>
 
 
 
@@ -46,7 +112,7 @@
 
 
 
- 
+
     </div>
 
 

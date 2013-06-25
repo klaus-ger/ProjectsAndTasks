@@ -108,9 +108,9 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->checkLogIn();
 
         $projects = $this->projectRepository->findByOwner($this->user->getUid());
-        $widgetProjects = $this ->projectrightsRepository->findByUserAndSticky($this->user->getUid());
-     //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($widgetProjects);
-        
+        $widgetProjects = $this->projectrightsRepository->findByUserAndSticky($this->user->getUid());
+        //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($widgetProjects);
+
         $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('user', $this->user);
         $this->view->assign('widgetProjects', $widgetProjects);
@@ -125,10 +125,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function projectsShowAction() {
         $this->checkLogIn();
         //ToDo: Show hirachiche Structure of Projects
-        $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
-
-        $projects = $this->projectrightsRepository->findByProjectrightsUser($userUid);
-        
+        $projects = $this->findProjectTree();
 
         $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('user', $this->user);
@@ -265,6 +262,93 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         return $inboxHeader;
     }
+
+    /**
+     * Project Tree
+     * 
+     * Shows the user projects as tree
+     */
+    public function findProjectTree() {
+        $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
+
+        $projects = $this->projectrightsRepository->findByProjectrightsUser($userUid);
+
+        //write Array of all Porjects with user access
+        foreach ($projects as $project) {
+            $pro = $project->getProjectrightsProject();
+            $proArr[] = $pro;
+        }
+
+        //the Array:
+        //$returnedArray[0]['node']="Auto"
+        //$returnedArray[0]['subnodes'][0]['node']="Opel"
+        //$returnedArray[0]['subnodes'][1]['node']="Audi"
+        //$returnedArray[1]['node']="Motorrad"
+        //$returnedArray[1]['subnodes'][0]['node']="Yamaha"
+        //$returnedArray[1]['subnodes'][0]['subnodes'][0]['node']="YZF R1"
+        //$returnedArray[1]['subnodes'][0]['subnodes'][1]['node']="Tomcat"
+        foreach ($proArr as $single) {
+
+            //Level 1 Project
+            if ($single->getProjectParent() == 0) {
+                $proSort[$single->getUid()]['node'] = $single;
+            } else {
+                $parent = $this->projectRepository->findByUid($single->getProjectParent());
+                if ($parent->getProjectParent() == 0) {
+                    //Level2 Cat
+                    $proSort[$parent->getUid()]['subnodes'][$single->getUid()]['node'] = $single;
+                } else {
+                    $parent = $this->projectRepository->findByUid($parent->getProjectParent());
+                    if ($parent->getProjectParent() == 0) {
+                        $level2 = $single->getProjectParent();
+                        $level1 = $this->projectRepository->findByUid($level2);
+                        $level1 = $level1->getProjectParent();
+                        $proSort[$level1]['subnodes'][$level2]['subnodes'][$single->getUid()]['node'] = $single;
+                    } else {
+                        //Level 4 Cat
+                        $level3 = $single->getProjectParent();
+                        $level2 = $this->projectRepository->findByUid($level3);
+                        $level2 = $level2->getProjectParent();
+                        $level1 = $this->projectRepository->findByUid($level2);
+                        $level1 = $level1->getProjectParent();
+                        $proSort[$level1]['subnodes'][$level2]['subnodes'][$level3]['subnodes'][$single->getUid()] = $single;
+                        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($single, 'single');
+                    }
+                }
+            }
+        }
+
+
+        //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($proSort, 'sorted');
+        return $proSort;
+    }
+
+    /**
+     * Sticks or unsticks a project in project widget for the User
+     */
+    public function makeProjectStickyAction() {
+        $this->checkLogIn();
+        
+        if ($this->request->hasArgument('projectUid')) {
+            $projectUid = $this->request->getArgument('projectUid');
+        }
+        
+        $projectRights = $this->projectrightsRepository->findByProjectAndUser($projectUid, $this->user->getUid());
+        $projectRights = $projectRights[0];
+        
+        $sticky = $projectRights->getProjectrightsSticky();
+        if($sticky == 0) {
+            $projectRights->setProjectrightsSticky('1');
+        } else {
+            $projectRights->setProjectrightsSticky('0');
+        }
+        
+        $this->projectrightsRepository->update($projectRights);
+        
+        $this->redirect('index', 'Inbox');
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($projectRights, 'project');
+    \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->user->getUid(), 'user');
+        }
 
     /*
      * Shows the log-in Form

@@ -57,6 +57,26 @@ class ProjectrightsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository 
         return $query->execute();
     }
 
+        /**
+     * Find rights by User and project
+     * 
+     * Used in the sticky function on index page
+     * 
+     * @param $projectUid, $userUid
+     * @return 
+     */
+    public function findByProjectAndUser($projectUid, $userUid) {
+        $query = $this->createQuery();
+
+        $query->matching(
+                $query->logicalAnd(
+                        $query->equals('projectrightsUser', $userUid), 
+                        $query->equals('projectrightsProject', $projectUid)
+                )
+        );
+        return $query->execute();
+    }
+    
 //    
 //    
 //    

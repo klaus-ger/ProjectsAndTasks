@@ -12,6 +12,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_project (
     project_text text,
     project_sort int(11) DEFAULT '0' NOT NULL,
     project_status int(11) DEFAULT '0' NOT NULL,
+    project_level int(11) DEFAULT '0' NOT NULL,
     project_typ int(11) DEFAULT '0' NOT NULL,
     project_parent int(11) DEFAULT '0' NOT NULL,
     project_owner int(11) DEFAULT '0' NOT NULL,

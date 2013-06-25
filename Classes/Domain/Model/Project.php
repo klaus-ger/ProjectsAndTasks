@@ -70,7 +70,13 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $projectStatus;
-
+    
+    /**
+     * The ProjectLevel
+     * @var \int
+     * 
+     */
+    protected $projectLevel;
 
 
     /**
@@ -303,6 +309,14 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setProjectBudgetMoney($projectBudgetMoney) {
         $this->projectBudgetMoney = $projectBudgetMoney;
+    }
+
+    public function getProjectLevel() {
+        return $this->projectLevel;
+    }
+
+    public function setProjectLevel($projectLevel) {
+        $this->projectLevel = $projectLevel;
     }
 
 
