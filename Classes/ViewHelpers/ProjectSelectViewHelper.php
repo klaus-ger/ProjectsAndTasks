@@ -1,7 +1,8 @@
 <?php
 
 namespace T3developer\ProjectsAndTasks\ViewHelpers;
-/***************************************************************
+
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2012 Klaus Heuer 
@@ -22,49 +23,35 @@ namespace T3developer\ProjectsAndTasks\ViewHelpers;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
  *
  *
  * @package projects_and_tasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @author klaus heuer <klaus.heuer@t3-developer.com>
+ * @author klaus heuer klaus.heuer@t3-developer.com
  */
-
-class WorktimeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ProjectSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
     /**
      * Tx_Fluid_Core_ViewHelper_AbstractViewHelper
-     * View Helper to show the Worktime in hours
-     *  
-     * @param int $start
-     * @param int $end
+     * View Helper to show the Select Fields with Projects
      * 
-
+     * @param array $projectSelect
+     * 
      */
 
-
-        
-        
-  
     /**
      * Main method of the View Helper
      * 
-     * @param int $start
-     * @param int $end
-      */
-    public function render($start, $end) {
-        
-        if($end != null) {
-            $time = $end - $start;
-            $plantime = $time / 60;
-            $plantime = $plantime / 60 . ' h';
-        } else {
-            $plantime = '-';
-        }
-        
-        return $plantime;
-}
+     * @param array $projectSelect
+     */
+    public function render($projectSelect) {
+        $select = 'test';
+
+        return $select;
+    }
 
 }
+
 ?>

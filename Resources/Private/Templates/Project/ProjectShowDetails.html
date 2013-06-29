@@ -1,93 +1,78 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}   
 <f:layout name="Default" />
 
 <f:section name="main">
-<div id="pat">
+    <div id="pat">
 
-    <div class="stage-header">
-        <f:render partial="Project/ProjectHeader" arguments="{_all}" />
-    </div>
-
-
-    <div class="stage">
-        <h2>Projekt Details:</h2>
-        <f:render partial="Project/ProjectSubMenueProjectEdit" arguments="{_all}" />
-        
-        <div class="project-stage-left">
-             <h3>Details</h3>
-        <f:form method="post" controller="Project" action="projectUpdate" name="project" object="{project}"   >
-
-            <div class="stageItemTable">
-
-                <!--hidden fields -->
+        <div class="stage-header">
+            <f:render partial="Project/ProjectHeader" arguments="{_all}" />
+        </div>
 
 
+        <div class="stage">
+            <h2>Projekt Details:</h2>
+            <f:render partial="Project/ProjectSubMenueProjectEdit" arguments="{_all}" />
 
-                <!-- regular Fields -->
-                <div class="stageItemTableLabel">
-                    Project Titel
+            <br />
+            <div class="project-stage-left">
+
+                <div class="projectdetails-show-row">
+                    <div class="projectdetails-show-label">
+                        Project Titel
+                    </div> 
+                    <div class="projectdetails-show-content">
+                        {project.projectTitle}
+                    </div>
                 </div>
-                <div class="stageItemTableContent">
-                    <f:form.textfield property="projectTitle" value="{project.projectTitle}" class="fullWidth" />
-                </div>
-                <div class="stageItemTableDivider"></div>
 
-                <div class="stageItemTableLabel">
-                    Budget
+                <div class="projectdetails-show-row">
+                    <div class="projectdetails-show-label">
+                        Budget
+                    </div> 
+                    <div class="projectdetails-show-content">
+                        <vh:plantime time="{project.projectBudgetTime}" />
+                        &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{project.projectBudgetMoney} €
+                    </div>
                 </div>
-                <div class="stageItemTableContent">
-                    Zeit: <f:form.textfield property="projectBudgetTime" value="{project.projectBudgetTime}" class="fullWidth" />
-                    Betrag: <f:form.textfield property="projectBudgetMoney" value="{project.projectBudgetMoney}" class="fullWidth" />
 
+                <div class="projectdetails-show-row">
+                    <div class="projectdetails-show-label">
+                        Text
+                    </div> 
+                    <div class="projectdetails-show-content">
+                        {project.projectShort}
+                    </div>
                 </div>
-                <div class="stageItemTableDivider"></div>
 
+                <div class="projectdetails-show-row">
+                    <div class="projectdetails-show-label">
+                        Beschreibung
+                    </div> 
+                    <div class="projectdetails-show-content">
+                        <f:format.nl2br>{project.projectText}</f:format.nl2br>
+                    </div>
+                </div>
 
-                <div class="stageItemTableLabel">
-                    Kurztext
-                </div>
-                <div class="stageItemTableContent">
-                    <f:form.textarea  cols="45" rows="3" property="projectShort" value="{project.projectShort}" />
-                </div>
-                <div class="stageItemTableDivider"></div>
-
-                <div class="stageItemTableLabel">
-                    Beschreibung
-                </div>
-                <div class="stageItemTableContent">
-                    <f:form.textarea cols="45" rows="3" property="projectText" value="{project.projectText}" />
-                </div>
-                <div class="stageItemTableDivider"></div>
 
 
             </div>
 
 
 
+            <div class="project-stage-content-right">
+                <h3>Projekt User</h3>
 
-            <div class="formrow buttonrow">
-
-                <input type="button"  class="button lightbox-close" value="abbrechen"  />
-                <f:form.submit name="mySubmit" value="speichern" class="button" />
-
-                <input type="button"  class="button lightbox-close" value="schließen"  />
-
+                <f:for each="{projectuser}" as="puser">
+                    <div class="projectdetails-list-puser-item">
+                        <div class="projectdetails-list-puser-name">
+                            {puser.projectrightsUser.username}
+                        </div>
+                        <div class="projectdetails-list-puser-rights">
+                            {puser.projectrightsRights}
+                        </div>
+                    </div>
+                </f:for>
             </div>
-        </f:form>
-        </div>
-        <div class="project-stage-content-right">
-            <h3>Projekt User</h3>
-            
-            <f:for each="{projectuser}" as="puser">
-                <div class="projectdetails-list-puser-item">
-                    <div class="projectdetails-list-puser-name">
-                {puser.projectrightsUser.username}
-                    </div>
-                    <div class="projectdetails-list-puser-rights">
-                {puser.projectrightsRights}
-                    </div>
-                </div>
-            </f:for>
-        </div>
-    </div></div>
+        </div></div>
 
 </f:section>

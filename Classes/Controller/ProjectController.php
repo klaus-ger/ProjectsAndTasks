@@ -246,12 +246,18 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
 
     public function projectEditAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
-
+        
+        $projectSelect = $this->findProjectSelectArray();
+        
         $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
+        //ToDo: remove the projects if new projectViewHelper works
         $this->view->assign('projects', $this->projectRepository->findAll());
+        $this->view->assign('projectSelect', $projectSelect);
+        
         $this->view->assign('project', $project);
         $this->view->assign('menu', '1');
+        $this->view->assign('submenu', '2');
     }
 
     /*
@@ -396,6 +402,39 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         
         return $projectLevel;
             
+    }
+    
+    /**
+     * Project Select Array
+     * 
+     * Find Projects and group them for the select field
+     * 
+     * We Use only the first 3 Project Levels (instead of 4) to avoid
+     * a 5th project Level.
+     * 
+     * @return array
+     */
+    public function findProjectSelectArray(){
+        
+        $firstLevel = $this->projectRepository->findByProjectParent('0');
+        foreach ($firstLevel as $first){
+            $projectSelect[$first->getUid()]['node'] = $first;
+            
+            $secondLevel = $this->projectRepository->findByProjectParent($first->getUid());
+            if($secondLevel[0] != ''){
+            foreach ($secondLevel as $second){
+                $projectSelect[$first->getUid()]['subnodes'][$second->getUid()]['node'] = $second;
+                
+                $thirdLevel = $this->projectRepository->findByProjectParent($second->getUid());
+                if($thirdLevel != ''){
+                foreach ($thirdLevel as $third){
+                    $projectSelect[$first->getUid()]['subnodes'][$second->getUid()]['subnodes'][$third->getUid()] = $third;
+                }    
+                }
+            }
+            }
+        }
+        return $projectSelect;
     }
 
     public function checkLogIn() {

@@ -4,6 +4,9 @@
 <f:for each="{todos}" as="item">
 
     <div class="projectListItem">
+        <div class="status hidden">
+            {item.todoStatus}
+        </div>
         <div class="listIcon">
             <vh:todotype typ="{item.todoTyp}" status="{item.todoStatus}" />
         </div>

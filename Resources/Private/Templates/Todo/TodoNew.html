@@ -13,27 +13,17 @@
                 <h2>{todolist.todolistTitel}</h2>
                 {todolist.todolistDescription}
             </div>
-            <div class="project-stage-right">
-                <div class="button jqShowForm">
-                    ToDo hinzufügen
-                </div>
-            </div>
 
             <div class="clear"></div>
             <br/>
-
 
             <!--The form -->
             <div class="form">
                 <f:render partial="Todos/TodoFormNew" arguments="{_all}" />
             </div>
 
-
             <!-- The List -->
-
-            <f:link.action action="showPdf" controller="Todo" arguments="{todolist: todolist.uid}">
-                >>pdf
-            </f:link.action>
+            <f:render partial="Todos/TodoListSubMenu" arguments="{_all}" />
             <f:render partial="Todos/TodoList" arguments="{todos:todosAllFromList}" />
 
             <br />
@@ -46,8 +36,6 @@
             </div>
 
         </div>
-
-
 
     </div>
 

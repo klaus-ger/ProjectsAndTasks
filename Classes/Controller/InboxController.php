@@ -335,7 +335,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         
         $projectRights = $this->projectrightsRepository->findByProjectAndUser($projectUid, $this->user->getUid());
         $projectRights = $projectRights[0];
-        
+         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump( $projectRights );
         $sticky = $projectRights->getProjectrightsSticky();
         if($sticky == 0) {
             $projectRights->setProjectrightsSticky('1');
@@ -347,7 +347,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         
         $this->redirect('index', 'Inbox');
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($projectRights, 'project');
-    \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->user->getUid(), 'user');
+   
         }
 
     /*

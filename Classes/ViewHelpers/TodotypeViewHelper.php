@@ -27,29 +27,16 @@ namespace T3developer\ProjectsAndTasks\ViewHelpers;
 /**
  *
  *
- * @package wfp2_dmc_stammdaten
+ * @package projects_and_tasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @author klaus heuer <norman.moeller@wfp2.com>
+ * @author klaus heuer <klaus.heuer@t3-developer.com>
  */
 
 class TodotypeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
     /**
      * Tx_Fluid_Core_ViewHelper_AbstractViewHelper
-     * View Helper to show the Status of a single Termin
-     * Relation of Booked Customers to total seats of the Veranstaltungsort
+     * View Helper to show the Status of a Todo 
      * 
-     * Usage in fluid form: 
-     * For the Icon class (green, orange or red)
-     *    <vh:BuchungStatus termin='{termin.uid}' result='class' /> 
-     *    output: 'label-success', 'label-warning', 'label-important', depending on the calculated booking level
-     *
-     * For the Text (Mobil View)
-     *    <vh:BuchungStatus termin='{termin.uid}' result='text' /> 
-     *    output: 'Noch Plätze frei', 'Nur noch wenige Plätze frei' .. etc
-     * 
-     *     
-     * 
-     * The limit for the orange Booking Level is defined in line 81 $bookingLine
      *  
      * @param int $termin
      * @param string $result

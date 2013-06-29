@@ -2,8 +2,19 @@
 
 <f:for each="{works}" as="work">
     <div class="projectListItem">
+        <div class="status hidden">
+            {work.workStatus}
+        </div>
         <div class="listIcon">
-            <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+            <f:if condition="{work.workStatus} == 1">
+            <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_invoice_closed.png" width="16" height="16" alt="My Image" />
+            </f:if>
+            <f:if condition="{work.workStatus} == 5">
+            <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_invoice_open.png" width="16" height="16" alt="My Image" />
+            </f:if>
+            <f:if condition="{work.workStatus} == 6">
+            <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_invoice_closed.png" width="16" height="16" alt="My Image" />
+            </f:if>
         </div>
         <div class="listLeistungTitel">
             <f:link.action action="workEdit" controller="Work"arguments="{work:work.uid}">

@@ -51,7 +51,7 @@
                         </f:link.action>
                     </div>
                     <div class="inbox-project-list-sticky">
-                        <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
+                        <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level2.node.uid}">
                             sticky
                         </f:link.action>
                     </div>
@@ -70,7 +70,7 @@
                             </f:link.action>
                         </div>
                         <div class="inbox-project-list-sticky">
-                            <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
+                            <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level3.node.uid}">
                                 sticky
                             </f:link.action>
                         </div>
@@ -90,7 +90,7 @@
                                 </f:link.action>
                             </div>
                             <div class="inbox-project-list-sticky">
-                                <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
+                                <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level4.node.uid}">
                                     sticky
                                 </f:link.action>
                             </div>

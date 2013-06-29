@@ -1,0 +1,70 @@
+            <f:form method="post" controller="Work" action="workCreate" name="work" object="{work}"   >
+
+                <div class="stageItemTable">
+
+                    <!--hidden fields -->
+                    <f:form.textfield property="workProject" value="{work.workProject}" class="hidden" />
+
+                    <!-- regular Fields -->
+
+                    <div class="stageItemTableLabel">
+                        Titel
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.textfield property="workTitle" value="{work.workTitle}" class="fullWidth" />
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+                    <div class="stageItemTableLabel">
+                        KText
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.textarea  cols="45" rows="3" property="workDescription" value="{work.workDescription}" />
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+                    <div class="stageItemTableLabel">
+                        Status / Typ
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.select property="workStatus" options="{workstatus}" optionValueField="" optionLabelField="" />
+
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+
+
+                    <div class="stageItemTableLabel">
+                        Assigned Klaus: 4
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.textfield  property="workUser" value="{work.workUser}" />
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+                    <div class="stageItemTableLabel">
+                        Datum / Ende
+                    </div>
+                    <div class="stageItemTableContent">
+                        <f:form.textfield  class="datepicker" property="workDate" value="{work.workDate}" />
+
+                        <f:form.select property="workStart" options="{time}" optionValueField="" optionLabelField="" />
+                        <f:form.select property="workEnd" options="{time}" optionValueField="" optionLabelField="" />
+
+                    </div>
+                    <div class="stageItemTableDivider"></div>
+
+                </div>
+
+
+
+
+                <div class="formrow buttonrow">
+
+                    <input type="button"  class="button lightbox-close" value="abbrechen"  />
+                    <f:form.submit name="mySubmit" value="speichern" class="button" />
+
+                    <input type="button"  class="button lightbox-close" value="schließen"  />
+
+                </div>
+            </f:form>
