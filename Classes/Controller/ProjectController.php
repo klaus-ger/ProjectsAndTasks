@@ -124,7 +124,32 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function injectProjectrightsRepository(\T3developer\ProjectsAndTasks\Domain\Repository\ProjectrightsRepository $projectrightsRepository) {
         $this->projectrightsRepository = $projectrightsRepository;
     }
-
+    
+        /**
+     * Initializes the current action 
+     * @return void 
+     */
+    public function initializeAction() {
+        
+                $commentConfiguration = $this->arguments['project']->getPropertyMappingConfiguration();
+        $commentConfiguration->allowAllProperties();
+        $commentConfiguration
+                ->setTypeConverterOption(
+                ' TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter',
+                 \TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
+                TRUE
+        );
+     //   \TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter::
+        
+       // $this->getPropertyMappingConfiguration()->allowProperties('projectParent'); 
+        // this configures the parsing
+        if (isset($this->arguments['projectParent'])) {
+             $this->arguments['projectParent']
+                    ->getPropertyMappingConfiguration()
+                    
+                    ->allowProperties('projectParent');
+        }
+    }
     /*
      * Show Project Action
      */

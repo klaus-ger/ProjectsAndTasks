@@ -37,19 +37,57 @@ class ProjectSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
      * Tx_Fluid_Core_ViewHelper_AbstractViewHelper
      * View Helper to show the Select Fields with Projects
      * 
-     * @param array $projectSelect
-     * 
+     * @param array $projects
+     * @param array $selected
      */
 
     /**
      * Main method of the View Helper
      * 
-     * @param array $projectSelect
+     * @param array $projects
+     * @param int $selected
      */
-    public function render($projectSelect) {
-        $select = 'test';
+    public function render($projects, $selected) {
+       
+     $html = '<select name="tx_projectsandtasks_patsystem[project][projectParent]">';   
+     $html.= '<option value="0"> --- </option>' ;
+     foreach ($projects as $project){
+         if($project['node']->getUid() == $selected){
+             $html.= '<option selected="selected"';
+         }else {
+             $html.= '<option'; 
+         }
+        
+         $html.= ' value="'. $project['node']->getUid() . '">';
+         $html.= '<b>' . $project['node']->getProjectTitle() . '</b>'; 
+         $html. '</option>';
+         
+         foreach ($project['subnodes'] as $level2){
+            if($level2['node']->getUid() == $selected){
+                $html.= '<option selected="selected"';
+            }else {
+                $html.= '<option'; 
+            }
+            $html.= ' value="'. $level2['node']->getUid() . '">';
+            $html.= '--' . $level2['node']->getProjectTitle(); 
+            $html. '</option>';
+            
+            foreach ($level2['subnodes'] as $level3){
+            if($level3->getUid() == $selected){
+                $html.= '<option selected="selected"';
+            }else {
+                $html.= '<option'; 
+            }    
+            $html.= ' value="'. $level3->getUid() . '">';
+            $html.= '----' . $level3->getProjectTitle(); 
+            $html. '</option>';
+            }
+         }
+     }
+     $html.= '</select>';
 
-        return $select;
+
+        return $html;
     }
 
 }

@@ -1,3 +1,5 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+
 <f:layout name="Default" />
 
 <f:section name="main">
@@ -19,8 +21,6 @@
 
                 <!--hidden fields -->
 
-
-
                 <!-- regular Fields -->
                 <div class="stageItemTableLabel">
                     Project Titel 
@@ -34,8 +34,8 @@
                         Unterprojekt von:
                     </div>
                     <div class="projectdetails-form-puser-label">
-                        <f:form.select prependOptionLabel="---" property="projectParent" options="{projects}" optionValueField="uid" optionLabelField="projectTitle" />
-                    </div>
+                        <vh:projectSelect projects="{projectSelect}" selected="{project.projectParent}" />
+                         </div>
                 
                 
                 <div class="stageItemTableLabel">
