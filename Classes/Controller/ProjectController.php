@@ -130,8 +130,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @return void 
      */
     public function initializeAction() {
-        
-                $commentConfiguration = $this->arguments['project']->getPropertyMappingConfiguration();
+        if (isset($this->arguments['project'])) {
+        $commentConfiguration = $this->arguments['project']->getPropertyMappingConfiguration();
         $commentConfiguration->allowAllProperties();
         $commentConfiguration
                 ->setTypeConverterOption(
@@ -139,17 +139,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                  \TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
                 TRUE
         );
-     //   \TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter::
-        
-       // $this->getPropertyMappingConfiguration()->allowProperties('projectParent'); 
-        // this configures the parsing
-        if (isset($this->arguments['projectParent'])) {
-             $this->arguments['projectParent']
-                    ->getPropertyMappingConfiguration()
-                    
-                    ->allowProperties('projectParent');
         }
     }
+    
     /*
      * Show Project Action
      */
@@ -281,7 +273,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('projectSelect', $projectSelect);
         
         $this->view->assign('project', $project);
-        $this->view->assign('menu', '1');
+        $this->view->assign('menu', '2');
         $this->view->assign('submenu', '2');
     }
 
@@ -294,12 +286,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
 
     public function projectUpdateAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
-        $projectLevel = $this->findProjectLevel($project);
-        $project->setProjectLevel($projectLevel);
+        $time = $project->getProjectBudgetTime();
+        //
+        $time = $time * 3600;
+        $project->setProjectBudgetTime($time);
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($project);
         $this->projectRepository->update($project);
 
-        $this->redirect('index', 'Inbox');
+        //$this->redirect('index', 'Inbox');projectShowDetails
+        $this->redirect('projectShowDetails', 'Project', NULL, Array('project' => $project));
+        
     }
 
     /*

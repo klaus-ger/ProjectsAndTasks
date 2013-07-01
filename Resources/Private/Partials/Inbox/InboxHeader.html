@@ -34,7 +34,7 @@
 
         <div class="{f:if(condition:'{menu}==4',then:'item selected',else:'item')}">
 
-            <f:link.action action="todoShowMulti" controller="Todo"arguments="{project:projectHeader.project}">
+            <f:link.action action="showTodo" controller="Inbox">
                 ToDos ({inboxHeader.todo.open}/{inboxHeader.todo.all})
             </f:link.action>
 

@@ -1,0 +1,71 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="main">
+
+
+    <div class="stage">
+
+        <f:render partial="Inbox/InboxHeader" arguments="{_all}" />
+
+        <!------------------------------------------------------------------------------>
+        <br />
+        
+        <h2>ToDos</h2>
+
+        <f:for each="{todos}" as="item">
+
+            <div class="projectListItem">
+
+                <div class="listIcon">
+                    <vh:todotype typ="{item.todoTyp}" status="{item.todoStatus}" />
+                </div>
+                <div class="listTodoTitle"">
+                    <f:link.action action="todoEdit" controller="Todo"arguments="{todo:item.uid}">
+                        {item.titel}
+                    </f:link.action>
+                </div>
+            </div>
+
+            <f:for each="{item.todos}" as="todo">
+
+                <div class="projectListItem">
+                    <div class="status hidden">
+                        {todo.todoStatus}
+                    </div>
+                    <div class="listIcon">
+                        <vh:todotype typ="{todo.todoTyp}" status="{todo.todoStatus}" />
+                    </div>
+                    <div class="listTodoTitle"">
+                        <f:link.action action="todoEdit" controller="Todo"arguments="{todo:item.uid}">
+                            {todo.todoNr} | {todo.todoTitle}
+                        </f:link.action>
+                    </div>
+                    <div class="listTodoText">
+                        <f:format.crop maxCharacters="60" append="&nbsp;[...]">{todo.todoDescription}</f:format.crop>
+                    </div>
+                    <div class="listTodoAssigned">
+                        {todo.todoAssigned.firstName}
+                    </div>
+                    <div class="listTodoTime">
+                        <vh:plantime time="{todo.todoPlantime}" />
+                    </div>
+                    <div class="listTodoDate">
+                        <f:format.date format="d.m.Y">{todo.todoDate}</f:format.date>
+                    </div>
+                </div>
+
+            </f:for>   
+
+
+
+        </f:for>
+
+
+
+
+
+    </div>
+
+
+</f:section>

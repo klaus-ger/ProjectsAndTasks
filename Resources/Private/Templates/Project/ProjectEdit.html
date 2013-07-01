@@ -9,77 +9,12 @@
         <f:render partial="Project/ProjectHeader" arguments="{_all}" />
     </div>
     
-
     <div class="stage">
-        <h2>Project bearbeiten:</h2>
-        
         <f:render partial="Project/ProjectSubMenueProjectEdit" arguments="{_all}" />
+        <h2>Project bearbeiten:</h2>
+        <f:render partial="Project/ProjectEditForm" arguments="{_all}" />
         
-        <f:form method="post" controller="Project" action="projectUpdate" name="project" object="{project}"   >
-
-            <div class="stageItemTable">
-
-                <!--hidden fields -->
-
-                <!-- regular Fields -->
-                <div class="stageItemTableLabel">
-                    Project Titel 
-                </div>
-                <div class="stageItemTableContent">
-                    <f:form.textfield property="projectTitle" value="{project.projectTitle}" class="fullWidth" />
-                </div>
-                <div class="stageItemTableDivider"></div>
-
-                <div class="projectdetails-form-puser-label">
-                        Unterprojekt von:
-                    </div>
-                    <div class="projectdetails-form-puser-label">
-                        <vh:projectSelect projects="{projectSelect}" selected="{project.projectParent}" />
-                         </div>
-                
-                
-                <div class="stageItemTableLabel">
-                    Budget
-                </div>
-                <div class="stageItemTableContent">
-                    Zeit: <f:form.textfield property="projectBudgetTime" value="{project.projectBudgetTime}" class="fullWidth" />
-                    Betrag: <f:form.textfield property="projectBudgetMoney" value="{project.projectBudgetMoney}" class="fullWidth" />
-
-                </div>
-                <div class="stageItemTableDivider"></div>
-
-
-                <div class="stageItemTableLabel">
-                    Kurztext
-                </div>
-                <div class="stageItemTableContent">
-                    <f:form.textarea  cols="45" rows="3" property="projectShort" value="{project.projectShort}" />
-                </div>
-                <div class="stageItemTableDivider"></div>
-
-                <div class="stageItemTableLabel">
-                    Beschreibung
-                </div>
-                <div class="stageItemTableContent">
-                    <f:form.textarea cols="45" rows="3" property="projectText" value="{project.projectText}" />
-                </div>
-                <div class="stageItemTableDivider"></div>
-
-
-            </div>
-
-
-
-
-            <div class="formrow buttonrow">
-
-                <input type="button"  class="button lightbox-close" value="abbrechen"  />
-                <f:form.submit name="mySubmit" value="speichern" class="button" />
-
-                <input type="button"  class="button lightbox-close" value="schließen"  />
-
-            </div>
-        </f:form>
-    </div></div>
+    </div>
+</div>
 
 </f:section>

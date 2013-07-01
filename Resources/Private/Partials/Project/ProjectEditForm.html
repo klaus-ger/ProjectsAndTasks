@@ -1,0 +1,66 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+
+<vh:comment>
+    /**
+    * Partial Project Edit Form
+    * 
+    * Used for Edit and New Action
+    * Version 1.0.1 Build 1.7.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
+
+<f:form method="post" controller="Project" action="projectUpdate" name="project" object="{project}"   >
+
+    <div class="stageItemTable">
+
+        <!--hidden fields -->
+
+        <!-- regular Fields -->
+        <div class="projectdetails-form-rows">
+            <div class="projectdetails-form-project-label">
+                Project Titel 
+            </div>
+            <f:form.textfield property="projectTitle" value="{project.projectTitle}" class="fullWidth" />
+        </div>
+        
+        <div class="projectdetails-form-rows">
+            <div class="projectdetails-form-project-label">
+                Unterprojekt von:
+            </div>
+            <vh:projectSelect projects="{projectSelect}" selected="{project.projectParent}" />
+        </div>
+        
+        <div class="projectdetails-form-rows">
+            <div class="projectdetails-form-project-label">
+                Budget
+            </div>
+        
+            Zeit (h): <f:form.textfield property="projectBudgetTime" value="{vh:plantime(time:project.projectBudgetTime)}" class="" />
+            Betrag (€): <f:form.textfield property="projectBudgetMoney" value="{project.projectBudgetMoney}" class="" />
+
+        </div>
+        
+        <div class="projectdetails-form-rows">
+            <div class="projectdetails-form-project-label">        
+                Kurztext
+            </div>
+            <f:form.textarea  cols="45" rows="3" property="projectShort" value="{project.projectShort}" />
+        </div>
+        
+        <div class="projectdetails-form-rows">
+            <div class="projectdetails-form-project-label">
+                Beschreibung
+            </div>
+            <f:form.textarea cols="80" rows="10" property="projectText" value="{project.projectText}" />
+        </div>
+
+    </div>
+
+    <div class="formrow buttonrow">
+        <div class="projectdetails-form-project-label">&nbsp;</div>
+        <input type="button"  class="button lightbox-close" value="abbrechen"  />
+        <f:form.submit name="mySubmit" value="speichern" class="button" />
+        <input type="button"  class="button lightbox-close" value="schließen"  />
+    </div>
+    
+</f:form>

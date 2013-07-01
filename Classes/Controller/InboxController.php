@@ -50,6 +50,11 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $workRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TodolistRepository    
+     */
+    protected $todolistRepository;
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\TodoRepository   
      */
     protected $todoRepository;
@@ -81,6 +86,14 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function injectWorkRepository(\t3developer\ProjectsAndTasks\Domain\Repository\WorkRepository $workRepository) {
         $this->workRepository = $workRepository;
+    }
+
+    /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\TodolistRepository $todolistRepository
+     * @return void
+     */
+    public function injectTodolistRepository(\T3developer\ProjectsAndTasks\Domain\Repository\TodolistRepository $todolistRepository) {
+        $this->todolistRepository = $todolistRepository;
     }
 
     /**
@@ -226,6 +239,35 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * show Todo Action
+     * 
+     * shows the page with all todos for the user
+     */
+    public function showTodoAction() {
+       // $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
+        $this->checkLogIn();
+        $todos = $this->todoRepository->findByUserAndStatus($this->user->getUid(), '1');
+        foreach ($todos as $todo) {
+            $listUid = $todo->getTodoList();
+            $list = $this->todolistRepository->findByUid($listUid);
+            $projectUid = $list->getTodolistProject();
+            $project = $this->projectRepository->findByUid($projectUid);
+            $projectTitel = $project->getProjectTitle();
+            
+            $listi[$projectUid]['titel'] = $projectTitel;
+            $listi[$projectUid]['todos'][$todo->getUid()]=$todo;
+           // $listi[$projectUid] = $projectUid;
+            
+        }
+       // $todos = $projects;
+
+        $this->view->assign('inboxHeader', $this->searchHeaderData());
+        $this->view->assign('todos', $listi);
+        $this->view->assign('user', $this->user);
+        $this->view->assign('menu', '4');
+    }
+
+    /**
      * Writes the Array for header Navigation
      */
     public function searchHeaderData() {
@@ -328,27 +370,26 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function makeProjectStickyAction() {
         $this->checkLogIn();
-        
+
         if ($this->request->hasArgument('projectUid')) {
             $projectUid = $this->request->getArgument('projectUid');
         }
-        
+
         $projectRights = $this->projectrightsRepository->findByProjectAndUser($projectUid, $this->user->getUid());
         $projectRights = $projectRights[0];
-         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump( $projectRights );
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($projectRights);
         $sticky = $projectRights->getProjectrightsSticky();
-        if($sticky == 0) {
+        if ($sticky == 0) {
             $projectRights->setProjectrightsSticky('1');
         } else {
             $projectRights->setProjectrightsSticky('0');
         }
-        
+
         $this->projectrightsRepository->update($projectRights);
-        
+
         $this->redirect('index', 'Inbox');
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($projectRights, 'project');
-   
-        }
+    }
 
     /*
      * Shows the log-in Form

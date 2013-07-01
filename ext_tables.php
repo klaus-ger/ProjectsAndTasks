@@ -14,7 +14,7 @@ if (!defined ('TYPO3_MODE')) die ('Access denied.');
 $TCA['tx_projectsandtasks_domain_model_project'] = array(
     'ctrl' => array(
         'title' => 'Projects',
-        'label' => 'projects_title',
+        'label' => 'project_title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
