@@ -120,9 +120,14 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function indexAction() {
         $this->checkLogIn();
 
-        $projects = $this->projectRepository->findByOwner($this->user->getUid());
-        $widgetProjects = $this->projectrightsRepository->findByUserAndSticky($this->user->getUid());
-        //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($widgetProjects);
+        //Widget Sticky Projects
+        $projects = $this->projectrightsRepository->findByUserAndSticky($this->user->getUid());
+        foreach ($projects as $single) {
+            $countTodos = $this->countTodos($single->getProjectrightsProject()->getUid());
+            $single ->getProjectrightsProject()->setProjectOpenTodos($countTodos);
+            $widgetProjects[] = $single;
+        }
+        //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($widget);
 
         $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('user', $this->user);
@@ -137,7 +142,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function projectsShowAction() {
         $this->checkLogIn();
-        //ToDo: Show hirachiche Structure of Projects
+        
         $projects = $this->findProjectTree();
 
         $this->view->assign('inboxHeader', $this->searchHeaderData());
@@ -320,7 +325,14 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $pro = $project->getProjectrightsProject();
             $proArr[] = $pro;
         }
-
+        
+        //adds the open Todos to each project
+        foreach($proArr as $project){
+            $countTodos = $this->countTodos($project->getUid());
+            $project->setProjectOpenTodos($countTodos);
+            $proArrAdded[] = $project;
+        }
+      //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($proArrAdded, 'proArr');
         //the Array:
         //$returnedArray[0]['node']="Auto"
         //$returnedArray[0]['subnodes'][0]['node']="Opel"
@@ -329,7 +341,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         //$returnedArray[1]['subnodes'][0]['node']="Yamaha"
         //$returnedArray[1]['subnodes'][0]['subnodes'][0]['node']="YZF R1"
         //$returnedArray[1]['subnodes'][0]['subnodes'][1]['node']="Tomcat"
-        foreach ($proArr as $single) {
+        foreach ($proArrAdded as $single) {
 
             //Level 1 Project
             if ($single->getProjectParent() == 0) {
@@ -361,8 +373,30 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
 
-        //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($proSort, 'sorted');
+        //   
         return $proSort;
+    }
+
+    /**
+     * Count ToDos by project
+     * 
+     * The function finds all projectlist from a project and
+     * counts the todos
+     * 
+     * @param int $projectUid
+     * @return int $openTodos
+     */
+    public function countTodos($projectUid){
+        $count = 0;
+        $todolists = $this->todolistRepository->findByTodolistProject($projectUid);
+        if($todolists[0] != ''){
+            foreach ($todolists as $list) {
+                $todos = $this->todoRepository->findByListAndStatus($list->getUid(), '6');
+                $count = $count + count($todos);
+            }
+        }
+       
+        return $count;
     }
 
     /**

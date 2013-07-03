@@ -1,7 +1,8 @@
 <?php
+
 namespace T3developer\ProjectsAndTasks\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2013 
@@ -22,7 +23,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
  *
@@ -33,9 +34,6 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
  */
 class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-
-    
-    
     /**
      * The ProjectTitle
      * @var \string
@@ -70,14 +68,13 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $projectStatus;
-    
+
     /**
      * The ProjectLevel
      * @var \int
      * 
      */
     protected $projectLevel;
-
 
     /**
      * The projectParent
@@ -93,30 +90,34 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $projectOwner;
 
-        /**
+    /**
      * The projectIcon
      * @var \string
      * 
      */
     protected $projectIcon;
-    
-    
-        /**
+
+    /**
      * The projectIcon
      * @var \int
      * 
      */
     protected $projectBudgetTime;
-    
-        /**
+
+    /**
      * The projectIcon
      * @var \int
      * 
      */
     protected $projectBudgetMoney;
 
+    /**
+     * openTodos
+     * @var \int
+     */
+    protected $projectOpenTodos;
 
-        /**
+    /**
      *
      * Gets the Crdate
      * @return \int
@@ -125,7 +126,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     Public Function getCrdate() {
         Return $this->crdate;
     }
-    
+
     /**
      *
      * Gets the ProjectTitle
@@ -231,8 +232,6 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->projectStatus = $projectStatus;
     }
 
-
-
     /**
      *
      * Gets the ProjectParent
@@ -274,8 +273,8 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     Public Function setProjectOwner($projectOwner) {
         $this->projectOwner = $projectOwner;
     }
-    
-       /**
+
+    /**
      *
      * Gets the ProjectIcon
      * @return \string
@@ -295,6 +294,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     Public Function setProjectIcon($projectIcon) {
         $this->projectIcon = $projectIcon;
     }
+
     public function getProjectBudgetTime() {
         return $this->projectBudgetTime;
     }
@@ -319,6 +319,13 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->projectLevel = $projectLevel;
     }
 
+    public function getProjectOpenTodos($projectOpenTodos) {
+        return $this->projectOpenTodos;
+    }
+
+    public function setProjectOpenTodos($projectOpenTodos) {
+        $this->projectOpenTodos = $projectOpenTodos;
+    }
 
 }
 
