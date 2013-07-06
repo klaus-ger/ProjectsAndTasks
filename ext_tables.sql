@@ -20,6 +20,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_project (
     project_start int(11) DEFAULT '0' NOT NULL,
     project_budget_time int(11) DEFAULT '0' NOT NULL,
     project_budget_money int(11) DEFAULT '0' NOT NULL,
+    project_revision_date int(11) DEFAULT '0' NOT NULL,
 
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,

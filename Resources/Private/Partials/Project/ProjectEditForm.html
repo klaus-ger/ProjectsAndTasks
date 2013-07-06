@@ -4,8 +4,9 @@
     /**
     * Partial Project Edit Form
     * 
+    * @param {project}
     * Used for Edit and New Action
-    * Version 1.0.1 Build 1.7.2013 klaus.heuer@t3-developer.com
+    * Version 1.0.2 Build 6.7.2013 klaus.heuer@t3-developer.com
     */
 </vh:comment>
 
@@ -28,6 +29,14 @@
                 Unterprojekt von:
             </div>
             <vh:projectSelect projects="{projectSelect}" selected="{project.projectParent}" />
+        </div>
+        
+        <div class="projectdetails-form-rows">
+            <div class="projectdetails-form-project-label">
+                Status / Revision
+            </div>
+            <f:form.select property="projectStatus" options="{status}" optionValueField="" optionLabelField="" />
+            <f:form.textfield  class="datepicker" property="projectRevisionDate" value="{project.projectRevisionDate-> f:format.date( format: 'd.m.Y' )}" />
         </div>
         
         <div class="projectdetails-form-rows">

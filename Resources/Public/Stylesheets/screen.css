@@ -177,7 +177,17 @@ body {
 #pat ul.menu-level2 {
     margin-left: 10px;
 }
+/*  Stage  Cols********************************************************/
+#pat .stage-left-50 {
+    width: 450px;
+    float: left;
+}
 
+#pat .stage-right-50 {
+    width: 450px;
+    float: left;
+    margin-left: 15px;
+}
 /* typografie ********************************/
 #pat a {
     color: #666;
@@ -226,18 +236,38 @@ body {
     width: 16px;
 }
 
-
-
-/* InBox Stage ********************************************************/
-#pat .inbox-left {
-    width: 450px;
-    float: left;
+/* Widget Lists Styling ****************************************/
+#pat .widget-list-item {
+    border-bottom: 1px solid #EDEDED;
+    color: #666666;
+    font-family: "LatoLight";
+    font-size: 12px;
+    padding: 5px 0;
 }
 
-#pat .inbox-right {
-    width: 450px;
-    float: left;
-    margin-left: 15px;
+#pat .widget-list-item-icon {
+        display: inline-block;
+    vertical-align: middle;
+}
+
+#pat .widgte-list-item-title {
+    display: inline-block;
+    font-family: "LatoBold";
+    font-size: 12px;
+    padding-left: 15px;
+    width: 260px;
+}
+#pat .widget-list-item-field {
+    display: inline-block;
+    font-family: "LatoRegular";
+    font-size: 12px;
+    padding-left: 15px;
+}
+#pat .widget-list-item-field.normal{
+    width: 80px;
+}
+#pat .widget-list-item-field.small{
+    width: 30px;
 }
 
 /* InBox Widgets *****************************/
@@ -560,15 +590,18 @@ body {
     font-family:arial;
     font-size:10px;
     font-weight:normal;
-    padding:0px 18px;
+    padding: 0px 22px;
     text-decoration:none;
     text-shadow:1px 1px 0px #ffffff;
-}.button:hover {
+    margin: 10px 0;
+}
+.button:hover {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
     background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
     background-color:#dfdfdf;
-}.button:active {
+}
+.button:active {
     position:relative;
     top:1px;
 }

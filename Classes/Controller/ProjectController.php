@@ -140,6 +140,12 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 TRUE
         );
         }
+        if (isset($this->arguments['project'])) {
+            $this->arguments['project']
+                    ->getPropertyMappingConfiguration()
+                    ->forProperty('projectRevisionDate')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
+        }
     }
     
     /*
@@ -272,6 +278,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('projects', $this->projectRepository->findAll());
         $this->view->assign('projectSelect', $projectSelect);
         
+        $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableProjectStatus());
         $this->view->assign('project', $project);
         $this->view->assign('menu', '2');
         $this->view->assign('submenu', '2');

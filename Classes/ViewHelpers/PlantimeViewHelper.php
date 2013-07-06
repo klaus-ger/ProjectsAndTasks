@@ -51,7 +51,7 @@ class PlantimeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
             $plantime = $time / 60;
             $plantime = $plantime / 60;
         } else {
-            $plantime = '-';
+            $plantime = '0';
         }
 
         return $plantime;

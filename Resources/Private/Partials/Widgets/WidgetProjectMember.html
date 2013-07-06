@@ -1,0 +1,29 @@
+ {namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+
+<vh:comment>
+   /* Partial widget Messages
+    * Displays a List of Messages
+    *
+    * Version 1.0.1 Build 5.7.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
+
+<h2>Nachrichten</h2>
+<f:for each="{widgetProjects}" as="project">
+    <div class="projectListItem">
+        <div class="listIcon">
+            <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+        </div>
+        <div class="inbox-list-project-titel">
+            <f:link.action action="projectShow" controller="Project"arguments="{project: project.projectrightsProject}">
+                {project.projectrightsProject.projectTitle}
+            </f:link.action>
+        </div>
+
+        <div class="inbox-list-project-todo">
+            {project.projectrightsProject.projectOpenTodos} offene ToDos 
+        </div>
+    </div>
+</f:for>    
+
+<br>

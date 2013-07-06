@@ -34,6 +34,9 @@
                     {project.node.projectOpenTodos} ToDos
                 </div>
                 <div class="inbox-project-list-sticky">
+                    <f:format.date format="d.m.Y">{project.node.projectRevisionDate}</f:format.date>
+                </div>
+                <div class="inbox-project-list-sticky">
                     <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: project.node.uid}">
                         sticky
                     </f:link.action>
@@ -57,6 +60,9 @@
                         {level2.node.projectOpenTodos} ToDos
                     </div>
                     <div class="inbox-project-list-sticky">
+                        <f:format.date format="d.m.Y">{level2.node.projectRevisionDate}</f:format.date>
+                    </div>
+                    <div class="inbox-project-list-sticky">
                         <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level2.node.uid}">
                             sticky
                         </f:link.action>
@@ -76,7 +82,10 @@
                             </f:link.action>
                         </div>
                         <div class="inbox-project-list-sticky">
-                        {level3.node.projectOpenTodos} ToDos
+                            {level3.node.projectOpenTodos} ToDos
+                        </div>
+                        <div class="inbox-project-list-sticky">
+                            <f:format.date format="d.m.Y">{level3.node.projectRevisionDate}</f:format.date>
                         </div>
                         <div class="inbox-project-list-sticky">
                             <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level3.node.uid}">
@@ -100,6 +109,9 @@
                             </div>
                             <div class="inbox-project-list-sticky">
                                 {level4.projectOpenTodos} ToDos
+                            </div>
+                            <div class="inbox-project-list-sticky">
+                                <f:format.date format="d.m.Y">{level4.projectRevisionDate}</f:format.date>
                             </div>
                             <div class="inbox-project-list-sticky">
                                 <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level4.node.uid}">

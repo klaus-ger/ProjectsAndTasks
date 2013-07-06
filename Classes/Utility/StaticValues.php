@@ -42,7 +42,23 @@ class StaticValues {
         return array(
             '1' => 'offen',
             '3' => 'zu klären',
+            '5' => 'zur Prüfung',
             '6' => 'erledigt',
+
+        );
+    }
+    
+        /**
+     * Returns an array with all available Projectstatus
+     *
+     * @return array available projectstatus
+     */
+    public static function getAvailableProjectStatus() {
+        return array(
+            '1' => 'Planung',
+            '3' => 'in Bearbeitung',
+            '5' => 'abrechnen',
+            '6' => 'Archiv',
 
         );
     }

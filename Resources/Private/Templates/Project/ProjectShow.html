@@ -2,15 +2,55 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    
+
     <div id="pat">
         <div class="stage-header">
 
             <f:render partial="Project/ProjectHeader" arguments="{_all}" />
-            
+
         </div>
-        
+
         <div class="stage">
+            <div class="stage-left-50">
+                <h2>Neue Nachrichten</h2> 
+                <f:render partial="Widgets/WidgetMessages" arguments="{_all}" />
+                <br />
+                <h2>Project Member</h2> 
+                <f:render partial="Widgets/WidgetProjectMember" arguments="{_all}" />
+            </div>
+
+
+            <div class="stage-right-50">
+                <!-- Widget Todos -->
+                <h2>Offene Todos</h2>
+
+                <f:for each="{todos}" as="todo">
+                    <h4> {todo.lists.todolistTitel}</h4> {todo.lists.todolistDescription}<br>
+                    
+                    <f:render partial="Widgets/WidgetToDos" arguments="{todos:todo.todos}" />
+
+                    <div class="listTodoFooter">
+                        <f:link.action action="todoNew" controller="Todo"arguments="{list: todo.lists.uid}">
+                            <div class="button">Liste bearbeiten</div> 
+                        </f:link.action>
+                        {todo.all} ToDos insgesamt, {todo.open} offen.
+                    </div>
+                    <br /><br />
+                </f:for>
+                
+                <f:link.action action="todoListNew" controller="Todo"arguments="{project:project}">
+                    <div class="button">Neue Todo Liste anlegen</div>
+                </f:link.action>
+                
+                <br />
+                <br />
+                <!-- Widget Sub Projects -->
+                <h2>Unterprojekte</h2>
+                <f:render partial="Widgets/WidgetProjects" arguments="{_all}" />
+            </div>
+
+            <div class="clear"></div>
+
 
             <h2>Nachrichten</h2>
             <div class="projectListItem">
@@ -30,25 +70,7 @@
             <br ><br />
 
 
-            <h2>To-Do Listen</h2>
 
-            <f:for each="{todos}" as="todo">
-
-                <h4> {todo.lists.todolistTitel}</h4> {todo.lists.todolistDescription}<br>
-                <f:render partial="Todos/TodoList" arguments="{todos:todo.todos}" />
-
-                <div class="listTodoFooter">
-                    <f:link.action action="todoNew" controller="Todo"arguments="{list: todo.lists.uid}">
-                        <div class="button">Liste bearbeiten</div> 
-                    </f:link.action>
-                    {todo.all} ToDos insgesamt, {todo.open} offen.
-                </div>
-                <br /><br />
-            </f:for>
-            <br />
-            <f:link.action action="todoListNew" controller="Todo"arguments="{project:project}">
-                Neue Todo Liste anlegen
-            </f:link.action>
 
             <br ><br>
             <h2>Leistungen:</h2>
