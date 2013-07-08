@@ -36,7 +36,25 @@ class MessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
   //  protected $defaultOrderings = array('swCommentDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
    
     
+
+    /**
+     * Find messages by project and Status
+     * 
+     * @param $projectUid
+     * @param $status
+     * @return Tx_ProjectsAndTasks_Domain_Model_Messages
+     */
+    public function findByProjectAndStatus( $projectUid, $status) {
+        $query = $this->createQuery();
         
+        $query->matching(
+        $query->logicalAnd(
+            $query->equals('messageProject', $projectUid),
+            $query->equals('messageStatus', $status)
+            )
+        );
+        return $query->execute();
+    }        
    
 //    /**
 //     * Find openProjects
@@ -69,24 +87,7 @@ class MessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 //    } 
 
 
-//
-//    /**
-//     * Find plans by parent and pid
-//     * 
-//     * @param $parent $storagePid
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Plan
-//     */
-//    public function findByParentAndPid( $parent, $storagePid) {
-//        $query = $this->createQuery();
-//        $query->getQuerySettings()->setRespectStoragePage(FALSE);
-//        $query->matching(
-//        $query->logicalAnd(
-//            $query->equals('planParent', $parent),
-//            $query->equals('pid', $storagePid)
-//            )
-//        );
-//        return $query->execute();
-//    }
+
     
 }
 

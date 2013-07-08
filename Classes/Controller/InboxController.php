@@ -380,7 +380,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Count ToDos by project
      * 
-     * The function finds all projectlist from a project and
+     * The function finds all tododslist from a project and
      * counts the todos
      * 
      * @param int $projectUid

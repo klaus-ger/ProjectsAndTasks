@@ -155,7 +155,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function projectShowAction(\t3developer\ProjectsAndTasks\Domain\Model\Project $project) {
         $this->checkLogIn();
 
-        //load todo lists, todos and count itemss
+        //Widget ProjectView ToDos:
+        //load todo lists, todos and count items
+        //shows only the open todos per list
         $todoLists = $this->todolistRepository->findByTodolistProject($project->getUid());
         if ($todoLists[0] != '') {
             foreach ($todoLists as $lists) {
@@ -167,12 +169,24 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         $work = $this->workRepository->findByWorkProject($project->getUid());
-
+        
+        //Widget ProjectView: subProjects
+        $subProjects = $this->projectRepository->findByProjectParent($project->getUid());
+        foreach($subProjects as $single){
+            $single ->setProjectOpenTodos($this->countTodos($single->getUid()));
+            $subPro[$single->getUid()] = $single;
+        }
+        
+        //Widget ProejctView: Messages
+        //find all open Messages for the Project
+        $messages = $this->messageRepository->findByProjectAndStatus($project->getUid(), '1');
 
         $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('user', $this->user);
         $this->view->assign('project', $project);
+        $this->view->assign('subprojects', $subPro);
         $this->view->assign('todos', $todos);
+        $this->view->assign('messages', $messages);
         $this->view->assign('works', $work);
         $this->view->assign('menu', '1');
     }
@@ -465,6 +479,28 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         return $projectSelect;
     }
 
+        /**
+     * Count ToDos by project
+     * 
+     * The function finds all tododslist from a project and
+     * counts the todos
+     * 
+     * @param int $projectUid
+     * @return int $openTodos
+     */
+    public function countTodos($projectUid){
+        $count = 0;
+        $todolists = $this->todolistRepository->findByTodolistProject($projectUid);
+        if($todolists[0] != ''){
+            foreach ($todolists as $list) {
+                $todos = $this->todoRepository->findByListAndStatus($list->getUid(), '6');
+                $count = $count + count($todos);
+            }
+        }
+       
+        return $count;
+    }
+    
     public function checkLogIn() {
 
         $user = $GLOBALS['TSFE']->fe_user->user;

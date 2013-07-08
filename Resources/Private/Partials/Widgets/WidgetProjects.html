@@ -10,19 +10,19 @@
 </vh:comment>
 
 
-<f:for each="{widgetProjects}" as="project">
+<f:for each="{projects}" as="project">
     <div class="projectListItem">
         <div class="listIcon">
             <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
         </div>
         <div class="inbox-list-project-titel">
-            <f:link.action action="projectShow" controller="Project"arguments="{project: project.projectrightsProject}">
-                {project.projectrightsProject.projectTitle}
+            <f:link.action action="projectShow" controller="Project"arguments="{project: project.uid}">
+                {project.projectTitle}
             </f:link.action>
         </div>
 
         <div class="inbox-list-project-todo">
-            {project.projectrightsProject.projectOpenTodos} offene ToDos 
+            {project.projectOpenTodos} offene ToDos 
         </div>
     </div>
 </f:for>    

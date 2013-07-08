@@ -17,7 +17,7 @@
             <vh:todotype typ="{item.todoTyp}" status="{item.todoStatus}" />
         </div>
         <div class="widgte-list-item-title">
-            <f:link.action action="projectShow" controller="Project"arguments="{project: project.projectrightsProject}">
+            <f:link.action action="todoEdit" controller="Todo"arguments="{todo: item.uid}">
                 {item.todoNr} | {item.todoTitle}
             </f:link.action>
         </div>
@@ -31,4 +31,3 @@
     </div>
 </f:for>    
 
-<br>

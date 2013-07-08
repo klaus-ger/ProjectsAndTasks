@@ -255,7 +255,9 @@ body {
     font-family: "LatoBold";
     font-size: 12px;
     padding-left: 15px;
-    width: 260px;
+    width: 250px;
+     height: 17px;
+    overflow: hidden;
 }
 #pat .widget-list-item-field {
     display: inline-block;
@@ -267,7 +269,7 @@ body {
     width: 80px;
 }
 #pat .widget-list-item-field.small{
-    width: 30px;
+    width: 40px;
 }
 
 /* InBox Widgets *****************************/

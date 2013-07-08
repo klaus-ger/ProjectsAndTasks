@@ -2,26 +2,31 @@
 
 <vh:comment>
    /* Partial widget Messages
-    * Displays a List of the Messages
+    * The widget will display all projects of the user 
+    * which are marked as "sticky"
     *
-    * Version 1.0.1 Build 5.7.2013 klaus.heuer@t3-developer.com
+    * Version 1.0.1 Build 22.6.2013 klaus.heuer@t3-developer.com
     */
 </vh:comment>
 
 
-<f:for each="{widgetProjects}" as="project">
-    <div class="projectListItem">
-        <div class="listIcon">
+<f:for each="{messages}" as="message">
+    <div class="widget-list-item">
+        <div class="widget-list-item-icon">
             <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
         </div>
-        <div class="inbox-list-project-titel">
-            <f:link.action action="projectShow" controller="Project"arguments="{project: project.projectrightsProject}">
-                {project.projectrightsProject.projectTitle}
+        <div class="widgte-list-item-title">
+            <f:link.action action="messageEdit" controller="Message"arguments="{messageUid: message.uid}">
+                {message.messageTitle}
             </f:link.action>
         </div>
 
-        <div class="inbox-list-project-todo">
-            {project.projectrightsProject.projectOpenTodos} offene ToDos 
+        <div class="widget-list-item-field small">
+            {message.messageSender.username}
+        </div>
+        
+        <div class="widget-list-item-field normal">
+            <f:format.date format="d.m.Y">{message.messageDate}</f:format.date>
         </div>
     </div>
 </f:for>    

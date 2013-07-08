@@ -13,7 +13,7 @@
         <div class="stage">
             <div class="stage-left-50">
                 <h2>Neue Nachrichten</h2> 
-                <f:render partial="Widgets/WidgetMessages" arguments="{_all}" />
+                <f:render partial="Widgets/WidgetMessages" arguments="{messages: messages}" />
                 <br />
                 <h2>Project Member</h2> 
                 <f:render partial="Widgets/WidgetProjectMember" arguments="{_all}" />
@@ -22,22 +22,23 @@
 
             <div class="stage-right-50">
                 <!-- Widget Todos -->
-                <h2>Offene Todos</h2>
-
+                <f:if condition="{todos}">
+                    <f:then>
                 <f:for each="{todos}" as="todo">
-                    <h4> {todo.lists.todolistTitel}</h4> {todo.lists.todolistDescription}<br>
+                    <h2>Todos: {todo.lists.todolistTitel}</h2> {todo.lists.todolistDescription}<br>
                     
                     <f:render partial="Widgets/WidgetToDos" arguments="{todos:todo.todos}" />
 
                     <div class="listTodoFooter">
-                        <f:link.action action="todoNew" controller="Todo"arguments="{list: todo.lists.uid}">
-                            <div class="button">Liste bearbeiten</div> 
-                        </f:link.action>
                         {todo.all} ToDos insgesamt, {todo.open} offen.
                     </div>
-                    <br /><br />
+                    <br />
                 </f:for>
-                
+                </f:then>
+                    <f:else>
+                        <h2>Todos: bisher keine Liste angelegt</h2>
+                    </f:else>
+                </f:if>
                 <f:link.action action="todoListNew" controller="Todo"arguments="{project:project}">
                     <div class="button">Neue Todo Liste anlegen</div>
                 </f:link.action>
@@ -46,7 +47,15 @@
                 <br />
                 <!-- Widget Sub Projects -->
                 <h2>Unterprojekte</h2>
-                <f:render partial="Widgets/WidgetProjects" arguments="{_all}" />
+                <f:if condition="{subprojects}">
+                    <f:then>
+                        <f:render partial="Widgets/WidgetProjects" arguments="{projects: subprojects}" />
+                    </f:then>
+                    <f:else>
+                        <p>Keine Unterprojekte vorhanden.</p>
+                    </f:else>
+                </f:if>
+                
             </div>
 
             <div class="clear"></div>
