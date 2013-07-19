@@ -112,11 +112,17 @@ $TCA['tx_projectsandtasks_domain_model_message'] = array(
             'label' => 'Sender',
             'config' => array(
                 'type' => 'input',
-                'size' => 5,
+                'size' => 30,
             )
         ),
-        
-        
+        'message_receiver' => array(
+            'exclude' => 0,
+            'label' => 'Sender',
+            'config' => array(
+                'type' => 'input',
+                'size' => 30,
+            )
+        ),
     ),
 );
 ?>

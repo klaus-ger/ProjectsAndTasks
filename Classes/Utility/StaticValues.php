@@ -48,7 +48,7 @@ class StaticValues {
         );
     }
     
-        /**
+            /**
      * Returns an array with all available Projectstatus
      *
      * @return array available projectstatus
@@ -63,6 +63,7 @@ class StaticValues {
         );
     }
     
+
         /**
      * Returns an array with all available Todo Typ
      *

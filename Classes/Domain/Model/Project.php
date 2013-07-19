@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Klaus Heuer <klaus.heuer@t3-developer.com>
+ *  (c) 2013 
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,7 +28,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
 /**
  *
  *
- * @package projects_and_tasks
+ * @package commentreply
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -117,12 +117,14 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $projectOpenTodos;
 
-    /**
+        /**
      * openTodos
      * @var \DateTime
      */
     protected $projectRevisionDate;
 
+
+    
     /**
      *
      * Gets the Crdate
@@ -332,7 +334,6 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setProjectOpenTodos($projectOpenTodos) {
         $this->projectOpenTodos = $projectOpenTodos;
     }
-
     public function getProjectRevisionDate() {
         return $this->projectRevisionDate;
     }

@@ -234,6 +234,20 @@ body {
     display: inline-block;
     vertical-align: middle;
     width: 16px;
+    height: 16px;
+}
+
+#pat .toggle-icon-plus{
+    background: url("../Icons/icon_toggle_plus.png") no-repeat scroll 0 0 transparent; 
+    background-size: 16px 16px;
+    display: inline-block;
+    margin-right: 5px;
+}
+#pat .toggle-icon-minus{
+    background: url("../Icons/icon_toggle_minus.png") no-repeat scroll 0 0 transparent; 
+    background-size: 16px 16px;
+    display: inline-block;
+    margin-right: 5px;
 }
 
 /* Widget Lists Styling ****************************************/
@@ -256,8 +270,9 @@ body {
     font-size: 12px;
     padding-left: 15px;
     width: 250px;
-     height: 17px;
+         height: 17px;
     overflow: hidden;
+
 }
 #pat .widget-list-item-field {
     display: inline-block;

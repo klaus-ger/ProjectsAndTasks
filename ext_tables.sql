@@ -167,7 +167,8 @@ CREATE TABLE tx_projectsandtasks_domain_model_message (
     message_date int(11) DEFAULT '0' NOT NULL,
     message_project int(11) DEFAULT '0' NOT NULL,
     message_status int(3) DEFAULT '0' NOT NULL,
-    message_sender int(11) DEFAULT '0' NOT NULL,
+    message_sender varchar(255) DEFAULT '' NOT NULL,
+    message_receiver varchar(255) DEFAULT '' NOT NULL,
 
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,

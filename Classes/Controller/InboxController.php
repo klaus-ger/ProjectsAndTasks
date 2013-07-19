@@ -65,6 +65,11 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $projectrightsRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository   
+     */
+    protected $messageRepository;
+
+    /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository $userRepository
      * @return void
      */
@@ -113,25 +118,36 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository $messageRepository
+     * @return void
+     */
+    public function injectMessageRepository(\T3developer\ProjectsAndTasks\Domain\Repository\MessageRepository $messageRepository) {
+        $this->messageRepository = $messageRepository;
+    }
+
+    /**
      * Index Action
      * 
      * Shows the index Page of this extension
      */
     public function indexAction() {
         $this->checkLogIn();
-
+       // $test=$this->request->getArguments();
+       // \Tx_Extbase_Utility_Debugger::var_dump($test);
         //Widget Sticky Projects
         $projects = $this->projectrightsRepository->findByUserAndSticky($this->user->getUid());
         foreach ($projects as $single) {
             $countTodos = $this->countTodos($single->getProjectrightsProject()->getUid());
-            $single ->getProjectrightsProject()->setProjectOpenTodos($countTodos);
+            $single->getProjectrightsProject()->setProjectOpenTodos($countTodos);
             $widgetProjects[] = $single;
         }
-        //   \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($widget);
 
+        $messages = $this->messageRepository->findAll();
+        
         $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('user', $this->user);
         $this->view->assign('widgetProjects', $widgetProjects);
+        $this->view->assign('messages', $messages);
         $this->view->assign('menu', '1');
     }
 
@@ -142,7 +158,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function projectsShowAction() {
         $this->checkLogIn();
-        
+
         $projects = $this->findProjectTree();
 
         $this->view->assign('inboxHeader', $this->searchHeaderData());
@@ -249,7 +265,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * shows the page with all todos for the user
      */
     public function showTodoAction() {
-       // $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
+        // $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
         $this->checkLogIn();
         $todos = $this->todoRepository->findByUserAndStatus($this->user->getUid(), '1');
         foreach ($todos as $todo) {
@@ -258,18 +274,29 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $projectUid = $list->getTodolistProject();
             $project = $this->projectRepository->findByUid($projectUid);
             $projectTitel = $project->getProjectTitle();
-            
+
             $listi[$projectUid]['titel'] = $projectTitel;
-            $listi[$projectUid]['todos'][$todo->getUid()]=$todo;
-           // $listi[$projectUid] = $projectUid;
-            
+            $listi[$projectUid]['todos'][$todo->getUid()] = $todo;
+            // $listi[$projectUid] = $projectUid;
         }
-       // $todos = $projects;
+        // $todos = $projects;
 
         $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('todos', $listi);
         $this->view->assign('user', $this->user);
         $this->view->assign('menu', '4');
+    }
+    
+    /**
+     * MessagesShowAction
+     * 
+     * Shows all Messages for a user which are not linked to a project
+     * 
+     */
+    public function messagesShowAction(){
+        $this->checkLogIn();
+        $this->view->assign('inboxHeader', $this->searchHeaderData());
+        $this->view->assign('messages', $this->messageRepository->findAll());
     }
 
     /**
@@ -318,21 +345,21 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function findProjectTree() {
         $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
 
-        $projects = $this->projectrightsRepository->findByProjectrightsUser($userUid);
-
+        //$projects = $this->projectrightsRepository->findByProjectrightsUser($userUid);
+        $projects = $this->projectrightsRepository->findByUserAndStatus($userUid, '1');
         //write Array of all Porjects with user access
         foreach ($projects as $project) {
             $pro = $project->getProjectrightsProject();
             $proArr[] = $pro;
         }
-        
+
         //adds the open Todos to each project
-        foreach($proArr as $project){
+        foreach ($proArr as $project) {
             $countTodos = $this->countTodos($project->getUid());
             $project->setProjectOpenTodos($countTodos);
             $proArrAdded[] = $project;
         }
-      //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($proArrAdded, 'proArr');
+        //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($proArrAdded, 'proArr');
         //the Array:
         //$returnedArray[0]['node']="Auto"
         //$returnedArray[0]['subnodes'][0]['node']="Opel"
@@ -386,16 +413,16 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param int $projectUid
      * @return int $openTodos
      */
-    public function countTodos($projectUid){
+    public function countTodos($projectUid) {
         $count = 0;
         $todolists = $this->todolistRepository->findByTodolistProject($projectUid);
-        if($todolists[0] != ''){
+        if ($todolists[0] != '') {
             foreach ($todolists as $list) {
                 $todos = $this->todoRepository->findByListAndStatus($list->getUid(), '6');
                 $count = $count + count($todos);
             }
         }
-       
+
         return $count;
     }
 

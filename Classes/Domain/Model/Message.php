@@ -1,7 +1,8 @@
 <?php
+
 namespace T3developer\ProjectsAndTasks\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2013 
@@ -22,7 +23,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
  *
@@ -33,9 +34,6 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
  */
 class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-
-    
-    
     /**
      * The ProjectTitle
      * @var \string
@@ -72,12 +70,19 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $messageStatus;
 
     /**
-     * The Task ProjectStatus
-     * @var \T3developer\ProjectsAndTasks\Domain\Model\User
+     * The Messsage Sender
+     * @var \string
      * 
      */
     protected $messageSender;
-    
+
+    /**
+     * Message receiver
+     * @var \string
+     * 
+     */
+    protected $messageReceiver;
+
     public function getMessageTitle() {
         return $this->messageTitle;
     }
@@ -126,9 +131,13 @@ class Message extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->messageSender = $messageSender;
     }
 
+    public function getMessageReceiver() {
+        return $this->messageReceiver;
+    }
 
-
-
+    public function setMessageReceiver($messageReceiver) {
+        $this->messageReceiver = $messageReceiver;
+    }
 
 }
 

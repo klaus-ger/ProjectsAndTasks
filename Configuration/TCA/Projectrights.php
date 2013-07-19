@@ -71,9 +71,11 @@ $TCA['tx_projectsandtasks_domain_model_projectrights'] = array(
             'exclude' => 0,
             'label' => 'Project',
             'config' => array(
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim',
+                'type' => 'select',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_project',
+                'size' => 1,
+                'minitems' => 1,
+                'maxitems' => 1,
             )
         ),
         'projectrights_user' => array(

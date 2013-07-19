@@ -28,7 +28,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
 /**
  *
  *
- * @package T3 Contact
+ * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -72,6 +72,25 @@ class ProjectrightsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository 
                 $query->logicalAnd(
                         $query->equals('projectrightsUser', $userUid), 
                         $query->equals('projectrightsProject', $projectUid)
+                )
+        );
+        return $query->execute();
+    }
+    
+    /**
+     * Find projects by User and Status
+     * 
+     * 
+     * @param $projectUid, $userUid
+     * @return 
+     */
+    public function findByUserAndStatus($userUid, $status) {
+        $query = $this->createQuery();
+
+        $query->matching(
+                $query->logicalAnd(
+                        $query->equals('projectrightsUser', $userUid), 
+                        $query->lessThan('projectrightsProject.projectStatus', '6')
                 )
         );
         return $query->execute();

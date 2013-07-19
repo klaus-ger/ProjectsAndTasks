@@ -85,7 +85,25 @@ jQuery("document").ready(function(){
             });
         });
         
-        
+        //Inbox Project List: Toggle sub projects
+        $('.jqToggleProjects').click(function(e)  { 
+             var category = $(this).closest('li');
+             //toggle function
+             var subcategories = category.find('ul');
+             subcategories.toggle();
+             if(subcategories.hasClass('hidden'))subcategories.removeClass('hidden') ;
+             //change Icon
+             var icon  = category.find('.jqToggleProjects');
+             
+             if(icon.hasClass('toggle-icon-plus')){
+                 icon.removeClass('toggle-icon-plus');
+                 icon.addClass('toggle-icon-minus');
+             } else {
+                 icon.removeClass('toggle-icon-minus');
+                 icon.addClass('toggle-icon-plus');
+             }
+
+        });
         
     });
 

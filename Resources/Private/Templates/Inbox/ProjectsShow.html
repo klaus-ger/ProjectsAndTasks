@@ -18,12 +18,13 @@
         <h2>Projekte</h2>
 
         <div class="general-list-row">&nbsp;</div>
+        <ul>
         <f:for each="{projects}" as="project">
-
+            <li class="level1-wrapper">
             <!-- First Level Project -->
             <div class="general-list-row">
-                <div class="general-list-icon">
-                    <f:image src="uploads/pat/icon.gif" width="18"  alt="My Image" />
+                <div class="general-list-icon jqToggleProjects toggle-icon-plus">
+                    
                 </div>
                 <div class="inbox-project-list-titel">
                     <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
@@ -43,9 +44,9 @@
                 </div>
             </div>
 
-
+            <ul class="hidden">
             <f:for each="{project.subnodes}" as="level2">
-
+                <li class="level2-wrapper">
                 <!-- Second Level Project -->
                 <div class="general-list-row">
                     <div class="general-list-icon">
@@ -121,8 +122,11 @@
                         </div>
                     </f:for>
                 </f:for>
+                </li>
             </f:for>
-        </f:for>    
+            </ul></li>
+        </f:for> 
+        </ul>
 
         <br>
         <f:link.action action="projectNew" controller="Project">
