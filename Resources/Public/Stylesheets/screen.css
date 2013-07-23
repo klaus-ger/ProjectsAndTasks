@@ -65,10 +65,14 @@ body {
     margin: 0 auto;
     color: #ededed;
 }
+#pat .header-inner-right {
+    float: right;
+}
 #pat .header-inner h1 {
     float: left;
     font-size: 90%;
     line-height: 14px;
+    color: #bbb;
 }
 
 #pat .header-inner p, #pat .header-inner a {

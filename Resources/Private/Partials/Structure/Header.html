@@ -1,20 +1,45 @@
+<f:comment>
+    /**
+     * Partial Page Header ProjectsAndTasks
+     * 
+     * @param {user}
+     */
+</f:comment>
+
 <div id="header">
     <div class="header-inner">
-    <h1 ><em>PROJECTS and TASKS</em></h1>
-    
-    <div class="divider"></div>
-    
-    <f:link.action action="index" controller="Inbox">
-        Inbox
-    </f:link.action>
-  
-      <div class="divider"></div>
-      
-    <f:link.action action="showAllUsers" controller="User">
-        User
-    </f:link.action>
+        <h1 ><em>PROJECTS and TASKS</em></h1>
+
         <div class="divider"></div>
-        <p>Hallo {user.firstName}!</p>
+
+        <f:link.action action="index" controller="Inbox">
+            InBox
+        </f:link.action>
+        
+        <div class="divider"></div>
+        
+        <f:link.action action="projectsShow" controller="Inbox">
+            Projects
+        </f:link.action>
+
+        <div class="divider"></div>
+
+        <f:link.action action="showAllUsers" controller="User">
+            User
+        </f:link.action>
+        
+        <div class="divider"></div>
+        
+        <div class="header-inner-right">
+            
+            
+            <p>Hallo {user.firstName}!</p>
+            
+            <f:link.action action="index" controller="Settings">
+            <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_settings.png" width="20px" height="20px" alt="settings" />
+            </f:link.action>
+        </div>
+
     </div>
 </div>
 <div class="clear"></div>

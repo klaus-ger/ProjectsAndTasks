@@ -53,7 +53,7 @@
 
 
                     <div class="stageItemTableLabel">
-                        Assigned Klaus: 4 / Geplanter Zeitaufwand
+                        Assigned / Geplanter Zeitaufwand
                     </div>
                     <div class="stageItemTableContent">
                         <f:form.select property="todoAssigned" options="{user}" optionValueField="uid" optionLabelField="username" />
@@ -93,6 +93,7 @@
 
             <!-- The List -->
             <br /><br />
+            
             <f:render partial="Todos/TodoList" arguments="{todos:todosAllFromList}" />
         </div></div>
 

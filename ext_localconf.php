@@ -11,7 +11,8 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
                 'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
-                'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate'
+                'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate',
+                'Settings'=> 'index'
                 
 	),
 	// non-cacheable actions
@@ -22,7 +23,8 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
                 'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
-                'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate'
+                'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate',
+                'Settings'=> 'index'
                 
 	)
 );
