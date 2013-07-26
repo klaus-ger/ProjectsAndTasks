@@ -1,4 +1,8 @@
 jQuery("document").ready(function(){
+    
+
+    
+    
     // Datepicker, used in forms
     jQuery(function($){
         $.datepicker.regional['de'] = {
@@ -45,7 +49,7 @@ jQuery("document").ready(function(){
             $('html, body').animate({
                 scrollTop: 0
             });
-            });
+        });
             
         //ToDoList: Hide done todos
         $('.jqHideDoneTodos').click(function(e)  { 
@@ -53,13 +57,13 @@ jQuery("document").ready(function(){
             $('.projectListItem').each( function() { 
                 var status = $(this).find('.status').html();
                 if( status > 5){
-                $(this).addClass('hidden');
+                    $(this).addClass('hidden');
                 }
-           });
+            });
         });
         
         //ToDo List: Show All
-         $('.jqShowAllTodos').click(function(e)  { 
+        $('.jqShowAllTodos').click(function(e)  { 
             
             $('.projectListItem').each( function() { 
                 $(this).removeClass('hidden');
@@ -74,11 +78,11 @@ jQuery("document").ready(function(){
                 status = status.replace(/ /g,'');
                 if(status == 6)$(this).addClass('hidden');
                 if(status == 1)$(this).addClass('hidden');
-           });
+            });
         });
         
         //Work List: Show All
-         $('.jqShowAllWork').click(function(e)  { 
+        $('.jqShowAllWork').click(function(e)  { 
             
             $('.projectListItem').each( function() { 
                 $(this).removeClass('hidden');
@@ -87,28 +91,69 @@ jQuery("document").ready(function(){
         
         //Inbox Project List: Toggle sub projects
         $('.jqToggleProjects').click(function(e)  { 
-             var category = $(this).closest('li');
-             //toggle function
-             var subcategories = category.find('ul');
-             subcategories.toggle();
-             if(subcategories.hasClass('hidden'))subcategories.removeClass('hidden') ;
-             //change Icon
-             var icon  = category.find('.jqToggleProjects');
+            var category = $(this).closest('li');
+            //toggle function
+            var subcategories = category.find('ul');
+            subcategories.toggle();
+            if(subcategories.hasClass('hidden'))subcategories.removeClass('hidden') ;
+            //change Icon
+            var icon  = category.find('.jqToggleProjects');
              
-             if(icon.hasClass('toggle-icon-plus')){
-                 icon.removeClass('toggle-icon-plus');
-                 icon.addClass('toggle-icon-minus');
-             } else {
-                 icon.removeClass('toggle-icon-minus');
-                 icon.addClass('toggle-icon-plus');
-             }
+            if(icon.hasClass('toggle-icon-plus')){
+                icon.removeClass('toggle-icon-plus');
+                icon.addClass('toggle-icon-minus');
+            } else {
+                icon.removeClass('toggle-icon-minus');
+                icon.addClass('toggle-icon-plus');
+            }
 
         });
         
     });
 
 
+    //Load ToDo from List into Form
+    $('.jqLoadTodo').click(function(e)  { 
+        
+        var uid = $(this).find('.jqtodo_uid').html();
+        var storagePid = $('.jqStoragePid').html();
+        
+        $.ajax({
+            async: 'true',
+            url: 'index.php',       
+            type: 'POST',  
+          
+            data: {
+                eID: "ajaxDispatcher",   
+                request: {
+                    extensionName:  'ProjectsAndTasks',
+                    pluginName:     'patsystem',
+                    controller: 'Todo', 
+                    action:     'findTodoByAjax',
+                    arguments: {
+                        'uid': uid,
+                        'storagePid': storagePid
+                    }
+                } 
+            },
+            dataType: "json",       
+            
+            success: function(result) {
+                //result= 'test';
+                console.log(result);
+                console.log('jep');
 
+            },
+            error: function(error) {
+               
+                console.log(error);                
+            }
+        });
+        
+        
+        console.log(uid);
+    });
+    
       
 }); //End jquery
 

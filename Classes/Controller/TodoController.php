@@ -1,6 +1,6 @@
 <?php
 
-namespace T3developer\Projectsandtasks\Controller;
+namespace T3Developer\ProjectsAndTasks\Controller;
 
 /* * *************************************************************
  *  Copyright notice
@@ -214,6 +214,7 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     public function todoNewAction() {
         $list = $this->request->getArgument('list');
 
+        
         $newtodo = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todo');
         $newtodo->setTodolist($list);
         $newtodo->setTodoNr($this->todoRepository->getNextNumber($list));
@@ -311,6 +312,27 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $this->redirect('todoNew', 'Todo', NULL, Array('list' => $todo->getTodolist()));
     }
+    
+    
+    /**
+     * Find Todo by Ajax
+     * 
+     * @param: todoUid
+     *  @param storagePid 
+     */
+    public function findTodoByAjaxAction(){
+        if($this->request->hasArgument('uid')){
+            $todoUid = $this->request->getArgument('uid');
+        }
+        if($this->request->hasArgument('storagePid')){
+            $storagePid = $this->request->getArgument('storagePid');
+        }
+        //$arguments['storagePid'] =$this->settings['storagePid'];
+        $arguments['storagePid'] = $storagePid;
+        $arguments['todoUid'] = $todoUid;
+        return json_encode($arguments);
+    }
+
     /**
      * Show PDF Action
      *

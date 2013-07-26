@@ -1,11 +1,13 @@
 <?php
-/***************************************************************
- * Copyright notice
+
+/* * *************************************************************
+ * 
+ * Extbase Dispatcher for Ajax Calls TYPO3 6.1 namespaces
  *
- *	2010 Daniel Lienert <daniel@lienert.cc>, Michael Knoll <mimi@kaktusteam.de>
- * All rights reserved
+ * IMPORTANT Use this script only in Extensions with namespaces 
  *
- *
+ * Klaus Heuer <klaus.heuer@t3-developer.com>
+ * 
  * This script is part of the TYPO3 project. The TYPO3 project is
  * free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,37 +23,127 @@
  * GNU General Public License for more details.
  *
  * This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
- * This script loads the required environment to dispatch an extbase call
+ * Usage of this script:
  *
- * Include this script in ext_localconf:
- * $TYPO3_CONF_VARS['FE']['eID_include']['ajaxDispatcher'] = t3lib_extMgm::extPath('pt_extbase').'Classes/Utility/eIDDispatcher.php'
+ * - Copy this script in your Extension Dir in the Folder Classes
+ * - Set the Vendor and Extension Name in Line 82 + 83
+ * - Include the next line in the ext_localconf.php
+ * - $TYPO3_CONF_VARS['FE']['eID_include']['ajaxDispatcher'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('projects_and_tasks').'Classes/EidDispatcher.php';
  *
- *
- * @package Utility
- * @author Daniel Lienert <daniel@lienert.cc>
+ * Use for Ajax Calls in your jQuery Code:
+ * 
+ *     $('.jqAjax').click(function(e)  { 
+ *       var uid = $(this).find('.uid').html();
+ *       var storagePid = '11';
+ *       
+ *       $.ajax({
+ *           async: 'true',
+ *           url: 'index.php',       
+ *           type: 'POST',  
+ *         
+ *           data: {
+ *               eID: "ajaxDispatcher",   
+ *               request: {
+ *                   pluginName:  'patsystem',
+ *                   controller:  'Todo', 
+ *                   action:      'findTodoByAjax',
+ *                   arguments: {
+ *                       'uid': uid,
+ *                       'storagePid': storagePid
+ *                   }
+ *               } 
+ *           },
+ *           dataType: "json",       
+ *           
+ *           success: function(result) {
+ *               console.log(result);
+ *           },
+ *           error: function(error) {
+ *              console.log(error);                
+ *           }
+ *       });
  */
 
-       
-$controller = $_POST["request"]["controllerName"];
-require_once t3lib_extMgm::extPath('projects_and_tasks') . 'Classes/Utility/AjaxDispatcher.php';
 
-//Connect to database
-tslib_eidtools::connectDB();
+/**
+ * Gets the Ajax Call Parameters
+ */
+$ajax = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('request');
+        
+/**
+ * Set Vendor and Extension Name
+ * 
+ * Vendor Name like your Vendor Name in namespaces
+ * ExtensionName in upperCamelCase 
+ */
+$ajax['vendor'] = 'T3Developer'; 
+$ajax['extensionName'] = 'ProjectsAndTasks';
+        
+/**
+ * @var $TSFE \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+ */
+$TSFE = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController', $TYPO3_CONF_VARS, 0, 0);
+\TYPO3\CMS\Frontend\Utility\EidUtility::initLanguage();
+
+// Get FE User Information
+$TSFE->initFEuser();
+// Important: no Cache for Ajax stuff
+$TSFE->set_no_cache();
+
+//$TSFE->checkAlternativCoreMethods();
+$TSFE->checkAlternativeIdMethods();
+$TSFE->determineId();
+$TSFE->initTemplate();
+$TSFE->getConfigArray();
+\TYPO3\CMS\Core\Core\Bootstrap::getInstance()->loadConfigurationAndInitialize();
+
+$TSFE->cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
+$TSFE->settingLanguage();
+$TSFE->settingLocale();
+
+/**
+ * Initialize Database
+ */
+\TYPO3\CMS\Frontend\Utility\EidUtility::connectDB();
+
+/**
+ * @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager
+ */
+$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 
 
-// Init TSFE for database access
-$GLOBALS['TSFE'] = t3lib_div::makeInstance('tslib_fe', $TYPO3_CONF_VARS, 0, 0, true);
-$GLOBALS['TSFE']->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
-$GLOBALS['TSFE']->initFEuser();
-$dispatcher = t3lib_div::makeInstance('Tx_ProjectsAndTasks_Utility_AjaxDispatcher'); /** @var $dispatcher Tx_ProjectsAndTasks_Utility_AjaxDispatcher */
+/**
+ * Initialize Extbase bootstap
+ */
+$bootstrapConf['extensionName'] = $ajax['extensionName'];
+$bootstrapConf['pluginName'] = $ajax['pluginName'];
 
-// ATTENTION! Dispatcher first needs to be initialized here!!!
-echo $dispatcher->initCallArguments()->dispatch();
+$bootstrap = new TYPO3\CMS\Extbase\Core\Bootstrap();
+$bootstrap->initialize($bootstrapConf);
 
-//$controller = $_POST["request"]["controllerName"];
-//$controller = "sag ja";
-//echo 'say hello' . $controller;
+$bootstrap->cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tslib_cObj');
+
+/**
+ * Build the request
+ */
+$request = $objectManager->get('TYPO3\CMS\Extbase\Mvc\Request');
+
+$request->setControllerVendorName($ajax['vendor']);
+$request->setcontrollerExtensionName($ajax['extensionName']);
+$request->setPluginName($ajax['pluginName']);
+$request->setControllerName($ajax['controller']);
+$request->setControllerActionName($ajax['action']);
+$request->setArguments($ajax['arguments']);
+
+$response = $objectManager->create('TYPO3\CMS\Extbase\Mvc\ResponseInterface');
+
+$dispatcher = $objectManager->get('TYPO3\CMS\Extbase\Mvc\Dispatcher');
+
+$dispatcher->dispatch($request, $response);
+
+echo $response->getContent();
+//die();
 ?>

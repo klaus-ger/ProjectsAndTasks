@@ -3,7 +3,10 @@
 
 <f:for each="{todos}" as="item">
 
-    <div class="projectListItem">
+    <div class="general-list-row general-row-link jqLoadTodo">
+        <div class="jqtodo_uid status hidden">
+            {item.Uid}
+        </div>
         <div class="status hidden">
             {item.todoStatus}
         </div>

@@ -234,6 +234,12 @@ body {
     font-size: 12px;
 }
 
+#pat .general-row-link {
+    cursor: pointer;
+}
+#pat .general-row-link:hover {
+    background-color: #eee;
+}
 #pat .general-list-icon {
     display: inline-block;
     vertical-align: middle;

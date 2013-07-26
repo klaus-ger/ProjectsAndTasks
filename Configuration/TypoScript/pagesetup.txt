@@ -15,6 +15,11 @@ page {
      
         partialRootPath     = EXT:projects_and_tasks/Resources/Private/Page/Partial/
         layoutRootPath      = EXT:projects_and_tasks/Resources/Private/Page/Layout/
+
+        variables {
+
+
+            }
     }
       
     meta {

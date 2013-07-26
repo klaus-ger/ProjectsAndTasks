@@ -3,7 +3,7 @@
 
 config.tx_extbase{
     persistence{
-        storagePid = 81
+        storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
         classes{
  
             T3developer\ProjectsAndTasks\Domain\Model\User {
@@ -23,7 +23,7 @@ columns {
     	}
     }
 }
-
+plugin.tx_projectsandtasks.settings.storagePid
 plugin.tx_projectsandtasks {
     	view {
 		templateRootPath = EXT:projects_and_tasks/Resources/Private/Templates/
@@ -31,11 +31,11 @@ plugin.tx_projectsandtasks {
 		layoutRootPath   = EXT:projects_and_tasks/Resources/Private/Layouts/
 	}
     persistance {
-        storagePid = 81
+        storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
      
     }
     settings {
-        storagePid = 81
+        storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
         baseUrl    = {$plugin.tx_projectsandtasks.settings.baseUrl}
         
     }
