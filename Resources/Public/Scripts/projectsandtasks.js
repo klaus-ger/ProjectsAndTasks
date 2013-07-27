@@ -42,20 +42,13 @@ jQuery("document").ready(function(){
         $( "#datepicker2" ).datepicker(); 
     
     
-        //Shows the hidden Edit / New Form on List View
-        $('.form').hide();
-        $('.jqShowForm').click(function(e)  {  
-            $('.form').show();
-            $('html, body').animate({
-                scrollTop: 0
-            });
-        });
+        
             
         //ToDoList: Hide done todos
         $('.jqHideDoneTodos').click(function(e)  { 
-            
-            $('.projectListItem').each( function() { 
+            $('.jqLoadTodo').each( function() { 
                 var status = $(this).find('.status').html();
+                status = status.replace(/ /g,'');
                 if( status > 5){
                     $(this).addClass('hidden');
                 }
@@ -65,7 +58,7 @@ jQuery("document").ready(function(){
         //ToDo List: Show All
         $('.jqShowAllTodos').click(function(e)  { 
             
-            $('.projectListItem').each( function() { 
+            $('.jqLoadTodo').each( function() { 
                 $(this).removeClass('hidden');
             });
         });
@@ -111,7 +104,27 @@ jQuery("document").ready(function(){
         
     });
 
-
+    //Shows the hidden Edit / New Form on List View
+        $('.form').hide();
+        $('.jqShowForm').click(function(e)  {  
+            $('.form').show();
+            $('html, body').animate({
+                scrollTop: 80
+            });
+            var todoList = $('.jqTodoList').html();
+            $('.jqTodoFormUid').val('');
+            $('.jqTodoFormList').val(todoList);
+            $('.jqTodoFormTitle').val('');
+            $('.jqTodoFormDescription').val('');
+            $('.jqTodoFormStatus').val('');
+            $('.jqTodoFormTyp').val('');
+            $('.jqTodoFormUser').val('');
+            $('.jqTodoFormPlantime').val('');
+            $('.jqTodoFormStartdate').val('');
+            $('.jqTodoFormEnddate').val('');
+        });
+        
+        
     //Load ToDo from List into Form
     $('.jqLoadTodo').click(function(e)  { 
         
@@ -139,10 +152,23 @@ jQuery("document").ready(function(){
             dataType: "json",       
             
             success: function(result) {
-                //result= 'test';
+                $('.form').show();
+                $('html, body').animate({
+                    scrollTop: 80
+                });
+                var todoList = $('.jqTodoList').html();
+                $('.jqTodoFormUid').val(result.uid);
+                $('.jqTodoFormList').val(todoList);
+                $('.jqTodoFormTitle').val(result.todoTitel);
+                $('.jqTodoFormDescription').val(result.todoDescription);
+                $('.jqTodoFormStatus').val(result.todoStatus);
+                $('.jqTodoFormTyp').val(result.todoTyp);
+                $('.jqTodoFormUser').val(result.todoAssigned);
+                $('.jqTodoFormPlantime').val(result.todoPlantime);
+                $('.jqTodoFormStartdate').val(result.todoDate);
+                $('.jqTodoFormEnddate').val(result.todoEnd);
                 console.log(result);
-                console.log('jep');
-
+                
             },
             error: function(error) {
                

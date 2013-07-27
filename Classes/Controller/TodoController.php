@@ -215,9 +215,9 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $list = $this->request->getArgument('list');
 
         
-        $newtodo = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todo');
-        $newtodo->setTodolist($list);
-        $newtodo->setTodoNr($this->todoRepository->getNextNumber($list));
+        //$newtodo = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todo');
+        //$newtodo->setTodolist($list);
+        //$newtodo->setTodoNr($this->todoRepository->getNextNumber($list));
 
         $todoList = $this->todolistRepository->findByUid($list);
         $todosAllFromList = $this->todoRepository->findByTodoList($list);
@@ -229,7 +229,7 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $this->view->assign('typ', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTodoTyp());
         $this->view->assign('todolist', $todoList);
         $this->view->assign('todosAllFromList', $todosAllFromList);
-        $this->view->assign('todo', $newtodo);
+        //$this->view->assign('todo', $newtodo);
         $this->view->assign('menu', '4');
     }
 
@@ -250,7 +250,64 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
         $this->redirect('todoNew', 'Todo', NULL, Array('list' => $todo->getTodolist()));
     }
+    /*
+     * Save Todo Action
+     * 
+     * Important: The Form Values are set via Ajax. We have not a valid todo Object!
+     * 
+     * @return void
+     */
 
+    public function todoSaveAction() {
+        
+        $todo = $this->request->getArgument('todo');
+        
+        if($todo['uid'] == ''){
+            //Create New todo
+            $toDoDB = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todo');
+            $action = 'new';
+            $toDoDB->setTodoNr($this->todoRepository->getNextNumber($todo['todoList']));
+        } else {
+            //update Todo
+            $toDoDB = $this->todoRepository->findByUid($todo['uid']);
+            $action = 'update';
+        }
+        $start = explode(".", $todo[todoDate]);
+        $startDay = $start[0];
+        $startMonth = $start[1];
+        $startYear = $start[2];
+        $startDate = mktime(0,0,0,$startMonth,$startDay,$startYear);
+        
+        $end = explode(".", $todo[todoEnd]);
+        $endDay = $end[0];
+        $endMonth = $end[1];
+        $endYear = $end[2];
+        $endDate = mktime(0,0,0,$endMonth,$endDay,$endYear);
+        
+        $toDoDB->setTodoList($todo['todoList']);
+        $toDoDB->setTodoTyp($todo['todoTyp']);
+        $todoAssigned = $this->userRepository->findByUid($todo['todoAssigned']);
+        $toDoDB->setTodoAssigned($todoAssigned);
+        $toDoDB->setTodoTitle($todo['todoTitle']);
+        $toDoDB->setTodoDescription($todo['todoDescription']);
+        $toDoDB->setTodoStatus($todo['todoStatus']);
+        $toDoDB->setTodoDate($startDate);
+        $toDoDB->setTodoEnd($endDate);
+              
+        if($action == 'new'){
+            $this->todoRepository->add($toDoDB);
+        }
+        if($action == 'update'){
+            $this->todoRepository->update($toDoDB);
+        }
+        $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
+
+        //   $todo->setTodoOwner($userUid);
+        //$this->todoRepository->add($todo);
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todo);
+
+        $this->redirect('todoNew', 'Todo', NULL, Array('list' => $toDoDB->getTodolist()));
+    }
     /*
      * New Todo Action
      */
@@ -327,10 +384,25 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         if($this->request->hasArgument('storagePid')){
             $storagePid = $this->request->getArgument('storagePid');
         }
-        //$arguments['storagePid'] =$this->settings['storagePid'];
+        $todo = $this->todoRepository->findTodoByUidAndPid($todoUid, $storagePid)->toArray();
+        
+        $start = date("d.m.Y",$todo[0]->getTodoDate()->getTimestamp() );
+        if($todo[0]->getTodoEnd()){
+        $end = date("d.m.Y",$todo[0]->getTodoEnd()->getTimestamp() );
+        }
+        $result['uid'] = $todo[0]->getUid();
+        $result['todoTitel'] = $todo[0]->getTodoTitle();
+        $result['todoTyp'] = $todo[0]->getTodoTyp();
+        $result['todoAssigned'] = $todo[0]->getTodoAssigned()->getUid();
+        $result['todoDescription'] = $todo[0]->getTodoDescription();
+        $result['todoStatus'] = $todo[0]->getTodoStatus();
+        $result['todoDate'] = $start;
+        $result['todoEnd'] = $end;
+        $result['todoPlantime'] = $todo[0]->getTodoPlantime();
+        
         $arguments['storagePid'] = $storagePid;
         $arguments['todoUid'] = $todoUid;
-        return json_encode($arguments);
+        return json_encode($result);
     }
 
     /**

@@ -11,14 +11,14 @@
 
 
 
-<f:form method="post" controller="Todo" action="todoCreate" name="todo" object="{todo}"   >
+<f:form method="post" controller="Todo" action="todoSave" name="todo" object="{todo}"   >
 
     <div class="stageItemTable">
 
         <!--hidden fields -->
-        <f:form.textfield property="uid" value="{todo.uid}" class="hidden jqTodoFormUid" />
-        <f:form.textfield property="todoList" value="{todo.todoList}" class="hidden jqTodoFormList" />
-        <f:form.textfield property="todoNr" value="{todo.todoNr}" class="hidden" />
+        <f:form.textfield property="uid" value="" class="hidden jqTodoFormUid" />
+        <f:form.textfield property="todoList" value="" class="hidden jqTodoFormList" />
+        <f:form.textfield property="todoNr" value="" class="hidden" />
 
         <!-- regular Fields -->
 
@@ -65,7 +65,7 @@
             Datum / Ende
         </div>
         <div class="stageItemTableContent">
-            <f:form.textfield  property="todoDate" value="{todo.Date}" class="jqTodoFormStartdate datepicker"/>
+            <f:form.textfield   property="todoDate" value="{todo.Date}" class="jqTodoFormStartdate datepicker"/>
             <f:form.textfield  property="todoEnd" value="{todo.End}" class="jqTodoFormEnddate datepicker"/>
         </div>
         <div class="stageItemTableDivider"></div>

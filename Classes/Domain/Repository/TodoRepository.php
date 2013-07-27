@@ -127,6 +127,26 @@ class TodoRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         );
         return $query->execute();
     } 
+    
+    /**
+     * Find Todos By Uid and Pid
+     * 
+     * This query is needed for ajax calls
+     * @param int $todoUid 
+     * @param int $storagePid
+     * @return Tx_ProjectsAndTasks_Domain_Model_Project
+     */
+    public function findTodoByUidAndPid($todoUid, $storagePid){
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(FALSE);
+        $query->matching(
+                $query->logicalAnd(
+                    $query->equals('uid',$todoUid),
+                    $query->equals('pid',$storagePid)
+                     )
+        );
+        return $query->execute();
+    }
 //    
 //        /**
 //     * Find own Projects

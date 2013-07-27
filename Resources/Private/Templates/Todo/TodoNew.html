@@ -10,6 +10,7 @@
 
         <div class="stage">
             <div class="project-stage-left">
+                <div class="hidden jqTodoList">{todolist.uid}</div>
                 <h2>{todolist.todolistTitel}</h2>
                 {todolist.todolistDescription}
             </div>
@@ -19,7 +20,7 @@
 
             <!--The form -->
             <div class="form">
-                <f:render partial="Todos/TodoFormNew" arguments="{_all}" />
+                <f:render partial="Todos/TodoForm" arguments="{_all}" />
             </div>
 
             <!-- The List -->

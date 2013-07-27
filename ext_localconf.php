@@ -9,7 +9,7 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
                 'Inbox'   => 'index, showWork, projectsShow, makeProjectSticky, showTodo, messagesShow',
 		'Project' => 'projectShow, projectNew, projectCreate,  projectEdit, projectUpdate, projectShowDetails,projectEditUserRights, projectUpdateUserRights',
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
-                'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete, findTodoByAjax',
+                'Todo'    => 'todoSave, todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete, findTodoByAjax',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
                 'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate',
                 'Settings'=> 'index'
@@ -21,7 +21,7 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
 		'Inbox'   => 'index, showWork, projectsShow, makeProjectSticky, showTodo, messagesShow',
 		'Project' => 'projectShow, projectNew, projectCreate,  projectEdit, projectUpdate, projectShowDetails,projectEditUserRights, projectUpdateUserRights',
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
-                'Todo'    => 'todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete, findTodoByAjax',
+                'Todo'    => 'todoSave, todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete, findTodoByAjax',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
                 'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate',
                 'Settings'=> 'index'
