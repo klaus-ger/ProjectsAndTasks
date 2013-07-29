@@ -45,6 +45,16 @@ jQuery("document").ready(function(){
         
             
         //ToDoList: Hide done todos
+        $('.jqLoadTodo').each( function() { 
+                var status = $(this).find('.status').html();
+                status = status.replace(/ /g,'');
+                if( status > 5){
+                    $(this).addClass('hidden');
+                }
+                
+            });
+        
+        
         $('.jqHideDoneTodos').click(function(e)  { 
             $('.jqLoadTodo').each( function() { 
                 var status = $(this).find('.status').html();

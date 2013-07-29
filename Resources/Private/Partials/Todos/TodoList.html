@@ -1,5 +1,14 @@
 {namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}        
 
+<vh:comment>
+   /* Partial ToDoList
+    * 
+    * This List shwos a single toDo via jQuery in the form
+    * @param todos
+    * Version 1.0.1 Build 12.6.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
+
 
 <f:for each="{todos}" as="item">
 
@@ -12,9 +21,7 @@
             <vh:todotype typ="{item.todoTyp}" status="{item.todoStatus}" />
         </div>
         <div class="listTodoTitle"">
-            <f:link.action action="todoEdit" controller="Todo"arguments="{todo:item.uid}">
-                {item.todoNr} | {item.todoTitle}
-            </f:link.action>
+            {item.todoNr} | {item.todoTitle}
         </div>
         <div class="listTodoText">
             <f:format.crop maxCharacters="60" append="&nbsp;[...]">{item.todoDescription}</f:format.crop>
