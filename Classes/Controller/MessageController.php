@@ -182,9 +182,9 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function messageEditAction($messageUid) {
 
         $message = $this->messageRepository->findByUid($messageUid);
-        $project = $this->projectRepository->findByUid($message->getMessageProject());
+        //$project = $this->projectRepository->findByUid($message->getMessageProject());
 
-        $this->view->assign('projectHeader', $this->project->findProjectHeader($project));
+        //$this->view->assign('inboxHeader', $this->inbox->searchHeaderData());
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         $this->view->assign('user', $this->userRepository->findAll());
         $this->view->assign('message', $message);
@@ -205,6 +205,143 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->redirect('messageNew', 'Message', NULL, Array('project' => $message->getMessageProject()));
     }
 
+    public function checkMailserverAction() {
+
+        $server = "{xxxxx:110/pop3/notls}INBOX";
+        $user = "xxxxx";
+        $passwd = "xxxxx";
+
+        $imap = imap_open($server, $user, $passwd) or die("Could not open Mailbox - try again later!");
+
+        $check = imap_mailboxmsginfo($imap);
+        $newmails = $check->Recent;
+
+        for ($count = 1; $count <= $newmails; $count++) {
+            $mbox = $imap;
+            $mid = $count;
+            $struct = imap_fetchstructure($mbox, $mid);
+            
+
+    $parts = $struct->parts;
+    $i = 0;
+    if (!$parts) { /* Simple message, only 1 piece */
+        $attachment = array(); /* No attachments */
+        $content = imap_body($mbox, $mid);
+    } else { /* Complicated message, multiple parts */
+
+        $endwhile = false;
+
+        $stack = array(); /* Stack while parsing message */
+        $content = "";    /* Content of message */
+        $attachment = array(); /* Attachments */
+
+        while (!$endwhile) {
+            if (!$parts[$i]) {
+                if (count($stack) > 0) {
+                    $parts = $stack[count($stack)-1]["p"];
+                    $i     = $stack[count($stack)-1]["i"] + 1;
+                    array_pop($stack);
+                } else {
+                    $endwhile = true;
+                }
+            }
+
+            if (!$endwhile) {
+                /* Create message part first (example '1.2.3') */
+                $partstring = "";
+                foreach ($stack as $s) {
+                    $partstring .= ($s["i"]+1) . ".";
+                }
+                $partstring .= ($i+1);
+
+                if (strtoupper($parts[$i]->disposition) == "ATTACHMENT" || strtoupper($parts[$i]->disposition) == "INLINE") { /* Attachment or inline images */
+                    $filedata = imap_fetchbody($mbox, $mid, $partstring);
+                    if ( $filedata != '' ) {
+                        // handles base64 encoding or plain text
+                        $decoded_data = base64_decode($filedata);
+                        if ( $decoded_data == false ) {
+                            $attachment[] = array("filename" => $parts[$i]->parameters[0]->value,
+                                "filedata" => $filedata);
+                        } else {
+                            $attachment[] = array("filename" => $parts[$i]->parameters[0]->value,
+                                "filedata" => $decoded_data);
+                        }
+                    }
+                } elseif (strtoupper($parts[$i]->subtype) == "PLAIN" && strtoupper($parts[$i+1]->subtype) != "HTML") { /* plain text message */
+                    $content .= imap_fetchbody($mbox, $mid, $partstring);
+                } elseif ( strtoupper($parts[$i]->subtype) == "HTML" ) {
+                    /* HTML message takes priority */
+                    $content .= imap_fetchbody($mbox, $mid, $partstring);
+                }
+            }
+
+            if ($parts[$i]->parts) {
+                if ( $parts[$i]->subtype != 'RELATED' ) {
+                    // a glitch: embedded email message have one additional stack in the structure with subtype 'RELATED', but this stack is not present when using imap_fetchbody() to fetch parts.
+                    $stack[] = array("p" => $parts, "i" => $i);
+                }
+                $parts = $parts[$i]->parts;
+                $i = 0;
+            } else {
+                $i++;
+            }
+        } /* while */
+    } /* complicated message */
+
+    $ret = array();
+    //$ret['body'] = quoted_printable_decode($content);
+    $neu = htmlspecialchars($content, ENT_QUOTES);
+    $ret['body'] = $content ;
+    $ret['attachment'] = $attachment;
+    //return $ret;
+            \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($neu);
+            ///////////////////////////////////////////
+            $info = imap_header($imap, $count);
+            //$message = imap_qprint(imap_body($imap, $count));
+            $message = imap_body($imap, $count);
+            //$message = htmlentities($message, ENT_QUOTES);
+            $newmessage = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Message');
+
+            $newmessage->setMessageTitle($info->subject);
+            //$newmessage->setMessageText($message);
+            $newmessage->setMessageText($message);
+            $newmessage->setMessageDate($info->date);
+            $newmessage->setMessageSender($info->fromaddress);
+            $newmessage->setMessageReceiver($GLOBALS['TSFE']->fe_user->user['uid']);
+            
+            $this->messageRepository->add($newmessage);
+
+            
+           
+        }
+        //delete all Messages:
+        imap_delete($imap,'1:*');
+        imap_expunge($imap);
+        
+        imap_close($imap);
+
+
+
+    }
+
+
+
+       /*
+     * Shows the log-in Form
+     */
+
+    public function checkLogIn() {
+
+        $user = $GLOBALS['TSFE']->fe_user->user;
+
+        if ($user == null) {
+            $this->redirect('logIn', 'User');
+        } else {
+
+            $this->user = $this->userRepository->findByUid($user['uid']);
+        }
+    }
+    
 }
 
 ?>
