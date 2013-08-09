@@ -33,13 +33,15 @@ namespace T3developer\ProjectsAndTasks\Utility;
 class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
 
     const DEFAULT_DIRECOTRY_FONTS = 'EXT:projects_and_tasks/Classes/Utility/Tcpdf/fonts/';
-
+    const DEFAULT_DIRECOTRY_IMAGE = 'EXT:projects_and_tasks/Classes/Utility/Tcpdf/';
     /*
      * Defines the standard Header for t3-developer
      */
 
     public function Header() {
         $this->SetTopMargin($this->GetY());
+        $img_file = DEFAULT_DIRECOTRY_IMAGE.'logo.gif';
+        $this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
     }
 
     public function Footer() {
@@ -50,12 +52,13 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
         $this->SetFont('TRADEGOTHICLT', '', 7);
         // Page number
         $this->Cell(0, 10, 'Seite ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'L', 0, '', 0, false, 'T', 'M');
-        $this->SetX(170);
-        $this->Cell(0, 10, 'ProjectsAndTasks V: 0.2', 0, false, 'L', 0, '', 0, false, 'T', 'M');
+        $this->SetX(150);
+        $this->SetFont('TRADEGOTHICLT', '', 5);
+        $this->Cell(0, 10, 'Build by ProjectsAndTasks | A TYPO3 EXT by t3-developer.com V:0.2', 0, false, 'L', 0, '', 0, false, 'T', 'M');
     }
 
     public function CreateTextBox($textval, $x = 0, $y, $width = 0, $height, $fontsize, $fontstyle = '', $align = 'L', $fill) {
-        $this->SetXY($x + 25, $y); // 20 = margin left
+        $this->SetXY($x + 20, $y); // 20 = margin left
         $this->SetFont('Helvetica', $fontstyle, $fontsize);
         $this->Cell($width, $height, $textval, 0, false, $align, $fill);
     }
@@ -66,7 +69,7 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
      * @return void
      */
     //public function createInvoice(Tx_PiFaktura_Domain_Model_Process $process, $saveOnly = TRUE) {
-    public function createTodoPdf($todoList, $todos) {
+    public function createTodoPdf($todoList, $todos, $project) {
         
         //$this->addTTFfont( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(self::DEFAULT_DIRECOTRY_FONTS . 'latoregular.ttf', 'TrueTypeUnicode'));
 
@@ -81,7 +84,9 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
         $this->SetAutoPageBreak(TRUE);
 
         // Adressfeld
-        $this->CreateTextBox($todoList->getTodolistTitel(), 00, 40, 80, 10, 9, 'B');
+        $project = 'Projekt: '. $project->getProjectTitle();
+        $this->CreateTextBox($project, 00, 35, 60, 10, 9, 'B');
+        $this->CreateTextBox($todoList->getTodolistTitel(), 00, 40, 80, 10, 9, 'R');
 
         $this->writeTodos($todos);
 
@@ -261,14 +266,16 @@ EOD;
 
 
             // write the right cell
-            $this->MultiCell(80, 0, $row->getTodoDescription(), T, 'L', 0, 1, 70, $y_start, true, 0);
+            $this->MultiCell(55, 0, $row->getTodoDescription(), T, 'L', 0, 1, 70, $y_start, true, 0);
             $y_description = $this->GetY();
 
+            $this->MultiCell(55, 0, $row->getTodoComment(), T, 'L', 0, 1, 125, $y_start, true, 0);
+            if($this->GetY() > $y_description)$y_description = $this->GetY();
             // write the right cell
-            $this->MultiCell(20, 0, $time, T, 'C', 0, 1, 150, $y_start, true, 0);
+            $this->MultiCell(15, 0, $time, T, 'C', 0, 1, 180, $y_start, true, 0);
 
             // write the right cell
-            $this->MultiCell(20, 0, $status, T, 'C', 0, 1, 170, $y_start, true, 0);
+            //$this->MultiCell(20, 0, $status, T, 'C', 0, 1, 170, $y_start, true, 0);
 
             $timeTotal = $timeTotal + $openTime;
             
@@ -285,11 +292,11 @@ EOD;
         }
         $total = $timeTotal / 3600;
         $total = $total . 'h';
-        $this->MultiCell(10, 0, '', T, 'C', 0, 2, 20, $y_start, true, 0);
-        $this->MultiCell(40, 0, 'Gesamt-Zeit Staus Offen:', T, 'L', 0, 1, 30, $y_start, true, 0);
-        $this->MultiCell(80, 0, '', T, 'L', 0, 1, 70, $y_start, true, 0);
-        $this->MultiCell(20, 0, $total, T, 'C', 0, 1, 150, $y_start, true, 0);
-        $this->MultiCell(20, 0, '', T, 'C', 0, 1, 170, $y_start, true, 0);
+//        $this->MultiCell(10, 0, '', T, 'C', 0, 2, 20, $y_start, true, 0);
+//        $this->MultiCell(40, 0, 'Gesamt-Zeit Staus Offen:', T, 'L', 0, 1, 30, $y_start, true, 0);
+//        $this->MultiCell(80, 0, '', T, 'L', 0, 1, 70, $y_start, true, 0);
+//        $this->MultiCell(20, 0, $total, T, 'C', 0, 1, 150, $y_start, true, 0);
+//        $this->MultiCell(20, 0, '', T, 'C', 0, 1, 170, $y_start, true, 0);
     }
 
 }
