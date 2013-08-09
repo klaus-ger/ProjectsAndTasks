@@ -1,0 +1,69 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+
+<vh:comment>
+    /* Partial Inbox Header
+    * All datas were collected in the function "findProjectHeader" in ProjectController
+    *
+    * Version 1.0.1 Build 16.6.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
+
+<h1>Calender</h1>
+<h3>Subtitel steht hier </h3>
+<div class="stage-header-shield">
+
+    <div class="stage-header-menu">
+        <div class="{f:if(condition:'{menu}==1',then:'item selected',else:'item')}">
+            <f:link.action action="index" controller="Inbox">
+                Übersicht
+            </f:link.action>
+        </div>
+
+
+        <div class="{f:if(condition:'{menu}==2',then:'item selected',else:'item')}">
+            <f:link.action action="projectsShow" controller="Inbox">
+                Projekte ({inboxHeader.projects.all})
+            </f:link.action>
+        </div>
+
+        <div class="{f:if(condition:'{menu}==3',then:'item selected',else:'item')}">
+            <f:link.action action="messagesShow" controller="Inbox">
+                Nachrichten (na/na)
+            </f:link.action>
+        </div>
+
+        <div class="{f:if(condition:'{menu}==4',then:'item selected',else:'item')}">
+
+            <f:link.action action="showTodo" controller="Inbox">
+                ToDos ({inboxHeader.todo.open}/{inboxHeader.todo.all})
+            </f:link.action>
+
+
+        </div>
+
+        <div class="{f:if(condition:'{menu}==5',then:'item selected',else:'item')}">
+            <f:link.action action="showWork" controller="Inbox">
+                Leistungen (na/na)
+            </f:link.action>
+        </div>
+        <div class="item">
+            <a href="#">
+                Fakturierung (na/na)  
+            </a>
+        </div>
+
+
+    </div>
+    <div class="stage-header-decription">
+
+        <p>Summe aller Todos:<br>
+            abrechenbare Leistungen: <vh:plantime time="{inboxHeader.work.all}" />
+        </p>
+    </div>
+
+    <div class="stage-header-decription {f:if(condition:'{menu}==1',then:'',else:'hidden')}">
+        <f:format.html>
+            {project.projectText}
+        </f:format.html>
+    </div>
+</div>
