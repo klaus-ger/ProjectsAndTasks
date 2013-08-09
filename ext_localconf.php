@@ -11,7 +11,9 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
                 'Todo'    => 'todoSave, todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete, findTodoByAjax',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
-                'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate',
+                'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate,
+                              checkMailserver',
+                'Calender'=> 'index',
                 'Settings'=> 'index'
                 
 	),
@@ -23,7 +25,9 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
                 'Todo'    => 'todoSave, todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete, findTodoByAjax',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',
-                'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate',
+                'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate,
+                              checkMailserver',
+                'Calender'=> 'index',
                 'Settings'=> 'index'
                 
 	)

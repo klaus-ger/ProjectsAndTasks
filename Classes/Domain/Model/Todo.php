@@ -71,6 +71,13 @@ class Todo extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $todoDescription;
 
+        /**
+     * The Task TodoComment
+     * @var \string
+     * 
+     */
+    protected $todoComment;
+    
     /**
      * The Task ProjectStatus
      * @var \int
@@ -188,6 +195,14 @@ class Todo extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setTodoNr($todoNr) {
         $this->todoNr = $todoNr;
     }
+    public function getTodoComment() {
+        return $this->todoComment;
+    }
+
+    public function setTodoComment($todoComment) {
+        $this->todoComment = $todoComment;
+    }
+
 
 
 

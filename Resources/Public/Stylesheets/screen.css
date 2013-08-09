@@ -819,7 +819,87 @@ body {
     width: 280px;
 }
 
+/* FORMS **********************************************************************/
+.form-left {
+    
+    float: left;
+    margin-right: 2px;
+    margin-left: 10px;
+    width: 685px;
+}
 
+.input-wrap {
+    
+    background-image: linear-gradient(#FDFDFD, #FAFAFA);
+    border: 1px solid #E6E6E6;
+    border-radius: 4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#777777;
+    font-size:11px;
+    font-weight:normal;
+    
+    text-decoration:none;
+    text-shadow:1px 1px 0px #ffffff;
+    margin: 1px 0;
+}
+.input-wrap label {
+    display: inline;
+    width: 100px;
+    text-align: right;
+    padding: 4px 0;
+}
+.form-right label{
+    width: 60px;
+}
+.input-wrap input,
+.input-wrap textarea,
+.input-wrap select{
+    background: none;
+    margin-left: 100px;
+    border: none;
+    width: 300px;
+    font-size:11px;
+    padding: 9px;
+    margin-left: 5px;
+}
+.input-wrap textarea {
+    height: 62px;
+}
+.input-wrap textarea.heigh{
+    height: 200px;
+}
+.input-wrap select option {
+    margin: 2px;
+}
+.input-wrap .left-large{
+    width: 316px;
+}
+.input-wrap .left-small{
+    width: 132px;
+}
+
+.input-wrap .left-fullwidth{
+    width: 560px;
+}
+.input-wrap .right{
+    width: 140px;
+}
+.input-wrap .right.small{
+    width: 123px;
+}
+.input-wrap .datepicker.right{
+    width: 123px;
+}
+.form-button {
+    width: 209px;
+    padding: 7px 0;
+    margin: 0;
+    cursor: pointer;
+}
 .clear {
     clear: both;
 }

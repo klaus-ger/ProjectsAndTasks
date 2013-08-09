@@ -60,6 +60,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_todo (
     todo_assigned int(11) unsigned DEFAULT '0' NOT NULL, 
     todo_title varchar(100) DEFAULT '' NOT NULL,
     todo_description text,
+    todo_comment text,
     todo_status int(11) DEFAULT '0' NOT NULL,
     todo_date int(11) DEFAULT '0' NOT NULL,
     todo_end int(11) DEFAULT '0' NOT NULL,
@@ -95,6 +96,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_todolist (
     todolist_project int(11) unsigned DEFAULT '0' NOT NULL, 
     todolist_titel varchar(100) DEFAULT '' NOT NULL,
     todolist_description text,
+    
     todolist_owner int(11) unsigned DEFAULT '0' NOT NULL,
     todolist_status int(11) DEFAULT '0' NOT NULL,
 
@@ -162,7 +164,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_message (
     deleted tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     hidden tinyint(4) unsigned DEFAULT '0' NOT NULL, 
 	
-    message_title varchar(30) DEFAULT '' NOT NULL,
+    message_title varchar(150) DEFAULT '' NOT NULL,
     message_text text,
     message_date int(11) DEFAULT '0' NOT NULL,
     message_project int(11) DEFAULT '0' NOT NULL,
@@ -221,6 +223,36 @@ CREATE TABLE tx_projectsandtasks_domain_model_projectrights (
     KEY parent (pid)
 );
 
+CREATE TABLE tx_projectsandtasks_domain_model_calender_daynotes (
+    uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
+    pid int(11) DEFAULT '0' NOT NULL,
+
+    tstamp int(11) unsigned DEFAULT '0' NOT NULL, 
+    crdate int(11) unsigned DEFAULT '0' NOT NULL, 
+    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL, 
+    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL, 
+	
+    calender_user int(11) DEFAULT '0' NOT NULL,
+    calender_date int(11) DEFAULT '0' NOT NULL,
+    calender_daynote text,
+
+    t3ver_oid int(11) DEFAULT '0' NOT NULL,
+    t3ver_id int(11) DEFAULT '0' NOT NULL,
+    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
+    t3ver_label varchar(30) DEFAULT '' NOT NULL,
+    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
+    t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
+    t3ver_count int(11) DEFAULT '0' NOT NULL,
+    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
+    t3_origuid int(11) DEFAULT '0' NOT NULL,
+
+    sys_language_uid int(11) DEFAULT '0' NOT NULL,
+    l18n_parent int(11) DEFAULT '0' NOT NULL,
+    l18n_diffsource mediumblob NOT NULL,
+
+    PRIMARY KEY (uid),
+    KEY parent (pid)
+);
 
 
 

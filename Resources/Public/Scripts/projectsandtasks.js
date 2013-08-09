@@ -126,6 +126,7 @@ jQuery("document").ready(function(){
             $('.jqTodoFormList').val(todoList);
             $('.jqTodoFormTitle').val('');
             $('.jqTodoFormDescription').val('');
+            $('.jqTodoFormComment').val('');
             $('.jqTodoFormStatus').val('');
             $('.jqTodoFormTyp').val('');
             $('.jqTodoFormUser').val('');
@@ -171,6 +172,7 @@ jQuery("document").ready(function(){
                 $('.jqTodoFormList').val(todoList);
                 $('.jqTodoFormTitle').val(result.todoTitel);
                 $('.jqTodoFormDescription').val(result.todoDescription);
+                $('.jqTodoFormComment').val(result.todoComment);
                 $('.jqTodoFormStatus').val(result.todoStatus);
                 $('.jqTodoFormTyp').val(result.todoTyp);
                 $('.jqTodoFormUser').val(result.todoAssigned);

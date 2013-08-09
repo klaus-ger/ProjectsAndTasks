@@ -99,6 +99,14 @@ $TCA['tx_projectsandtasks_domain_model_todo'] = array(
                 'size' => 5,
             )
         ),
+        'todo_comment' => array(
+            'exclude' => 0,
+            'label' => 'Status',
+            'config' => array(
+                'type' => 'input',
+                'size' => 5,
+            )
+        ),
         'todo_status' => array(
             'exclude' => 0,
             'label' => 'Elternelement ID',

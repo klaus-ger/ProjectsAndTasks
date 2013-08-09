@@ -2,13 +2,13 @@
 
 <vh:comment>
     /* Partial Inbox Header
-    * All datas were collected in the function "findProjectHeader" in ProjectController
+    * All datas were collected in the function "xxx" in ProjectController
     *
-    * Version 1.0.1 Build 16.6.2013 klaus.heuer@t3-developer.com
+    * Version 1.0.1 Build 6.8.2013 klaus.heuer@t3-developer.com
     */
 </vh:comment>
 
-<h1>Inbox</h1>
+<h1>InBox</h1>
 <h3>Subtitel steht hier </h3>
 <div class="stage-header-shield">
 
@@ -56,14 +56,8 @@
     </div>
     <div class="stage-header-decription">
 
-        <p>Summe aller Todos:<br>
-            abrechenbare Leistungen: <vh:plantime time="{inboxHeader.work.all}" />
+        <p>Header inhalt<br>
+           blabla
         </p>
-    </div>
-
-    <div class="stage-header-decription {f:if(condition:'{menu}==1',then:'',else:'hidden')}">
-        <f:format.html>
-            {project.projectText}
-        </f:format.html>
     </div>
 </div>

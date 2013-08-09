@@ -9,7 +9,8 @@
     * Version 1.0.2 Build 6.7.2013 klaus.heuer@t3-developer.com
     */
 </vh:comment>
-
+<br />
+<div class="clear"></div>
 <f:form method="post" controller="Project" action="projectUpdate" name="project" object="{project}"   >
 
     <div class="stageItemTable">
@@ -17,59 +18,66 @@
         <!--hidden fields -->
 
         <!-- regular Fields -->
-        <div class="projectdetails-form-rows">
-            <div class="projectdetails-form-project-label">
-                Project Titel 
+
+        <div class="form-left">
+
+            <div class="input-wrap">
+                <label>Projekt-Titel:</label>
+                <f:form.textfield property="projectTitle" value="{project.projectTitle}" class="left-large" />
             </div>
-            <f:form.textfield property="projectTitle" value="{project.projectTitle}" class="fullWidth" />
-        </div>
-        
-        <div class="projectdetails-form-rows">
-            <div class="projectdetails-form-project-label">
-                Unterprojekt von:
+
+            <div class="input-wrap">
+                <label>Unterprojekt von:</label>
+                <vh:projectSelect projects="{projectSelect}" selected="{project.projectParent}" class="left-small"/>
             </div>
-            <vh:projectSelect projects="{projectSelect}" selected="{project.projectParent}" />
-        </div>
-        
-        <div class="projectdetails-form-rows">
-            <div class="projectdetails-form-project-label">
-                Status / Revision
+
+            <div class="input-wrap">
+                <label>Kurztext:</label>
+                <f:form.textarea  cols="45" rows="3" property="projectShort" value="{project.projectShort}" class="left-fullwidth" />
             </div>
-            <f:form.select property="projectStatus" options="{status}" optionValueField="" optionLabelField="" />
-            <f:form.textfield  class="datepicker" property="projectRevisionDate" value="{project.projectRevisionDate-> f:format.date( format: 'd.m.Y' )}" />
-        </div>
-        
-        <div class="projectdetails-form-rows">
-            <div class="projectdetails-form-project-label">
-                Budget
+
+            <div class="input-wrap">
+                <label>Beschreibung:</label>
+                <f:form.textarea cols="80" rows="10" property="projectText" value="{project.projectText}" class="left-fullwidth heigh"/>
             </div>
-        
-            Zeit (h): <f:form.textfield property="projectBudgetTime" value="{vh:plantime(time:project.projectBudgetTime)}" class="" />
-            Betrag (€): <f:form.textfield property="projectBudgetMoney" value="{project.projectBudgetMoney}" class="" />
 
         </div>
-        
-        <div class="projectdetails-form-rows">
-            <div class="projectdetails-form-project-label">        
-                Kurztext
+
+        <div class="form-right">
+
+            <div class="input-wrap">
+                <label>Status:</label>
+                <f:form.select property="projectStatus" options="{status}" optionValueField="" optionLabelField="" class="right"/>
             </div>
-            <f:form.textarea  cols="45" rows="3" property="projectShort" value="{project.projectShort}" />
-        </div>
-        
-        <div class="projectdetails-form-rows">
-            <div class="projectdetails-form-project-label">
-                Beschreibung
+
+            <div class="input-wrap">
+                <label>Update:</label>
+                <f:form.textfield  class="datepicker right" property="projectRevisionDate" value="{project.projectRevisionDate-> f:format.date( format: 'd.m.Y' )}" />
             </div>
-            <f:form.textarea cols="80" rows="10" property="projectText" value="{project.projectText}" />
+
+            <div class="input-wrap">
+                <label>Budget(h):</label>
+                <f:form.textfield property="projectBudgetTime" value="{vh:plantime(time:project.projectBudgetTime)}" class="right small"/>
+            </div>
+
+            <div class="input-wrap">
+                <label>Budget (€):</label>
+                <f:form.textfield property="projectBudgetMoney" value="{project.projectBudgetMoney}" class="right small" />
+            </div>
+
+            <f:form.submit name="mySubmit" value="speichern" class="button form-button" />
         </div>
+
+
+
+
+
 
     </div>
 
-    <div class="formrow buttonrow">
-        <div class="projectdetails-form-project-label">&nbsp;</div>
-        <input type="button"  class="button lightbox-close" value="abbrechen"  />
-        <f:form.submit name="mySubmit" value="speichern" class="button" />
-        <input type="button"  class="button lightbox-close" value="schließen"  />
-    </div>
-    
+ 
+
 </f:form>
+<div class="clear"></div>
+<br />
+<br />

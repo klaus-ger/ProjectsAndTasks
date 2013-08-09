@@ -39,6 +39,7 @@ class ProjectSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
      * 
      * @param array $projects
      * @param array $selected
+     * @param string $class
      */
 
     /**
@@ -46,10 +47,11 @@ class ProjectSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
      * 
      * @param array $projects
      * @param int $selected
+     * @param string $class
      */
-    public function render($projects, $selected) {
+    public function render($projects, $selected, $class='') {
        
-     $html = '<select name="tx_projectsandtasks_patsystem[project][projectParent]">';   
+     $html = '<select name="tx_projectsandtasks_patsystem[project][projectParent]" class="' . $class . '">';   
      $html.= '<option value="0"> --- </option>' ;
      foreach ($projects as $project){
          if($project['node']->getUid() == $selected){

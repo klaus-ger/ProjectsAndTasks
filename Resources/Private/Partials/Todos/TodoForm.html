@@ -1,7 +1,7 @@
 {namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
 
 <vh:comment>
-   /* Partial ToDoForm
+    /* Partial ToDoForm
     * 
     *
     * Version 1.0.1 Build 12.6.2013 klaus.heuer@t3-developer.com
@@ -21,66 +21,60 @@
         <f:form.textfield property="todoNr" value="" class="hidden" />
 
         <!-- regular Fields -->
+        <div class="form-left" style="display: inline;">
+            <div class="input-wrap">
+                <label>Titel:</label>
+                <f:form.textfield property="todoTitle" value="{todo.todoTitle}" class="left-large jqTodoFormTitle" />
+            </div>
+            <div class="input-wrap">
+                <label>Typ:</label>
+                <f:form.select property="todoTyp" options="{typ}" optionValueField="typ" optionLabelField="id" class="left-small jqTodoFormTyp"/>
 
-        <div class="stageItemTableLabel">
-            Titel
+            </div>
+            <br >
+
+            <div class="input-wrap">
+                <label>Beschreibung:</label>
+                <f:form.textarea  cols="55" rows="3" property="todoDescription" value="{todo.todoDescription}" class="left-fullwidth jqTodoFormDescription"/>
+            </div>
+            <br />
+
+            <div class="input-wrap">
+                <label>Anmerkung:</label>
+                <f:form.textarea  cols="55" rows="3" property="todoComment" value="{todo.todoComment}" class="left-fullwidth jqTodoFormComment"/>
+            </div>
         </div>
-        <div class="stageItemTableContent">
-            <f:form.textfield property="todoTitle" value="{todo.todoTitle}" class="fullWidth jqTodoFormTitle" />
+        <div class="form-right" style="display: inline;">
+
+            <div class="input-wrap">
+                <label>Status:</label>
+                <f:form.select property="todoStatus" options="{status}" optionValueField="" optionLabelField="" class="jqTodoFormStatus right" />
+            </div> 
+
+            <div class="input-wrap">
+                <label>Assigned:</label>
+                <f:form.select property="todoAssigned" options="{user}" optionValueField="uid" optionLabelField="username" class="jqTodoFormUser right"/>
+            </div> 
+
+            <div class="input-wrap">
+                <label>Time:</label>
+                <f:form.select property="todoPlantime" options="{plantime}" optionValueField="" optionLabelField="" class="jqTodoFormPlantime right"/>
+            </div> 
+
+            <div class="input-wrap">
+                <label>Start:</label>
+                <f:form.textfield   property="todoDate" value="{todo.Date}" class="jqTodoFormStartdate datepicker right"/>
+            </div> 
+
+            <div class="input-wrap">
+                <label>End:</label>
+                <f:form.textfield  property="todoEnd" value="{todo.End}" class="jqTodoFormEnddate datepicker right"/>
+            </div> 
+
+            <f:form.submit name="mySubmit" value="speichern" class="button form-button" />
         </div>
-        <div class="stageItemTableDivider"></div>
 
-        <div class="stageItemTableLabel">
-            KText
-        </div>
-        <div class="stageItemTableContent">
-            <f:form.textarea  cols="45" rows="3" property="todoDescription" value="{todo.todoDescription}" class="jqTodoFormDescription"/>
-        </div>
-        <div class="stageItemTableDivider"></div>
-
-        <div class="stageItemTableLabel">
-            Status / Typ 
-        </div>
-        <div class="stageItemTableContent">
-            <f:form.select property="todoStatus" options="{status}" optionValueField="" optionLabelField="" class="jqTodoFormStatus" />
-            <f:form.select property="todoTyp" options="{typ}" optionValueField="typ" optionLabelField="id" class="jqTodoFormTyp"/>
-
-        </div>
-        <div class="stageItemTableDivider"></div>
-
-
-
-        <div class="stageItemTableLabel">
-            Assigned / Zeitbedarf
-        </div>
-        <div class="stageItemTableContent">
-            <f:form.select property="todoAssigned" options="{user}" optionValueField="uid" optionLabelField="username" class="jqTodoFormUser"/>
-
-            <f:form.select property="todoPlantime" options="{plantime}" optionValueField="" optionLabelField="" class="jqTodoFormPlantime"/>
-
-        </div>
-        <div class="stageItemTableDivider"></div>
-
-        <div class="stageItemTableLabel">
-            Datum / Ende
-        </div>
-        <div class="stageItemTableContent">
-            <f:form.textfield   property="todoDate" value="{todo.Date}" class="jqTodoFormStartdate datepicker"/>
-            <f:form.textfield  property="todoEnd" value="{todo.End}" class="jqTodoFormEnddate datepicker"/>
-        </div>
-        <div class="stageItemTableDivider"></div>
-
-    </div>
-
-
-
-
-    <div class="formrow buttonrow">
-
-        <input type="button"  class="button lightbox-close" value="abbrechen"  />
-        <f:form.submit name="mySubmit" value="speichern" class="button" />
-
-        <input type="button"  class="button lightbox-close" value="schließen"  />
 
     </div>
 </f:form>
+<br />

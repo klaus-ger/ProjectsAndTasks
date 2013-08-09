@@ -290,9 +290,11 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $toDoDB->setTodoAssigned($todoAssigned);
         $toDoDB->setTodoTitle($todo['todoTitle']);
         $toDoDB->setTodoDescription($todo['todoDescription']);
+        $toDoDB->setTodoComment($todo['todoComment']);
         $toDoDB->setTodoStatus($todo['todoStatus']);
         $toDoDB->setTodoDate($startDate);
         $toDoDB->setTodoEnd($endDate);
+        $toDoDB->setTodoPlantime($todo['todoPlantime']);
               
         if($action == 'new'){
             $this->todoRepository->add($toDoDB);
@@ -385,8 +387,9 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             $storagePid = $this->request->getArgument('storagePid');
         }
         $todo = $this->todoRepository->findTodoByUidAndPid($todoUid, $storagePid)->toArray();
-        
+        if($todo[0]->getTodoDate()){
         $start = date("d.m.Y",$todo[0]->getTodoDate()->getTimestamp() );
+        }
         if($todo[0]->getTodoEnd()){
         $end = date("d.m.Y",$todo[0]->getTodoEnd()->getTimestamp() );
         }
@@ -395,6 +398,7 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $result['todoTyp'] = $todo[0]->getTodoTyp();
         $result['todoAssigned'] = $todo[0]->getTodoAssigned()->getUid();
         $result['todoDescription'] = $todo[0]->getTodoDescription();
+        $result['todoComment'] = $todo[0]->getTodoComment();
         $result['todoStatus'] = $todo[0]->getTodoStatus();
         $result['todoDate'] = $start;
         $result['todoEnd'] = $end;
@@ -415,9 +419,10 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     public function showPdfAction() {
         $todoListUid = $this->request->getArgument('todolist');
         $todoList = $this->todolistRepository->findByUid($todoListUid);
+        $project = $this->projectRepository->findByUid($todoList->getTodolistProject());
         $todos = $this->todoRepository->findByTodoList($todoList->getUid());
         //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListUid);
-        return $this->pdfUtility->createTodoPdf($todoList, $todos);
+        return $this->pdfUtility->createTodoPdf($todoList, $todos, $project);
     }
 
     public function checkLogIn() {
