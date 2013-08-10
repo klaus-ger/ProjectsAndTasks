@@ -147,41 +147,7 @@ class TodoRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         );
         return $query->execute();
     }
-//    
-//        /**
-//     * Find own Projects
-//     * 
-//     * @param $owner
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Project
-//     */
-//    public function findByOwner( $owner) {
-//        $query = $this->createQuery();
-//        
-//        $query->matching(
-//                    $query->equals('projectOwner', $owner)
-//        );
-//        return $query->execute();
-//    } 
 
-
-//
-//    /**
-//     * Find plans by parent and pid
-//     * 
-//     * @param $parent $storagePid
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Plan
-//     */
-//    public function findByParentAndPid( $parent, $storagePid) {
-//        $query = $this->createQuery();
-//        $query->getQuerySettings()->setRespectStoragePage(FALSE);
-//        $query->matching(
-//        $query->logicalAnd(
-//            $query->equals('planParent', $parent),
-//            $query->equals('pid', $storagePid)
-//            )
-//        );
-//        return $query->execute();
-//    }
     
 }
 

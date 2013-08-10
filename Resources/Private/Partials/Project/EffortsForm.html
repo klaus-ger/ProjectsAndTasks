@@ -1,0 +1,62 @@
+<f:form method="post" controller="Project" action="effortsSave" name="work" object="{work}"   >
+
+    <div class="stageItemTable">
+
+        <!--hidden fields -->
+        <f:form.textfield property="uid" value="{work.uid}" class="hidden jqEffortFormUid"/>
+        <f:form.textfield property="workProject" value="{work.workProject}" class="hidden jqEffortFormProject"/>
+        <!-- regular Fields -->
+
+        <div class="form-left" style="display: inline;">
+
+            <div class="input-wrap">
+                <label>Titel:</label>
+                <f:form.textfield property="workTitle" value="{work.workTitle}" class="jqEffortFormTitle left-large" />
+            </div>
+
+            <div class="input-wrap">
+                <label class="left-small">User:</label>
+                <f:form.textfield  property="workUser" value="{work.workUser}" class="jqEffortFormUser left-small"/>
+            </div>
+
+            <div class="input-wrap">
+                <label>Beschreibung:</label>
+                <f:form.textarea  cols="45" rows="3" property="workDescription" value="{work.workDescription}" class="jqEffortFormText left-fullwidth effort"/>
+            </div>
+
+        </div>
+
+        <div class="form-right" style="display: inline;">
+
+            <div class="input-wrap">
+                <label>Status:</label>
+                <f:form.select property="workStatus" options="{workstatus}" optionValueField="" optionLabelField="" class="jqEffortFormStatus right"/>
+            </div>
+
+            <div class="input-wrap">
+                <label>Datum:</label>
+                <f:form.textfield  class="datepicker jqEffortFormDate right" property="workDate" value="{work.workDate}" />
+            </div>
+
+            <div class="input-wrap">
+                <label>Start:</label>
+                <f:form.select property="workStart" options="{time}" optionValueField="" optionLabelField="" class="jqEffortFormStart right"/>
+            </div>
+
+            <div class="input-wrap">
+                <label>Ende:</label>
+                <f:form.select property="workEnd" options="{time}" optionValueField="" optionLabelField="" class="jqEffortFormEnd right"/>
+            </div>
+
+            <f:form.submit name="mySubmit" value="speichern" class="button form-button" />
+            
+        </div>
+    </div>
+
+
+
+
+</f:form>
+
+<div class="clear"></div>
+<br />

@@ -92,56 +92,25 @@ class WorkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     }
 
 
-//    
-//        /**
-//     * Find own Projects
-//     * 
-//     * @param $owner
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Project
-//     */
-//    public function findByOwner( $owner) {
-//        $query = $this->createQuery();
-//        
-//        $query->matching(
-//                    $query->equals('projectOwner', $owner)
-//        );
-//        return $query->execute();
-//    } 
-//    /**
-//     * Find plans by uid and pid
-//     * 
-//     * @param $storagePid
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Plan
-//     */
-//    public function findByUidAndPid( $uid, $storagePid) {
-//        $query = $this->createQuery();
-//        $query->getQuerySettings()->setRespectStoragePage(FALSE);
-//        $query->matching(
-//        $query->logicalAnd(
-//            $query->equals('uid', $uid),
-//            $query->equals('pid', $storagePid)
-//            )
-//        );
-//        return $query->execute();
-//    }
-//
-//    /**
-//     * Find plans by parent and pid
-//     * 
-//     * @param $parent $storagePid
-//     * @return Tx_ProjectsAndTasks_Domain_Model_Plan
-//     */
-//    public function findByParentAndPid( $parent, $storagePid) {
-//        $query = $this->createQuery();
-//        $query->getQuerySettings()->setRespectStoragePage(FALSE);
-//        $query->matching(
-//        $query->logicalAnd(
-//            $query->equals('planParent', $parent),
-//            $query->equals('pid', $storagePid)
-//            )
-//        );
-//        return $query->execute();
-//    }
+    /**
+     * Find Efforts By Uid and Pid
+     * 
+     * This query is needed for ajax calls
+     * @param int $effortUid 
+     * @param int $storagePid
+     * @return Tx_ProjectsAndTasks_Domain_Model_Work
+     */
+    public function findWorkByUidAndPid($effortUid, $storagePid){
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(FALSE);
+        $query->matching(
+                $query->logicalAnd(
+                    $query->equals('uid',$effortUid),
+                    $query->equals('pid',$storagePid)
+                     )
+        );
+        return $query->execute();
+    }
 }
 
 ?>

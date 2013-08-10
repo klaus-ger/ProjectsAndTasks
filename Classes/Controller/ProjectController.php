@@ -124,21 +124,19 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function injectProjectrightsRepository(\T3developer\ProjectsAndTasks\Domain\Repository\ProjectrightsRepository $projectrightsRepository) {
         $this->projectrightsRepository = $projectrightsRepository;
     }
-    
-        /**
+
+    /**
      * Initializes the current action 
      * @return void 
      */
     public function initializeAction() {
         if (isset($this->arguments['project'])) {
-        $commentConfiguration = $this->arguments['project']->getPropertyMappingConfiguration();
-        $commentConfiguration->allowAllProperties();
-        $commentConfiguration
-                ->setTypeConverterOption(
-                ' TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter',
-                 \TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
-                TRUE
-        );
+            $commentConfiguration = $this->arguments['project']->getPropertyMappingConfiguration();
+            $commentConfiguration->allowAllProperties();
+            $commentConfiguration
+                    ->setTypeConverterOption(
+                            ' TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE
+            );
         }
         if (isset($this->arguments['project'])) {
             $this->arguments['project']
@@ -147,7 +145,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
         }
     }
-    
+
     /*
      * Show Project Action
      */
@@ -169,14 +167,14 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         $work = $this->workRepository->findByWorkProject($project->getUid());
-        
+
         //Widget ProjectView: subProjects
         $subProjects = $this->projectRepository->findByProjectParent($project->getUid());
-        foreach($subProjects as $single){
-            $single ->setProjectOpenTodos($this->countTodos($single->getUid()));
+        foreach ($subProjects as $single) {
+            $single->setProjectOpenTodos($this->countTodos($single->getUid()));
             $subPro[$single->getUid()] = $single;
         }
-        
+
         //Widget ProejctView: Messages
         //find all open Messages for the Project
         $messages = $this->messageRepository->findByProjectAndStatus($project->getUid(), '1');
@@ -200,7 +198,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('user', $this->user);
         $this->view->assign('project', $project);
-        $this->view->assign('projectuser', $this->projectrightsRepository->findByProjectrightsProject($project->getUid()) );
+        $this->view->assign('projectuser', $this->projectrightsRepository->findByProjectrightsProject($project->getUid()));
         $this->view->assign('menu', '2');
         $this->view->assign('submenu', '1');
     }
@@ -213,16 +211,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * 
      */
     public function projectEditUserRightsAction(\t3developer\ProjectsAndTasks\Domain\Model\Project $project) {
-        
+
         $projectrights = $this->projectrightsRepository->findByProjectrightsProject($project->getUid());
 
-       
+
         $this->view->assign('projectrights', $projectrights);
         $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('user', $this->userRepository->findAll());
         $this->view->assign('rights', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableUserRights());
-        $this->view->assign('projectuser', $this->projectrightsRepository->findByProjectrightsProject($project->getUid()) );
-        
+        $this->view->assign('projectuser', $this->projectrightsRepository->findByProjectrightsProject($project->getUid()));
+
         $this->view->assign('project', $project);
         $this->view->assign('menu', '2');
         $this->view->assign('submenu', '3');
@@ -235,35 +233,35 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * 
      */
     public function projectUpdateUserRightsAction() {
-        if($this->request->hasArgument('userrights')){
+        if ($this->request->hasArgument('userrights')) {
             $userrights = $this->request->getArgument('userrights');
         }
-  //     \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($userrights);
-        if($userrights['uid'] == null) {
+        //     \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($userrights);
+        if ($userrights['uid'] == null) {
             $rights = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Projectrights');
             $action = 'new';
         }
-        if($userrights['uid'] != null) {
+        if ($userrights['uid'] != null) {
             $rights = $this->projectrightsRepository->findByUid($projectright['uid']);
             $action = 'update';
         }
-        
+
         $rights->setProjectrightsProject($userrights['projectrightsProject']);
         $rights->setProjectrightsUser($userrights['projectrightsUser']);
         $rights->setProjectrightsRights($userrights['projectrightsRights']);
-        
-        if($action == 'new'){
+
+        if ($action == 'new') {
             $this->projectrightsRepository->add($rights);
         }
-        if($action == 'update'){
+        if ($action == 'update') {
             $this->projectrightsRepository->update($rights);
         }
-        
+
         $project = $this->projectRepository->findByUid($rights->getProjectrightsProject());
-         
+
         $this->redirect('projectEditUserRights', 'Project', NULL, Array('project' => $project));
-        
     }
+
     /*
      * New Project Action
      */
@@ -283,15 +281,15 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
 
     public function projectEditAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
-        
+
         $projectSelect = $this->findProjectSelectArray();
-        
+
         $this->view->assign('projectHeader', $this->findProjectHeader($project->getUid()));
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         //ToDo: remove the projects if new projectViewHelper works
         $this->view->assign('projects', $this->projectRepository->findAll());
         $this->view->assign('projectSelect', $projectSelect);
-        
+
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableProjectStatus());
         $this->view->assign('project', $project);
         $this->view->assign('menu', '2');
@@ -316,41 +314,154 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         //$this->redirect('index', 'Inbox');projectShowDetails
         $this->redirect('projectShowDetails', 'Project', NULL, Array('project' => $project));
-        
     }
 
-    /*
+    /**
      * New Project Action
      * 
      * @param \t3developer\ProjectsAndTasks\Domain\Model\Project $project
      * @dontvalidate $project
      * @return void
      */
-
     public function projectCreateAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
         $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
 
         $project->setProjectOwner($userUid);
         $this->projectRepository->add($project);
-              
+
         $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
-        
+
         //create the userrights
         $rights = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Projectrights');
         $rights->setProjectrightsProject($project->getUid());
         $rights->setProjectrightsUser($userUid);
         $rights->setProjectrightsRights('1');
         $this->projectrightsRepository->add($rights);
-        
+
         $this->redirect('index', 'Inbox');
     }
 
-    /*
+    /**
+     * Show Efforts
+     * 
+     * Displays a list and Form of all Efforts by Project
+     * 
+     * @param $projectUid
+     */
+    public function effortsShowAction() {
+        $project = $this->request->getArgument('project');
+
+        $newWork = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Work');
+        $newWork->setWorkProject($project);
+
+        $workList = $this->workRepository->findByWorkProject($project);
+
+        $this->view->assign('project', $project);
+        $this->view->assign('projectHeader', $this->findProjectHeader($project));
+        $this->view->assign('workstatus', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkStatus());
+        $this->view->assign('time', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTime());
+        $this->view->assign('works', $workList);
+        $this->view->assign('work', $newWork);
+        $this->view->assign('menu', '5');
+    }
+
+    /**
+     * Save Efforts
+     * 
+     * Updates and creates an effort
+     */
+    public function effortsSaveAction() {
+                
+        $effort = $this->request->getArgument('work');
+        
+        if($effort['uid'] == ''){
+            //Create New todo
+            $effortDB = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Work');
+            $effortDB->setWorkUser($GLOBALS['TSFE']->fe_user->user['uid']);
+            $action = 'new';
+            
+        } else {
+            //update Effort
+            $effortDB = $this->workRepository->findByUid($effort['uid']);
+            $action = 'update';
+        }
+        $date = explode(".", $effort[workDate]);
+        $dateDay = $date[0];
+        $dateMonth = $date[1];
+        $dateYear = $date[2];
+        $workDate = mktime(0,0,0,$dateMonth,$dateDay,$dateYear);
+        
+        $effortDB->setWorkProject($effort['workProject']);
+        //$effortDB->setWorkUser($GLOBALS['TSFE']->fe_user->user['uid']);
+        $effortDB->setWorkTitle($effort['workTitle']);
+        $effortDB->setWorkDescription($effort['workDescription']);
+        $effortDB->setWorkStatus($effort['workStatus']);
+        $effortDB->setWorkDate($workDate);
+        $effortDB->setWorkStart($effort['workStart']);
+        $effortDB->setWorkEnd($effort['workEnd']);
+        
+              
+        if($action == 'new'){
+            $this->workRepository->add($effortDB);
+        }
+        if($action == 'update'){
+            $this->workRepository->update($effortDB);
+        }
+        
+
+        //   $todo->setTodoOwner($userUid);
+        //$this->todoRepository->add($todo);
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($effort);
+         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($effortDB);
+
+        $this->redirect('effortsShow', 'Project', NULL, Array('project' => $effortDB->getWorkProject()));
+    }
+
+    /**
+     * Delete Efforts
+     * 
+     * Delete an Effort
+     */
+    public function effortsDeleteAction() {
+        
+    }
+
+    /**
+     * Effort By Ajax
+     */
+    public function effortByAjaxAction() {
+        if ($this->request->hasArgument('uid')) {
+            $effortUid = $this->request->getArgument('uid');
+        }
+        if ($this->request->hasArgument('storagePid')) {
+            $storagePid = $this->request->getArgument('storagePid');
+        }
+        
+        $effort = $this->workRepository->findWorkByUidAndPid($effortUid, $storagePid);
+        if ($effort[0]->getWorkDate()) {
+            $date = date("d.m.Y", $effort[0]->getWorkDate()->getTimestamp());
+        }
+        
+        
+        $result['uid'] = $effort[0]->getUid();
+        $result['effortProject'] = $effort[0]->getWorkProject()->getUid();
+        $result['effortUser'] = $effort[0]->getWorkUser()->getUsername();
+        $result['effortTitel'] = $effort[0]->getWorkTitle();
+        $result['effortDescription'] = $effort[0]->getWorkDescription();
+        $result['effortStatus'] = $effort[0]->getWorkStatus();
+        $result['effortDate'] = $date;
+        $result['effortStart'] = $effort[0]->getWorkStart();
+        $result['effortEnd'] = $effort[0]->getWorkEnd();
+        
+        
+        return json_encode($result);
+    }
+
+    /**
      * Finds Data for Project Header Partial
      * @param $projectUid
      * @return array
      */
-
     function findProjectHeader($projectUid) {
         //get the project
         $project = $this->projectRepository->findByUid($projectUid);
@@ -418,34 +529,33 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         return $projectHeader;
     }
-    
+
     /**
      * Find Project Level
      * 
      * 
      */
-    public function findProjectLevel($project){
-        
-        if($project->getProjectParent() == 0){
+    public function findProjectLevel($project) {
+
+        if ($project->getProjectParent() == 0) {
             $projectLevel = '1';
-        }else {
-            $parent = $this->projectRepository->findByUid($project->getProjectParent() );
-            if($parent->getProjectParent == 0) {
+        } else {
+            $parent = $this->projectRepository->findByUid($project->getProjectParent());
+            if ($parent->getProjectParent == 0) {
                 $projectLevel = '2';
             } else {
-               $parent = $this->projectRepository->findByUid($parent->getProjectParent() );
-               if($parent->getProjectParent == 0) {
-                   $projectLevel = '3';
-               } else {
-                   $projectLevel = '4';
-               }
+                $parent = $this->projectRepository->findByUid($parent->getProjectParent());
+                if ($parent->getProjectParent == 0) {
+                    $projectLevel = '3';
+                } else {
+                    $projectLevel = '4';
+                }
             }
         }
-        
+
         return $projectLevel;
-            
     }
-    
+
     /**
      * Project Select Array
      * 
@@ -456,30 +566,30 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * 
      * @return array
      */
-    public function findProjectSelectArray(){
-        
+    public function findProjectSelectArray() {
+
         $firstLevel = $this->projectRepository->findByProjectParent('0');
-        foreach ($firstLevel as $first){
+        foreach ($firstLevel as $first) {
             $projectSelect[$first->getUid()]['node'] = $first;
-            
+
             $secondLevel = $this->projectRepository->findByProjectParent($first->getUid());
-            if($secondLevel[0] != ''){
-            foreach ($secondLevel as $second){
-                $projectSelect[$first->getUid()]['subnodes'][$second->getUid()]['node'] = $second;
-                
-                $thirdLevel = $this->projectRepository->findByProjectParent($second->getUid());
-                if($thirdLevel != ''){
-                foreach ($thirdLevel as $third){
-                    $projectSelect[$first->getUid()]['subnodes'][$second->getUid()]['subnodes'][$third->getUid()] = $third;
-                }    
+            if ($secondLevel[0] != '') {
+                foreach ($secondLevel as $second) {
+                    $projectSelect[$first->getUid()]['subnodes'][$second->getUid()]['node'] = $second;
+
+                    $thirdLevel = $this->projectRepository->findByProjectParent($second->getUid());
+                    if ($thirdLevel != '') {
+                        foreach ($thirdLevel as $third) {
+                            $projectSelect[$first->getUid()]['subnodes'][$second->getUid()]['subnodes'][$third->getUid()] = $third;
+                        }
+                    }
                 }
-            }
             }
         }
         return $projectSelect;
     }
 
-        /**
+    /**
      * Count ToDos by project
      * 
      * The function finds all tododslist from a project and
@@ -488,19 +598,19 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param int $projectUid
      * @return int $openTodos
      */
-    public function countTodos($projectUid){
+    public function countTodos($projectUid) {
         $count = 0;
         $todolists = $this->todolistRepository->findByTodolistProject($projectUid);
-        if($todolists[0] != ''){
+        if ($todolists[0] != '') {
             foreach ($todolists as $list) {
                 $todos = $this->todoRepository->findByListAndStatus($list->getUid(), '6');
                 $count = $count + count($todos);
             }
         }
-       
+
         return $count;
     }
-    
+
     public function checkLogIn() {
 
         $user = $GLOBALS['TSFE']->fe_user->user;

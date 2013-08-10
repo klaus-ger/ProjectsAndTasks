@@ -41,18 +41,19 @@ jQuery("document").ready(function(){
         $( ".datepicker" ).datepicker();
         $( "#datepicker2" ).datepicker(); 
     
-    
-        
-            
+        //**********************************************************************/
+        // Actions on Projects -> ToDo Page ************************************/
+        //**********************************************************************/ 
+         
         //ToDoList: Hide done todos
         $('.jqLoadTodo').each( function() { 
-                var status = $(this).find('.status').html();
-                status = status.replace(/ /g,'');
-                if( status > 5){
-                    $(this).addClass('hidden');
-                }
+            var status = $(this).find('.status').html();
+            status = status.replace(/ /g,'');
+            if( status > 5){
+                $(this).addClass('hidden');
+            }
                 
-            });
+        });
         
         
         $('.jqHideDoneTodos').click(function(e)  { 
@@ -73,10 +74,92 @@ jQuery("document").ready(function(){
             });
         });
         
+        //Shows the hidden Edit / New Form on List View
+        $('.form').hide();
+        $('.jqShowForm').click(function(e)  {  
+            $('.form').show();
+            $('html, body').animate({
+                scrollTop: 80
+            });
+            var todoList = $('.jqTodoList').html();
+            $('.jqTodoFormUid').val('');
+            $('.jqTodoFormList').val(todoList);
+            $('.jqTodoFormTitle').val('');
+            $('.jqTodoFormDescription').val('');
+            $('.jqTodoFormComment').val('');
+            $('.jqTodoFormStatus').val('');
+            $('.jqTodoFormTyp').val('');
+            $('.jqTodoFormUser').val('');
+            $('.jqTodoFormPlantime').val('');
+            $('.jqTodoFormStartdate').val('');
+            $('.jqTodoFormEnddate').val('');
+        });
+        
+        
+        //Load ToDo from List into Form
+        $('.jqLoadTodo').click(function(e)  { 
+        
+            var uid = $(this).find('.jqtodo_uid').html();
+            var storagePid = $('.jqStoragePid').html();
+        
+            $.ajax({
+                async: 'true',
+                url: 'index.php',       
+                type: 'POST',  
+          
+                data: {
+                    eID: "ajaxDispatcher",   
+                    request: {
+                        extensionName:  'ProjectsAndTasks',
+                        pluginName:     'patsystem',
+                        controller: 'Todo', 
+                        action:     'findTodoByAjax',
+                        arguments: {
+                            'uid': uid,
+                            'storagePid': storagePid
+                        }
+                    } 
+                },
+                dataType: "json",       
+            
+                success: function(result) {
+                    $('.form').show();
+                    $('html, body').animate({
+                        scrollTop: 80
+                    });
+                    var todoList = $('.jqTodoList').html();
+                    $('.jqTodoFormUid').val(result.uid);
+                    $('.jqTodoFormList').val(todoList);
+                    $('.jqTodoFormTitle').val(result.todoTitel);
+                    $('.jqTodoFormDescription').val(result.todoDescription);
+                    $('.jqTodoFormComment').val(result.todoComment);
+                    $('.jqTodoFormStatus').val(result.todoStatus);
+                    $('.jqTodoFormTyp').val(result.todoTyp);
+                    $('.jqTodoFormUser').val(result.todoAssigned);
+                    $('.jqTodoFormPlantime').val(result.todoPlantime);
+                    $('.jqTodoFormStartdate').val(result.todoDate);
+                    $('.jqTodoFormEnddate').val(result.todoEnd);
+                    console.log(result);
+                
+                },
+                error: function(error) {
+               
+                    console.log(error);                
+                }
+            });
+        
+        
+            console.log(uid);
+        });
+    
+        //**********************************************************************/
+        // Actions on Project -> Efforts Page **********************************/
+        //**********************************************************************/
+        
         //WorkList: Hide invoiced work
         $('.jqHideInvoiceWork').click(function(e)  { 
             
-            $('.projectListItem').each( function() { 
+            $('.jqLoadEffort').each( function() { 
                 var status = $(this).find('.status').html();
                 status = status.replace(/ /g,'');
                 if(status == 6)$(this).addClass('hidden');
@@ -87,10 +170,90 @@ jQuery("document").ready(function(){
         //Work List: Show All
         $('.jqShowAllWork').click(function(e)  { 
             
-            $('.projectListItem').each( function() { 
+            $('.jqLoadEffort').each( function() { 
                 $(this).removeClass('hidden');
             });
         });
+        
+        //Shows the hidden Edit / New Form on List View
+        $('.form').hide();
+        $('.jqShowForm').click(function(e)  {  
+            $('.form').show();
+            $('html, body').animate({
+                scrollTop: 80
+            });
+            var project = $('.jqEffortProjectUid').html();
+            $('.jqEffortFormUid').val('');
+            $('.jqEffortFormProject').val(project);
+            $('.jqEffortFormTitle').val('');
+            $('.jqEffortFormText').val('');
+            $('.jqEffortFormStatus').val('');
+            $('.jqEffortFormUser').val('');
+            $('.jqEffortFormDate').val('');
+            $('.jqEffortFormStart').val('');
+            $('.jqEffortFormEnd').val('');
+        });
+        
+        
+        //Load Effort from List into Form
+        $('.jqLoadEffort').click(function(e)  { 
+        
+            var uid = $(this).find('.jqEffort_uid').html();
+            var storagePid = $('.jqStoragePid').html();
+        
+            $.ajax({
+                async: 'true',
+                url: 'index.php',       
+                type: 'POST',  
+          
+                data: {
+                    eID: "ajaxDispatcher",   
+                    request: {
+                        extensionName:  'ProjectsAndTasks',
+                        pluginName:     'patsystem',
+                        controller:     'Project', 
+                        action:         'effortByAjax',
+                        arguments: {
+                            'uid':        uid,
+                            'storagePid': storagePid
+                        }
+                    } 
+                },
+                dataType: "json",       
+            
+                success: function(result) {
+                    $('.form').show();
+                    $('html, body').animate({
+                        scrollTop: 80
+                    });
+                    //var project = $('.jqTodoList').html();
+                    $('.jqEffortFormUid').val(result.uid);
+                    $('.jqEffortFormProject').val(result.effortProject);
+                    $('.jqEffortFormTitle').val(result.effortTitel);
+                    $('.jqEffortFormText').val(result.effortDescription);
+                    $('.jqEffortFormStatus').val(result.effortStatus);
+                    $('.jqEffortFormUser').val(result.effortUser);
+                    $('.jqEffortFormDate').val(result.effortDate);
+                    $('.jqEffortFormStart').val(result.effortStart);
+                    $('.jqEffortFormEnd').val(result.effortEnd);
+                    
+                    
+                    console.log(result);
+                
+                },
+                error: function(error) {
+               
+                    console.log(error);                
+                }
+            });
+        
+        
+            console.log(uid);
+        });
+        //**********************************************************************/
+        // Actions on InBox -> Project Page ************************************/
+        //**********************************************************************/
+        
         
         //Inbox Project List: Toggle sub projects
         $('.jqToggleProjects').click(function(e)  { 
@@ -114,83 +277,7 @@ jQuery("document").ready(function(){
         
     });
 
-    //Shows the hidden Edit / New Form on List View
-        $('.form').hide();
-        $('.jqShowForm').click(function(e)  {  
-            $('.form').show();
-            $('html, body').animate({
-                scrollTop: 80
-            });
-            var todoList = $('.jqTodoList').html();
-            $('.jqTodoFormUid').val('');
-            $('.jqTodoFormList').val(todoList);
-            $('.jqTodoFormTitle').val('');
-            $('.jqTodoFormDescription').val('');
-            $('.jqTodoFormComment').val('');
-            $('.jqTodoFormStatus').val('');
-            $('.jqTodoFormTyp').val('');
-            $('.jqTodoFormUser').val('');
-            $('.jqTodoFormPlantime').val('');
-            $('.jqTodoFormStartdate').val('');
-            $('.jqTodoFormEnddate').val('');
-        });
-        
-        
-    //Load ToDo from List into Form
-    $('.jqLoadTodo').click(function(e)  { 
-        
-        var uid = $(this).find('.jqtodo_uid').html();
-        var storagePid = $('.jqStoragePid').html();
-        
-        $.ajax({
-            async: 'true',
-            url: 'index.php',       
-            type: 'POST',  
-          
-            data: {
-                eID: "ajaxDispatcher",   
-                request: {
-                    extensionName:  'ProjectsAndTasks',
-                    pluginName:     'patsystem',
-                    controller: 'Todo', 
-                    action:     'findTodoByAjax',
-                    arguments: {
-                        'uid': uid,
-                        'storagePid': storagePid
-                    }
-                } 
-            },
-            dataType: "json",       
-            
-            success: function(result) {
-                $('.form').show();
-                $('html, body').animate({
-                    scrollTop: 80
-                });
-                var todoList = $('.jqTodoList').html();
-                $('.jqTodoFormUid').val(result.uid);
-                $('.jqTodoFormList').val(todoList);
-                $('.jqTodoFormTitle').val(result.todoTitel);
-                $('.jqTodoFormDescription').val(result.todoDescription);
-                $('.jqTodoFormComment').val(result.todoComment);
-                $('.jqTodoFormStatus').val(result.todoStatus);
-                $('.jqTodoFormTyp').val(result.todoTyp);
-                $('.jqTodoFormUser').val(result.todoAssigned);
-                $('.jqTodoFormPlantime').val(result.todoPlantime);
-                $('.jqTodoFormStartdate').val(result.todoDate);
-                $('.jqTodoFormEnddate').val(result.todoEnd);
-                console.log(result);
-                
-            },
-            error: function(error) {
-               
-                console.log(error);                
-            }
-        });
-        
-        
-        console.log(uid);
-    });
+ 
     
       
 }); //End jquery

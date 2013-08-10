@@ -207,9 +207,9 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     public function checkMailserverAction() {
 
-        $server = "{xxxxx:110/pop3/notls}INBOX";
-        $user = "xxxxx";
-        $passwd = "xxxxx";
+        $server = "{xxx/pop3/notls}INBOX";
+        $user = "xxx";
+        $passwd = "xxx";
 
         $imap = imap_open($server, $user, $passwd) or die("Could not open Mailbox - try again later!");
 
@@ -322,6 +322,56 @@ class MessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 
 
+
+//        
+//        $server = "{pop.1und1.com:110/pop3/notls}INBOX";
+//        $user = "test@t3-developer.com";
+//        $passwd = "ivonne1";
+// 
+//    $mbox = imap_open($server,$user,$passwd) or die("Could not open Mailbox - try again later!");
+//
+//     
+//     
+//    $message_count = imap_num_msg($mbox);
+//    \Tx_Extbase_Utility_Debugger::var_dump($message_count);
+// 
+//    $headers = imap_headers($mbox);
+//    
+//    if ($headers == false) {
+//    echo "Abruf fehlgeschlagen<br />\n";
+//} else {
+//    foreach ($headers as $val) {
+//         \Tx_Extbase_Utility_Debugger::var_dump($val);
+//    }
+//}
+//
+//
+//
+//
+//
+//
+//imap_close($mbox);
+//       
+//   
+        //$connection = $this->pop3_login($host, $port, $user, $pass);
+//        $newmails = $check->Recent;
+//
+//        for ($count = 1; $count <= $newmails; $count++) {
+//
+//            $info = imap_fetch_overview($imap, $count);
+//            foreach ($info as $msg) {
+//                
+//            }
+//            $message = imap_body($imap, $count);
+//            $text = $msg->to;
+//            $needle = strpos($text, '@');
+//            $newnumber = substr($text, 0, $needle);
+//            echo $message;
+//            echo $newnumber;
+//            echo $newmails;
+//        }
+
+        imap_close($imap);
     }
 
 

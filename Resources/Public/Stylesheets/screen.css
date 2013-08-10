@@ -852,6 +852,9 @@ body {
     text-align: right;
     padding: 4px 0;
 }
+.input-wrap label.left-small{
+     width: 82px;
+}
 .form-right label{
     width: 60px;
 }
@@ -868,6 +871,9 @@ body {
 }
 .input-wrap textarea {
     height: 62px;
+}
+.input-wrap textarea.effort{
+    height: 116px;
 }
 .input-wrap textarea.heigh{
     height: 200px;

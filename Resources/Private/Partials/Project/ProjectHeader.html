@@ -76,7 +76,7 @@
         </div>
             
         <div class="{f:if(condition:'{menu}==5',then:'item selected',else:'item')}">
-            <f:link.action action="workNew" controller="Work"arguments="{project:projectHeader.project}">
+            <f:link.action action="effortsShow" controller="Project"arguments="{project:projectHeader.project}">
                 Leistungen ({projectHeader.work.open}/{projectHeader.work.all})
             </f:link.action>
         </div>
