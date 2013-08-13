@@ -916,6 +916,23 @@ body {
     float: left;
     
 }
+
+/* datepicker styling */
+.ui-datepicker {
+    width: 12em !important;
+}
+.ui-widget {
+    font-family: 'Lato'sans-serif !important;
+    font-size: 0.8em !important;
+}
+.ui-widget-header {
+    background: none !important;
+    background-color: #ccc !important;
+    border: none !important;
+}
+
+
+
 .clear {
     clear: both;
 }
