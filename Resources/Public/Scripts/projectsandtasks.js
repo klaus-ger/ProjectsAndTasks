@@ -1,6 +1,8 @@
 jQuery("document").ready(function(){
     
-
+    //**********************************************************************/
+    // General Settings**************** ************************************/
+    //**********************************************************************/ 
     
     
     // Datepicker, used in forms
@@ -37,9 +39,23 @@ jQuery("document").ready(function(){
         $.datepicker.setDefaults($.datepicker.regional['de']);
     });
 
+    $("#editor").cleditor({
+        width:        680, // width not including margins, borders or padding
+        height:       250, // height not including margins, borders or padding
+        controls:     // controls to add to the toolbar
+                      "bold italic bullets numbering |",
+        bodyStyle:    // style to assign to document body contained within the editor
+                      "margin:10px; font:12px/21px 'Lato',​Arial,​Helvetica,​sans-serif; cursor:text; color:#384953; "
+    });
+
+
+
+
     $(function() {
         $( ".datepicker" ).datepicker();
         $( "#datepicker2" ).datepicker(); 
+    
+
     
         //**********************************************************************/
         // Actions on Projects -> ToDo Page ************************************/

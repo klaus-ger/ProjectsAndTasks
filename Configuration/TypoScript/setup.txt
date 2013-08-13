@@ -47,31 +47,26 @@ plugin.tx_projectsandtasks {
 
 
 page.includeCSS {
-file90 = EXT:projects_and_tasks/Resources/Public/Stylesheets/screen.css
-file90.title = main_stylesheet
-file90.media = screen
+    tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/screen.css
+    tx_projectsandtasks_css_1.title = main_stylesheet
+    tx_projectsandtasks_css_1.media = screen
 
-#file91 = EXT:projects/Resources/Public/Stylesheets/jquery-ui-1.8.21.custom.css
-file91 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.9.2/css/ui-lightness/jquery-ui-1.9.2.custom.css
-file91.title = main_stylesheet
-file91.media = screen
+    tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.9.2/css/ui-lightness/jquery-ui-1.9.2.custom.css
+    tx_projectsandtasks_css_2.title = jqueryUi
+    tx_projectsandtasks_css_2.media = screen
 
-
-
-file93 = EXT:projects/Resources/Public/Scripts/CLEditor/jquery.cleditor.css
-file93.title = main_stylesheet
-file93.media = screen
+    tx_projectsandtasks_css_3 = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.css
 
 }
 
 
 page.includeJSFooter {
     tx_projects_file_1 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-1.8.2.min.js
-    #tx_projects_file_2 = EXT:projects/Resources/Public/Scripts/CLEditor/jquery.cleditor.min.js
+    tx_projects_file_2 = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.min.js
     tx_projects_file_3 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.9.2/development-bundle/ui/jquery.ui.core.js
-    #tx_projects_file_4 = EXT:projects/Resources/Public/Scripts/jquery-ui-1.9.2/development-bundle/ui/jquery.ui.widget.js
+   #tx_projects_file_4 = EXT:projects/Resources/Public/Scripts/jquery-ui-1.9.2/development-bundle/ui/jquery.ui.widget.js
     tx_projects_file_5 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.9.2/development-bundle/ui/jquery.ui.datepicker.js
-    #tx_projects_file_6 = EXT:projects/Resources/Public/Scripts/jquery-ui-1.9.2/development-bundle/ui/jquery.ui.button.js
+   #tx_projects_file_6 = EXT:projects/Resources/Public/Scripts/jquery-ui-1.9.2/development-bundle/ui/jquery.ui.button.js
     
-tx_projects_file_7 = EXT:projects_and_tasks/Resources/Public/Scripts/projectsandtasks.js
+    tx_projects_file_7 = EXT:projects_and_tasks/Resources/Public/Scripts/projectsandtasks.js
 }

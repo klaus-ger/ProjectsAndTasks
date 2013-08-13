@@ -1,7 +1,11 @@
-.cleditorMain {border:1px solid #999; padding:0 1px 1px; background-color:white}
+.cleditorMain {
+    background-image: linear-gradient(#FDFDFD, #FAFAFA);
+    border: 1px solid #DCDCDC;
+    border-radius: 4px 4px 4px 4px;
+     padding:0 1px 1px; }
 .cleditorMain iframe {border:none; margin:0; padding:0}
 .cleditorMain textarea {border:none; margin:0; padding:0; overflow-y:scroll; font:10pt Arial,Verdana; resize:none; outline:none /* webkit grip focus */}
-.cleditorToolbar {background: url('images/toolbar.gif') repeat}
+.cleditorToolbar {border-bottom: 1px solid #ededed;background-image: linear-gradient(#FDFDFD, #FAFAFA);}
 .cleditorGroup {float:left; height:26px}
 .cleditorButton {float:left; width:24px; height:24px; margin:1px 0 1px 0; background: url('images/buttons.gif')}
 .cleditorDisabled {opacity:0.3; filter:alpha(opacity=30)}

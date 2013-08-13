@@ -37,8 +37,8 @@
             </div>
 
             <div class="input-wrap">
-                <label>Beschreibung:</label>
-                <f:form.textarea cols="80" rows="10" property="projectText" value="{project.projectText}" class="left-fullwidth heigh"/>
+                
+                <f:form.textarea id="editor" cols="80" rows="10" property="projectText" value="{project.projectText}" class="heigh"/>
             </div>
 
         </div>
@@ -63,6 +63,11 @@
             <div class="input-wrap">
                 <label>Budget (€):</label>
                 <f:form.textfield property="projectBudgetMoney" value="{project.projectBudgetMoney}" class="right small" />
+            </div>
+            
+            <div class="input-wrap" style="height:202px;">
+                <label></label>
+                <f:form.textfield property="" class="right small"/>
             </div>
 
             <f:form.submit name="mySubmit" value="speichern" class="button form-button" />
