@@ -262,6 +262,11 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         
         $todo = $this->request->getArgument('todo');
         
+        if($this->request->hasArgument('delete')){
+            $todo = $this->todoRepository->findByUid($todo['uid']);
+            $this->todoRepository->remove($todo);
+            $this->redirect('todoNew', 'Todo', NULL, Array('list' => $todo->getTodolist()));
+        }
         if($todo['uid'] == ''){
             //Create New todo
             $toDoDB = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todo');

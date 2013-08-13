@@ -374,6 +374,12 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 
         $effort = $this->request->getArgument('work');
         
+        if($this->request->hasArgument('delete')){
+            $effort = $this->workRepository->findByUid($effort['uid']);
+            $this->workRepository->remove($effort);
+            $this->redirect('effortsShow', 'Project', NULL, Array('project' => $effort->getWorkProject()));
+            }
+        
         if($effort['uid'] == ''){
             //Create New todo
             $effortDB = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Work');
