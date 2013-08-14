@@ -133,6 +133,7 @@ body {
     margin: 10px;
 }
 
+/* Sub Menu */
 #pat .stage-sub-menu {
     height: 25px;
     background-image:linear-gradient(#FAFAFA, #EAEAEA);
@@ -160,6 +161,15 @@ body {
 #pat .stage-sub-menu .item.selected{
     background-color: #F2f2f2;
     border-bottom: 1px solid #B9A551;
+}
+#pat .stage-sub-menu .item.right{
+    float: right;
+}
+#pat .stage-sub-menu .jqHandler > form {
+    display: inline;
+    float: right;
+    margin-left: 5px;
+    
 }
 /* Stage MENU SECTION ************************/
 #pat .stagemenu {

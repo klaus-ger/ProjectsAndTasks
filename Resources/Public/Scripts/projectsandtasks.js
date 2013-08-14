@@ -168,6 +168,11 @@ jQuery("document").ready(function(){
             console.log(uid);
         });
     
+        //Loads an other ToDolist (select change in Submenu)
+        $('.jqSelectTodoList').change(function(e)  { 
+         $('#todoListSelect').submit();
+          });
+        
         //**********************************************************************/
         // Actions on Project -> Efforts Page **********************************/
         //**********************************************************************/

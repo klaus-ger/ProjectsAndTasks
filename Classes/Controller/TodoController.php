@@ -214,20 +214,22 @@ class TodoController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     public function todoNewAction() {
         $list = $this->request->getArgument('list');
 
-        
-        //$newtodo = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todo');
+         //$newtodo = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todo');
         //$newtodo->setTodolist($list);
         //$newtodo->setTodoNr($this->todoRepository->getNextNumber($list));
 
         $todoList = $this->todolistRepository->findByUid($list);
         $todosAllFromList = $this->todoRepository->findByTodoList($list);
 
+        $allProjectLists = $this->todolistRepository->findByTodolistProject($todoList->getTodolistProject());
+       
         $this->view->assign('projectHeader', $this->project->findProjectHeader($todoList->getTodolistProject()));
         $this->view->assign('user', $this->userRepository->findAll());
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         $this->view->assign('plantime', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkTime());
         $this->view->assign('typ', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTodoTyp());
         $this->view->assign('todolist', $todoList);
+        $this->view->assign('allLists', $allProjectLists);
         $this->view->assign('todosAllFromList', $todosAllFromList);
         //$this->view->assign('todo', $newtodo);
         $this->view->assign('menu', '4');
