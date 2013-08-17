@@ -111,7 +111,7 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
         if ($saveOnly === TRUE) {
             $this->savePdf('mypdf' . '.pdf');
         } else {
-            $this->savePdf('mypdf ' . '.pdf');
+            $this->savePdf('mypdf' . '.pdf');
             $this->showPdf('mypdf' . '.pdf');
         }
     }
