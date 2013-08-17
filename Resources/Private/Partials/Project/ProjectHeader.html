@@ -58,21 +58,9 @@
         </div>
         
         <div class="{f:if(condition:'{menu}==4',then:'item selected',else:'item')}">
-            <f:if condition="{0:projectHeader.todos.list}=={0:'multi'}">
-                 <f:link.action action="todoShowMulti" controller="Todo"arguments="{project:projectHeader.project}">
+                <f:link.action action="todoShow" controller="Project"arguments="{project:projectHeader.project}">
                     ToDos ({projectHeader.todos.open}/{projectHeader.todos.all})
                 </f:link.action>
-            </f:if>
-            <f:if condition="{0:projectHeader.todos.list}=={0:'single'}">
-                <f:link.action action="todoNew" controller="Todo"arguments="{list:projectHeader.todos.listUid}">
-                    ToDos ({projectHeader.todos.open}/{projectHeader.todos.all})
-                </f:link.action>
-            </f:if>
-           <f:if condition="{0:projectHeader.todos.list}=={0:'new'}">
-                <f:link.action action="todoListNew" controller="Todo"arguments="{project:projectHeader.project}">
-                    ToDos ({projectHeader.todos.open}/{projectHeader.todos.all})
-                </f:link.action>
-            </f:if>
         </div>
             
         <div class="{f:if(condition:'{menu}==5',then:'item selected',else:'item')}">

@@ -128,8 +128,8 @@ jQuery("document").ready(function(){
                     request: {
                         extensionName:  'ProjectsAndTasks',
                         pluginName:     'patsystem',
-                        controller: 'Todo', 
-                        action:     'findTodoByAjax',
+                        controller:     'Project', 
+                        action:         'todoByAjax',
                         arguments: {
                             'uid': uid,
                             'storagePid': storagePid
@@ -164,8 +164,7 @@ jQuery("document").ready(function(){
                 }
             });
         
-        
-            console.log(uid);
+
         });
     
         //Loads an other ToDolist (select change in Submenu)

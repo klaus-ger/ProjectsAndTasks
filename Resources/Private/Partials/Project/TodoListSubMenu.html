@@ -1,0 +1,36 @@
+
+<div class="stage-sub-menu">
+
+    <div class="{f:if(condition:'{submenu}==1',then:'item selected',else:'item')}">
+        <div class="jqHandler jqShowAllTodos">
+            show All
+        </div>
+    </div>
+    <div class="{f:if(condition:'{submenu}==2',then:'item selected',else:'item')}">
+        <div class="jqHandler jqHideDoneTodos">
+            show Open
+        </div>
+    </div>
+    <div class="{f:if(condition:'{submenu}==2',then:'item selected',else:'item')}">
+        <div class="jqHandler">
+            ToDo List:
+            <f:form action="todoNew" id="todoListSelect">
+            <f:form.select name="list" value="{todolist.uid}" options="{allLists}" 
+                           optionValueField="uid" optionLabelField="todolistTitel"
+                           class="jqSelectTodoList"/>
+            
+            </f:form>
+        </div>
+    </div>
+        <div class="item right">
+        <div class="jqHandler jqShowForm">
+            new ToDO
+        </div>
+    </div>
+    <div class="item right">
+        <f:link.action action="todoPdf" controller="Project" arguments="{todolist: todolist.uid}" >
+            write pdf
+        </f:link.action>
+    </div>
+
+</div>
