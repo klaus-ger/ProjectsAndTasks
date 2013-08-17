@@ -14,14 +14,26 @@
     <div class="{f:if(condition:'{submenu}==2',then:'item selected',else:'item')}">
         <div class="jqHandler">
             ToDo List:
-            <f:form action="todoNew" id="todoListSelect">
-            <f:form.select name="list" value="{todolist.uid}" options="{allLists}" 
+            <f:form action="todoShow" id="todoListSelect">
+            <f:form.select name="todolist" value="{todolist.uid}" options="{allLists}" 
                            optionValueField="uid" optionLabelField="todolistTitel"
                            class="jqSelectTodoList"/>
-            
+            <f:form.hidden name="project" value="{projectHeader.project.uid}" />
             </f:form>
         </div>
     </div>
+    <div class="{f:if(condition:'{submenu}==2',then:'item selected',else:'item')}">
+        <div class="jqHandler jqEditTodoList">
+            edit TodoList
+        </div>
+    </div>
+    
+    <div class="{f:if(condition:'{submenu}==2',then:'item selected',else:'item')}">
+        <div class="jqHandler jqNewTodoList">
+            new TodoList
+        </div>
+    </div>
+    
         <div class="item right">
         <div class="jqHandler jqShowForm">
             new ToDO

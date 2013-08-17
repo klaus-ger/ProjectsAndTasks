@@ -860,7 +860,7 @@ body {
     display: inline;
     width: 100px;
     text-align: right;
-    padding: 4px 0;
+    padding: 5px 0 3px 0;
 }
 .input-wrap label.left-small{
      width: 82px;

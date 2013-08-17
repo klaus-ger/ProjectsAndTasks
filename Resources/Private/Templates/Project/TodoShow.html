@@ -19,9 +19,16 @@
             <br/>
 
             <!--The form -->
-            <div class="form">
-                <f:render partial="Project/TodoForm" arguments="{_all}" />
-            </div>
+
+           
+                    <div class="form">
+                        <f:render partial="Project/TodoForm" arguments="{_all}" />
+                    </div>   
+       
+                    <div class="{f:if(condition:'{todolist}',then:'form jqTodoListForm',else:'show')}" >
+                        <f:render partial="Project/TodoListForm" arguments="{_all}" />
+                    </div>
+    
 
             <!-- The List -->
             <f:render partial="Project/TodoListSubMenu" arguments="{_all}" />

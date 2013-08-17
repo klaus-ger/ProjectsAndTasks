@@ -172,6 +172,22 @@ jQuery("document").ready(function(){
          $('#todoListSelect').submit();
           });
         
+        //Shows the ToDo LIST Form for editing
+        $('.jqEditTodoList').click(function(e)  { 
+            $('.jqTodoListForm').show();
+        });
+        
+        //Shows the ToDo LIST Form for creating a new TodoList
+        $('.jqNewTodoList').click(function(e)  { 
+            $('.jqTodoListFormUid').val('');
+            $('.jqTodoListFormTitle').val('');
+            $('.jqTodoListFormDescription').val('');
+            $('.jqTodoListFormStatus').val('');
+            $('.jqTodoListFormOwner').val('');
+            
+            $('.jqTodoListForm').show();
+        });
+        
         //**********************************************************************/
         // Actions on Project -> Efforts Page **********************************/
         //**********************************************************************/

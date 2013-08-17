@@ -335,6 +335,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \t3developer\ProjectsAndTasks\Domain\Model\Project $project
      * @dontvalidate $project
      * @return void
+     * 
      */
     public function projectCreateAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
         $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
@@ -482,14 +483,20 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function todoShowAction() {
         $project = $this->request->getArgument('project');
+        
+        if($this->request->hasArgument('todolist')){
+            $todoList = $this->request->getArgument('todolist');
+        } else{
+            $todoListen = $this->todolistRepository->findByTodolistProject($project);
+            if($todoListen[0] != '') $todoList = $todoListen[0]->getUid(); 
+        }
 
-        //ToDo: Wenn von einer anderen Liste als 0 gespeichter wird, Rücksprung auf diese Liste!
-        $todoLists = $this->todolistRepository->findByTodolistProject($project);
-
+        $todoAllLists = $this->todolistRepository->findByTodolistProject($project);
+        
         //If a Project has a todoList: find first List and loads the todos
-        if ($todoLists[0] != '') {
-            $todosAllFromList = $this->todoRepository->findByTodoList($todoLists[0]);
-            $todoList = $this->todolistRepository->findByUid($todoLists[0]);
+        if ($todoList != '') {
+            $todosAllFromList = $this->todoRepository->findByTodoList($todoList);
+            $todoList = $this->todolistRepository->findByUid($todoList);
         }
 
         $this->view->assign('projectHeader', $this->findProjectHeader($project));
@@ -498,7 +505,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('plantime', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkTime());
         $this->view->assign('typ', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTodoTyp());
         $this->view->assign('todolist', $todoList);
-        $this->view->assign('allLists', $todoLists);
+        $this->view->assign('allLists', $todoAllLists);
         $this->view->assign('todosAllFromList', $todosAllFromList);
 
         $this->view->assign('menu', '4');
@@ -521,7 +528,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->todoRepository->remove($todo);
 
             $todoList = $this->todolistRepository->findByUid($todo->getTodoList());
-            $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoList->getTodolistProject(), 'list' => $todo->getTodolist()));
+            $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoList->getTodolistProject(), 'todolist' => $todo->getTodolist()));
         }
         if ($todo['uid'] == '') {
             //Create New todo
@@ -568,7 +575,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $todoList = $this->todolistRepository->findByUid($todo['todoList']);
 
 
-        $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoList->getTodolistProject(), 'list' => $toDoDB->getTodolist()));
+        $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoList->getTodolistProject(), 'todolist' => $toDoDB->getTodolist()));
     }
 
     /**
@@ -605,6 +612,48 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $arguments['storagePid'] = $storagePid;
         $arguments['todoUid'] = $todoUid;
         return json_encode($result);
+    }
+
+    /**
+     * Save TodoList Action
+     * 
+     * Important: The Form Values are set via Ajax. We have not a valid todo Object!
+     * 
+     * @return void
+     */
+    public function todoListSaveAction() {
+
+        $todoList = $this->request->getArgument('todoList');
+
+        if ($this->request->hasArgument('delete')) {
+            $todoListDB = $this->todolistRepository->findByUid($todoList['uid']);
+            $this->todolistRepository->remove($todoListDB);
+            $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoListDB->getTodolistProject() ));
+        }
+        if ($todoList['uid'] == '') {
+            //Create New todo
+            $todoListDB = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todolist');
+            $action = 'new';
+        } else {
+            //update Todo
+            $todoListDB = $this->todolistRepository->findByUid($todoList['uid']);
+            $action = 'update';
+        }
+
+        $todoListDB->setTodolistProject($todoList['todolistProject']);
+        $todoListDB->setTodolistTitel($todoList['todolistTitle']);
+        $todoListDB->setTodolistDescription($todoList['todolistDescription']);
+        $todoListDB->setTodolistOwner($todoList['todolistOwner']);
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
+
+        if ($action == 'new') {
+            $this->todolistRepository->add($todoListDB);
+        }
+        if ($action == 'update') {
+            $this->todolistRepository->update($todoListDB);
+        }
+
+        $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoListDB->getTodolistProject(), 'list' => $todoListDB->getUid()));
     }
 
     /**
