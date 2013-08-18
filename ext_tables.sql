@@ -8,7 +8,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_project (
     hidden tinyint(4) unsigned DEFAULT '0' NOT NULL, 
 	
     project_title varchar(30) DEFAULT '' NOT NULL,
-    project_short varchar(100) DEFAULT '' NOT NULL,
+    project_short text,
     project_text text,
     project_sort int(11) DEFAULT '0' NOT NULL,
     project_status int(11) DEFAULT '0' NOT NULL,
