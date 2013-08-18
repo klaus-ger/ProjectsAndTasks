@@ -157,6 +157,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     ->forProperty('projectRevisionDate')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
         }
+        $this->checkLogIn();
     }
 
     /*
@@ -305,6 +306,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableProjectStatus());
         $this->view->assign('project', $project);
+        $this->view->assign('user', $this->user);
         $this->view->assign('menu', '2');
         $this->view->assign('submenu', '2');
     }
@@ -374,6 +376,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('projectHeader', $this->findProjectHeader($project));
         $this->view->assign('workstatus', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableWorkStatus());
         $this->view->assign('time', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableTime());
+        $this->view->assign('user', $this->user);
         $this->view->assign('works', $workList);
         $this->view->assign('work', $newWork);
         $this->view->assign('menu', '5');
@@ -427,12 +430,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->workRepository->update($effortDB);
         }
 
-
-        //   $todo->setTodoOwner($userUid);
-        //$this->todoRepository->add($todo);
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($effort);
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($effortDB);
-
         $this->redirect('effortsShow', 'Project', NULL, Array('project' => $effortDB->getWorkProject()));
     }
 
@@ -442,7 +439,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * Delete an Effort
      */
     public function effortsDeleteAction() {
-        
+        //TODO: write function
     }
 
     /**
@@ -482,10 +479,13 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * Shows the TodoList and Edit/New Form
      */
     public function todoShowAction() {
-        $project = $this->request->getArgument('project');
-        
+        if($this->request->hasArgument('project')){
+            $project = $this->request->getArgument('project');
+        }
         if($this->request->hasArgument('todolist')){
             $todoList = $this->request->getArgument('todolist');
+            $list = $this->todolistRepository->findByUid($todoList);
+            $project = $list->getTodolistProject();
         } else{
             $todoListen = $this->todolistRepository->findByTodolistProject($project);
             if($todoListen[0] != '') $todoList = $todoListen[0]->getUid(); 
@@ -507,7 +507,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('todolist', $todoList);
         $this->view->assign('allLists', $todoAllLists);
         $this->view->assign('todosAllFromList', $todosAllFromList);
-
+        
         $this->view->assign('menu', '4');
     }
 
@@ -644,7 +644,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $todoListDB->setTodolistTitel($todoList['todolistTitle']);
         $todoListDB->setTodolistDescription($todoList['todolistDescription']);
         $todoListDB->setTodolistOwner($todoList['todolistOwner']);
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
+      //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
 
         if ($action == 'new') {
             $this->todolistRepository->add($todoListDB);

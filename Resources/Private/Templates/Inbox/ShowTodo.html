@@ -30,10 +30,10 @@
                     {item.titel}
                 </div>
             </div>
-
+            
             <f:for each="{item.todos}" as="todo">
-                <f:link.action action="todoNew" controller="Todo" arguments="{list:todo.todoList}">
-
+                <f:link.action action="todoShow" controller="Project" arguments="{todolist:todo.todoList}">
+                    
                     <div class="projectListItem general-row-link">
                         <div class="status hidden">
                             {todo.todoStatus}

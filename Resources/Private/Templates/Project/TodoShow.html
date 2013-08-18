@@ -24,11 +24,11 @@
                     <div class="form">
                         <f:render partial="Project/TodoForm" arguments="{_all}" />
                     </div>   
-       
-                    <div class="{f:if(condition:'{todolist}',then:'form jqTodoListForm',else:'show')}" >
+                    
+                    <div class="{f:if(condition:'{todolist}',then:'listform jqTodoListForm',else:'show')}" >
                         <f:render partial="Project/TodoListForm" arguments="{_all}" />
                     </div>
-    
+                    
 
             <!-- The List -->
             <f:render partial="Project/TodoListSubMenu" arguments="{_all}" />

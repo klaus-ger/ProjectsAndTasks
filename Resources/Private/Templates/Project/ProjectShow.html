@@ -15,7 +15,7 @@
                 <h2>Neue Nachrichten</h2> 
                 <f:render partial="Widgets/WidgetMessages" arguments="{messages: messages}" />
                 <br />
-                <h2>Project Member</h2> 
+                
                 <f:render partial="Widgets/WidgetProjectMember" arguments="{_all}" />
             </div>
 
@@ -39,9 +39,7 @@
                         <h2>Todos: bisher keine Liste angelegt</h2>
                     </f:else>
                 </f:if>
-                <f:link.action action="todoListNew" controller="Todo"arguments="{project:project}">
-                    <div class="button">Neue Todo Liste anlegen</div>
-                </f:link.action>
+
                 
                 <br />
                 <br />
@@ -61,20 +59,7 @@
             <div class="clear"></div>
 
 
-            <h2>Nachrichten</h2>
-            <div class="projectListItem">
-                Icon &nbsp;&nbsp; Klaus &nbsp;&nbsp; Hier kommen die letzten 5mails and notes
-            </div>
-            <div class="projectListItem">
-                Icon &nbsp;&nbsp; Klaus &nbsp;&nbsp; Hier kommen die letzten 5mails and notes
-            </div>       
-            <div class="projectListItem">
-                Icon &nbsp;&nbsp; Klaus &nbsp;&nbsp; Hier kommen die letzten 5mails and notes
-            </div>
-            <div class="projectListItem">
-                Icon &nbsp;&nbsp; Klaus &nbsp;&nbsp; Hier kommen die letzten 5mails and notes
-            </div>
-            Fussnote & Link -> alle anzeigen
+           
             <br>
             <br ><br />
 

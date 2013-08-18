@@ -274,7 +274,8 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $projectUid = $list->getTodolistProject();
             $project = $this->projectRepository->findByUid($projectUid);
             $projectTitel = $project->getProjectTitle();
-
+            
+            $listi[$projectUid]['uid'] = $projectUid;
             $listi[$projectUid]['titel'] = $projectTitel;
             $listi[$projectUid]['todos'][$todo->getUid()] = $todo;
             // $listi[$projectUid] = $projectUid;
