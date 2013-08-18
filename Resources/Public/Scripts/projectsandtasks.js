@@ -173,6 +173,7 @@ jQuery("document").ready(function(){
           });
         
         //Shows the ToDo LIST Form for editing
+        $('.listform').hide();
         $('.jqEditTodoList').click(function(e)  { 
             $('.jqTodoListForm').show();
         });
