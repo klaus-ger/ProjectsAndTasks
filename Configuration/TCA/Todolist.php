@@ -3,10 +3,10 @@
 $TCA['tx_projectsandtasks_domain_model_todolist'] = array(
     'ctrl' => $TCA['tx_projectsandtasks_domain_model_todolist']['ctrl'],
     'interface' => array(
-        'showRecordFieldList' => 'todolist_title,todolist_short, todolist_text;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], todolist_sort, todolist_status, todolist_typ, todolist_parent'
+        'showRecordFieldList' => 'todolist_title,todolist_short_titel, todolist_text;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], todolist_sort, todolist_status, todolist_typ, todolist_parent'
     ),
     'types' => array(
-        '1' => array('showitem' => 'todolist_title,todolist_short, todolist_text;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], todolist_sort, todolist_status,todolist_typ, todolist_parent')
+        '1' => array('showitem' => 'todolist_title,todolist_short_titel, todolist_text;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], todolist_sort, todolist_status,todolist_typ, todolist_parent')
     ),
     'palettes' => array(
         '1' => array('showitem' => '')
@@ -77,6 +77,14 @@ $TCA['tx_projectsandtasks_domain_model_todolist'] = array(
             )
         ),
         'todolist_titel' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'text',
+                'size' => 30,
+            )
+        ),
+        'todolist_short_titel' => array(
             'exclude' => 0,
             'label' => 'Text',
             'config' => array(

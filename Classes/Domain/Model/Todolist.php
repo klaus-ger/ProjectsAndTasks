@@ -1,7 +1,8 @@
 <?php
+
 namespace T3developer\ProjectsAndTasks\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2013 
@@ -22,7 +23,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
  *
@@ -33,9 +34,6 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
  */
 class Todolist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-
-    
-    
     /**
      * The ProjectTitle
      * @var \int
@@ -49,6 +47,13 @@ class Todolist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $todolistTitel;
+
+    /**
+     * The ProjectShort
+     * @var \string
+     * 
+     */
+    protected $todolistShortTitel;
 
     /**
      * The ProjectText
@@ -71,8 +76,6 @@ class Todolist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $todolistStatus;
 
-
-
     public function getTodolistProject() {
         return $this->todolistProject;
     }
@@ -87,6 +90,14 @@ class Todolist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setTodolistTitel($todolistTitel) {
         $this->todolistTitel = $todolistTitel;
+    }
+
+    public function getTodolistShortTitel() {
+        return $this->todolistShortTitel;
+    }
+
+    public function setTodolistShortTitel($todolistShortTitel) {
+        $this->todolistShortTitel = $todolistShortTitel;
     }
 
     public function getTodolistDescription() {
@@ -112,7 +123,6 @@ class Todolist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setTodolistStatus($todolistStatus) {
         $this->todolistStatus = $todolistStatus;
     }
-
 
 }
 

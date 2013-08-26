@@ -182,6 +182,7 @@ jQuery("document").ready(function(){
         $('.jqNewTodoList').click(function(e)  { 
             $('.jqTodoListFormUid').val('');
             $('.jqTodoListFormTitle').val('');
+            $('.jqTodoListFormShortTitle').val('');
             $('.jqTodoListFormDescription').val('');
             $('.jqTodoListFormStatus').val('');
             $('.jqTodoListFormOwner').val('');
@@ -225,7 +226,7 @@ jQuery("document").ready(function(){
             $('.jqEffortFormTitle').val('');
             $('.jqEffortFormText').val('');
             $('.jqEffortFormStatus').val('');
-            $('.jqEffortFormUser').val('');
+            //$('.jqEffortFormUser').val(''); 
             $('.jqEffortFormDate').val('');
             $('.jqEffortFormStart').val('');
             $('.jqEffortFormEnd').val('');
