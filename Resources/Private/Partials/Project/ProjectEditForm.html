@@ -2,16 +2,13 @@
 
 <vh:comment>
     /**
-    * Partial Project Edit Form
+    * Partial Project Edit  New Form || The Form Tag in in main Template!
     * 
     * @param {project}
     * Used for Edit and New Action
     * Version 1.0.2 Build 6.7.2013 klaus.heuer@t3-developer.com
     */
 </vh:comment>
-<br />
-<div class="clear"></div>
-<f:form method="post" controller="Project" action="projectUpdate" name="project" object="{project}"   >
 
     <div class="stageItemTable">
 
@@ -51,8 +48,13 @@
             </div>
 
             <div class="input-wrap">
-                <label>Update:</label>
-                <f:form.textfield  class="datepicker right" property="projectRevisionDate" value="{project.projectRevisionDate-> f:format.date( format: 'd.m.Y' )}" />
+                <label>Start:</label>
+                <f:form.textfield  class="datepicker right" property="projectStartDate" value="{project.projectStartDate-> f:format.date( format: 'd.m.Y' )}" />
+            </div>
+            
+            <div class="input-wrap">
+                <label>Deadline:</label>
+                <f:form.textfield  class="datepicker right" property="projectEndDate" value="{project.projectEndDate-> f:format.date( format: 'd.m.Y' )}" />
             </div>
 
             <div class="input-wrap">
@@ -65,7 +67,12 @@
                 <f:form.textfield property="projectBudgetMoney" value="{project.projectBudgetMoney}" class="right small" />
             </div>
             
-            <div class="input-wrap" style="height:202px; width:206px;" >
+            <div class="input-wrap">
+                <label>Update:</label>
+                <f:form.textfield  class="datepicker right" property="projectRevisionDate" value="{project.projectRevisionDate-> f:format.date( format: 'd.m.Y' )}" />
+            </div>
+            
+            <div class="input-wrap" style="height:133px; width:206px;" >
                 <label></label>
                 &nbsp;
             </div>
@@ -73,16 +80,7 @@
             <f:form.submit name="mySubmit" value="speichern" class="button form-button" />
         </div>
 
-
-
-
-
-
-    </div>
+</div>
 
  
 
-</f:form>
-<div class="clear"></div>
-<br />
-<br />

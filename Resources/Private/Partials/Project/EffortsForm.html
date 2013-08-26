@@ -1,5 +1,5 @@
 <f:form method="post" controller="Project" action="effortsSave" name="work" object="{work}"   >
-
+    
     <div class="stageItemTable">
 
         <!--hidden fields -->
@@ -16,7 +16,8 @@
 
             <div class="input-wrap">
                 <label class="left-small">User:</label>
-                <f:form.textfield  property="workUser" value="{work.workUser}" class="jqEffortFormUser left-small"/>
+                
+                <f:form.textfield  property="workUser" value="{user.username}" class="jqEffortFormUser left-small"/>
             </div>
 
             <div class="input-wrap">
