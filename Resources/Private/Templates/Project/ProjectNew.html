@@ -1,57 +1,42 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
 
-<div id="pat">
-    <div class="stage">
-        <h1>Neues Projekt anlegen:</h1>
-        <f:form method="post" controller="Project" action="projectCreate" name="project" object="{Project}"   >
-
-            <div class="stageItemTable">
-
-                <!--hidden fields -->
-     
-
-                <!-- regular Fields -->
-
-
+<vh:comment>
+    /**
+    * Project New
+    * 
+    * Shows the Project New Page
+    * @param {project}
+    * @param {projectheader}
+    * Version 1.0.2 Build 26.8.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
 
 
-                <div class="stageItemTableLabel">
-                    Project Titel
-                </div>
-                <div class="stageItemTableContent">
-                    <f:form.textfield property="projectTitle" value="{project.projectTitle}" class="fullWidth" />
-                </div>
-                <div class="stageItemTableDivider"></div>
+<f:layout name="Default" />
 
-                <div class="stageItemTableLabel">
-                    Kurztext
-                </div>
-                <div class="stageItemTableContent">
-                    <f:form.textarea  cols="45" rows="3" property="projectShort" value="{project.projectShort}" />
-                </div>
-                <div class="stageItemTableDivider"></div>
+<f:section name="main">
+    <div id="pat">
 
-                <div class="stageItemTableLabel">
-                    Beschreibung
-                </div>
-                <div class="stageItemTableContent">
-                    <f:form.textarea cols="45" rows="3" property="projectText" value="{project.projectText}" />
-                </div>
-                <div class="stageItemTableDivider"></div>
+        <div class="stage-header">
+            <f:render partial="Inbox/InboxHeader" arguments="{_all}" />
+        </div>
 
+        <div class="stage">
+            <h2>Project New:</h2>
+            
 
-            </div>
+            <br />
+            <div class="clear"></div>
+            <f:form method="post" controller="Project" action="projectCreate" name="project" object="{project}"   >
 
+                <f:render partial="Project/ProjectEditForm" arguments="{_all}" />
+            
+            </f:form>
+            <div class="clear"></div>
+            <br />
+            <br />
+        </div>
 
+    </div>
 
-
-            <div class="formrow buttonrow">
-
-                <input type="button"  class="button lightbox-close" value="abbrechen"  />
-                <f:form.submit name="mySubmit" value="speichern" class="button" />
-
-                <input type="button"  class="button lightbox-close" value="schließen"  />
-
-            </div>
-        </f:form>
-    </div></div>
-
+</f:section>

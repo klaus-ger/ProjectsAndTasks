@@ -156,7 +156,23 @@ $TCA['tx_projectsandtasks_domain_model_project'] = array(
                 'size' => 100,
             )
         ),
-                        'project_revision_date' => array(
+       'project_revision_date' => array(
+            'exclude' => 0,
+            'label' => 'Project Level',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'project_start_date' => array(
+            'exclude' => 0,
+            'label' => 'Project Level',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'project_end_date' => array(
             'exclude' => 0,
             'label' => 'Project Level',
             'config' => array(

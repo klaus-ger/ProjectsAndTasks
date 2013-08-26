@@ -21,6 +21,8 @@ CREATE TABLE tx_projectsandtasks_domain_model_project (
     project_budget_time int(11) DEFAULT '0' NOT NULL,
     project_budget_money int(11) DEFAULT '0' NOT NULL,
     project_revision_date int(11) DEFAULT '0' NOT NULL,
+    project_start_date int(11) DEFAULT '0' NOT NULL,
+    project_end_date int(11) DEFAULT '0' NOT NULL,
 
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,
@@ -95,6 +97,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_todolist (
 	
     todolist_project int(11) unsigned DEFAULT '0' NOT NULL, 
     todolist_titel varchar(100) DEFAULT '' NOT NULL,
+    todolist_short_titel varchar(12) DEFAULT '' NOT NULL,
     todolist_description text,
     
     todolist_owner int(11) unsigned DEFAULT '0' NOT NULL,

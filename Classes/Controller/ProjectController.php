@@ -156,6 +156,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     ->getPropertyMappingConfiguration()
                     ->forProperty('projectRevisionDate')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
+        
+            $this->arguments['project']
+                    ->getPropertyMappingConfiguration()
+                    ->forProperty('projectStartDate')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
+            $this->arguments['project']
+                    ->getPropertyMappingConfiguration()
+                    ->forProperty('projectEndDate')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
+        
         }
         $this->checkLogIn();
     }
@@ -283,8 +293,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function projectNewAction() {
 
         $newproject = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Project');
+        $projectSelect = $this->findProjectSelectArray();
 
-
+        $this->view->assign('projectSelect', $projectSelect);
         $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
         $this->view->assign('project', $newproject);
     }
@@ -341,8 +352,13 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function projectCreateAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
         $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
-
+        
+        $time = $project->getProjectBudgetTime();
+        $time = $time * 3600;
+        
+        $project->setProjectBudgetTime($time);
         $project->setProjectOwner($userUid);
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($project);
         $this->projectRepository->add($project);
 
         $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface')->persistAll();
@@ -411,10 +427,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $dateDay = $date[0];
         $dateMonth = $date[1];
         $dateYear = $date[2];
-        $workDate = mktime(0, 0, 0, $dateMonth, $dateDay, $dateYear);
+        $workDate = mktime(12, 0, 0, $dateMonth, $dateDay, $dateYear);
 
         $effortDB->setWorkProject($effort['workProject']);
-        //$effortDB->setWorkUser($GLOBALS['TSFE']->fe_user->user['uid']);
+        //$effortDB->setWorkUser($this->user);
         $effortDB->setWorkTitle($effort['workTitle']);
         $effortDB->setWorkDescription($effort['workDescription']);
         $effortDB->setWorkStatus($effort['workStatus']);
@@ -615,7 +631,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * Save TodoList Action
+     * Save and Delete TodoList Action
      * 
      * Important: The Form Values are set via Ajax. We have not a valid todo Object!
      * 
@@ -624,12 +640,20 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function todoListSaveAction() {
 
         $todoList = $this->request->getArgument('todoList');
-
+        
+        //delete Action: deltes also all toDos from List
         if ($this->request->hasArgument('delete')) {
+            
+            $todos = $this->todoRepository->findByTodoList($todoList['uid']);
+            foreach($todos as $todo){
+                $this->todoRepository->remove($todo);
+             }
             $todoListDB = $this->todolistRepository->findByUid($todoList['uid']);
             $this->todolistRepository->remove($todoListDB);
             $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoListDB->getTodolistProject() ));
         }
+        
+        //new and update Action
         if ($todoList['uid'] == '') {
             //Create New todo
             $todoListDB = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Todolist');
@@ -642,6 +666,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $todoListDB->setTodolistProject($todoList['todolistProject']);
         $todoListDB->setTodolistTitel($todoList['todolistTitle']);
+        $todoListDB->setTodolistShortTitel($todoList['todolistShortTitle']);
         $todoListDB->setTodolistDescription($todoList['todolistDescription']);
         $todoListDB->setTodolistOwner($todoList['todolistOwner']);
       //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
@@ -667,7 +692,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $todoListUid = $this->request->getArgument('todolist');
         $todoList = $this->todolistRepository->findByUid($todoListUid);
         $project = $this->projectRepository->findByUid($todoList->getTodolistProject());
-        $todos = $this->todoRepository->findByTodoList($todoList->getUid());
+        $todos = $this->todoRepository->findByListAndStatus($todoList->getUid(), '6');
         //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListUid);
         return $this->pdfUtility->createTodoPdf($todoList, $todos, $project);
     }
@@ -712,16 +737,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $todos['open'] = $todos['open'] + $open;
             }
         }
-//        if ($todoLists[1] != '') {
-//            $todos['list'] = 'multi';
-//        }
-//        if (($todoLists[1] == '') && ($todoLists[0] != '')) {
-//            $todos['listUid'] = $todoLists[0]->getUid();
-//            $todos['list'] = 'single';
-//        }
-//        if ($todoLists[0] == '') {
-//            $todos['list'] = 'new';
-//        }
+
         //get the work
         $work = '';
         $work['all'] = count($work = $this->workRepository->findByWorkProject($projectUid));
