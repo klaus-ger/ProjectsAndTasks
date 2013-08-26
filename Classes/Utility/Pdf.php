@@ -33,20 +33,34 @@ namespace T3developer\ProjectsAndTasks\Utility;
 class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
 
     const DEFAULT_DIRECOTRY_FONTS = 'EXT:projects_and_tasks/Classes/Utility/Tcpdf/fonts/';
-    const DEFAULT_DIRECOTRY_IMAGE = 'EXT:projects_and_tasks/Classes/Utility/Tcpdf/';
+    const DEFAULT_DIRECOTRY_IMAGE = 'EXT:projects_and_tasks/Classes/Utility/Tcpdf/custombg/';
+    
+    public function __construct() {
+        parent::__construct();
+    }
     /*
      * Defines the standard Header for t3-developer
      */
 
     public function Header() {
-        $this->SetTopMargin($this->GetY());
-        $img_file = DEFAULT_DIRECOTRY_IMAGE.'logo.gif';
+        $auto_page_break = $this->AutoPageBreak;
+        // disable auto-page-break
+        $this->SetAutoPageBreak(false, 0);
+        // set bacground image
+         
+        $img_file = 'http://localhost:8888/typo62/typo3conf/ext/projects_and_tasks/Resources/Public/t3page.jpg';
+        
         $this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+        
+        // restore auto-page-break status
+        $this->SetAutoPageBreak($auto_page_break, $bMargin);
+        // set the starting point for the page content
+        $this->setPageMark();
     }
 
     public function Footer() {
         // Position at 15 mm from bottom
-        $this->SetY(-15);
+        $this->SetY(-10);
         $this->SetX(23);
         // Set font
         $this->SetFont('TRADEGOTHICLT', '', 7);
@@ -80,7 +94,26 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
         $this->SetSubject('Singel ToDo List');
         $this->SetKeywords('Projects and Tasks');
 
+       
+        $this->setJPEGQuality(100);
+        $this->SetMargins(0, 0, 0, 0);
+
+        $this->SetCellPadding(0, 0, 0, 0);
+        $this->setCellMargins(0, 0, 0, 0);
+        $this->setImageScale(1.53);
+        // $this->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $this->SetHeaderMargin(0);
+        //$this->SetFooterMargin(0);
+        //$this->setPrintFooter(false);
+
+
+
+
+
+
+        // Page 1
         $this->AddPage();
+        $this->Header();
         $this->SetAutoPageBreak(TRUE);
 
         // Adressfeld
@@ -134,19 +167,17 @@ class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
         $pdfFile = PATH_site . 'uploads/pat/' . $filename;
 
         if (file_exists($pdfFile)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename=' . basename($pdfFile));
+                    header('Content-Description: File Transfer');
+            header('Content-Type: application/force-download');
+            header('Content-Disposition: attachment; filename='.basename($pdfFile));
             header('Content-Transfer-Encoding: binary');
             header('Expires: 0');
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
             header('Pragma: public');
-            header('Content-Length: ' . filesize($pdfFile)); //Remove
-
+            header('Content-Length: ' . filesize($pdfFile));
             ob_clean();
             flush();
-
-            readfile($pdfFile);
+            readfile($pdfFile, 'I');
             exit;
         }
         echo "Es ist ein Fehler beim Download der Datei aufgetreten!";
@@ -232,7 +263,7 @@ EOD;
         $this->SetTextColor(90,90,90);
         $this->SetFont('lato', '', 7);
         $this->setCellPaddings(2, 2, 2, 2);
-        $this->SetLineWidth(0.5);
+        $this->SetLineWidth(0.2);
 
         $timeTotal = 0;
         
