@@ -55,7 +55,56 @@ jQuery("document").ready(function(){
         $( ".datepicker" ).datepicker();
         $( "#datepicker2" ).datepicker(); 
     
+        //**********************************************************************/
+        // Actions on InBox -> Project Page ************************************/
+        //**********************************************************************/
+        
+        
+        //Inbox Project List: Toggle sub projects
+        $('.jqToggleProjects').click(function(e)  { 
+            var category = $(this).closest('li');
+            //toggle function
+            var subcategories = category.find('ul');
+            subcategories.toggle();
+            if(subcategories.hasClass('hidden'))subcategories.removeClass('hidden') ;
+            //change Icon
+            var icon  = category.find('.jqToggleProjects');
+             
+            if(icon.hasClass('toggle-icon-plus')){
+                icon.removeClass('toggle-icon-plus');
+                icon.addClass('toggle-icon-minus');
+            } else {
+                icon.removeClass('toggle-icon-minus');
+                icon.addClass('toggle-icon-plus');
+            }
 
+        });
+        
+        // Show All Projects
+        $('.jqShowAllProjects').click(function(e)  { 
+            $('ul').each( function() { 
+                $(this).removeClass('hidden');
+                //toggle icon
+                var category = $(this).closest('li');
+                var icon  = category.find('.jqToggleProjects');
+                icon.removeClass('toggle-icon-plus');
+                icon.addClass('toggle-icon-minus');
+            });
+        });
+        
+        // Hide All Sub Projects
+        $('.jqHideSubProjects').click(function(e)  { 
+            $('ul ul').each( function() { 
+                $(this).addClass('hidden');
+            });
+            //toggle Icon
+            $('ul').each( function() { 
+                var category = $(this).closest('li');
+                var icon  = category.find('.jqToggleProjects');
+                icon.removeClass('toggle-icon-minus');
+                icon.addClass('toggle-icon-plus');
+            });
+        });
     
         //**********************************************************************/
         // Actions on Projects -> ToDo Page ************************************/
@@ -288,30 +337,7 @@ jQuery("document").ready(function(){
         
             console.log(uid);
         });
-        //**********************************************************************/
-        // Actions on InBox -> Project Page ************************************/
-        //**********************************************************************/
         
-        
-        //Inbox Project List: Toggle sub projects
-        $('.jqToggleProjects').click(function(e)  { 
-            var category = $(this).closest('li');
-            //toggle function
-            var subcategories = category.find('ul');
-            subcategories.toggle();
-            if(subcategories.hasClass('hidden'))subcategories.removeClass('hidden') ;
-            //change Icon
-            var icon  = category.find('.jqToggleProjects');
-             
-            if(icon.hasClass('toggle-icon-plus')){
-                icon.removeClass('toggle-icon-plus');
-                icon.addClass('toggle-icon-minus');
-            } else {
-                icon.removeClass('toggle-icon-minus');
-                icon.addClass('toggle-icon-plus');
-            }
-
-        });
         
     });
 
