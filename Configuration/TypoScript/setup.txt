@@ -1,4 +1,95 @@
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:projects_and_tasks/Configuration/TypoScript/pagesetup.txt">
+
+
+lib.content        < styles.content.get
+
+
+page = PAGE
+page {
+
+    typeNum = 0
+    shortcutIcon = myicon.ico
+    insertClassesFromRTE = 1
+
+    10 = FLUIDTEMPLATE 
+    10 {
+        file                =  EXT:projects_and_tasks/Resources/Private/Page/Clear.html
+     
+        #partialRootPath     = EXT:projects_and_tasks/Resources/Private/Page/Partial/
+        #layoutRootPath      = EXT:projects_and_tasks/Resources/Private/Page/Layout/
+
+        variables {
+
+
+            }
+    }
+      
+    meta {
+        viewport            = width=device-width, initial-scale=1.0
+    }
+
+    includeCSS {
+        reset                           = EXT:projects_and_tasks/Resources/Public/Stylesheets/reset-min.css
+        reset.media                     = screen
+        reset.forceOnTop                = 1
+
+        tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/screen.css
+        tx_projectsandtasks_css_1.title = main_stylesheet
+        tx_projectsandtasks_css_1.media = screen
+
+        tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/ui-lightness/jquery-ui-1.10.3.custom.css
+    
+
+
+    }
+    	
+    includeJSlibs {
+        modernizr           = EXT:projects_and_tasks/Resources/Public/modernizr-2.6.1.min.js
+        modernizr.forceOnTop= 1
+    }
+
+    includeJSFooter {
+    tx_projects_file_1 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-1.8.3.js
+    tx_projects_file_2 = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.min.js
+    tx_projects_file_3 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.10.3.custom.min.js
+    
+    tx_projects_file_7 = EXT:projects_and_tasks/Resources/Public/Scripts/projectsandtasks.js
+    }
+
+
+
+}
+
+
+## CONFIGURATION ==============================================================#
+config {
+    doctype                             = html5
+    baseURL                             = {$plugin.tx_projectsandtasks.settings.baseUrl}
+    
+    renderCharset                       = utf-8
+    metaCharset                         = utf-8
+    pageNotFound_handling               = 1
+    xhtml_cleaning                      = all
+
+    removeDefaultJS                     = external
+    inlineStyle2TempFile                = 1
+
+    language                            = de
+    locale_all                          = de_DE.UTF8
+    htmlTag_langKey                     = de
+    admPanel                            = 0
+    debug                               = 0
+    cache_period                        = 43200
+    cache_clearAtMidnight               = 1
+    sendCacheHeaders                    = 1
+    tx_realurl_enable                  = 1
+    #simulateStaticDocuments            = 0
+    disablePrefixComment                = 1
+
+
+}
+
+
+
 
 
 config.tx_extbase{
@@ -23,12 +114,12 @@ columns {
     	}
     }
 }
-plugin.tx_projectsandtasks.settings.storagePid
+
 plugin.tx_projectsandtasks {
-    	view {
-		templateRootPath = EXT:projects_and_tasks/Resources/Private/Templates/
-		partialRootPath  = EXT:projects_and_tasks/Resources/Private/Partials/
-		layoutRootPath   = EXT:projects_and_tasks/Resources/Private/Layouts/
+    view {
+	templateRootPath = EXT:projects_and_tasks/Resources/Private/Templates/
+	partialRootPath  = EXT:projects_and_tasks/Resources/Private/Partials/
+	layoutRootPath   = EXT:projects_and_tasks/Resources/Private/Layouts/
 	}
     persistance {
         storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
@@ -43,27 +134,3 @@ plugin.tx_projectsandtasks {
 
 }
 
-
-
-
-page.includeCSS {
-    tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/screen.css
-    tx_projectsandtasks_css_1.title = main_stylesheet
-    tx_projectsandtasks_css_1.media = screen
-
-    tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/ui-lightness/jquery-ui-1.10.3.custom.css
-    #tx_projectsandtasks_css_2.title = jqueryUi
-    #tx_projectsandtasks_css_2.media = screen
-
-    tx_projectsandtasks_css_3 = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.css
-
-}
-
-
-page.includeJSFooter {
-    tx_projects_file_1 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-1.8.3.js
-    tx_projects_file_2 = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.min.js
-    tx_projects_file_3 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.10.3.custom.min.js
-    
-    tx_projects_file_7 = EXT:projects_and_tasks/Resources/Public/Scripts/projectsandtasks.js
-}
