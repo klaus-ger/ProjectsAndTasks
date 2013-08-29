@@ -368,9 +368,16 @@ body {
     padding-left: 15px;
     width: 260px;
 }
-
-.inbox-project-list-sticky {
+.inbox-project-list-todos{
     width: 130px;
+    display: inline-block;  
+}
+.inbox-project-list-date{
+    width: 130px;
+    display: inline-block;  
+}
+.inbox-project-list-sticky{
+    width: 30px;
     display: inline-block;  
 }
 

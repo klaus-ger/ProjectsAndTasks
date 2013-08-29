@@ -136,6 +136,12 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $projectEndDate;
 
     /**
+     * Project End Date
+     * @var \int
+     */
+    protected $projectSticky;
+
+    /**
      *
      * Gets the Crdate
      * @return \int
@@ -367,6 +373,14 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setProjectEndDate($projectEndDate) {
         $this->projectEndDate = $projectEndDate;
+    }
+
+    public function getProjectSticky() {
+        return $this->projectSticky;
+    }
+
+    public function setProjectSticky($projectSticky) {
+        $this->projectSticky = $projectSticky;
     }
 
 }

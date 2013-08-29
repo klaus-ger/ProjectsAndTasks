@@ -8,7 +8,7 @@
     *
     * @param {projects} A special Array of projects an open todos
     *
-    * Version 1.0.1 Build 27.8.2013 klaus.heuer@t3-developer.com
+    * Version 1.0.2 Build 29.8.2013 klaus.heuer@t3-developer.com
     */
 </vh:comment>
 
@@ -19,25 +19,35 @@
             <!-- First Level Project -->
             <div class="general-list-row general-row-link">
                 
-                <div class="general-list-icon jqToggleProjects toggle-icon-plus">
+                <div class="general-list-icon jqToggleProjects toggle-icon-plus" style="margin-right:0;">
                 </div>
                 
                 <f:link.action action="projectShow" controller="Project"arguments="{project: project.node}">
                     <div class="inbox-project-list-titel">
                         {project.node.projectTitle}
                     </div>
-                    <div class="inbox-project-list-sticky">
+                    <div class="inbox-project-list-todos">
                         {project.node.projectOpenTodos} ToDos
                     </div>
-                    <div class="inbox-project-list-sticky">
+                    <div class="inbox-project-list-date">
                         <f:format.date format="d.m.Y">{project.node.projectRevisionDate}</f:format.date>
+                    </div>
+                    <div class="inbox-project-list-date">
+                        <f:format.date format="d.m.Y">{project.node.projectEndDate}</f:format.date>
                     </div>
                 </f:link.action>
                 
                 <div class="inbox-project-list-sticky">
-                    <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: project.node.uid}">
-                        sticky
-                    </f:link.action>
+                <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: project.node.uid}">
+                <f:if condition="{project.node.projectSticky}">
+                    <f:then>
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_sticky_active.png" width="17" height="17" alt="Show project on IndexPage" />
+                    </f:then>
+                    <f:else>
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_sticky_normal.png" width="17" height="17" alt="Show project on IndexPage" />
+                    </f:else>
+                </f:if>
+                </f:link.action>
                 </div>
             </div>
 
@@ -53,18 +63,28 @@
                         <div class="inbox-project-list-titel">
                             --- {level2.node.projectTitle}<br>
                         </div>
-                        <div class="inbox-project-list-sticky">
+                        <div class="inbox-project-list-todos">
                             {level2.node.projectOpenTodos} ToDos
                         </div>
-                        <div class="inbox-project-list-sticky">
+                        <div class="inbox-project-list-date">
                             <f:format.date format="d.m.Y">{level2.node.projectRevisionDate}</f:format.date>
+                        </div>
+                        <div class="inbox-project-list-date">
+                            <f:format.date format="d.m.Y">{level2.node.projectEndDate}</f:format.date>
                         </div>
                     </f:link.action>
                     
                     <div class="inbox-project-list-sticky">
-                        <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level2.node.uid}">
-                            sticky
-                        </f:link.action>
+                    <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level2.node.uid}">
+                    <f:if condition="{level2.node.projectSticky}">
+                    <f:then>
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_sticky_active.png" width="17" height="17" alt="Show project on IndexPage" />
+                    </f:then>
+                    <f:else>
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_sticky_normal.png" width="17" height="17" alt="Show project on IndexPage" />
+                    </f:else>
+                    </f:if>
+                    </f:link.action>
                     </div>
                 </div>
 
@@ -79,17 +99,27 @@
                             <div class="inbox-project-list-titel">
                                 ------ {level3.node.projectTitle}<br>
                             </div>
-                            <div class="inbox-project-list-sticky">
+                            <div class="inbox-project-list-todos">
                                 {level3.node.projectOpenTodos} ToDos
                             </div>
-                            <div class="inbox-project-list-sticky">
+                            <div class="inbox-project-list-date">
                                 <f:format.date format="d.m.Y">{level3.node.projectRevisionDate}</f:format.date>
+                            </div>
+                            <div class="inbox-project-list-date">
+                                <f:format.date format="d.m.Y">{level3.node.projectEndDate}</f:format.date>
                             </div>
                         </f:link.action>
                         
                         <div class="inbox-project-list-sticky">
                             <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level3.node.uid}">
-                                sticky
+                            <f:if condition="{level3.node.projectSticky}">
+                            <f:then>
+                                <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_sticky_active.png" width="17" height="17" alt="Show project on IndexPage" />
+                            </f:then>
+                            <f:else>
+                                <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_sticky_normal.png" width="17" height="17" alt="Show project on IndexPage" />
+                            </f:else>
+                            </f:if>
                             </f:link.action>
                         </div>
                     </div>
@@ -106,19 +136,30 @@
                                 <div class="inbox-project-list-titel">
                                     --------- {level4.projectTitle}<br>
                                 </div>
-                                <div class="inbox-project-list-sticky">
+                                <div class="inbox-project-list-todos">
                                     {level4.projectOpenTodos} ToDos
                                 </div>
-                                <div class="inbox-project-list-sticky">
+                                <div class="inbox-project-list-date">
                                     <f:format.date format="d.m.Y">{level4.projectRevisionDate}</f:format.date>
+                                </div>
+                                <div class="inbox-project-list-date">
+                                    <f:format.date format="d.m.Y">{level4.projectEndDate}</f:format.date>
                                 </div>
                             </f:link.action>
                             
                             <div class="inbox-project-list-sticky">
-                                <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level4.node.uid}">
-                                    sticky
+                                <f:link.action action="makeProjectSticky" controller="Inbox"arguments="{projectUid: level4.uid}">
+                                <f:if condition="{level4.projectSticky}">
+                                <f:then>
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_sticky_active.png" width="17" height="17" alt="Show project on IndexPage" />
+                                </f:then>
+                                <f:else>
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Icons/icon_sticky_normal.png" width="17" height="17" alt="Show project on IndexPage" />
+                                </f:else>
+                                </f:if>
                                 </f:link.action>
                             </div>
+                            
                         </div>
                     </f:for>
                 </f:for>

@@ -360,19 +360,17 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $project->setProjectOpenTodos($countTodos);
             $proArrAdded[] = $project;
         }
-        //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($proArrAdded, 'proArr');
-        //the Array:
-        //$returnedArray[0]['node']="Auto"
-        //$returnedArray[0]['subnodes'][0]['node']="Opel"
-        //$returnedArray[0]['subnodes'][1]['node']="Audi"
-        //$returnedArray[1]['node']="Motorrad"
-        //$returnedArray[1]['subnodes'][0]['node']="Yamaha"
-        //$returnedArray[1]['subnodes'][0]['subnodes'][0]['node']="YZF R1"
-        //$returnedArray[1]['subnodes'][0]['subnodes'][1]['node']="Tomcat"
+        
         foreach ($proArrAdded as $single) {
-
+            
+            // Add the sticky Status to Project Model
+            $sticky = $this->projectrightsRepository->findByProjectAndUser($single->getUid(), $userUid);
+            $single->setProjectSticky($sticky[0]->getProjectrightsSticky() );
+                
+            //Build the project Tree   
             //Level 1 Project
             if ($single->getProjectParent() == 0) {
+                
                 $proSort[$single->getUid()]['node'] = $single;
             } else {
                 $parent = $this->projectRepository->findByUid($single->getProjectParent());
