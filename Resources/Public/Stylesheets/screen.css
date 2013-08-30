@@ -49,7 +49,7 @@ body {
     word-spacing:2.63333px;
 }
 
-/* HEADER SECTION ***********************/
+/* FIX HEADER SECTION *********************************************************/
 #pat #header {
     height: 30px;
     background-color: #666;
@@ -90,7 +90,32 @@ body {
     width: 1px;
 }
 
-/* Stage Header Section */
+/* Logout button */
+#pat .login {
+    position: relative;
+    cursor: pointer;
+    float: left;
+}
+#pat .login:hover .logoutbutton{
+
+    display: block;
+}
+#pat .login .logoutbutton{
+    display: none;
+    border:none;
+    border-radius: 0 0 4px 4px;
+    background-color: #666;
+    position: absolute;
+    left: 10px;
+    top: 28px;
+    cursor: pointer;
+    color: #ededed;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 5px;
+    float: left;
+}
+/* Main Menu Section **********************************************************/
 
 #pat .stage-header {
     width: 920px;
