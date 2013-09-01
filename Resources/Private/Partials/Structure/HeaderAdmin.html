@@ -1,6 +1,6 @@
 <f:comment>
     /**
-    * Partial Page  ADMIN Header ProjectsAndTasks
+    * Partial Page Header ProjectsAndTasks
     * 
     * @param {user}
     */
@@ -12,7 +12,23 @@
 
         <div class="divider"></div>
 
-        
+        <f:link.action action="index" controller="Inbox">
+            InBox
+        </f:link.action>
+
+        <div class="divider"></div>
+
+        <f:link.action action="projectsShow" controller="Inbox">
+            Projects
+        </f:link.action>
+
+        <div class="divider"></div>
+
+        <f:link.action action="index" controller="Calender">
+            Calender
+        </f:link.action>
+
+        <div class="divider"></div>
 
         <f:link.action action="showAllUsers" controller="User">
             User

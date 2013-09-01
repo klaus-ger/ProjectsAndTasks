@@ -464,6 +464,9 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         } else {
 
             $this->user = $this->userRepository->findByUid($user['uid']);
+            if($this->user->getUsername() == 'admin'){
+                $this->redirect('index', 'Admin');
+            }
         }
     }
 

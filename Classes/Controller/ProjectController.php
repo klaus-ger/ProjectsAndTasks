@@ -176,7 +176,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     public function projectShowAction(\t3developer\ProjectsAndTasks\Domain\Model\Project $project) {
         $this->checkLogIn();
-
+        
         //Widget ProjectView ToDos:
         //load todo lists, todos and count items
         //shows only the open todos per list
@@ -844,11 +844,13 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function checkLogIn() {
 
         $user = $GLOBALS['TSFE']->fe_user->user;
-
+        
         if ($user == null) {
             $this->redirect('logIn', 'User');
         } else {
             $this->user = $this->userRepository->findByUid($user['uid']);
+            
+            
         }
     }
 

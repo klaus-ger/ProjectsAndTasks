@@ -17,7 +17,8 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
                 'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate,
                               checkMailserver',
                 'Calender'=> 'index',
-                'Settings'=> 'index'
+                'Settings'=> 'index',
+                'Admin'   => 'index'
                 
 	),
 	// non-cacheable actions
@@ -33,7 +34,8 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
                 'Message' => 'messageNew, messageCreate, messageEdit, messageUpdate,
                               checkMailserver',
                 'Calender'=> 'index',
-                'Settings'=> 'index'
+                'Settings'=> 'index',
+                'Admin'   => 'index'
                 
 	)
 );

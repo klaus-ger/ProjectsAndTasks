@@ -37,6 +37,7 @@ page {
         tx_projectsandtasks_css_1.media = screen
 
         tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/ui-lightness/jquery-ui-1.10.3.custom.css
+        tx_projectsandtasks_css_3       = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.css
     
 
 
