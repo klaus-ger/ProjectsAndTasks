@@ -60,13 +60,39 @@ class AdminController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->userRepository = $userRepository;
     }
 
-    
+    /**
+     * Initializes the current action 
+     * @return void 
+     */
+    public function initializeAction() {
+        $this->checkLogIn();
+    }
+
+    /**
+     * Index Action: Shows a list of all User
+     */
     public function indexAction() {
         
+        $users = $this->userRepository->findAll();
+        
+        $this->view->assign('users', $users);
+        $this->view->assign('menu', '1');
+        $this->view->assign('user', $this->user);
     }
-    
-    
-    
+
+    /**
+     * check login and set the user
+     */
+    public function checkLogIn() {
+
+        $user = $GLOBALS['TSFE']->fe_user->user;
+
+        if ($user == null) {
+            $this->redirect('logIn', 'User');
+        } else {
+            $this->user = $this->userRepository->findByUid($user['uid']);
+        }
+    }
 
 }
 

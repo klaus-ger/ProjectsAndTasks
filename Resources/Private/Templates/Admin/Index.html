@@ -3,25 +3,14 @@
 
 <f:section name="main">
     
-
+    
     <div class="stage">
-        ADMIN TEMPLATE!
-        <f:render partial="Inbox/InboxHeader" arguments="{_all}" />
-
-        <!------------------------------------------------------------------------------>
-        <br />
-        <div class="stage-left-50">
-            <h2>Neue Nachrichten</h2>
-            <f:render partial="Widgets/WidgetMessages" arguments="{_all}" />
-        </div>
         
-        <div class="stage-right-50">
-            <!-- stage right: projekte -->
-            <f:render partial="Widgets/WidgetProjectsSticky" arguments="{_all}" />
-        </div>
-        <f:link.action controller="Message" action="checkMailserver" >
-            Maisl
-        </f:link.action>
+        <f:render partial="Admin/AdminHeader" arguments="{_all}" />
+
+        
+        <br />
+        <f:render partial="Admin/Userlist" arguments="{_all}" />
 
     </div>
 
