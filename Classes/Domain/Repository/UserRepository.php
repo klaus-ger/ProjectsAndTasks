@@ -27,7 +27,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
 /**
  *
  *
- * @package T3 Contact
+ * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
