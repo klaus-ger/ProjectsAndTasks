@@ -68,6 +68,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\Projectrights  
      */
     protected $projectrightsRepository;
+    
+        /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\PBudget  
+     */
+    protected $budgetRepository;
 
     /**
      * @var \T3developer\ProjectsAndTasks\Utility\Pdf  
@@ -128,6 +133,14 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function injectProjectrightsRepository(\T3developer\ProjectsAndTasks\Domain\Repository\ProjectrightsRepository $projectrightsRepository) {
         $this->projectrightsRepository = $projectrightsRepository;
+    }
+    
+        /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\BudgetRepository $budgetRepository
+     * @return void
+     */
+    public function injectBudgetRepository(\T3developer\ProjectsAndTasks\Domain\Repository\BudgetRepository $budgetRepository) {
+        $this->budgetRepository = $budgetRepository;
     }
 
     /**
@@ -680,7 +693,99 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoListDB->getTodolistProject(), 'list' => $todoListDB->getUid()));
     }
+    
+    /**
+     * Shows the Budget List for Project
+     * 
+     */
+    public function budgetShowAction(){
+        if($this->request->hasArgument('project')){
+            $project = $this->request->getArgument('project');
+        }
+        
+        $budgets = $this->budgetRepository->findByBudgetProject($project);
+        
+        $this->view->assign('projectHeader', $this->findProjectHeader($project));
+        $this->view->assign('budgets', $budgets);
+        $this->view->assign('menu', '2');
+        $this->view->assign('submenu', '4');
+       
+    }
 
+    /**
+     * Saves the values of the budget form
+     * 
+     */
+    public function budgetSaveAction(){
+        
+        $budget = $this->request->getArgument('budget');
+        
+        //delete Action: deltes also all toDos from List
+        if ($this->request->hasArgument('delete')) {
+            
+            $budget = $this->budgetRepository->findByUid($budget['uid']);
+            $this->budgetRepository->remove($budget);
+            
+            $this->redirect('budgetShow', 'Project', NULL, Array('project' => $budget->getBudgetProject() ));
+        }
+        
+        //new and update Action
+        if ($budget['uid'] == '') {
+            //Create New Budget
+            $budgetDB = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Budget');
+            $action = 'new';
+        } else {
+            //update Budget
+            $budgetDB = $this->budgetRepository->findByUid($budget['uid']);
+            $action = 'update';
+        }
+
+        $budgetDB->setBudgetTitle($budget['budgetTitle']);
+        $budgetDB->setBudgetText(trim($budget['budgetText']));
+        $budgetDB->setBudgetValue($budget['budgetValue']);
+        $budgetDB->setBudgetTime($budget['budgetTime'] * 3600);
+        $budgetDB->setBudgetProject($budget['budgetProject']);
+        
+         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($budgetDB);
+      //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
+
+        if ($action == 'new') {
+            $this->budgetRepository->add($budgetDB);
+        }
+        if ($action == 'update') {
+            $this->budgetRepository->update($budgetDB);
+        }
+
+        $this->redirect('budgetShow', 'Project', NULL, Array('project' => $budgetDB->getBudgetProject()));
+   
+        
+    }
+    
+        /**
+     * Budget By Ajax
+     */
+    public function budgetByAjaxAction() {
+        if ($this->request->hasArgument('uid')) {
+            $budgetUid = $this->request->getArgument('uid');
+        }
+        if ($this->request->hasArgument('storagePid')) {
+            $storagePid = $this->request->getArgument('storagePid');
+        }
+
+        $budget = $this->budgetRepository->findByUid($budgetUid);
+        
+        $result['uid'] = $budget->getUid();
+        $result['budgetTitle'] = $budget->getBudgetTitle();
+        $result['budgetText'] = $budget->getBudgetText();
+        $result['budgetValue'] = $budget->getBudgetValue();
+        $result['budgetTime'] = $budget->getBudgetTime() / 3600;
+        $result['budgetProject'] = $budget->getBudgetProject();
+        $result['budgetInvoice'] = $budget->getBudgetInvoice();
+        $result2 = $budgetUid;
+        return json_encode($result);
+    }
+    
+    
     /**
      * Show PDF Action
      *
