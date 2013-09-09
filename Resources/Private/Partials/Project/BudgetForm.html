@@ -1,0 +1,70 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+
+<vh:comment>
+    /* Partial BudgetForm
+    * 
+    *
+    * Version 1.0.1 Build 9.9.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
+
+
+
+
+<f:form method="post" controller="Project" action="budgetSave" name="budget" object="{budget}"   >
+
+    <div class="stageItemTable">
+
+        <!--hidden fields -->
+        <f:form.textfield property="uid" value="" class="hidden jqbudgetFormUid" />
+        <f:form.textfield property="budgetProject" value="{projectHeader.project.uid}" class="hidden" />
+        
+
+        <!-- regular Fields -->
+        <div class="form-left" style="display: inline;">
+            <div class="input-wrap">
+                <label>Titel:</label>
+                <f:form.textfield property="budgetTitle" value="" class="left-large jqBudgetFormTitle" />
+            </div>
+             
+            <div class="input-wrap">
+                <label style="width:82px;">Invoice:</label>
+                <f:form.textfield property="budgetInvoice" value="" class="left-small jqBudgetFormInvoice" />
+            </div>
+            <br >
+
+            <div class="input-wrap">
+                <label>Text:</label>
+                <f:form.textarea  cols="55" rows="5" property="budgetText" value="" class="left-fullwidth jqBudgetFormText"/>
+            </div>
+            
+
+            
+        </div>
+        <div class="form-right" >
+
+            <div class="input-wrap">
+                <label>Value (€):</label>
+                <f:form.textfield   property="budgetValue" value="" class="jqBudgetFormValue right small"/>
+            </div>
+            
+            <div class="input-wrap">
+                <label>Time (h):</label>
+                <f:form.textfield   property="budgetTime" value="" class="jqBudgetFormTime right small"/>
+            </div>
+            
+            <div class="input-wrap" style="height:22px; width:206px;" >
+                <label></label>
+                &nbsp;
+            </div>
+
+            
+            <f:form.submit name="delete" value="löschen" class="button form-button-small" />
+            <f:form.submit name="mySubmit" value="speichern" class="button form-button" />
+        </div>
+
+
+    </div>
+</f:form>
+
+<br />
