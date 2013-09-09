@@ -43,9 +43,9 @@ jQuery("document").ready(function(){
         width:        680, // width not including margins, borders or padding
         height:       250, // height not including margins, borders or padding
         controls:     // controls to add to the toolbar
-                      "bold italic bullets numbering |",
+        "bold italic bullets numbering |",
         bodyStyle:    // style to assign to document body contained within the editor
-                      "margin:10px; font:12px/21px 'Lato',​Arial,​Helvetica,​sans-serif; cursor:text; color:#384953; "
+        "margin:10px; font:12px/21px 'Lato',​Arial,​Helvetica,​sans-serif; cursor:text; color:#384953; "
     });
 
 
@@ -218,8 +218,8 @@ jQuery("document").ready(function(){
     
         //Loads an other ToDolist (select change in Submenu)
         $('.jqSelectTodoList').change(function(e)  { 
-         $('#todoListSelect').submit();
-          });
+            $('#todoListSelect').submit();
+        });
         
         //Shows the ToDo LIST Form for editing
         $('.listform').hide();
@@ -338,6 +338,101 @@ jQuery("document").ready(function(){
             console.log(uid);
         });
         
+        //**********************************************************************/
+        // Actions on Project -> Budget Page ***********************************/
+        //**********************************************************************/
+        
+        //Shows the hidden Edit / New Form on List View
+        $('.form').hide();
+        $('.jqShowBudgetForm').click(function(e)  {  
+            $('.form').show();
+            $('html, body').animate({
+                scrollTop: 80
+            });
+            
+            $('.jqBudgetFormTitle').val('');
+            $('.jqBudgetListFormInvoice').val('');
+            $('.jqBudgetFormText').val('');
+            $('.jqBudgetFormValue').val('');
+            $('.jqBudgetFormTime').val('');
+            
+        });
+        
+        //Load Budget from List into Form
+        
+        $('.jqLoadBudget').click(function(e)  { 
+        
+            var uid = $(this).find('.jqbudgetListUid').html();
+            var storagePid = $('.jqStoragePid').html();
+        
+            $.ajax({
+                async: 'true',
+                url: 'index.php',       
+                type: 'POST',  
+          
+                data: {
+                    eID: "ajaxDispatcher",   
+                    request: {
+                        extensionName:  'ProjectsAndTasks',
+                        pluginName:     'patsystem',
+                        controller:     'Project', 
+                        action:         'budgetByAjax',
+                        arguments: {
+                            'uid':        uid,
+                            'storagePid': storagePid
+                        }
+                    } 
+                },
+                dataType: "json",       
+            
+                success: function(result) {
+                    $('.form').show();
+                    $('html, body').animate({
+                        scrollTop: 80
+                    });
+                    $('.jqbudgetFormUid').val(result.uid);
+                    $('.jqBudgetFormTitle').val(result.budgetTitle);
+                    $('.jqBudgetFormInvoice').val(result.budgetInvoice);
+                    $('.jqBudgetFormText').val(result.budgetText);
+                    $('.jqBudgetFormValue').val(result.budgetValue);
+                    $('.jqBudgetFormTime').val(result.budgetTime);
+                    
+                    
+                    console.log(result);
+                
+                },
+                error: function(error) {
+               
+                    console.log(error);                
+                }
+            });
+        
+        
+            console.log(uid);
+        });
+        
+        
+//        
+//        $('.jqLoadBudget').click(function(e)  { 
+//            $('.form').show();
+//            $('html, body').animate({
+//                scrollTop: 80
+//            });
+//            
+//            value = $(this).find('.jqBudgetListValue').html().replace(' €', '');
+//            value = parseFloat(value);
+//            
+//            time = $(this).find('.jqBudgetListTime').html().replace(' h', '');
+//            time = parseFloat(time);
+//            
+//            $('.jqbudgetFormUid').val($(this).find('.jqbudgetListUid').html());
+//            $('.jqBudgetFormTitle').val($(this).find('.jqBudgetListTitle').html());
+//            $('.jqBudgetFormInvoice').val($(this).find('.jqBudgetListInvoice').html());
+//            $('.jqBudgetFormText').val($(this).find('.jqBudgetListText').html());
+//            $('.jqBudgetFormValue').val(value);
+//            $('.jqBudgetFormTime').val(time);
+//            
+//        });
         
     });
 
