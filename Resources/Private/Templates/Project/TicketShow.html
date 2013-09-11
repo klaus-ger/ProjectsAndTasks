@@ -1,0 +1,40 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+<f:section name="main">
+  
+
+    <div id="pat">
+        <div class="stage-header">
+            <f:render partial="Project/ProjectHeader" arguments="{_all}" />
+        </div>
+
+        <div class="stage">
+
+            <h2>Tickets</h2>
+            
+
+            <br/>
+
+            <!--The form -->
+            <div class="form">
+                <f:render partial="Project/TicketForm" arguments="{_all}" />
+            </div>   
+            <br/>
+            <!-- The List -->
+            <f:render partial="Project/TicketListSubMenu" arguments="{_all}" />
+            <f:render partial="Project/TicketList" arguments="{tickets:tickets}" />
+
+            <br />
+            <div class="project-stage-left">
+            </div>
+            <div class="project-stage-right">
+                <div class="button jqShowForm">
+                    Budget hinzufügen
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</f:section>

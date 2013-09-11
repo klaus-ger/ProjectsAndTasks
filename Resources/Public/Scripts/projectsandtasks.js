@@ -406,33 +406,82 @@ jQuery("document").ready(function(){
                     console.log(error);                
                 }
             });
-        
-        
-            console.log(uid);
+
         });
         
+        //**********************************************************************/
+        // Actions on Project -> Ticket Page ***********************************/
+        //**********************************************************************/
         
-//        
-//        $('.jqLoadBudget').click(function(e)  { 
-//            $('.form').show();
-//            $('html, body').animate({
-//                scrollTop: 80
-//            });
-//            
-//            value = $(this).find('.jqBudgetListValue').html().replace(' €', '');
-//            value = parseFloat(value);
-//            
-//            time = $(this).find('.jqBudgetListTime').html().replace(' h', '');
-//            time = parseFloat(time);
-//            
-//            $('.jqbudgetFormUid').val($(this).find('.jqbudgetListUid').html());
-//            $('.jqBudgetFormTitle').val($(this).find('.jqBudgetListTitle').html());
-//            $('.jqBudgetFormInvoice').val($(this).find('.jqBudgetListInvoice').html());
-//            $('.jqBudgetFormText').val($(this).find('.jqBudgetListText').html());
-//            $('.jqBudgetFormValue').val(value);
-//            $('.jqBudgetFormTime').val(time);
-//            
-//        });
+        //Shows the hidden Edit / New Form on List View
+        $('.form').hide();
+        $('.jqShowTicketForm').click(function(e)  {  
+            $('.form').show();
+            $('html, body').animate({
+                scrollTop: 80
+            });
+            
+            $('.jqTicketFormUid').val('');
+            $('.jqTicketFormTicketNo').val('');
+            $('.jqTicketFormTitle').val('');
+            $('.jqTicketFormText').val('');
+            $('.jqTicketFormProject').val('');
+            
+        });
+        
+        //Load Budget from List into Form
+        
+        $('.jqLoadTicket').click(function(e)  { 
+        
+            var uid = $(this).find('.jqTicketListUid').html();
+            var storagePid = $('.jqStoragePid').html();
+        
+            $.ajax({
+                async: 'true',
+                url: 'index.php',       
+                type: 'POST',  
+          
+                data: {
+                    eID: "ajaxDispatcher",   
+                    request: {
+                        extensionName:  'ProjectsAndTasks',
+                        pluginName:     'patsystem',
+                        controller:     'Project', 
+                        action:         'ticketByAjax',
+                        arguments: {
+                            'uid':        uid,
+                            'storagePid': storagePid
+                        }
+                    } 
+                },
+                dataType: "json",       
+            
+                success: function(result) {
+                    $('.form').show();
+                    $('html, body').animate({
+                        scrollTop: 80
+                    });
+                    $('.jqTicketFormUid').val(result.uid);
+                    $('.jqTicketFormTicketNo').val(result.ticketNo);
+                    $('.jqTicketFormTitle').val(result.ticketTitle);
+                    $('.jqTicketFormText').val(result.ticketText);
+                    $('.jqTicketFormProject').val(result.ticketProject);
+                    $('.jqTicketFormStatus').val(result.ticketStatus);
+                    $('.jqTicketFormCreate').html('Erstellt am ' + result.ticketDate + ' | ' + result.ticketOwner);
+                    $('.jqTicketFormTime').val(result.ticketTime);
+                    $('.jqTicketFormDeadline').val(result.ticketDeadline);
+                    $('.jqTicketFormAssigned').val(result.ticketAssigned);
+                    console.log(result);
+                
+                },
+                error: function(error) {
+               
+                    console.log(error);                
+                }
+            });
+
+        });
+
         
     });
 

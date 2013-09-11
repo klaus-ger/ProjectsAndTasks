@@ -131,6 +131,14 @@ $TCA['tx_projectsandtasks_domain_model_work'] = array(
                 'size' => 5,
             )
         ),
+        'work_ticket' => array(
+            'exclude' => 0,
+            'label' => 'Elternelement ID',
+            'config' => array(
+                'type' => 'input',
+                'size' => 5,
+            )
+        ),
     ),
 );
 ?>

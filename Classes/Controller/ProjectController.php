@@ -65,14 +65,19 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $messageRepository;
 
     /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\Projectrights  
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectrightsRepository  
      */
     protected $projectrightsRepository;
-    
-        /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\PBudget  
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\BudgetRepository  
      */
     protected $budgetRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketRepository  
+     */
+    protected $ticketRepository;
 
     /**
      * @var \T3developer\ProjectsAndTasks\Utility\Pdf  
@@ -134,13 +139,21 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function injectProjectrightsRepository(\T3developer\ProjectsAndTasks\Domain\Repository\ProjectrightsRepository $projectrightsRepository) {
         $this->projectrightsRepository = $projectrightsRepository;
     }
-    
-        /**
+
+    /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\BudgetRepository $budgetRepository
      * @return void
      */
     public function injectBudgetRepository(\T3developer\ProjectsAndTasks\Domain\Repository\BudgetRepository $budgetRepository) {
         $this->budgetRepository = $budgetRepository;
+    }
+
+    /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\TicketRepository $ticketRepository
+     * @return void
+     */
+    public function injectTicketRepository(\T3developer\ProjectsAndTasks\Domain\Repository\TicketRepository $ticketRepository) {
+        $this->ticketRepository = $ticketRepository;
     }
 
     /**
@@ -169,7 +182,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     ->getPropertyMappingConfiguration()
                     ->forProperty('projectRevisionDate')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
-        
+
             $this->arguments['project']
                     ->getPropertyMappingConfiguration()
                     ->forProperty('projectStartDate')
@@ -178,7 +191,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     ->getPropertyMappingConfiguration()
                     ->forProperty('projectEndDate')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y');
-        
         }
         $this->checkLogIn();
     }
@@ -189,7 +201,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     public function projectShowAction(\t3developer\ProjectsAndTasks\Domain\Model\Project $project) {
         $this->checkLogIn();
-        
+
         //Widget ProjectView ToDos:
         //load todo lists, todos and count items
         //shows only the open todos per list
@@ -365,10 +377,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function projectCreateAction(\T3developer\ProjectsAndTasks\Domain\Model\Project $project) {
         $userUid = $GLOBALS['TSFE']->fe_user->user['uid'];
-        
+
         $time = $project->getProjectBudgetTime();
         $time = $time * 3600;
-        
+
         $project->setProjectBudgetTime($time);
         $project->setProjectOwner($userUid);
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($project);
@@ -508,20 +520,21 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * Shows the TodoList and Edit/New Form
      */
     public function todoShowAction() {
-        if($this->request->hasArgument('project')){
+        if ($this->request->hasArgument('project')) {
             $project = $this->request->getArgument('project');
         }
-        if($this->request->hasArgument('todolist')){
+        if ($this->request->hasArgument('todolist')) {
             $todoList = $this->request->getArgument('todolist');
             $list = $this->todolistRepository->findByUid($todoList);
             $project = $list->getTodolistProject();
-        } else{
+        } else {
             $todoListen = $this->todolistRepository->findByTodolistProject($project);
-            if($todoListen[0] != '') $todoList = $todoListen[0]->getUid(); 
+            if ($todoListen[0] != '')
+                $todoList = $todoListen[0]->getUid();
         }
 
         $todoAllLists = $this->todolistRepository->findByTodolistProject($project);
-        
+
         //If a Project has a todoList: find first List and loads the todos
         if ($todoList != '') {
             $todosAllFromList = $this->todoRepository->findByTodoList($todoList);
@@ -536,7 +549,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('todolist', $todoList);
         $this->view->assign('allLists', $todoAllLists);
         $this->view->assign('todosAllFromList', $todosAllFromList);
-        
+
         $this->view->assign('menu', '4');
     }
 
@@ -653,19 +666,19 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function todoListSaveAction() {
 
         $todoList = $this->request->getArgument('todoList');
-        
+
         //delete Action: deltes also all toDos from List
         if ($this->request->hasArgument('delete')) {
-            
+
             $todos = $this->todoRepository->findByTodoList($todoList['uid']);
-            foreach($todos as $todo){
+            foreach ($todos as $todo) {
                 $this->todoRepository->remove($todo);
-             }
+            }
             $todoListDB = $this->todolistRepository->findByUid($todoList['uid']);
             $this->todolistRepository->remove($todoListDB);
-            $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoListDB->getTodolistProject() ));
+            $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoListDB->getTodolistProject()));
         }
-        
+
         //new and update Action
         if ($todoList['uid'] == '') {
             //Create New todo
@@ -682,7 +695,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $todoListDB->setTodolistShortTitel($todoList['todolistShortTitle']);
         $todoListDB->setTodolistDescription($todoList['todolistDescription']);
         $todoListDB->setTodolistOwner($todoList['todolistOwner']);
-      //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
+        //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
 
         if ($action == 'new') {
             $this->todolistRepository->add($todoListDB);
@@ -693,42 +706,41 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->redirect('todoShow', 'Project', NULL, Array('project' => $todoListDB->getTodolistProject(), 'list' => $todoListDB->getUid()));
     }
-    
+
     /**
      * Shows the Budget List for Project
      * 
      */
-    public function budgetShowAction(){
-        if($this->request->hasArgument('project')){
+    public function budgetShowAction() {
+        if ($this->request->hasArgument('project')) {
             $project = $this->request->getArgument('project');
         }
-        
+
         $budgets = $this->budgetRepository->findByBudgetProject($project);
-        
+
         $this->view->assign('projectHeader', $this->findProjectHeader($project));
         $this->view->assign('budgets', $budgets);
         $this->view->assign('menu', '2');
         $this->view->assign('submenu', '4');
-       
     }
 
     /**
      * Saves the values of the budget form
      * 
      */
-    public function budgetSaveAction(){
-        
+    public function budgetSaveAction() {
+
         $budget = $this->request->getArgument('budget');
-        
+
         //delete Action: deltes also all toDos from List
         if ($this->request->hasArgument('delete')) {
-            
+
             $budget = $this->budgetRepository->findByUid($budget['uid']);
             $this->budgetRepository->remove($budget);
-            
-            $this->redirect('budgetShow', 'Project', NULL, Array('project' => $budget->getBudgetProject() ));
+
+            $this->redirect('budgetShow', 'Project', NULL, Array('project' => $budget->getBudgetProject()));
         }
-        
+
         //new and update Action
         if ($budget['uid'] == '') {
             //Create New Budget
@@ -745,9 +757,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $budgetDB->setBudgetValue($budget['budgetValue']);
         $budgetDB->setBudgetTime($budget['budgetTime'] * 3600);
         $budgetDB->setBudgetProject($budget['budgetProject']);
-        
-         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($budgetDB);
-      //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
+
+       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($budgetDB);
+        //  \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todoListDB);
 
         if ($action == 'new') {
             $this->budgetRepository->add($budgetDB);
@@ -757,11 +769,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         $this->redirect('budgetShow', 'Project', NULL, Array('project' => $budgetDB->getBudgetProject()));
-   
-        
     }
-    
-        /**
+
+    /**
      * Budget By Ajax
      */
     public function budgetByAjaxAction() {
@@ -773,7 +783,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         $budget = $this->budgetRepository->findByUid($budgetUid);
-        
+
         $result['uid'] = $budget->getUid();
         $result['budgetTitle'] = $budget->getBudgetTitle();
         $result['budgetText'] = $budget->getBudgetText();
@@ -784,8 +794,118 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $result2 = $budgetUid;
         return json_encode($result);
     }
-    
-    
+
+    /**
+     * Shows the Budget List for Project
+     * 
+     */
+    public function ticketShowAction() {
+        if ($this->request->hasArgument('project')) {
+            $project = $this->request->getArgument('project');
+        }
+
+        $tickets = $this->ticketRepository->findByTicketProject($project);
+        
+        $this->view->assign('projectHeader', $this->findProjectHeader($project));
+        $this->view->assign('tickets', $tickets);
+        $this->view->assign('status', \T3developer\ProjectsAndTasks\Utility\StaticValues::getAvailableStatus());
+        $this->view->assign('user', $this->userRepository->findAll());
+        $this->view->assign('menu', '6');
+        
+    }
+
+    /**
+     * Saves the values of the ticket form
+     * 
+     */
+    public function ticketSaveAction() {
+
+        $ticket = $this->request->getArgument('ticket');
+
+        //delete Action: deltes also all toDos from List
+        if ($this->request->hasArgument('delete')) {
+
+            $ticket = $this->ticketRepository->findByUid($ticket['uid']);
+            $this->ticketRepository->remove($ticket);
+
+            $this->redirect('ticketShow', 'Project', NULL, Array('project' => $ticket->getTicketProject()));
+        }
+
+        //new and update Action
+        if ($ticket['uid'] == '') {
+            //Create New Budget
+            $ticketDB = $this->objectManager->create('t3developer\ProjectsAndTasks\Domain\Model\Ticket');
+            $ticketDB->setTicketDate(time());
+            $action = 'new';
+        } else {
+            //update Budget
+            $ticketDB = $this->ticketRepository->findByUid($ticket['uid']);
+            $action = 'update';
+        }
+        
+        $deadline = explode(".", $ticket[ticketDeadline]);
+        $startDay = $deadline[0];
+        $startMonth = $deadline[1];
+        $startYear = $deadline[2];
+        $deadline = mktime(0, 0, 0, $startMonth, $startDay, $startYear);
+       
+        
+        $ticketDB->setTicketTitle($ticket['ticketTitle']);
+        $ticketDB->setTicketText($ticket['ticketText']);
+        $ticketDB->setTicketProject($ticket['ticketProject']);
+        $ticketDB->setTicketStatus($ticket['ticketStatus']);
+        $ticketDB->setTicketTime($ticket['ticketTime']);
+        $ticketDB->setTicketDeadline($deadline);
+        $ticketDB->setTicketOwner($GLOBALS['TSFE']->fe_user->user['uid']);
+        $ticketDB->setTicketAssigned($ticket['ticketAssigned']);
+
+        if ($action == 'new') {
+            $this->ticketRepository->add($ticketDB);
+        }
+        if ($action == 'update') {
+            $this->ticketRepository->update($ticketDB);
+        }
+
+        $this->redirect('ticketShow', 'Project', NULL, Array('project' => $ticketDB->getTicketProject()));
+    }
+
+    /**
+     * Budget By Ajax
+     */
+    public function ticketByAjaxAction() {
+        if ($this->request->hasArgument('uid')) {
+            $ticketUid = $this->request->getArgument('uid');
+        }
+        if ($this->request->hasArgument('storagePid')) {
+            $storagePid = $this->request->getArgument('storagePid');
+        }
+
+        $ticket = $this->ticketRepository->findByUid($ticketUid);
+        
+        if ($ticket->getTicketDate()) {
+            $date = date("d.m.Y", $ticket->getTicketDate()->getTimestamp());
+        }
+        if ($ticket->getTicketDeadline()) {
+            $deadline = date("d.m.Y", $ticket->getTicketDeadline()->getTimestamp());
+        }
+        
+        $result['uid'] = $ticket->getUid();
+        $result['ticketProject'] = $ticket->getTicketProject()->getProjectTitle();
+        $result['ticketTitle'] = $ticket->getTicketTitle();
+        $result['ticketText'] = $ticket->getTicketText();
+        $result['ticketNo'] = $ticket->getTicketNo();
+        $result['ticketTime'] = $ticket->getTicketTime();
+        $result['ticketDate'] = $date;
+        $result['ticketDeadline'] = $deadline;
+        $result['ticketStatus'] = $ticket->getTicketStatus();
+        $result['ticketOwner'] = $ticket->getTicketOwner()->getUsername();;
+        $result['ticketAssigned'] = $ticket->getTicketAssigned()->getUid();;
+        
+
+        
+        return json_encode($result);
+    }
+
     /**
      * Show PDF Action
      *
@@ -949,13 +1069,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function checkLogIn() {
 
         $user = $GLOBALS['TSFE']->fe_user->user;
-        
+
         if ($user == null) {
             $this->redirect('logIn', 'User');
         } else {
             $this->user = $this->userRepository->findByUid($user['uid']);
-            
-            
         }
     }
 

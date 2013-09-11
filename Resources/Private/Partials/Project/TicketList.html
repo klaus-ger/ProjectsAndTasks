@@ -1,0 +1,46 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}        
+
+<vh:comment>
+   /* Partial ticketList
+    * 
+    * This List shwos a single Ticket via jQuery in the form
+    * @param tickets
+    * Version 1.0.1 Build 10.9.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
+
+
+<f:for each="{tickets}" as="item">
+
+    <div class="general-list-row general-row-link jqLoadTicket">
+        
+        <div class="jqTicketListUid hidden">{item.Uid}</div>
+        
+        
+        <div class="listTodoTime jqBudgetListInvoice">
+            {item.ticketNo}
+        </div>
+        
+        <div class="listTodoTitle">
+            {item.ticketTitle}
+        </div>
+        
+        <div class="listTodoText jqBudgetListText">
+            <f:format.crop maxCharacters="55" append="&nbsp;[...]">{item.budgetText}</f:format.crop>
+        </div>
+        
+        <div class="listTodoTime jqBudgetListValue">
+            {item.budgetValue} €
+        </div>
+        
+        <div class="listTodoTime jqBudgetListTime">
+            <vh:plantime time="{item.budgetTime}" /> h
+        </div>
+        <div class="listTodoTime jqBudgetListInvoice">
+            {item.ticketAssigned.username}
+        </div>
+        
+        
+    </div>
+
+</f:for>

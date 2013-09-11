@@ -6,11 +6,12 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
 	'patsystem',
 	array(
 		
-                'Inbox'   => 'index, showWork, projectsShow, makeProjectSticky, showTodo, messagesShow',
+                'Inbox'   => 'index, showWork, projectsShow, makeProjectSticky, showTodo, messagesShow, ticketShow',
 		'Project' => 'projectShow, projectNew, projectCreate,  projectEdit, projectUpdate, projectShowDetails,projectEditUserRights, projectUpdateUserRights,
                               effortsShow, effortsDelete, effortsSave, effortByAjax,
                               todoShow, todoSave, todoByAjax, todoPdf, todoListSave,
-                              budgetShow, budgetSave, budgetByAjax',
+                              budgetShow, budgetSave, budgetByAjax,
+                              ticketShow, ticketSave, ticketByAjax',
                               
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
                 'Todo'    => 'todoSave, todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete, findTodoByAjax',
@@ -25,11 +26,13 @@ if (!defined ('TYPO3_MODE'))  die ('Access denied.');
 	// non-cacheable actions
 	array(
                 
-		'Inbox'   => 'index, showWork, projectsShow, makeProjectSticky, showTodo, messagesShow',
+		'Inbox'   => 'index, showWork, projectsShow, makeProjectSticky, showTodo, messagesShow, ticketShow',
 		'Project' => 'projectShow, projectNew, projectCreate,  projectEdit, projectUpdate, projectShowDetails,projectEditUserRights, projectUpdateUserRights,
                               effortsShow, effortsDelete, effortsSave, effortByAjax,
                               todoShow, todoSave, todoByAjax, todoPdf, todoListSave,
-                              budgetShow, budgetSave, budgetByAjax',
+                              budgetShow, budgetSave, budgetByAjax,
+                              ticketShow, ticketSave, ticketByAjax',
+            
                 'User'    => 'index, showAllUsers, userCreate, userNew, checkLogIn, logIn',
                 'Todo'    => 'todoSave, todoListNew, todoListCreate, todoNew, todoCreate, todoEdit, todoUpdate, showPdf, todoShowMulti, todoDelete, findTodoByAjax',
                 'Work'    => 'workNew, workCreate, workEdit, workUpdate',

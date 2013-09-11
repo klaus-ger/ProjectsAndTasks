@@ -70,6 +70,11 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $messageRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\Ticket  
+     */
+    protected $ticketRepository;
+
+    /**
      * @param \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository $userRepository
      * @return void
      */
@@ -126,14 +131,22 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * @param \T3developer\ProjectsAndTasks\Domain\Repository\TicketRepository $ticketRepository
+     * @return void
+     */
+    public function injectTicketRepository(\T3developer\ProjectsAndTasks\Domain\Repository\TicketRepository $ticketRepository) {
+        $this->ticketRepository = $ticketRepository;
+    }
+
+    /**
      * Index Action
      * 
      * Shows the index Page of this extension
      */
     public function indexAction() {
         $this->checkLogIn();
-       // $test=$this->request->getArguments();
-       // \Tx_Extbase_Utility_Debugger::var_dump($test);
+        // $test=$this->request->getArguments();
+        // \Tx_Extbase_Utility_Debugger::var_dump($test);
         //Widget Sticky Projects
         $projects = $this->projectrightsRepository->findByUserAndSticky($this->user->getUid());
         foreach ($projects as $single) {
@@ -143,7 +156,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         $messages = $this->messageRepository->findAll();
-        
+
         $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('user', $this->user);
         $this->view->assign('widgetProjects', $widgetProjects);
@@ -274,7 +287,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $projectUid = $list->getTodolistProject();
             $project = $this->projectRepository->findByUid($projectUid);
             $projectTitel = $project->getProjectTitle();
-            
+
             $listi[$projectUid]['uid'] = $projectUid;
             $listi[$projectUid]['titel'] = $projectTitel;
             $listi[$projectUid]['todos'][$todo->getUid()] = $todo;
@@ -287,17 +300,26 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('user', $this->user);
         $this->view->assign('menu', '4');
     }
-    
+
     /**
      * MessagesShowAction
      * 
      * Shows all Messages for a user which are not linked to a project
      * 
      */
-    public function messagesShowAction(){
+    public function messagesShowAction() {
         $this->checkLogIn();
         $this->view->assign('inboxHeader', $this->searchHeaderData());
         $this->view->assign('messages', $this->messageRepository->findAll());
+    }
+    
+      /**
+     * Sows a list of all open Tickets
+     */
+    public function ticketShowAction(){
+        $this->checkLogIn();
+        $this->view->assign('inboxHeader', $this->searchHeaderData());
+        $this->view->assign('tickets', $this->ticketRepository->findOpenTickets());
     }
 
     /**
@@ -338,6 +360,8 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         return $inboxHeader;
     }
 
+  
+
     /**
      * Project Tree
      * 
@@ -360,17 +384,17 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $project->setProjectOpenTodos($countTodos);
             $proArrAdded[] = $project;
         }
-        
+
         foreach ($proArrAdded as $single) {
-            
+
             // Add the sticky Status to Project Model
             $sticky = $this->projectrightsRepository->findByProjectAndUser($single->getUid(), $userUid);
-            $single->setProjectSticky($sticky[0]->getProjectrightsSticky() );
-                
+            $single->setProjectSticky($sticky[0]->getProjectrightsSticky());
+
             //Build the project Tree   
             //Level 1 Project
             if ($single->getProjectParent() == 0) {
-                
+
                 $proSort[$single->getUid()]['node'] = $single;
             } else {
                 $parent = $this->projectRepository->findByUid($single->getProjectParent());
@@ -464,7 +488,7 @@ class InboxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         } else {
 
             $this->user = $this->userRepository->findByUid($user['uid']);
-            if($this->user->getUsername() == 'admin'){
+            if ($this->user->getUsername() == 'admin') {
                 $this->redirect('index', 'Admin');
             }
         }

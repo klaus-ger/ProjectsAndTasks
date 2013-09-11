@@ -209,7 +209,7 @@ $TCA['tx_projectsandtasks_domain_model_daynotes'] = array(
 // calender: daynotes
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_projectsandtasks_domain_model_budget', 'Budget');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_projectsandtasks_domain_model_budget');
-$TCA['tx_projectsandtasks_domain_model_daynotes'] = array(
+$TCA['tx_projectsandtasks_domain_model_budget'] = array(
     'ctrl' => array(
         'title' => 'Budget',
         'label' => 'budget_title',
@@ -230,6 +230,34 @@ $TCA['tx_projectsandtasks_domain_model_daynotes'] = array(
         ),
         'searchFields' => 'calender_date',
         'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Budget.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tableicon.gif'
+    ),
+);
+
+// calender: daynotes
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_projectsandtasks_domain_model_ticket', 'Ticket');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_projectsandtasks_domain_model_ticket');
+$TCA['tx_projectsandtasks_domain_model_daynotes'] = array(
+    'ctrl' => array(
+        'title' => 'Ticket',
+        'label' => 'ticket_title',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'cruser_id' => 'cruser_id',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l10n_parent',
+        'transOrigDiffSourceField' => 'l10n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+            
+        ),
+        'searchFields' => 'ticket_title',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Ticket.php',
         'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tableicon.gif'
     ),
 );

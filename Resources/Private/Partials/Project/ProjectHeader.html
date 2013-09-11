@@ -14,7 +14,7 @@
             <h1>  {projectHeader.project.projectTitle}</h1>
         </f:link.action>
 
-        
+
 
         <f:link.action action="projectEdit" controller="Project"arguments="{project:projectHeader.project}">
             Projekt bearbeiten
@@ -25,11 +25,11 @@
         <table class="work-budget-stat">
             <tr>
                 <td class="worktime_percent" width="{projectHeader.work.percent}%"><vh:plantime time="{projectHeader.istTime}" /> h</td>
-                <td class="worktime_slide"><vh:plantime time="{projectHeader.project.projectBudgetTime}" /> h</td>
+            <td class="worktime_slide"><vh:plantime time="{projectHeader.project.projectBudgetTime}" /> h</td>
             </tr>
         </table>
         <div class="worktime-table-sub">
-        Budget: {projectHeader.project.projectBudgetMoney} €
+            Budget: {projectHeader.project.projectBudgetMoney} €
         </div>
 
     </div>
@@ -39,8 +39,8 @@
 </div>
 <div class="stage-header-shield">
 
-<div class="stage-header-menu">
-    
+    <div class="stage-header-menu">
+
         <div class="{f:if(condition:'{menu}==1',then:'item selected',else:'item')}">
             <f:link.action action="projectShow" controller="Project"arguments="{project:projectHeader.project}">
                 Übersicht
@@ -51,18 +51,23 @@
                 Projektdetails
             </f:link.action>
         </div>
-         <div class="{f:if(condition:'{menu}==3',then:'item selected',else:'item')}">
+        <div class="{f:if(condition:'{menu}==6',then:'item selected',else:'item')}">
+            <f:link.action action="ticketShow" controller="Project"arguments="{project:projectHeader.project}">
+                Tickets
+            </f:link.action>
+        </div>
+        <div class="{f:if(condition:'{menu}==3',then:'item selected',else:'item')}">
             <f:link.action action="messageNew" controller="Message"arguments="{project:projectHeader.project.uid}">
                 Nachrichten (na/{projectHeader.messages.all})
             </f:link.action>
         </div>
-        
+
         <div class="{f:if(condition:'{menu}==4',then:'item selected',else:'item')}">
-                <f:link.action action="todoShow" controller="Project"arguments="{project:projectHeader.project}">
-                    ToDos ({projectHeader.todos.open}/{projectHeader.todos.all})
-                </f:link.action>
+            <f:link.action action="todoShow" controller="Project"arguments="{project:projectHeader.project}">
+                ToDos ({projectHeader.todos.open}/{projectHeader.todos.all})
+            </f:link.action>
         </div>
-            
+
         <div class="{f:if(condition:'{menu}==5',then:'item selected',else:'item')}">
             <f:link.action action="effortsShow" controller="Project"arguments="{project:projectHeader.project}">
                 Leistungen ({projectHeader.work.open}/{projectHeader.work.all})
@@ -70,19 +75,19 @@
         </div>
         <div class="item">
             <a href="#">
-              Fakturierung (na/na)  
+                Fakturierung (na/na)  
             </a>
         </div>
 
 
-</div>
-    <div class="stage-header-decription">
-    <p>{projectHeader.project.projectShort}</p>
     </div>
-    
+    <div class="stage-header-decription">
+        <p>{projectHeader.project.projectShort}</p>
+    </div>
+
     <div class="stage-header-decription {f:if(condition:'{menu}==1',then:'',else:'hidden')}">
-    <f:format.html>
-                {project.projectText}
-            </f:format.html>
+        <f:format.html>
+            {project.projectText}
+        </f:format.html>
     </div>
 </div>

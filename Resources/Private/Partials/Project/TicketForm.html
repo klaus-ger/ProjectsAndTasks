@@ -1,0 +1,90 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+
+<vh:comment>
+    /* Partial BudgetForm
+    * 
+    *
+    * Version 1.0.1 Build 9.9.2013 klaus.heuer@t3-developer.com
+    */
+</vh:comment>
+
+
+
+
+<f:form method="post" controller="Project" action="ticketSave" name="ticket" object="{ticket}"   >
+
+    <div class="stageItemTable">
+
+        <!--hidden fields -->
+        <f:form.textfield property="uid" value="" class="hidden jqTicketFormUid" />
+        <f:form.textfield property="ticketProject" value="{projectHeader.project.uid}" class="hidden" />
+        
+
+        <!-- regular Fields -->
+        <div class="form-left" style="display: inline;">
+            <div class="input-wrap">
+                <label>Ticket:</label>
+                <f:form.textfield property="ticketTitle" value="" class="left-large jqTicketFormTitle" />
+            </div>
+             
+            <div class="input-wrap">
+                <label style="width:82px;">ID:</label>
+                <f:form.textfield property="ticketNo" value="" class="left-small jqTicketFormTicketNo" disabled="disabled"/>
+            </div>
+            <br >
+
+            <div class="input-wrap">
+                <label>Project:</label>
+                <f:form.textfield property="ticketProjectTitle" value="" class="left-fullwidth jqTicketFormProject" disabled="disabled"/>
+                
+            </div>
+            
+            
+            <div class="input-wrap">
+                
+                <f:form.textarea  id="editor" cols="55" rows="5" property="ticketText" value="" class="left-fullwidth jqTicketFormText"/>
+            </div>
+            
+
+            
+        </div>
+        <div class="form-right" >
+            <div class="input-wrap" style="height:33px; width:206px;" >
+                
+                <div class="jqTicketFormCreate"style="margin: 7px 15px;">Erstellt am 13.09.2013  Klaus</div>
+            </div>
+            
+            <div class="input-wrap">
+                <label>Status:</label>
+                <f:form.select property="ticketStatus" options="{status}" optionValueField="" optionLabelField="" class="jqTicketFormStatus right" />
+           
+            </div>
+            
+            <div class="input-wrap">
+                <label>Time (h):</label>
+                <f:form.textfield   property="ticketTime" value="" class="jqTicketFormTime right small"/>
+            </div>
+            
+            <div class="input-wrap">
+                <label>Deadline</label>
+                <f:form.textfield   property="ticketDeadline" value="" class="jqTicketFormDeadline datepicker right small"/>
+            </div>
+
+           <div class="input-wrap">
+                <label>Assigned:</label>
+                <f:form.select property="ticketAssigned" value="{}" options="{user}" optionValueField="uid" optionLabelField="username" class="jqTicketFormAssigned right"/>
+            </div>
+            
+            <div class="input-wrap" style="height:109px; width:206px;" >
+                &nbsp;
+            </div>
+            
+            <f:form.submit name="delete" value="löschen" class="button form-button-small" />
+            <f:form.submit name="mySubmit" value="speichern" class="button form-button" />
+        </div>
+
+
+    </div>
+</f:form>
+
+<br />

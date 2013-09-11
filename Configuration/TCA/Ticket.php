@@ -1,7 +1,7 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_budget'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_budget']['ctrl'],
+$TCA['tx_projectsandtasks_domain_model_ticket'] = array(
+    'ctrl' => $TCA['tx_projectsandtasks_domain_model_ticket']['ctrl'],
     'interface' => array(
         'showRecordFieldList' => 'calender_date, calender_user, calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]'
     ),
@@ -34,8 +34,8 @@ $TCA['tx_projectsandtasks_domain_model_budget'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_budget',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_budget.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_budget.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_ticket',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_ticket.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_ticket.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -66,7 +66,7 @@ $TCA['tx_projectsandtasks_domain_model_budget'] = array(
                 'eval' => 'trim',
             )
         ),
-        'budget_project' => array(
+        'ticket_project' => array(
             'exclude' => 0,
             'label' => 'Projekt',
             'config' => array(
@@ -75,7 +75,15 @@ $TCA['tx_projectsandtasks_domain_model_budget'] = array(
                 'eval' => 'trim',
             )
         ),
-        'budget_title' => array(
+        'ticket_customer' => array(
+            'exclude' => 0,
+            'label' => 'text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 8,
+            )
+        ),
+        'ticket_title' => array(
             'exclude' => 0,
             'label' => 'TeTitel',
             'config' => array(
@@ -83,7 +91,7 @@ $TCA['tx_projectsandtasks_domain_model_budget'] = array(
                 'size' => 30,
             )
         ),
-        'budget_text' => array(
+        'ticket_text' => array(
             'exclude' => 0,
             'label' => 'text',
             'config' => array(
@@ -91,7 +99,7 @@ $TCA['tx_projectsandtasks_domain_model_budget'] = array(
                 'size' => 100,
             )
         ),
-        'budget_value' => array(
+        'ticket_time' => array(
             'exclude' => 0,
             'label' => 'text',
             'config' => array(
@@ -99,7 +107,7 @@ $TCA['tx_projectsandtasks_domain_model_budget'] = array(
                 'size' => 8,
             )
         ),
-        'budget_time' => array(
+        'ticket_deadline' => array(
             'exclude' => 0,
             'label' => 'text',
             'config' => array(
@@ -107,7 +115,31 @@ $TCA['tx_projectsandtasks_domain_model_budget'] = array(
                 'size' => 8,
             )
         ),
-        'budget_invoice' => array(
+        'ticket_date' => array(
+            'exclude' => 0,
+            'label' => 'text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 8,
+            )
+        ),
+        'ticket_status' => array(
+            'exclude' => 0,
+            'label' => 'text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 8,
+            )
+        ),
+        'ticket_owner' => array(
+            'exclude' => 0,
+            'label' => 'text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 8,
+            )
+        ),
+        'ticket_assigned' => array(
             'exclude' => 0,
             'label' => 'text',
             'config' => array(

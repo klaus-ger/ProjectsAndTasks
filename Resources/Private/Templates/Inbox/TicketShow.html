@@ -1,0 +1,50 @@
+{namespace vh = T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="main">
+
+  
+    <div class="stage">
+
+        <f:render partial="Inbox/InboxHeader" arguments="{_all}" />
+
+        <!------------------------------------------------------------------------------>
+        <br />
+
+
+
+
+        <!-- stage right: projekte -->
+        <h2>Open Tickets</h2>
+
+
+        <f:for each="{tickets}" as="item">
+
+            <div class="projectListItem">
+                <div class="listMessageDate ">
+                    {item.ticketNo}
+                </div>
+                <div class="listMessageTitle"">
+                    <f:link.action action="ticketShow" controller="Project"arguments="{project:item.ticketProject}">
+                        {item.ticketProject.projectTitle}
+                    </f:link.action>
+                </div>
+                <div class="listMessageText">
+                    {item.ticketTitle}
+                </div>
+                <div class="listMessageSender">
+                    {item.ticketStatus}
+                </div>
+                <div class="listMessageStatus">
+                    {item.ticketAssigned.username}
+                </div>
+
+            </div>
+
+        </f:for>
+
+
+    </div>
+
+
+</f:section>

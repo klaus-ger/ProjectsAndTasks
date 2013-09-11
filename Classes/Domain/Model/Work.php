@@ -93,6 +93,12 @@ class Work extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $workEnd;
 
+        /**
+     * The Task Work ticket
+     * @var \int
+     * 
+     */
+    protected $workTicket;
 
     public function getWorkProject() {
         return $this->workProject;
@@ -156,6 +162,14 @@ class Work extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setWorkEnd($workEnd) {
         $this->workEnd = $workEnd;
+    }
+
+    public function getWorkTicket() {
+        return $this->workTicket;
+    }
+
+    public function setWorkTicket($workTicket) {
+        $this->workTicket = $workTicket;
     }
 
 
