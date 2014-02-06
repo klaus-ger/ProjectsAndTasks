@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'project and tasks',
-	'description' => 'Project and Task System',
+	'description' => 'Project and Tasks System',
 	'category' => 'plugin',
 	'author' => 'Klaus',
 	'author_company' => 't3-developer.com',
