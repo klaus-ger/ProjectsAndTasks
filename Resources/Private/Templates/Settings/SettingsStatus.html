@@ -51,9 +51,11 @@
                                     {item.StatusText}
                                 </div>
                                 <div class="list-item project-date">
-                                    Behaviour: 
-                                    <f:if condition="{item.StatusBehaviour} == 0">open</f:if>
-                                    <f:if condition="{item.StatusBehaviour} == 1">closed</f:if>
+                                     
+                                    <f:if condition="{item.StatusBehaviour} == 0">Behaviour: open</f:if>
+                                    <f:if condition="{item.StatusBehaviour} == 1">Behaviour: closed</f:if>
+                                    <f:if condition="{item.StatusBehaviour} == 2">Behaviour: custom time</f:if>
+                                    <f:if condition="{item.StatusBehaviour} == 3">Behaviour: internal time</f:if>
                                 </div>
                                 <div class="list-item project-status">
                                     

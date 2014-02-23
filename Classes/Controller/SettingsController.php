@@ -187,9 +187,13 @@ class SettingsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * Shows a List of all Status
      */
     public function settingsStatusAction() {
-        $this->importBasicStatusValues();
+        
         
         $statustyp = $this->statustypRepository->findAll();
+        if($statustyp[0] ==''){
+            $this->importBasicStatusValues();
+            $statustyp = $this->statustypRepository->findAll();
+        }
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($statustyp);
         $i = 0;
         foreach ($statustyp as $typ) {
@@ -255,6 +259,13 @@ class SettingsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         // 4 = Milestonestatus
         // 5 = worktime Typ (customer, research, administrative)
         
+        //status behaviour
+        // 0 = open
+        // 1 = closed
+        // 2 = time can be invoiced
+        // 3 = internal time
+        // 9 = no behaviour
+        
         //check if Status Typs exists
         //Statustyp Projects
         $type1 = $this->statustypRepository->findByUid(1);
@@ -272,8 +283,10 @@ class SettingsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $cat2 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat2->setStatusTyp(1);
             $cat2->setStatusText('closed');
-            $cat2->setStatusBehaviour(0);
+            $cat2->setStatusBehaviour(1);
             $this->statusRepository->add($cat2);
+            
+            
         }
         
         //Statustyp Tickets
@@ -306,13 +319,13 @@ class SettingsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $cat1 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat1->setStatusTyp(3);
             $cat1->setStatusText('Bug');
-            $cat1->setStatusBehaviour(0);
+            $cat1->setStatusBehaviour(9);
             $this->statusRepository->add($cat1);
             
             $cat2 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat2->setStatusTyp(3);
             $cat2->setStatusText('Feature');
-            $cat2->setStatusBehaviour(0);
+            $cat2->setStatusBehaviour(9);
             $this->statusRepository->add($cat2);
         }
         
@@ -346,19 +359,19 @@ class SettingsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $cat1 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat1->setStatusTyp(5);
             $cat1->setStatusText('customer');
-            $cat1->setStatusBehaviour(1);
+            $cat1->setStatusBehaviour(2);
             $this->statusRepository->add($cat1);
             
             $cat2 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat2->setStatusTyp(5);
             $cat2->setStatusText('research');
-            $cat2->setStatusBehaviour(0);
+            $cat2->setStatusBehaviour(3);
             $this->statusRepository->add($cat2);
             
             $cat3 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat3->setStatusTyp(5);
             $cat3->setStatusText('administrative');
-            $cat3->setStatusBehaviour(0);
+            $cat3->setStatusBehaviour(3);
             $this->statusRepository->add($cat3);
         }
         
