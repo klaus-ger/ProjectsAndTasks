@@ -1,0 +1,18 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        
+        <h2>Ticket bearbeiten</h2>
+        
+        <f:form action="ticketSave" name="ticket" object="{ticket}">
+
+           <f:render partial="Ticket/TicketForm" arguments="{_all}"/>
+
+            <f:form.submit value="save" />
+        </f:form>
+    </div>
+
+
+</f:section>

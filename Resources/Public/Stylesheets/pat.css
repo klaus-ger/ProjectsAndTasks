@@ -1,0 +1,658 @@
+.hidden {
+    display: none;
+}
+/* ==========================================================================
+   GLOBAL HEADER
+   ========================================================================== */
+#pat #header {
+    height: 30px;
+    background-color: #666;
+    position: fixed;
+    width: 100%;
+    margin: 0;
+    z-index: 999;
+    border-bottom: 1px solid #000;
+}
+
+#pat .header-inner {
+    width: 100%;
+    margin: 0 auto;
+    color: #ededed;
+}
+#pat .header-inner-right {
+    float: right;
+}
+#pat .header-inner h1 {
+    float: left;
+    font-size: 90%;
+    line-height: 14px;
+    color: #bbb;
+}
+
+#pat .header-inner p, #pat .header-inner a {
+    color: #ededed;
+    display: inline-block;
+    margin: 9px 10px 0 10px;
+    float: left;
+}
+#pat .header-inner a img {
+    margin-top: -3px;
+}
+#pat .divider {
+    background-color: #999;
+    border-right: 1px solid #000;
+    float: left;
+    height: 30px;
+    margin: 0px 10px;
+    width: 1px;
+}
+
+/* Logout button */
+#pat .login {
+    position: relative;
+    cursor: pointer;
+    float: left;
+}
+#pat .login:hover .logoutbutton{
+
+    display: block;
+}
+#pat .login .logoutbutton{
+    display: none;
+    border:none;
+    border-radius: 0 0 4px 4px;
+    background-color: #666;
+    position: absolute;
+    left: 10px;
+    top: 28px;
+    cursor: pointer;
+    color: #ededed;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 5px;
+    float: left;
+}
+
+#pat .pat-title {
+    font-size: 11px;
+    font-family: sans-serif;
+    color: #ededed;
+    margin: 10px 5px;
+    float: left;
+}
+
+#pat .header-menu {
+    font-size: 11px;
+    font-family: sans-serif;
+    color: #ededed;
+    margin: 1px 5px;
+    float: right;
+}
+
+/* ==========================================================================
+   Grid System
+   ========================================================================== */
+.pat-stage {
+    padding: 40px 10px;
+}
+
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+.clear {
+    clear: both;
+}
+
+/* ==========================================================================
+   mobil nav
+   ========================================================================== */
+
+.mobil-nav {
+    position: absolute;
+    width: 100%;
+    top: 30px;
+    display: none;
+}
+
+.mobil-nav ul li {
+    width: 80%;
+    display: block;
+    padding: 10px 5px;
+}
+/* ==========================================================================
+   Desktop Nav
+   ========================================================================== */
+
+.desktop-menu {
+    display: none;
+}
+/* ==========================================================================
+   font-styling
+   ========================================================================== */
+body {
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+h3 {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* ==========================================================================
+   general list styling
+   ========================================================================== */
+.pat-list {
+    width: 100%;
+    border: 1px solid #ededed;
+}
+
+.pat-list-item {
+    padding: 10px 5px 5px 5px;
+    clear: both;
+    border-bottom: 1px solid #ededed;
+}
+.pat-sublist-item {
+    padding: 7px 0px 2px 0px;
+    clear: both;
+    border-top: 1px solid #ededed;
+}
+.even {
+    background-color: #fafafa;
+}
+.odd {
+
+}
+.list-item{
+    float: left;
+    font-size:90%;
+    padding: 5px 0; 
+}
+/* ==========================================================================
+   TICKET LIST
+   ========================================================================== */
+
+.ticket-no  {
+    width: 50px;
+}
+.ticket-date{
+    width: 80px;
+}
+.ticket-typ{
+    width: 60px;
+}
+.ticket-titel {
+    width: 500px;
+    font-weight: bold;
+}
+.ticket-titel-small {
+    width: 400px;
+    font-weight: bold;
+}
+.ticket-status-inline {
+    width: 150px;
+}
+ .ticket-status {
+    float: right;
+    font-size:90%;
+}
+
+.ticket-project {
+    width: 300px;
+}
+.ticket-text {
+    padding-bottom: 5px;
+    display: block;
+}
+.ticket-time {
+    float: right;
+    margin-right: 5px;
+}
+/* ==========================================================================
+   Note List on Ticket Detail Page
+   ========================================================================== */
+.note-date{
+    width: 80px;
+}
+
+.note-titel {
+    width: 700px;
+    font-weight: bold;
+}
+
+ .note-status {
+    width: 80px;
+}
+ .note-time {
+    float: right;
+    font-size:90%;
+}
+.note-text {
+    padding-bottom: 5px;
+    display: block;
+    margin-left: 80px;
+    width: 700px;
+}
+/* ==========================================================================
+   Project LIST
+   ========================================================================== */
+.project-no {
+    width: 40px;
+}
+.project-titel {
+    width: 300px;
+    font-weight: bold;
+}
+.project-cat {
+    width: 300px;
+}
+.project-tickets{
+    float: right;
+    margin-right: 5px;
+}
+/* ==========================================================================
+   Project Category LIST
+   ========================================================================== */
+.cat-no {
+    width: 40px;
+    padding-left: 10px;
+}
+
+.cat-titel {
+    width: 300px;
+    font-weight: bold;
+}
+.cat-subtitel {
+    width: 300px;
+
+}
+
+/* ==========================================================================
+   Milestone  LIST
+   ========================================================================== */
+.ms-no {
+    width: 40px;
+    padding-left: 10px;
+}
+.ms-date{
+    width: 80px;
+}
+.ms-titel{
+    width: 300px;
+}
+.ms-text{
+    width: 355px;
+}
+.ms-titel-long {
+    width: 490px;
+    font-weight: bold;
+}
+.ms-status{
+    width: 120px;
+}
+
+/* ==========================================================================
+   general detail styling
+   ========================================================================== */
+.pat-detail {
+    width: 100%;
+    border-bottom: 1px solid #ededed;
+}
+.detail-item{
+    float: left;
+    padding: 5px 0; 
+}
+.detail-ticketsstatus {
+    width: 60px;
+}
+.detail-ticketstitle{
+    width: 600px;
+    font-weight: bold;
+}
+.detail-tickettext {
+    width: 600px;
+}
+.detail-ticketlabel{
+    width:60px;
+    font-size: 90%;
+}
+.detail-ticketright{
+    width: 200px;
+    font-size: 90%;
+}
+/* ==========================================================================
+   Calender view
+   ========================================================================== */
+.calender-dayview-left {
+    width: 500px;
+    float: left;
+    display: block;
+    padding: 10px;
+}
+
+.calender-dayview-right {
+    float: left;
+    padding: 10px;
+    margin-left: 588px;
+}
+.calender-dayview-hour {
+    height: 15px;
+    display: block;
+    border-bottom: 1px solid #ededed;
+    padding: 10px;
+    width: 500px;
+    position: relative;
+}
+.calender-dayview-timeline {
+    position: absolute;
+    
+}
+.calender-dayview-date {
+    position: relative;
+}
+
+/* ==========================================================================
+   forms
+   ========================================================================== */
+/*
+input {
+    height: 30px;
+    margin: 10px 0;
+    padding-left: 5px;
+}
+
+select {
+    margin: 10px 0;
+}
+*/
+.form-left {
+    float: left;
+    margin-left: 10px;
+    margin-right: 2px;
+    margin-bottom: 10px;
+    width: 710px;
+}
+.form-right{
+    margin-left: 725px;
+}
+
+.input-wrap {
+    background-image: linear-gradient(#FDFDFD, #FAFAFA);
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+    color: #777777;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: normal;
+    margin: 1px 0;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 #FFFFFF;
+    min-height: 30px;
+}
+.input-wrap label {
+    display: inline-block;
+    padding: 9px 0 3px;
+    text-align: right;
+    width: 100px;
+    vertical-align: top;
+}
+.input-wrap label.small {
+    width: 70px;
+}
+
+.input-wrap input, .input-wrap textarea, .input-wrap select {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    font-size: 11px;
+    margin-left: 5px;
+    padding: 9px;
+}
+.input-wrap select {
+    padding: 8px;
+}
+input.radio{
+    margin-top: 8px;
+}
+
+/* field sizes */
+.input-wrap.left-large {
+    width: 480px;
+}
+
+.input-wrap.left-small {
+    width: 220px;
+}
+.input-wrap.left-fullwidth {
+    width: 705px;
+}
+.input-wrap.right {
+    width: 260px;
+}
+
+/*sizes of input, select  etc fields */
+.input-wrap input.left-large{
+    width: 310px;
+}
+.input-wrap .project-shorttext{
+    width: 500px;
+}
+select option {
+    margin: 5px;
+}
+/* Datepicker */
+.ui-datepicker{
+    background-color: #fff;
+    font-size: 11px;
+    padding: 8px;
+    background-image: linear-gradient(#FDFDFD, #FAFAFA);
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+    color: #777777;
+}
+.ui-datepicker-header {
+    border-bottom: 1px solid #DCDCDC;
+    height: 9px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+.ui-datepicker-prev, .ui-datepicker-title {
+    float: left;
+}
+.ui-datepicker-title {
+    margin-left: 30px;
+}
+ .ui-datepicker-next{
+    float: right;
+}
+.ui-datepicker-calendar a{
+    padding: 5px;
+}
+.ui-datepicker-calendar td {
+    text-align: right;
+    height: 20px;
+}
+/* Buttons */
+.form-button {
+    cursor: pointer;
+    margin: 1px 0 0 2px;
+    padding: 7px 0;
+    width: 134px;
+}
+.button {
+    background: -moz-linear-gradient(center top , #EDEDED 5%, #DFDFDF 100%) repeat scroll 0 0 #EDEDED;
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 0 #FFFFFF inset;
+    color: #777777;
+    display: inline-block;
+    font-family: arial;
+    font-size: 10px;
+    font-weight: normal;
+    margin: 10px 0;
+    padding: 0 22px;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 #FFFFFF;
+}
+
+/*Who needs this?? */
+.textfield-large{
+    width: 80%;
+}
+.textarea {
+    width: 80%;
+    margin: 10px 0;
+    padding: 10px 5px;
+    line-height: 20px;
+}
+.button {
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+    background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+    background-color:#ededed;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#555;
+    font-family:arial;
+    font-size:12px;
+    font-weight:normal;
+    padding: 10px 22px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #ffffff;
+    margin: 10px 0;
+}
+.button:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+    background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+    background-color:#dfdfdf;
+}
+
+/* ==========================================================================
+   Media Query Desktop
+   ========================================================================== */
+@media screen and (min-width: 820px) {
+    #pat .pat-stage, #pat .header-inner {
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    #pat .desktop-menu {
+        display: block;
+    }
+    #pat .pat-list {
+       
+    }
+    
+    #pat h2 {
+        font-size: 24px;
+        color: #333;
+        margin: 20px 0;
+    }
+    /* Stage Navigation ********************************************************/
+    #pat .stage-navi {
+        width: 100%;
+        border-radius:8px;
+        border:1px solid #dcdcdc;
+        
+    }
+    #pat .stage-navi-navi {
+        height: 45px;
+        background-color: rgb(245,245,245);
+        font-size: 12px;
+        font-family: Arial;
+        color: #333;
+        border-top-left-radius:8px;
+        border-top-right-radius:8px;
+        overflow: hidden;
+    }
+    #pat .stage-navi-navi ul li {
+        padding: 16px 25px;
+        float: left;
+        border-right: 1px solid #dcdcdc;
+    }
+    #pat .stage-navi-navi ul li.active {
+        background-color: #fff;
+       
+    }
+    #pat .stage-navi-navi ul li a {
+        font-family: Arial, sans-serif;
+        color: rgb(130,130,130);
+        font-weight: 700;
+    }
+    #pat .stage-navi-navi ul.right {
+        float: right;
+        border-left: 1px solid #dcdcdc;
+    }
+    #pat .stage-navi-navi ul.right li {
+        border: none;
+        padding: 16px 15px;
+    }
+    #pat .stage-navi-text {
+        clear: both;
+        padding: 10px 15px;
+    }
+    /* SUB Navigation ********************************************************/
+     #pat .stage-sub-navi {
+        width: 100%;
+         height: 27px;
+        background-color: rgb(245,245,245);
+        margin-bottom: 20px;
+        font-size: 12px;
+        overflow: hidden;
+    }
+    #pat .stage-sub-navi ul li {
+        padding: 7px 25px;
+        float: left;
+        border-right: 1px solid #dcdcdc;
+    }
+    #pat .stage-sub-navi ul li a {
+        font-family: Arial, sans-serif;
+        color: rgb(130,130,130);
+        font-weight: 700;
+    }
+    #pat .stage-sub-navi ul.right {
+        float: right;
+        border-left: 1px solid #dcdcdc;
+    }
+        #pat .stage-sub-navi ul.right li {
+        border: none;
+        padding: 5px 15px;
+    }
+    #pat .stage-sub-navi ul li.active {
+        background-color: #fff;
+    }
+    #pat .stage-sub-navi ul li.active a {
+        color: #333;
+    }
+    /* Lists  ********************************************************/
+    #pat .stage-list {
+        border:1px solid #dcdcdc;
+       border-radius:8px;
+        
+    }
+    
+
+}

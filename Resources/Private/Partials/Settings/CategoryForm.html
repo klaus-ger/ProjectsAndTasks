@@ -1,0 +1,16 @@
+<div class="form-left">
+    <div class="input-wrap">
+        <label>Category Name</label>
+        <f:form.textfield property="catTitle" value="{category.catTitle}" class="textfield-large"/>
+        
+    </div>
+    
+</div>
+
+<div class="form-right">
+    <div class="input-wrap">
+       <label>Sub Category of</label>
+        <f:form.select property="catParent" value="{category.catParent}" options="{maincats}" optionValueField="uid" optionLabelField="catTitle" prependOptionLabel="-- Main category --" /><br />
+    </div>
+
+</div>

@@ -1,0 +1,45 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+
+<div class="pat-list">
+    <f:for each="{milestones}" as="ms" iteration="iter">
+        <f:link.action action="projectMilestonesEdit" controller="Project" arguments="{uid: ms.uid}">
+            <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                <div class="list-item ms-no">
+                    {ms.msOrder}
+                </div>
+
+                <div class="list-item ms-date">
+                    <f:format.date format="d.m.Y">{ms.msStart}</f:format.date>
+                </div>
+                
+                <div class="list-item ms-titel-long">
+                    {ms.msTitel}
+                </div>
+                <div class="list-item ticket-date">
+                    <f:format.date format="d.m.Y">{ms.msEnd}</f:format.date>
+                </div>
+                <div class="list-item ms-status">
+                    Status: {ms.msStatus.statusText}
+                </div>
+                <div class="list-item ms-status">
+                    Tickets open: {ms.msTicketOpen}
+                  
+                </div>
+            </f:link.action>
+        <div class="ticket-status">
+            <f:if condition="{iter.isFirst} == 0">
+                <f:link.action action="projectMilestonesMoveUp" controller="Project" arguments="{milestone: ms}">
+                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_up.png" width="17" height="17" alt="new Category" />
+                </f:link.action>
+            </f:if>
+            &nbsp;&nbsp;
+            <f:if condition="{iter.isLast} == 0" >
+                <f:link.action action="projectMilestonesMoveDown" controller="Project" arguments="{milestone: ms}">
+                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_down.png" width="17" height="17" alt="new Category" />
+                </f:link.action>
+            </f:if>
+            </div>
+            </div>
+        
+    </f:for>
+</div>

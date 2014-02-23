@@ -1,0 +1,55 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <h2>Projects</h2>
+
+        <div class="stage-navi clearfix">
+            
+            <div class="stage-navi-navi">
+                <ul>
+                    <li class="active">New Project</li>
+                    
+                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                    <f:link.action action="allProjectsByCat">
+                        Projects by Kategory
+                    </f:link.action>
+                    </li>
+                    <li>
+                    <f:link.action action="projectDetail" arguments="{uid: project.uid}">
+                        Projects by Number
+                    </f:link.action>
+                    </li>
+
+                    <li class="{f:if(condition: '{mainmenu} == 4', then: ' active')}">
+                    <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+                        Archive
+                    </f:link.action>
+                    </li>
+
+                </ul>
+                <ul class="right">
+                    <li>
+                    <f:link.action action="projectNew">
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Project" />
+                    </f:link.action>
+                    </li>
+                </ul>
+
+            </div>
+            
+            
+            <div class="pat-list">
+
+                <f:form action="projectSave" name="project" object="{project}">
+
+                    <f:render partial="Project/ProjectForm" arguments="{_all}"/>
+
+
+                    <f:form.submit value="absenden" />
+                </f:form>
+            </div>
+        </div>
+    </div>
+            </f:section>

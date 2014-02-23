@@ -1,0 +1,20 @@
+<f:form.hidden property="contractProject" value="{project.uid}" />
+
+<label>Contract Titel</label>
+<f:form.textfield property="contractTitel" value="{contract.contractTitel}" class="textfield-large"/><br />
+
+<!--
+<label>Datum</label>
+<input type="date" name="tx_projectsandtasks_pat[ticket][ticketDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketDate)}">
+-->
+
+<label>Beschreibung</label>
+<f:form.textarea cols="50" rows="10" property="contractDescription" value="{contract.contractDescription}" class="textarea"  />
+
+<label>Contract Value</label>
+<f:form.textfield property="contractValue" value="{contract.contractValue}" class="textfield-large"/><br />
+
+
+<br />
+<label>Status</label>
+<f:form.select property="contractStatus" options="{typ}" optionValueField="uid" optionLabelField="statusText" /><br />

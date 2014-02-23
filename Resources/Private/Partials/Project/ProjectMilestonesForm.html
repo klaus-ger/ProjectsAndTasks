@@ -1,0 +1,34 @@
+<f:form.hidden property="msProject" value="{project.uid}" />
+
+<div class="form-left">
+    <div class="input-wrap left-fullwidth">
+        <label>Milestone</label>
+        <f:form.textfield property="msTitel" value="{milestone.msTitel}" class="project-shorttext"/>
+    </div>
+
+    <div class="input-wrap left-fullwidth">
+        <label>Details</label>
+        <f:form.textarea cols="50" rows="10" property="msText" value="{milestone.msText}" class="project-shorttext"  />
+    </div>
+</div>
+
+<div class="form-right">
+    <div class="input-wrap right">
+       <label class="small">Start Date</label>
+       <input type="date" name="tx_projectsandtasks_pat[milestone][msStart]" value="{f:format.date(format : 'Y-m-d', date : milestone.msStart)}" class="datepicker">
+    </div>
+    
+    <div class="input-wrap right">
+        <label class="small">End Date</label>
+        <input type="date" name="tx_projectsandtasks_pat[milestone][msEnd]" value="{f:format.date(format : 'Y-m-d', date : milestone.msStart)}" class="datepicker">
+    </div>
+    
+    <div class="input-wrap right">
+        <label class="small">Status</label>
+        <f:form.select property="msStatus" options="{status}" optionValueField="uid" optionLabelField="statusText" />
+    </div>
+    
+
+</div>
+
+

@@ -1,0 +1,76 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+
+<div class="pat-list">
+    <div class="pat-list-item clearfix ">
+        <b>&nbsp; </b>
+    </div>
+    <ul>
+        <f:for each="{ticketsNullMilestone}" as="ticketNull" iteration="iterNull">
+            <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticketNull.uid}">
+                <div class="pat-list-item clearfix {f:if(condition: '{iterNull.isEven} == 1', then: ' even', else: ' odd')}">
+                    <div class="list-item ticket-no">
+                        {ticketNull.ticketNummer}
+                    </div>
+
+                    <div class="list-item ticket-date">
+                        <f:format.date format="d.m.Y">{ticketNull.ticketDate}</f:format.date>
+                    </div>
+                    <div class="list-item ticket-typ">
+                        {ticketNull.ticketTyp.statusText}
+                    </div>
+                    <div class="list-item ticket-titel">
+                        {ticketNull.ticketTitel}
+                    </div>
+                    <div class="list-item ticket-date">
+                        <f:format.date format="d.m.Y">{ticketNull.ticketScheduleDate}</f:format.date>
+                    </div>
+                    <div class="list-item ticket-time">
+
+                        <vh:time time="{ticketNull.ticketScheduleTime}" />
+                    </div>
+
+                </div>
+            </f:link.action>  
+        </f:for>
+    </ul>
+
+    <ul>
+        <f:groupedFor each="{tickets}" as="msTickets" groupBy="ticketMilestone" groupKey="ticketMilestone">
+            <li>
+                <div class="pat-list-item clearfix ">
+                    <b>{ticketMilestone.msTitel} </b>
+                </div>
+                <ul>
+                    <f:for each="{msTickets}" as="ticket" key="label" iteration="iter">
+                        <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticket.uid}">
+                            <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                                <div class="list-item ticket-no">
+                                    {ticket.ticketNummer}
+                                </div>
+
+                                <div class="list-item ticket-date">
+                                    <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                                </div>
+                                <div class="list-item ticket-typ">
+                                    {ticket.ticketTyp.statusText}
+                                </div>
+                                <div class="list-item ticket-titel">
+                                    {ticket.ticketTitel}
+                                </div>
+                                <div class="list-item ticket-date">
+                                    <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
+                                </div>
+                                <div class="list-item ticket-time">
+
+                                    <vh:time time="{ticket.ticketScheduleTime}" />
+                                </div>
+
+                            </div>
+                        </f:link.action>
+                    </f:for>
+                </ul>
+            </li>
+        </f:groupedFor>
+    </ul>
+</div>
+

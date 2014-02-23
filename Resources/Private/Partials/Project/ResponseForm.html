@@ -1,0 +1,37 @@
+<f:form.hidden property="trTicket" value="{ticket.uid}" />
+
+<div class="form-left">
+    <div class="input-wrap left-fullwidth">
+        <label>Titel</label>
+        <f:form.textfield property="trTitel" value="{response.trTitel}" class="left-large"/>
+        
+    </div>
+
+    <div class="input-wrap left-fullwidth">
+        <label>Text</label>
+        <f:form.textarea cols="50" rows="10" property="trText" value="{response.trText}" class="project-shorttext"  />
+    </div>
+</div>
+
+<div class="form-right">
+    <div class="input-wrap right">
+       <label class="small">Datum</label>
+        <input type="date" name="tx_projectsandtasks_pat[response][trDate]" value="{f:format.date(format : 'Y-m-d', date : response.trDate)}" class="datepicker">
+    </div>
+
+    <div class="input-wrap right">
+        <label class="small">Start</label>
+        <f:form.textfield property="trStart" value="{response.trStart}" />
+        
+    </div>
+    <div class="input-wrap right">
+        <label class="small">End</label>
+        <f:form.textfield property="trEnd" value="{response.trEnd}" />
+        
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Worktime</label>
+        <f:form.select property="trTyp" options="{status}" optionValueField="uid" optionLabelField="statusText" />
+    </div>
+
+</div>

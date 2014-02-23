@@ -1,0 +1,22 @@
+<label>Ticket Titel</label>
+<f:form.textfield property="ticketTitel" value="{ticket.ticketTitel}" class="textfield-large"/><br />
+
+
+<label>Datum</label>
+<input type="date" name="tx_projectsandtasks_pat[ticket][ticketDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketDate)}">
+
+<label>Planed Date</label>
+<input type="date" name="tx_projectsandtasks_pat[ticket][ticketScheduleDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketScheduleDate)}">
+
+<label>Planed Time</label>
+<f:form.select property="ticketScheduleTime" options="{payPal: '0,5', visa: 'Visa Card'}" />
+
+<label>Project</label>
+<f:form.select property="ticketProject" options="{projects}" optionValueField="uid" optionLabelField="ProjectTitel" /><br />
+
+<label>Ticket Text</label>
+<f:form.textarea cols="50" rows="10" property="ticketText" value="{ticket.ticketText}" class="textarea"  />
+
+<br />
+<label>Status</label>
+<f:form.select property="ticketStatus" options="{status}" optionValueField="uid" optionLabelField="statusText" /><br />

@@ -1,0 +1,39 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+
+<div class="pat-list">
+
+    <ul>
+        <f:for each="{ticketsNullMilestone}" as="ticketNull" iteration="iterNull">
+            <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticketNull.uid}">
+                <div class="pat-list-item clearfix {f:if(condition: '{iterNull.isEven} == 1', then: ' even', else: ' odd')}">
+                    <div class="list-item ticket-no">
+                        {ticketNull.ticketNummer}
+                    </div>
+
+                    <div class="list-item ticket-date">
+                        <f:format.date format="d.m.Y">{ticketNull.ticketDate}</f:format.date>
+                    </div>
+                    <div class="list-item ticket-typ">
+                        {ticketNull.ticketTyp.statusText}
+                    </div>
+                    <div class="list-item ticket-titel">
+                        {ticketNull.ticketTitel}
+                    </div>
+                    <div class="list-item ticket-status-inline">
+                        Status: {ticketNull.ticketStatus.statusText}
+                    </div>
+                    <div class="list-item ticket-date">
+                        <f:format.date format="d.m.Y">{ticketNull.ticketScheduleDate}</f:format.date>
+                    </div>
+                    <div class="list-item ticket-time">
+                        <vh:time time="{ticketNull.ticketScheduleTime}" />
+                    </div>
+
+                </div>
+            </f:link.action>  
+        </f:for>
+    </ul>
+
+
+</div>
+

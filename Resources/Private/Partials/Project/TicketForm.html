@@ -1,0 +1,47 @@
+<f:form.hidden property="ticketProject" value="{ticket.ticketProject}" />
+
+<div class="form-left">
+    <div class="input-wrap left-fullwidth">
+        <label>Ticket Titel</label>
+        <f:form.textfield property="ticketTitel" value="{ticket.ticketTitel}" class="left-large"/>
+        Ticket ID {ticket.uid}
+    </div>
+
+    <div class="input-wrap left-fullwidth">
+        <label>Ticket Text</label>
+        <f:form.textarea cols="50" rows="10" property="ticketText" value="{ticket.ticketText}" class="project-shorttext"  />
+    </div>
+</div>
+
+<div class="form-right">
+    <div class="input-wrap right">
+       <label class="small">Milestone</label>
+        <f:form.select property="ticketMilestone" options="{milestones}" optionValueField="uid" optionLabelField="msTitel" prependOptionLabel="-- Milestone --" /><br />
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Custom ID</label>
+        <f:form.textfield property="ticketCustomId" value="{ticket.ticketCustomId}" />
+        
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Datum</label>
+        <input type="date" name="tx_projectsandtasks_pat[ticket][ticketDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketDate)}" class="datepicker">
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Planed Date</label>
+        <input type="date" name="tx_projectsandtasks_pat[ticket][ticketScheduleDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketScheduleDate)}" class="datepicker">
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Planed Time</label>
+        <f:form.select property="ticketScheduleTime" options="{1800: '0,5 h', 3600: '1 h', 5400: '1,5 h', 7200: '2 h', 10800: '3 h', 14400: '4 h' }" />
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Status</label>
+        <f:form.select property="ticketStatus" options="{status}" optionValueField="uid" optionLabelField="statusText" />
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Typ</label>
+        <f:form.select property="ticketTyp" options="{typ}" optionValueField="uid" optionLabelField="statusText" />
+    </div>
+
+</div>

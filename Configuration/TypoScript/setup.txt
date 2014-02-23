@@ -1,0 +1,81 @@
+
+config.tx_extbase{
+    persistence{
+        storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
+        classes{
+ 
+            T3developer\ProjectsAndTasks\Domain\Model\User {
+                mapping {
+                    tableName = fe_users
+
+                    columns {
+                        uid.mapOnProperty = uid
+                        pid.mapOnProperty = pid
+                        username.mapOnProperty = username
+                        first_name.mapOnProperty = firstName
+                        password.mapOnProperty = password
+                        projects_and_tasks_user.mapOnProperty = projectsAndTasksUser
+                        }
+                }
+            }
+            
+            T3developer\ProjectsAndTasks\Domain\Model\Usergroup {
+                mapping {
+                    tableName = fe_groups
+
+                    columns {
+                        uid.mapOnProperty = uid
+                        pid.mapOnProperty = pid
+                        title.mapOnProperty = groupName
+                        }
+                }
+            }
+    	}
+    }
+}
+
+plugin.tx_projectsandtasks {
+    view {
+	templateRootPath = EXT:projects_and_tasks/Resources/Private/Templates/
+	partialRootPath  = EXT:projects_and_tasks/Resources/Private/Partials/
+	layoutRootPath   = EXT:projects_and_tasks/Resources/Private/Layouts/
+	}
+    persistance {
+        storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
+     
+    }
+    settings {
+        storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
+        baseUrl    = {$plugin.tx_projectsandtasks.settings.baseUrl}
+        
+    }
+
+
+}
+
+page {
+    includeCSS {
+        reset                           = EXT:projects_and_tasks/Resources/Public/Stylesheets/reset-min.css
+        reset.media                     = screen
+        reset.forceOnTop                = 1
+
+        tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/pat.css
+        tx_projectsandtasks_css_1.title = main_stylesheet
+        tx_projectsandtasks_css_1.media = screen
+
+        tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/ui-lightness/jquery-ui-1.10.3.custom.css
+        tx_projectsandtasks_css_3       = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.css
+    
+
+
+    }
+    	
+
+    includeJSFooter {
+    
+    tx_projects_file_2 = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.min.js
+    tx_projects_file_3 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.10.3.custom.min.js
+    
+    tx_projects_file_7 = EXT:projects_and_tasks/Resources/Public/Scripts/pat.js
+    }
+}

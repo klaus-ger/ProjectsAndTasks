@@ -1,0 +1,58 @@
+        <h2>{project.projectTitel}</h2>
+        
+        
+        <div class="stage-navi">
+            <div class="stage-navi-navi">
+                <ul>
+                    <li>
+                        <f:link.action action="projectIndex" arguments="{uid: project.uid}">
+                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_home.png" width="17" height="17" alt="Home" />
+                        </f:link.action>
+                    </li>
+                    <li>
+                        <f:link.action action="projectDetail" arguments="{uid: project.uid}">
+                            Details
+                        </f:link.action>
+                    </li>
+                    <li>
+                        <f:link.action action="projectMilestoneListAll" arguments="{uid: project.uid}">
+                            Milestones
+                        </f:link.action>
+                    </li>
+                    <li class="{f:if(condition: '{mainmenu} == 4', then: ' active')}">
+                        <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+                            Tickets
+                        </f:link.action>
+                    </li>
+                    <li>Messages</li>
+                    <li>
+                        <f:link.action action="projectDocumentIndex" arguments="{uid: project.uid}">
+                            Documents
+                        </f:link.action>
+                    </li>
+                    <li class="{f:if(condition: '{mainmenu} == 6', then: ' active')}">
+                    <f:link.action action="projectContractList" arguments="{uid: project.uid}" >
+                            Contracts
+                        </f:link.action>
+                    </li>
+                    <li>Team</li>
+                </ul>
+                <ul class="right">
+                    <li>
+                        <f:link.action action="projectEdit" arguments="{uid: project.uid}">
+                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Project edit" />
+                        </f:link.action>
+                    </li>
+                    <li>
+                        <f:link.action action="index">
+                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Project close" />
+                        </f:link.action>
+                    </li>
+                </ul>
+               
+            </div>
+            <div class="stage-navi-text">
+                <f:format.nl2br>{project.projectShort}</f:format.nl2br>
+            </div>
+            
+        </div>

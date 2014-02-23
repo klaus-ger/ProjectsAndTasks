@@ -1,0 +1,36 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
+
+
+
+        <br />
+
+        <h2>Auswertung</h2>
+
+        <div class="stage-sub-navi">
+            <ul>
+                <li><f:link.action action="projectDetail" arguments="{uid: project.uid}">Übersicht</f:link.action></li>
+                <li class="active"><f:link.action action="projectDetailEvaluation" arguments="{uid: project.uid}">Auswertung</f:link.action></li>
+                <li><f:link.action action="projectDetailCosts" arguments="{uid: project.uid}">Angebote / Rechnungen</f:link.action></li>
+               
+            </ul>
+            <ul class="right">
+                <li><f:link.action action="projectTicketsNew" arguments="{uid: project.uid}">neues Ticket</f:link.action></li>
+            </ul>
+        </div>
+        
+        
+        Projekttext: <br />
+        <f:format.html>{project.projectText}</f:format.html>
+        
+        <div class="pat-list">
+
+
+    </div>
+
+
+</f:section>

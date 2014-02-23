@@ -1,0 +1,34 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+
+<div class="pat-list">
+    <f:for each="{milestones}" as="ms" iteration="iter">
+        <f:link.action action="projectMilestonesEdit" controller="Project" arguments="{uid: ms.uid}">
+            <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                <div class="list-item ms-no">
+                    {ms.msOrder}
+                </div>
+
+                <div class="list-item ms-date">
+                    <f:format.date format="d.m.Y">{ms.msStart}</f:format.date>
+                </div>
+                
+                <div class="list-item ms-titel">
+                    {ms.msTitel}
+                </div>
+                <div class="list-item ms-text">
+                    <f:format.crop maxCharacters="50" append="&nbsp;[...]">{ms.msText}</f:format.crop>
+                    
+                </div>
+                <div class="list-item ticket-date">
+                    <f:format.date format="d.m.Y">{ms.msEnd}</f:format.date>
+                </div>
+                
+                <div class="list-item ms-status">
+                    Tickets open: {ms.msTicketOpen}
+                </div>
+            </f:link.action>
+       
+            </div>
+        
+    </f:for>
+</div>

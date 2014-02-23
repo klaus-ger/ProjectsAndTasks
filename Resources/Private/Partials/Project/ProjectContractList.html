@@ -1,0 +1,26 @@
+<div class="pat-list">
+    <f:for each="{contracts}" as="contract" iteration="iter">
+        <f:link.action action="projectContractDetail" controller="Project" arguments="{uid: contract.uid}">
+            <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                <div class="ticket-no">
+                    {contract.contractTyp}
+                </div>
+
+                <div class="ticket-date">
+                    <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                </div>
+                <div class="ticket-typ">
+                    {contract.contractTyp.statusText}
+                </div>
+                <div class="ticket-titel">
+                    {contract.contractTitel}
+                </div>
+                
+                
+                <div class="ticket-status">
+                    {contract.contractValue}
+                </div>
+            </div>
+        </f:link.action>
+    </f:for>
+</div>

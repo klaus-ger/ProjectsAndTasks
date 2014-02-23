@@ -1,0 +1,92 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
+
+
+
+        <br />
+
+        <h3>Ticketdetails</h3>
+        <div class="stage-list clearfix">
+        <div class="stage-sub-navi">
+            <ul>
+                    <li>
+                    <f:link.action action="projectTicketDetail" arguments="{uid: ticket.uid}">
+                        Ticket
+                    </f:link.action>
+                    </li>
+                    <li class="active">
+                        edit Note
+                    </li>
+
+
+                </ul>
+                <ul class="right">
+                    <li>
+                    <f:link.action action="projectTicketEdit" arguments="{uid: ticket.uid}">
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Ticket edit" />
+                    </f:link.action>
+                    </li>
+                    <li>
+                    <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket close" />
+                    </f:link.action>
+                    </li>
+                </ul>
+        </div>
+        <!-- ticket details -->
+            <div class="pat-detail ">
+                <div class="pat-list-item clearfix">
+                    <div class="form-left">
+                        <div class="detail-item detail-ticketstitle">
+                            {ticket.ticketNummer} | {ticket.ticketTitel}
+                        </div>
+                        <div class="clear">&nbsp;</div>
+                        <div class="detail-item detail-tickettext">
+                            {ticket.ticketText}
+                        </div>
+                    </div>
+
+                    <div class="form-right">
+                        <div class="detail-item detail-ticketlabel">
+                            Start:
+                        </div>
+                        <div class="detail-item detail-ticketright">
+                            <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                        </div>
+                        <div class="detail-item detail-ticketlabel">
+                            Status: 
+                        </div>
+                        <div class="detail-item detail-ticketright">
+                            {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
+                        </div>
+                        
+                        <div class="detail-item detail-ticketright">
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <!----->
+        
+        <br />
+        <h3>&nbsp;&nbsp;&nbsp;edit Note</h3>
+        <f:form action="projectResponseSave" name="response" object="{response}">
+            
+            <f:render partial="Project/ResponseForm" arguments="{_all}"/>
+
+            <f:form.submit value="save" class="button"/>
+        </f:form>
+        
+        
+       
+        
+        <!-- -->
+    </div>
+    </div>
+
+</f:section>

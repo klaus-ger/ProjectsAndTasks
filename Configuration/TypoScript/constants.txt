@@ -1,0 +1,12 @@
+
+plugin.tx_projectsandtasks {
+    settings {
+        # cat=plugin.tx_projectsandtasks//a; type=string; label= BaseUrl http://www.sample.de/
+	baseUrl = 
+
+    }
+    persistence {
+        # cat=plugin.tx_projectsandtasks//a; type=string; label=Default storage PID
+	storagePid = 
+    }
+}

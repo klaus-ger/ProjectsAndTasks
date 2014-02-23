@@ -1,0 +1,42 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+<div class="form-left">
+
+    <div class="input-wrap left-large">
+        <label>Project Title</label>
+        <f:form.textfield property="projectTitel" value="{project.projectTitel}" class="left-large"/>
+    </div>
+    <div class="input-wrap left-small">
+        <label class="small">Category</label>
+        
+        <vh:selectoptgroup options="{cats}" fieldname="tx_projectsandtasks_pat[project][projectCat]" actual="{project.projectCat.uid}"/>
+        
+    </div>
+
+
+    <div class="input-wrap left-fullwidth">
+        <label>Shorttext</label>
+        <f:form.textarea cols="50" rows="3" property="projectShort" value="{project.projectShort}" class="project-shorttext"  />
+    </div>
+    <div class="input-wrap left-fullwidth">
+        <label>Description</label>
+        <f:form.textarea cols="50" rows="7" property="projectText" value="{project.projectText}" class="project-shorttext"  />
+    </div>
+</div>
+
+<div class="form-right">
+    <div class="input-wrap right">
+        <label class="small">Datum</label>
+        <input type="date" name="tx_projectsandtasks_pat[project][projectDate]" class="right">
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Client</label>
+        <f:form.select property="projectClient" options="{clients}" optionValueField="uid" optionLabelField="cyName" class="right" prependOptionLabel="-- Client --"/>
+    </div>
+    <div class="input-wrap right">
+        <label class="small">Status</label>
+        <f:form.select property="projectStatus" options="{status}" optionValueField="uid" optionLabelField="statusText" class="right"/>
+    </div>
+
+</div>
+
+

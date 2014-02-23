@@ -1,0 +1,82 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <h2>Settings</h2>
+
+        <div class="stage-navi clearfix">
+
+            <div class="stage-navi-navi">
+                <ul>
+                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                    <f:link.action action="settingsProjectCat">
+                        Project Categories
+                    </f:link.action>
+                    </li>
+                    <li class="{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                    <f:link.action action="settingsStatus" >
+                        Selection Lists
+                    </f:link.action>
+                    </li>
+
+
+
+                </ul>
+                <ul class="right">
+                    <li>
+                    <f:link.action action="settingsProjectCatNew">
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
+                    </f:link.action>
+                    </li>
+                </ul>
+
+            </div>   
+
+            <div class="pat-list">
+                <br />
+                <f:form action="settingsStatusSave" name="status" object="{status}">
+
+                    <div class="form-left">
+                        <div class="input-wrap left-fullwidth">
+                            <label>Name</label>
+                            <f:form.textfield property="statusText" value="{status.statusText}" class="left-large"/>
+                        </div>
+                    </div>
+                    <div class="form-right">
+                        <div class="input-wrap right">
+                            <label >
+                                List: {status.statusTyp.statustypText}
+                            </label>
+                        </div>
+                        
+                        <div class="input-wrap right">
+                            <label class="small">
+                                Behaviour
+                            </label>
+                             <f:form.radio property="statusBehaviour" value="0" checked="{status.statusBehaviour} == 0" class="radio"/> open
+                             <f:form.radio property="statusBehaviour" value="1" checked="{status.statusBehaviour} == 1" class="radio"/> closed
+                        </div>
+                        
+                        <br /><br />
+                        <f:form.submit value="change" class="button form-button"/>
+                    </div>
+                    
+                    <br />
+
+                    
+                </f:form>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</f:section>

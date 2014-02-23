@@ -1,0 +1,61 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
+
+
+
+        <br />
+
+        <h3>new Ticket</h3>
+        <div class="stage-list clearfix">
+            <div class="stage-sub-navi">
+                <ul>
+                    <li class="active">
+                        Ticket new
+                    </li>
+                    <li>
+                    <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+                        Open by Milestone <span class="sub-navi-small"></span>
+                    </f:link.action>
+                    </li>
+                    <li>
+                    <f:link.action action="projectTicketsOpenNo" arguments="{uid: project.uid}">
+                        Open By Date 
+                    </f:link.action>
+                    </li>
+                    <li>
+                    <f:link.action action="projectTicketsClose" arguments="{uid: project.uid}">
+                        closed
+                    </f:link.action>
+                    </li>
+                    <li>
+                    <f:link.action action="projectTicketsAll" arguments="{uid: project.uid}">
+                        all
+                    </f:link.action>
+                    </li>
+                </ul>
+                <ul class="right">
+
+                    <li>
+                    <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket close" />
+                    </f:link.action>
+                    </li>
+                </ul>
+            </div>
+
+            <f:form action="projectTicketSave" name="ticket" object="{ticket}">
+
+                <f:render partial="Project/TicketForm" arguments="{_all}"/>
+
+                <f:form.submit value="save" class="button"/>
+            </f:form>
+
+        </div>
+    </div>
+
+
+</f:section>

@@ -1,0 +1,64 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+        <h2>Ticket List</h2>
+        
+        <div class="pat-list">
+            <f:for each="{tickets}" as="ticket" iteration="iter">
+                <f:link.action action="ticketDetail" arguments="{uid: ticket.uid}">
+                <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                    <div class="ticket-no">
+                        {ticket.ticketNummer}
+                    </div>
+                    
+                   <div class="ticket-date">
+                        <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                    </div>
+                    <div class="ticket-titel">
+                    {ticket.ticketTitel}
+                    </div>
+                    
+                    <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
+                    
+                     <vh:time time="{ticket.ticketScheduleTime}" />
+                     
+                     
+                    <div class="ticket-text">
+                        <f:format.nl2br>{ticket.ticketText}</f:format.nl2br>
+                    </div>
+                    <div class="ticket-project">
+                        Projekt {ticket.ticketProject.projectTitel}
+                    </div>
+                    <div class="ticket-status">
+                        {ticket.ticketStatus.statusText}
+                    </div>
+                </div>
+                </f:link.action>
+            </f:for>
+        </div>
+         
+        <f:link.action action="ticketNew" class="button">
+            Neues Ticket
+        </f:link.action>
+        
+        <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
+
+            <input id="button" type="submit" name="submit" value="abmelden" class="logoutbutton"/>
+
+            <div class="felogin-hidden">
+                <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
+                <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
+                <input type="hidden" name="logintype" value="logout"/>
+                <input type="hidden" name="id" value="{currentPid}"/>
+                <input type="hidden" name="redirect_url" value="{currentPid}"/>
+                <input type="hidden" name="pid" value="{storagePid}"/>
+                <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
+            </div>
+
+        </form> 
+    </div>
+
+
+</f:section>

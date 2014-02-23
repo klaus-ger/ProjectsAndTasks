@@ -1,0 +1,57 @@
+
+
+<div class="form-left">
+    <div class="input-wrap left-large">
+        <label>Company</label>
+        <f:form.textfield property="cyName" value="{company.cyName}" class="left-large"/>
+    </div>
+    
+    <div class="input-wrap left-small">
+        <label class="small">Short</label>
+       <f:form.textfield property="cyShort" value="{company.cyShort}" class=""/>
+    </div>
+
+    <div class="input-wrap left-fullwidth">
+        <label>Street</label>
+        <f:form.textfield property="cyStreet" value="{company.cyStreet}" class="left-large"/>
+    </div>
+    
+    <div class="input-wrap left-large">
+        <label>City</label>
+        <f:form.textfield property="cyCity" value="{company.cyCity}" class="left-large"/>
+    </div>
+    
+     <div class="input-wrap left-small">
+        <label class="small">ZIP</label>
+       <f:form.textfield property="cyPlz" value="{company.cyPlz}" class=""/>
+    </div>
+
+    <div class="input-wrap left-fullwidth">
+        <label>Comment</label>
+        <f:form.textarea cols="50" rows="10" property="cyComment" value="{company.cyComment}" class="project-shorttext"  />
+    </div>
+</div>
+
+<div class="form-right">
+    <div class="input-wrap right">
+        <label class="small">Tel</label>
+         <f:form.textfield property="cyTelephone" value="{company.cyTelephone}" class="right"/>
+    </div>
+    
+    <div class="input-wrap right">
+        <label class="small">web</label>
+         <f:form.textfield property="cyWeb" value="{company.cyWeb}" class="right"/>
+    </div>
+    
+    <div class="input-wrap right">
+        <label class="small">mail</label>
+         <f:form.textfield property="cyMail" value="{company.cyMail}" class="right"/>
+    </div>
+    
+    <div class="input-wrap right">
+        <label class="small">Customer</label>
+        <f:form.checkbox property="cyCustomer" value="1" checked="{company.cyCustomer} ==1" class="radio"/>
+         
+    </div>
+
+</div>

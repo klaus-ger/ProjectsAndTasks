@@ -1,0 +1,107 @@
+<f:comment>
+    /**
+    * Partial Page Header ProjectsAndTasks
+    * 
+    * @param {user}
+    */
+</f:comment>
+
+<div id="header">
+    <div class="header-inner">
+        <div class="pat-title">PROJECTS and TASKS</div>
+        <div class="desktop-menu">
+            <div class="divider"></div>
+
+            <f:link.action action="index" controller="Index">
+                InBox
+            </f:link.action>
+
+            <div class="divider"></div>
+
+            <f:link.action action="allProjectsByCat" controller="Project">
+                Projects
+            </f:link.action>
+
+            <div class="divider"></div>
+
+            <f:link.action action="ticketListDate" controller="Ticket">
+                Tickets
+            </f:link.action>
+
+            <div class="divider"></div>
+
+            <f:link.action action="dayview" controller="Calender">
+                Calender
+            </f:link.action>
+
+            <div class="divider"></div>
+
+            <f:link.action action="companyList" controller="Address">
+                Adress
+            </f:link.action>
+
+            <div class="divider"></div>
+
+            <f:link.action action="companyList" controller="Address">
+                Whiteboard
+            </f:link.action>
+
+            <div class="divider"></div>
+
+            
+        </div>
+        <div class="header-menu">
+            <p>Hi {settings.username}!</p>
+            <f:link.action action="settingsProjectCat" controller="Settings">
+                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_settings.png" width="20px" height="20px" alt="settings" />
+            </f:link.action>
+            <!--
+            <span class="jqToggleMenu">Menu</span>
+            -->
+            <div class="login">
+
+
+                <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
+
+                    <input id="button" type="submit" name="submit" value="abmelden" class="logoutbutton"/>
+
+                    <div class="felogin-hidden">
+                        <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
+                        <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
+                        <input type="hidden" name="logintype" value="logout"/>
+                        <input type="hidden" name="id" value="{currentPid}"/>
+                        <input type="hidden" name="redirect_url" value="{currentPid}"/>
+                        <input type="hidden" name="pid" value="{storagePid}"/>
+                        <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
+                    </div>
+
+                </form>  
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+<div class="mobil-nav">
+    <ul>
+        <li>
+        <f:link.action action="index" controller="Index">
+            Start
+        </f:link.action>
+        </li>
+        <li>
+        <f:link.action action="index" controller="Project">
+            Project
+        </f:link.action>
+        </li>
+        <li>
+        <f:link.action action="index" controller="Ticket">
+            Tickets
+        </f:link.action>
+        </li>
+    </ul>
+</div>

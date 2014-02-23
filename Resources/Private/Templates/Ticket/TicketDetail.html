@@ -1,0 +1,89 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+
+        <h2>Ticket Details</h2>
+        <div class="pat-list">
+            <div class="pat-list-item clearfix">
+                <div class="ticket-no">
+                    {ticket.ticketNummer}
+                </div>
+
+                <div class="ticket-date">
+                    <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                </div>
+                <div class="ticket-titel">
+                    {ticket.ticketTitel}
+                </div>
+                <div class="ticket-text">
+                    {ticket.ticketText}
+                </div>
+                <div class="ticket-project">
+                    Projekt {ticket.ticketProject.projectTitel}
+                </div>
+                <div class="ticket-status">
+                    {ticket.ticketStatus.statusText}
+                </div>
+            </div>
+        </div>
+        <f:link.action action="index" class="button">
+            Ticket schließen
+        </f:link.action>
+        <f:link.action action="ticketEdit" arguments="{uid: ticket.uid}" class="button">
+            editieren
+        </f:link.action>
+
+        <br />
+        <h2>Response</h2>
+        <div class="pat-list">
+            <f:for each="{responses}" as="single" iteration="iter">
+                <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                    <div class="ticket-date">
+                        <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
+                    </div>
+                    <div class="ticket-titel">
+                      {single.trTitel}  
+                    </div>
+                    <div class="ticket-text">
+                       {single.trText} 
+                    </div>
+                    <div class="ticket-status">
+                        {single.trTime}
+                    </div>
+                    
+                </div>
+            </f:for>
+        </div>
+
+        <br />
+        <h2>New Response</h2>
+        <f:form action="ticketResponseSave" name="response" object="{response}">
+
+            <f:form.hidden property="trTicket" value="{ticket.uid}" />
+
+            <label> Titel</label>
+            <f:form.textfield property="trTitel" value="{response.trTitel}" class="textfield-large"/><br />
+
+
+            <label>Datum</label>
+            <input type="date" name="tx_projectsandtasks_pat[response][trDate]" value="{f:format.date(format : 'Y-m-d', date : response.trDate)}">
+
+            <label>Start</label>
+            <input type="time" name="tx_projectsandtasks_pat[response][trStart]" value="{response.trStart}">
+            <label>Ende</label>
+            <input type="time" name="tx_projectsandtasks_pat[response][trEnd]" value="{response.trEnd}">
+
+            <label>Text</label>
+            <f:form.textarea cols="50" rows="10" property="trText" value="{response.trText}" class="textarea"  />
+
+            <br />
+
+
+            <f:form.submit value="save" />
+        </f:form>
+    </div>
+
+
+</f:section>

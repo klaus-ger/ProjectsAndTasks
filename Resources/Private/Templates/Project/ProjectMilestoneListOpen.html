@@ -1,0 +1,51 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
+
+
+
+        <br />
+
+        <h3>Milestones</h3>
+        <div class="stage-list">
+            <div class="stage-sub-navi">
+                <div class="stage-sub-navi-top">
+                    <ul>
+                        <li class="{f:if(condition: '{submenu} == 1', then: ' active')}">
+                            <f:link.action action="projectMilestoneListAll" arguments="{uid: project.uid}">
+                                all
+                            </f:link.action>
+                        </li>
+                        <li class="{f:if(condition: '{submenu} == 2', then: ' active')}">
+                            <f:link.action action="projectMilestoneListOpen" arguments="{uid: project.uid}">
+                                open
+                            </f:link.action>
+                        </li>
+                        <li class="{f:if(condition: '{submenu} == 3', then: ' active')}">
+                            <f:link.action action="projectMilestoneListClosed" arguments="{uid: project.uid}">
+                                achived
+                            </f:link.action>
+                        </li>
+                    </ul>
+                    <ul class="right">
+                        <li>
+                        <f:link.action action="projectMilestonesNew" arguments="{uid: project.uid}">
+                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
+                        </f:link.action></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <f:render partial="Project/ProjectMilestonesListStatus" arguments="{_all}"/>
+        </div>
+
+
+
+    </div>
+
+
+</f:section>

@@ -1,0 +1,116 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
+
+
+
+        <br />
+
+        <h3>Ticketdetails</h3>
+        <div class="stage-list">
+            <div class="stage-sub-navi">
+                <ul>
+                    <li class="active">
+                    <f:link.action action="projectTicketDetail" arguments="{uid: ticket.uid}">
+                        Ticket
+                    </f:link.action>
+                    </li>
+                    <li>
+                    <f:link.action action="projectResponseNew" arguments="{uid: ticket.uid}">
+                        new Note
+                    </f:link.action>
+                    </li>
+
+
+                </ul>
+                <ul class="right">
+                    <li>
+                    <f:link.action action="projectTicketEdit" arguments="{uid: ticket.uid}">
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Ticket edit" />
+                    </f:link.action>
+                    </li>
+                    <li>
+                    <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket close" />
+                    </f:link.action>
+                    </li>
+                </ul>
+            </div>
+            <!-- ticket details -->
+            <div class="pat-detail">
+                <div class="pat-list-item clearfix">
+                    <div class="form-left">
+                        <div class="detail-item detail-ticketstitle">
+                            {ticket.ticketNummer} | {ticket.ticketTitel}
+                        </div>
+                        <div class="clear">&nbsp;</div>
+                        <div class="detail-item detail-tickettext">
+                            {ticket.ticketText}
+                        </div>
+                    </div>
+
+                    <div class="form-right">
+                        <div class="detail-item detail-ticketlabel">
+                            Start:
+                        </div>
+                        <div class="detail-item detail-ticketright">
+                            <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                        </div>
+                        <div class="detail-item detail-ticketlabel">
+                            Scheduled:
+                        </div>
+                        <div class="detail-item detail-ticketright">
+                            <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>&nbsp;
+                        </div>
+                        <div class="detail-item detail-ticketlabel">
+                            Status: 
+                        </div>
+                        <div class="detail-item detail-ticketright">
+                            {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
+                        </div>
+                        
+                        <div class="detail-item detail-ticketright">
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!----->
+
+            <br />
+            <h3>&nbsp;&nbsp;&nbsp;Notes</h3>
+            <div class="pat-list">
+                <f:for each="{responses}" as="single" iteration="iter">
+                    <f:link.action action="projectResponseEdit" controller="Project" arguments="{uid: single.uid}">
+                    <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                        <div class="list-item note-date">
+                            <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
+                        </div>
+                        <div class="list-item note-titel">
+                            {single.trTitel}  
+                        </div>
+                        <div class="list-item note-status">
+                            {single.trTyp.statusText}
+                        </div>
+                        <div class="list-item note-time">
+                            <vh:time time="{single.trTime}" />
+                        </div>
+                        <div class="list-item note-text">
+                            <f:format.nl2br>{single.trText}</f:format.nl2br>
+                        </div>
+
+                    </div>
+                    </f:link.action>
+                </f:for>
+            </div>
+        </div>
+        <!-- -->
+    </div>
+
+
+</f:section>

@@ -1,0 +1,33 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <f:link.action action="index" controller="Ticket" class="button">
+        
+            Ticket Übersicht
+        </f:link.action>
+        
+        <f:link.action action="ticketNew">
+            Neues Ticket
+        </f:link.action>
+        
+        <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
+
+            <input id="button" type="submit" name="submit" value="abmelden" class="button"/>
+
+            <div class="felogin-hidden">
+                <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
+                <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
+                <input type="hidden" name="logintype" value="logout"/>
+                <input type="hidden" name="id" value="{currentPid}"/>
+                <input type="hidden" name="redirect_url" value="{currentPid}"/>
+                <input type="hidden" name="pid" value="{storagePid}"/>
+                <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
+            </div>
+
+        </form> 
+    </div>
+
+
+</f:section>
