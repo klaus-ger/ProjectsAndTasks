@@ -3,13 +3,9 @@
 <f:section name="main">
 
     <div class="pat-stage">
-        <h1>Log in</h1>
+        
 
-
-       
-
-
-            <form class=""
+            <form class="pat-login"
                   action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}"
                   method="post" onsubmit="{onSubmit}">
                 <fieldset>
@@ -18,13 +14,13 @@
                                              messageCssClasses="{0: 'alert alert-success', 1: 'alert alert-warning', 2: 'alert alert-error'}"/>
 
 
-                    <input type="text" id="user" name="user"  placeholder="BENUTZERNAME"/>
+                    <input type="text" id="user" name="user"  placeholder="user"/><br 7>
 
-                    <input type="password" id="pass" name="pass"  placeholder="PASSWORD"/>
+                    <input type="password" id="pass" name="pass"  placeholder="password"/>
 
 
                     
-                        <input id="button" type="submit" name="submit" value="   OK   "/>
+                        <input id="button"class="button" type="submit" name="submit" value="   OK   "/>
                     
 
                     <div class="felogin-hidden">
