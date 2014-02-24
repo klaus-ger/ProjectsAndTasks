@@ -3,6 +3,10 @@ plugin.tx_projectsandtasks {
     settings {
         # cat=plugin.tx_projectsandtasks//a; type=string; label= BaseUrl http://www.sample.de/
 	baseUrl = 
+        # cat=plugin.tx_projectsandtasks//a; type=string; label= Usergroup FE User
+	feusergroup = 
+        # cat=plugin.tx_projectsandtasks//a; type=string; label= Usergroup Adresses
+	adressusergroup = 
 
     }
     persistence {

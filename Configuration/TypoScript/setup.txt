@@ -11,8 +11,17 @@ config.tx_extbase{
                     columns {
                         uid.mapOnProperty = uid
                         pid.mapOnProperty = pid
+                        usergroup.mapOnProperty = usergroup
                         username.mapOnProperty = username
                         first_name.mapOnProperty = firstName
+                        last_name.mapOnProperty = lastName
+                        address.mapOnProperty = address
+                        city.mapOnProperty = city
+                        zip.mapOnProperty = zip
+                        telephone.mapOnProperty = telephone
+                        www.mapOnProperty = web
+                        email.mapOnProperty = email
+                        company.mapOnProperty = company
                         password.mapOnProperty = password
                         projects_and_tasks_user.mapOnProperty = projectsAndTasksUser
                         }
@@ -45,9 +54,10 @@ plugin.tx_projectsandtasks {
      
     }
     settings {
-        storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
-        baseUrl    = {$plugin.tx_projectsandtasks.settings.baseUrl}
-        
+        storagePid      = {$plugin.tx_projectsandtasks.persistence.storagePid}
+        baseUrl         = {$plugin.tx_projectsandtasks.settings.baseUrl}
+        feusergroup     = {$plugin.tx_projectsandtasks.persistence.feusergroup}
+        adressusergroup = {$plugin.tx_projectsandtasks.persistence.adressusergroup}
     }
 
 
