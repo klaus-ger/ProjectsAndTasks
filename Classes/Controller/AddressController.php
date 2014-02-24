@@ -57,34 +57,89 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->redirect('logIn', 'Login');
         } else {
             $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+            $this->settings['username'] = $this->user->getUsername();
         }
     }
 
+    //**************************************************************************
+    // Adress actions
+    //**************************************************************************
+
     /**
-     * Index Action: Shows a list of all User
+     * Index Action: Shows a list of all Persons
+     */
+    public function personListAction() {
+        $persons = $this->userRepository->findAll();
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($companies);
+        $this->view->assign('mainmenu', '1');
+        $this->view->assign('persons', $persons);
+    }
+
+    /**
+     * Shows an Edit Form
+     */
+    public function personEditAction() {
+        if ($this->request->hasArgument('person')) {
+            $personID = $this->request->getArgument('person');
+        }
+        $person = $this->userRepository->findByUid($personID);
+
+        $this->view->assign('mainmenu', '1');
+        $this->view->assign('person', $person);
+    }
+
+        /**
+     * Shows the PErson create Form
+     */
+    public function personNewAction() {
+
+        $this->view->assign('mainmenu', '1');
+    }
+    
+    /**
+     * Save the person
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\User $person Description
+     */
+    public function personSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\User $person) {
+        if ($person->getUid()) {
+            $this->userRepository->update($person);
+        } else {
+            $person->setUsergroup($this->settings['adressusergroup']);
+            $this->userRepository->add($person);
+        }
+
+        $this->redirect('personList');
+    }
+
+    //**************************************************************************
+    // Company actions
+    //**************************************************************************
+
+    /**
+     * Index Action: Shows a list of all Companys
      */
     public function companyListAction() {
         $companies = $this->companyRepository->findAll();
-       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($companies);
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($companies);
         $this->view->assign('mainmenu', '2');
         $this->view->assign('companies', $companies);
     }
 
     /**
-     * Index Action: Shows a list of all User
+     * Shows an Edit Form
      */
     public function companyEditAction() {
-        if($this->request->hasArgument('company')){
+        if ($this->request->hasArgument('company')) {
             $companyID = $this->request->getArgument('company');
         }
         $company = $this->companyRepository->findByUid($companyID);
-        
+
         $this->view->assign('mainmenu', '2');
         $this->view->assign('company', $company);
     }
 
     /**
-     * Index Action: Shows a list of all User
+     * Shows the Company create Form
      */
     public function companyNewAction() {
 

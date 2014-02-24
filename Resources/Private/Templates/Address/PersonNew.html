@@ -3,7 +3,7 @@
 <f:section name="main">
     <div class="pat-stage">
 
-        <h2>address</h2>
+        <h2>Adress</h2>
 
         <div class="stage-navi clearfix">
 
@@ -26,7 +26,7 @@
                 </ul>
                 <ul class="right">
                     <li>
-                    <f:link.action action="companyNew">
+                    <f:link.action action="personNew">
                         <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
                     </f:link.action>
                     </li>
@@ -35,15 +35,15 @@
             </div>   
 
 
-            <div class="pat-list">
-                <br /><h3>&nbsp;&nbsp;&nbsp;New Company</h3>
-                <f:form action="companySave" name="company" object="{company}">
+           
+                <br /><h3>&nbsp;&nbsp;&nbsp;New Person</h3>
+                <f:form action="personSave" name="person" object="{person}">
 
-                    <f:render partial="Address/CompanyForm" arguments="{_all}"/>
+                    <f:render partial="Address/PersonForm" arguments="{_all}"/>
 
                     <f:form.submit value="create" class="button form-button"/>
                 </f:form>
-            </div>
+            
 
 
 

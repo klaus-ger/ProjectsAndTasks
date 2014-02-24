@@ -67,7 +67,11 @@ if (!defined('TYPO3_MODE'))
         
      'Calender'=>   ' dayview',
         
-     'Address'=>    ' companyList
+     'Address'=>    ' personList
+                    , personEdit
+                    , personNew
+                    , personSave
+                    , companyList
                     , companyEdit
                     , companyNew
                     , companySave ',
@@ -148,7 +152,11 @@ if (!defined('TYPO3_MODE'))
         
      'Calender'=>   ' dayview',
         
-     'Address'=>    ' companyList
+     'Address'=>    ' personList
+                    , personEdit
+                    , personNew
+                    , personSave
+                    , companyList
                     , companyEdit
                     , companyNew
                     , companySave ',
