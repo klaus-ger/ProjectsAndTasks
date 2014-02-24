@@ -457,6 +457,9 @@ input.radio{
 .input-wrap.left-small {
     width: 220px;
 }
+.input-wrap.left-half {
+    width: 350px;
+}
 .input-wrap.left-fullwidth {
     width: 705px;
 }
@@ -467,6 +470,9 @@ input.radio{
 /*sizes of input, select  etc fields */
 .input-wrap input.left-large{
     width: 310px;
+}
+.input-wrap input.left-half{
+    width: 215px;
 }
 .input-wrap .project-shorttext{
     width: 500px;
