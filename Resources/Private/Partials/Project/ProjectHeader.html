@@ -4,17 +4,17 @@
         <div class="stage-navi">
             <div class="stage-navi-navi">
                 <ul>
-                    <li>
+                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
                         <f:link.action action="projectIndex" arguments="{uid: project.uid}">
                             <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_home.png" width="17" height="17" alt="Home" />
                         </f:link.action>
                     </li>
-                    <li>
+                    <li class="{f:if(condition: '{mainmenu} == 2', then: ' active')}">
                         <f:link.action action="projectDetail" arguments="{uid: project.uid}">
                             Details
                         </f:link.action>
                     </li>
-                    <li>
+                    <li class="{f:if(condition: '{mainmenu} == 3', then: ' active')}">
                         <f:link.action action="projectMilestoneListAll" arguments="{uid: project.uid}">
                             Milestones
                         </f:link.action>
@@ -25,7 +25,7 @@
                         </f:link.action>
                     </li>
                     <li>Messages</li>
-                    <li>
+                    <li class="{f:if(condition: '{mainmenu} == 5', then: ' active')}">
                         <f:link.action action="projectDocumentIndex" arguments="{uid: project.uid}">
                             Documents
                         </f:link.action>

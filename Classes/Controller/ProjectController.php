@@ -267,10 +267,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('project', $project);
         $this->view->assign('tickets', $tickets);
+        $this->view->assign('mainmenu', 1);
     }
 
     /**
-     * Shwos a form for a new Ticket
+     * Shwos a form for a new Project
      */
     public function projectNewAction() {
         $project = new \T3developer\ProjectsAndTasks\Domain\Model\Projects;
@@ -321,6 +322,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('project', $project);
         $this->view->assign('tickets', $tickets);
+        $this->view->assign('mainmenu', 2);
+        $this->view->assign('submenu', 1);
     }
 
     /**
@@ -362,6 +365,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('project', $project);
         $this->view->assign('status', $status);
+        $this->view->assign('mainmenu', 2);
+        $this->view->assign('submenu', 2);
     }
 
     /**
@@ -376,6 +381,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('project', $project);
         $this->view->assign('status', $status);
+        $this->view->assign('mainmenu', 2);
+        $this->view->assign('submenu', 3);
     }
 
     //**************************************************************************
@@ -398,7 +405,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $openTickets = $this->ticketsRepository->countOpenTicketsByMilestone($mile->getUid());
             $milestonesArray[$mile->getUid()]->setMsTicketOpen($openTickets);
         }
-
+        
+        $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 1);
         $this->view->assign('project', $project);
         $this->view->assign('milestones', $milestonesArray);
@@ -421,7 +429,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $openTickets = $this->ticketsRepository->countOpenTicketsByMilestone($mile->getUid());
             $milestonesArray[$mile->getUid()]->setMsTicketOpen($openTickets);
         }
-
+        
+        $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 2);
         $this->view->assign('project', $project);
         $this->view->assign('milestones', $milestonesArray);
@@ -444,7 +453,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $openTickets = $this->ticketsRepository->countOpenTicketsByMilestone($mile->getUid());
             $milestonesArray[$mile->getUid()]->setMsTicketOpen($openTickets);
         }
-
+        
+        $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 3);
         $this->view->assign('project', $project);
         $this->view->assign('milestones', $milestonesArray);
@@ -832,6 +842,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 
         $this->view->assign('project', $project);
+        $this->view->assign('mainmenu', '5');
+        $this->view->assign('submenu', '1');
     }
 
     //**************************************************************************
@@ -853,6 +865,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('project', $project);
         $this->view->assign('contracts', $contracts);
         $this->view->assign('mainmenu', '6');
+        $this->view->assign('submenu', '1');
     }
 
     /**
