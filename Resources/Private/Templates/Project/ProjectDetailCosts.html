@@ -8,26 +8,47 @@
 
 
         <br />
+        <h3>Offers & Invoices</h3>
+        <div class="stage-list">
+            <div class="stage-sub-navi">
+                <div class="stage-sub-navi-top">
+                    <ul>
+                        <li class="{f:if(condition: '{submenu} == 1', then: ' active')}">
+                        <f:link.action action="projectDetail" arguments="{uid: project.uid}">
+                            Description
+                        </f:link.action>
+                        </li>
+                        <li class="{f:if(condition: '{submenu} == 2', then: ' active')}">
+                        <f:link.action action="projectDetailEvaluation" arguments="{uid: project.uid}">
+                            Time & Costs
+                        </f:link.action>
+                        </li>
+                        <li class="{f:if(condition: '{submenu} == 3', then: ' active')}">
+                        <f:link.action action="projectDetailCosts" arguments="{uid: project.uid}">
+                            Offers & Invoices
+                        </f:link.action>
+                        </li>
+                    </ul>
+                    <ul class="right">
+                        <li>
+                            <!--    
+                            <f:link.action action="projectMilestonesNew" arguments="{uid: project.uid}">
+                                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
+                            </f:link.action>
+                            -->
+                        </li>
+                    </ul>
+                </div>
 
-        <h2>Angebote Rechnungen</h2>
+            </div>
 
-        <div class="stage-sub-navi">
-            <ul>
-                <li><f:link.action action="projectDetail" arguments="{uid: project.uid}">Übersicht</f:link.action></li>
-                <li><f:link.action action="projectDetailEvaluation" arguments="{uid: project.uid}">Auswertung</f:link.action></li>
-                <li class="active"><f:link.action action="projectDetailCosts" arguments="{uid: project.uid}">Angebote / Rechnungen</f:link.action></li>
-               
-            </ul>
-            <ul class="right">
-                <li><f:link.action action="projectTicketsNew" arguments="{uid: project.uid}">neues Ticket</f:link.action></li>
-            </ul>
+            <div class="form-left">
+                Functionality is not programmed yet.
+            </div>
+
+            <div class="clear"></div><br /><br />
         </div>
-        
-        
-        Projekttext: <br />
-        <f:format.html>{project.projectText}</f:format.html>
-        
-        <div class="pat-list">
+
 
 
     </div>
