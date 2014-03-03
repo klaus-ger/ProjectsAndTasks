@@ -1,0 +1,48 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+
+<div class="pat-list">
+    <ul>
+        <f:for each="{sprints}" as="sprint">
+            <li>
+                <div class="pat-list-item clearfix ">
+                    <b>{sprint.sprint.sprintTitel} </b>&nbsp;&nbsp;&nbsp;
+                    start: <f:format.date format="d.m.Y">{sprint.sprint.sprintStart}</f:format.date>
+                    end: <f:format.date format="d.m.Y">{sprint.sprint.sprintEnd}</f:format.date>
+                </div>
+                <ul>
+                    
+                    <f:for each="{sprint.tickets}" as="sprintticket" iteration="iter">
+                        <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                                <div class="list-item ticket-no">
+                                    {sprintticket.ticketNummer}
+                                </div>
+
+                                <div class="list-item ticket-date">
+                                    <f:format.date format="d.m.Y">{sprintticket.ticketDate}</f:format.date>
+                                </div>
+                                <div class="list-item ticket-typ">
+                                    {sprintticket.ticketTyp.statusText}
+                                </div>
+                                <div class="list-item ticket-titel">
+                                    {sprintticket.ticketTitel}
+                                </div>
+                                <div class="list-item ticket-date">
+                                    <f:format.date format="d.m.Y">{sprintticket.ticketScheduleDate}</f:format.date>
+                                </div>
+                                <div class="list-item ticket-time">
+
+                                    <vh:time time="{sprintticket.ticketScheduleTime}" />
+                                </div>
+
+                            </div>
+                    </f:for>
+                </ul>
+            </li>
+
+
+
+
+
+        </f:for>
+    </ul>
+</div>

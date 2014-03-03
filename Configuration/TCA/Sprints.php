@@ -1,7 +1,7 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_tickets'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_tickets']['ctrl'],
+$TCA['tx_projectsandtasks_domain_model_sprints'] = array(
+    'ctrl' => $TCA['tx_projectsandtasks_domain_model_sprints']['ctrl'],
     'interface' => array(
         'showRecordFieldList' => '    calender_date
                                     , calender_user
@@ -39,8 +39,8 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_tickets',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_tickets.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_tickets.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_sprints',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_sprints.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_sprints.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -71,7 +71,7 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'eval' => 'trim',
             )
         ),
-        'ticket_project' => array(
+        'sprint_project' => array(
             'exclude' => 0,
             'label' => 'Project',
             'config' => array(
@@ -80,7 +80,7 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'eval' => 'trim',
             )
         ),
-        'ticket_titel' => array(
+        'sprint_titel' => array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
@@ -88,7 +88,15 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'size' => 30,
             )
         ),
-        'ticket_date' => array(
+                'sprint_text' => array(
+            'exclude' => 0,
+            'label' => 'Titel',
+            'config' => array(
+                'type' => 'text',
+                'size' => 30,
+            )
+        ),
+        'sprint_start' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -96,74 +104,23 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'size' => 100,
             )
         ),
-        'ticket_status' => array(
+        'sprint_end' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+                 'sprint_status' => array(
             'exclude' => 0,
             'label' => 'Status',
             'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
-                'foreign_table_where' => 'ORDER BY status_text',
+                'type' => 'text',
+                'size' => 30,
             )
         ),
-        'ticket_typ' => array(
-            'exclude' => 0,
-            'label' => 'Status',
-            'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
-                'foreign_table_where' => 'ORDER BY status_text',
-            )
-        ),
-        'ticket_text' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'ticket_schedule_date' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'ticket_schedule_time' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'ticket_milestone' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_milestones',
-                'foreign_table_where' => 'ORDER BY ms_order',
-            )
-        ),
-        'ticket_sprint' => array(
-            'exclude' => 0,
-            'label' => 'Sprint',
-            'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_sprints',
-                'foreign_table_where' => 'ORDER BY uid',
-            )
-        ),
-        'ticket_custom_id' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
+        
     ),
 );
 ?>

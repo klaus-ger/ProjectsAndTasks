@@ -41,6 +41,12 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $userRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\SprintsRepository   
+     * @inject
+     */
+    protected $sprintRepository;
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectsRepository   
      * @inject
      */
@@ -163,8 +169,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['milestone']
                     ->getPropertyMappingConfiguration()->allowProperties('msStart')
-                    //->getPropertyMappingConfiguration()->allowProperties('trStart')
-                    //->getPropertyMappingConfiguration()->allowProperties('trEnd')
                     ->forProperty('msStart')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
         }
@@ -172,9 +176,21 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['milestone']
                     ->getPropertyMappingConfiguration()->allowProperties('msEnd')
-                    //->getPropertyMappingConfiguration()->allowProperties('trStart')
-                    //->getPropertyMappingConfiguration()->allowProperties('trEnd')
                     ->forProperty('msEnd')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+        }
+        if (isset($this->arguments['sprint'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['sprint']
+                    ->getPropertyMappingConfiguration()->allowProperties('sprintStart')
+                    ->forProperty('sprintStart')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+        }
+        if (isset($this->arguments['sprint'])) {
+            // sprint->allowProperties('ticketDate');
+            $this->arguments['sprint']
+                    ->getPropertyMappingConfiguration()->allowProperties('sprintEnd')
+                    ->forProperty('sprintEnd')
                     ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
         }
     }
@@ -303,6 +319,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($project->getUid()) {
             $this->projectsRepository->update($project);
         } else {
+            $project->setProjectOwner($this->user->getUid());
+            $project->setProjectDate(time());
             $this->projectsRepository->add($project);
         }
 
@@ -405,7 +423,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $openTickets = $this->ticketsRepository->countOpenTicketsByMilestone($mile->getUid());
             $milestonesArray[$mile->getUid()]->setMsTicketOpen($openTickets);
         }
-        
+
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 1);
         $this->view->assign('project', $project);
@@ -429,7 +447,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $openTickets = $this->ticketsRepository->countOpenTicketsByMilestone($mile->getUid());
             $milestonesArray[$mile->getUid()]->setMsTicketOpen($openTickets);
         }
-        
+
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 2);
         $this->view->assign('project', $project);
@@ -453,7 +471,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $openTickets = $this->ticketsRepository->countOpenTicketsByMilestone($mile->getUid());
             $milestonesArray[$mile->getUid()]->setMsTicketOpen($openTickets);
         }
-        
+
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 3);
         $this->view->assign('project', $project);
@@ -672,12 +690,14 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $ticket = $this->ticketsRepository->findByUid($ticketuid);
         $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
         $milestones = $this->milestonesRepository->findByMsProject($project->getUid());
+        $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
         $typ = $this->statusRepository->findByStatusTyp(3);
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
         $this->view->assign('milestones', $milestones);
+        $this->view->assign('sprints', $sprints);
         $this->view->assign('status', $status);
         $this->view->assign('typ', $typ);
         $this->view->assign('mainmenu', '4');
@@ -750,10 +770,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $endH = floor($end / 3600);
             $endS = $end - ($endH * 3600);
             $endM = $endS / 60;
-            if ($endH < 10){
+            if ($endH < 10) {
                 $endH = '0' . $endH;
             }
-            if ($endM < 10){
+            if ($endM < 10) {
                 $endM = '0' . $endM;
             }
             $response->setTrEnd($endH . ':' . $endM);
@@ -824,6 +844,65 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         //$tickets = $this->ticketsRepository->findTicketsByProjectAndStatus($project->getUid(), 1);
 
         return $this->pdfUtility->createTodoPdf($tickArray, $project);
+    }
+
+    //**************************************************************************
+    // Project Sprint Actions 
+    //**************************************************************************
+    /**
+     * Shows the Sprint Index Page
+     */
+    public function projectSprintListOpenAction() {
+        if ($this->request->hasArgument('uid')) {
+            $projectuid = $this->request->getArgument('uid');
+        }
+
+        $project = $this->projectsRepository->findByUid($projectuid);
+
+        $sprints = $this->sprintRepository->findSprintsByProjectAndStatus($projectuid, 0);
+        
+        //build sprint / ticket Array
+        foreach($sprints as $sprint){
+            $sprintArray[$sprint->getUid()]['sprint'] = $sprint;
+            $sprintArray[$sprint->getUid()]['tickets'] = $this->ticketsRepository->findTicketsByProjectSprintAndStatus($projectuid, $sprint->getUid(), 0);
+        }
+        
+        $this->view->assign('project', $project);
+        $this->view->assign('sprints', $sprintArray);
+        $this->view->assign('mainmenu', '7');
+        $this->view->assign('submenu', '1');
+    }
+
+    /**
+     * Shows the Sprint Index Page
+     */
+    public function projectSprintNewAction() {
+        if ($this->request->hasArgument('uid')) {
+            $projectuid = $this->request->getArgument('uid');
+        }
+
+        $project = $this->projectsRepository->findByUid($projectuid);
+
+        
+
+        $this->view->assign('project', $project);
+        $this->view->assign('mainmenu', '7');
+        $this->view->assign('submenu', '1');
+    }
+
+    /**
+     * Save Sprint
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Sprints $sprint Description
+     */
+    public function projectSprintSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Sprints $sprint) {
+        if ($sprint->getUid()) {
+            $this->sprintRepository->update($sprint);
+        } else {
+
+            $this->sprintRepository->add($sprint);
+        }
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->request->getArguments());
+        $this->redirect('projectSprintListOpen', 'Project', NULL, array('uid' => $sprint->getSprintProject()));
     }
 
     //**************************************************************************

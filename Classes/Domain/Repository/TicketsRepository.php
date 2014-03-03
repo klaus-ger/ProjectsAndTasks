@@ -191,6 +191,29 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         return $query->execute();
     }
     
+              /**
+     * find OpenTickets by Project and Sprint
+     * 
+     * @param int $project ProjectUid
+     * @param int $status Ticketstatus
+     * @param int $sprint Sprint
+     * 
+     * @return object
+     */
+    public function findTicketsByProjectSprintAndStatus($project, $sprint, $status) {
+       
+        $query = $this->createQuery();
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('ticketStatus.statusBehaviour', $status),
+                    $query->equals('ticketProject', $project),
+                    $query->equals('ticketSprint', $sprint)
+                ))
+        );
+
+        return $query->execute();
+    }
+    
     /**
      * find OpenTickets by Day (Calender Function)
      * 

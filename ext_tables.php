@@ -72,8 +72,33 @@ $TCA['tx_projectsandtasks_domain_model_ticketresponse'] = array(
     ),
 );
 
+//sprint Table
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_projectsandtasks_domain_model_sprints', 'Sprints');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_projectsandtasks_domain_model_sprints');
+$TCA['tx_projectsandtasks_domain_model_sprints'] = array(
+    'ctrl' => array(
+        'title' => 'Sprints',
+        'label' => 'sprint_titel',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'ticket_titel',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Sprints.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tableicon.gif'
+    ),
+);
 
-//Ticket Table
+//Project Table
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_projectsandtasks_domain_model_projects', 'Projects');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_projectsandtasks_domain_model_projects');
 $TCA['tx_projectsandtasks_domain_model_projects'] = array(

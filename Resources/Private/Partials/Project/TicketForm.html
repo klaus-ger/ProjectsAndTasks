@@ -19,6 +19,10 @@
         <f:form.select property="ticketMilestone" options="{milestones}" optionValueField="uid" optionLabelField="msTitel" prependOptionLabel="-- Milestone --" /><br />
     </div>
     <div class="input-wrap right">
+       <label class="small">Sprint</label>
+        <f:form.select property="ticketSprint" options="{sprints}" optionValueField="uid" optionLabelField="sprintTitel" prependOptionLabel="-- Sprint --" /><br />
+    </div>
+    <div class="input-wrap right">
         <label class="small">Custom ID</label>
         <f:form.textfield property="ticketCustomId" value="{ticket.ticketCustomId}" />
         

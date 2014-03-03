@@ -55,6 +55,14 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $ticketMilestone;
     
+        /**
+     * Project ID
+     * @var \T3developer\ProjectsAndTasks\Domain\Model\Sprints
+     * 
+     */
+    protected $ticketSprint;
+    
+    
     /**
      * The Ticket Titel
      * @var \string
@@ -194,6 +202,15 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setTicketCustomId($ticketCustomId) {
         $this->ticketCustomId = $ticketCustomId;
     }
+
+    public function getTicketSprint() {
+        return $this->ticketSprint;
+    }
+
+    public function setTicketSprint($ticketSprint) {
+        $this->ticketSprint = $ticketSprint;
+    }
+
 
 
 

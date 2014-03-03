@@ -1,0 +1,34 @@
+<f:form.hidden property="sprintProject" value="{project.uid}" />
+
+<div class="form-left">
+    <div class="input-wrap left-fullwidth">
+        <label>Sprint</label>
+        <f:form.textfield property="sprintTitel" value="{sprint.sprintTitel}" class="project-shorttext"/>
+    </div>
+
+    <div class="input-wrap left-fullwidth">
+        <label>Details</label>
+        <f:form.textarea cols="50" rows="10" property="sprintText" value="{sprint.sprintText}" class="project-shorttext"  />
+    </div>
+</div>
+
+<div class="form-right">
+    <div class="input-wrap right">
+       <label class="small">Start Date</label>
+       <input type="date" name="tx_projectsandtasks_pat[sprint][sprintStart]" value="{f:format.date(format : 'Y-m-d', date : sprint.sprintStart)}" class="datepicker">
+    </div>
+    
+    <div class="input-wrap right">
+        <label class="small">End Date</label>
+        <input type="date" name="tx_projectsandtasks_pat[sprint][sprintEnd]" value="{f:format.date(format : 'Y-m-d', date : sprint.c)}" class="datepicker">
+    </div>
+    
+    <div class="input-wrap right">
+        <label class="small">Status</label>
+        <f:form.select property="sprintStatus" options="{status}" optionValueField="uid" optionLabelField="statusText" />
+    </div>
+    
+
+</div>
+
+

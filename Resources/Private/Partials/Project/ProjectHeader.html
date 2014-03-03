@@ -24,7 +24,11 @@
                             Tickets
                         </f:link.action>
                     </li>
-                    <li>Messages</li>
+                     <li class="{f:if(condition: '{mainmenu} == 7', then: ' active')}">
+                        <f:link.action action="projectSprintListOpen" arguments="{uid: project.uid}">
+                            Sprints
+                        </f:link.action>
+                    </li>
                     <li class="{f:if(condition: '{mainmenu} == 5', then: ' active')}">
                         <f:link.action action="projectDocumentIndex" arguments="{uid: project.uid}">
                             Documents

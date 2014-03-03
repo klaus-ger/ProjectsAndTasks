@@ -220,6 +220,9 @@ h3 {
     width: 500px;
     font-weight: bold;
 }
+.ticket-sprint {
+    width: 150px;
+}
 .ticket-titel-small {
     width: 400px;
     font-weight: bold;

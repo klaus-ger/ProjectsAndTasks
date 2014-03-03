@@ -55,6 +55,11 @@ if (!defined('TYPO3_MODE'))
                     , projectResponseEdit
                     , projectResponseSave
                     
+                    , projectSprintListOpen
+                    , projectSprintNew
+                    , projectSprintEdit
+                    , projectSprintSave
+                    
                     , projectDocumentIndex
                     
                     , projectContractList
@@ -139,6 +144,11 @@ if (!defined('TYPO3_MODE'))
                     , projectResponseNew
                     , projectResponseEdit
                     , projectResponseSave
+                    
+                    , projectSprintListOpen
+                    , projectSprintNew
+                    , projectSprintEdit
+                    , projectSprintSave
                     
                     , projectDocumentIndex
                     
