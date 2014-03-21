@@ -34,35 +34,34 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
  */
 class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-         /**
+    /**
      * Tickert Nummer
      * @var \int
      * 
      */
     protected $ticketNummer;
-    
-     /**
+
+    /**
      * Project ID
      * @var \T3developer\ProjectsAndTasks\Domain\Model\Projects
      * 
      */
     protected $ticketProject;
-    
+
     /**
      * Project ID
      * @var \T3developer\ProjectsAndTasks\Domain\Model\Milestones
      * 
      */
     protected $ticketMilestone;
-    
-        /**
+
+    /**
      * Project ID
      * @var \T3developer\ProjectsAndTasks\Domain\Model\Sprints
      * 
      */
     protected $ticketSprint;
-    
-    
+
     /**
      * The Ticket Titel
      * @var \string
@@ -76,15 +75,15 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $ticketDate;
-    
-        /**
+
+    /**
      * Ticket scheduled Date
      * @var \DateTime
      * 
      */
     protected $ticketScheduleDate;
-    
-            /**
+
+    /**
      * Ticket scheduled Time
      * @var \int
      * 
@@ -98,32 +97,38 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $ticketStatus;
 
-        /**
+    /**
      * Ticket Status
      * @var \T3developer\ProjectsAndTasks\Domain\Model\Status
      * 
      */
     protected $ticketTyp;
-    
+
     /**
      * Ticket Text
      * @var \string
      * 
      */
     protected $ticketText;
-    
-        /**
+
+    /**
      * Ticket Text
      * @var \string
      * 
      */
     protected $ticketCustomId;
 
-       public function getTicketNummer() {
-       return '#' . str_pad($this->uid, 4, "0", STR_PAD_LEFT) ;
+    /**
+     * Ticket Owner
+     * @var \int
+     * 
+     */
+    protected $ticketOwner;
+
+    public function getTicketNummer() {
+        return '#' . str_pad($this->uid, 4, "0", STR_PAD_LEFT);
     }
-    
-    
+
     public function getTicketProject() {
         return $this->ticketProject;
     }
@@ -163,6 +168,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setTicketText($ticketText) {
         $this->ticketText = $ticketText;
     }
+
     public function getTicketTyp() {
         return $this->ticketTyp;
     }
@@ -211,8 +217,13 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->ticketSprint = $ticketSprint;
     }
 
+    public function getTicketOwner() {
+        return $this->ticketOwner;
+    }
 
-
+    public function setTicketOwner($ticketOwner) {
+        $this->ticketOwner = $ticketOwner;
+    }
 
 
 }
