@@ -3,14 +3,10 @@
 $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
     'ctrl' => $TCA['tx_projectsandtasks_domain_model_tickets']['ctrl'],
     'interface' => array(
-        'showRecordFieldList' => '    calender_date
-                                    , calender_user
-                                    , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]'
+        'showRecordFieldList' => '   '
     ),
     'types' => array(
-        '1' => array('showitem' => '  calender_date
-                                     , calender_user
-                                     , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]
+        '1' => array('showitem' => '  
                                      ')
     ),
     'palettes' => array(
@@ -159,6 +155,14 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
         'ticket_custom_id' => array(
             'exclude' => 0,
             'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'ticket_owner' => array(
+            'exclude' => 0,
+            'label' => 'Owner',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
