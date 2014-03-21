@@ -52,6 +52,12 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $projectsRepository;
 
+        /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectteamRepository   
+     * @inject
+     */
+    protected $projectteamRepository;
+    
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectcatsRepository   
      * @inject
@@ -648,8 +654,18 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $ticket = $this->ticketsRepository->findByUid($ticketuid);
         $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
         $responses = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
+        
+        //find notes and write time
+        $notes = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
+        $worktime = 0;
+        foreach ($notes as $note) {
+            if($note->getTrTime() > 0){
+            $worktime = $worktime + $note->getTrTime();
+            }
+        }    
 
         $this->view->assign('ticket', $ticket);
+        $this->view->assign('worktime', $worktime);
         $this->view->assign('project', $project);
         $this->view->assign('responses', $responses);
         $this->view->assign('mainmenu', '4');
@@ -665,7 +681,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $ticket = new \T3developer\ProjectsAndTasks\Domain\Model\Tickets;
         $ticket->setTicketProject($projectuid);
-
+        $ticket->setTicketOwner($this->user->getUid());
+        $ticket->setTicketDate(time());
+        
         $project = $this->projectsRepository->findByUid($projectuid);
         $milestones = $this->milestonesRepository->findByMsProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
@@ -995,7 +1013,28 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->redirect('projectContractList', 'Project', NULL, array('uid' => $contract->getContractProject()));
     }
+    
+        //**************************************************************************
+    // Project Team Actions 
+    //**************************************************************************
 
+        /**
+     * projectCotractList
+     * Shows a List of all OPEN Project Contracts
+     */
+    public function projectTeamListAction() {
+        if ($this->request->hasArgument('uid')) {
+            $projectuid = $this->request->getArgument('uid');
+        }
+        
+        $project = $this->projectsRepository->findByUid($projectuid);
+
+
+        $this->view->assign('project', $project);
+        
+        $this->view->assign('mainmenu', '8');
+        $this->view->assign('submenu', '1');
+    }
 }
 
 ?>

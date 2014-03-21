@@ -1,0 +1,49 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+        
+        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
+
+
+
+        <br />
+
+        <h3>Project Team</h3>
+        <div class="stage-list">
+            <div class="stage-sub-navi">
+                <div class="stage-sub-navi-top">
+                    <ul>
+                        <li class="{f:if(condition: '{submenu} == 1', then: ' active')}">
+                        <f:link.action action="projectContractList" arguments="{uid: project.uid}">
+                            Team
+                        </f:link.action>
+                        </li>
+                        
+                    </ul>
+                    <ul class="right">
+                        <li>
+                            <!--    
+                            <f:link.action action="projectMilestonesNew" arguments="{uid: project.uid}">
+                                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
+                            </f:link.action>
+                            -->
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="form-left">
+                Functionality is not programmed yet. 
+            </div>
+
+            <div class="clear"></div><br /><br />
+        </div>
+
+
+
+    </div>
+
+
+</f:section>

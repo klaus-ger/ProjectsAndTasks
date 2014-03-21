@@ -68,6 +68,8 @@ if (!defined('TYPO3_MODE'))
                     , projectContractEdit
                     , projectContractSave
                     
+                    , projectTeamList
+                    
                     , writePdfTicketlist ',
         
      'Calender'=>   ' dayview',
@@ -80,6 +82,8 @@ if (!defined('TYPO3_MODE'))
                     , companyEdit
                     , companyNew
                     , companySave ',
+        
+     'Whiteboard'=> ' whiteboardOverview',
             
      'Settings'=>   ' settingsProjectCat
                     , settingsProjectCatNew
@@ -158,6 +162,8 @@ if (!defined('TYPO3_MODE'))
                     , projectContractEdit
                     , projectContractSave
                     
+                    , projectTeamList
+                    
                     , writePdfTicketlist',
         
      'Calender'=>   ' dayview',
@@ -170,6 +176,8 @@ if (!defined('TYPO3_MODE'))
                     , companyEdit
                     , companyNew
                     , companySave ',
+        
+     'Whiteboard'=> ' whiteboardOverview',
             
      'Settings'=>   ' settingsProjectCat
                     , settingsProjectCatNew
