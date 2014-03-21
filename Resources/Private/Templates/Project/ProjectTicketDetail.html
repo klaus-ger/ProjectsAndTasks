@@ -72,9 +72,17 @@
                         <div class="detail-item detail-ticketright">
                             {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
                         </div>
-                        
+                        <div class="detail-item detail-ticketlabel">
+                            Time Budget: 
+                        </div>
                         <div class="detail-item detail-ticketright">
-                            
+                          <vh:time time="{worktime}"  />
+                        </div>
+                        <div class="detail-item detail-ticketlabel">
+                            Effort: 
+                        </div>
+                        <div class="detail-item detail-ticketright">
+                          <vh:time time="{worktime}"  />
                         </div>
                     </div>
 
