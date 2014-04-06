@@ -52,12 +52,12 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $projectsRepository;
 
-        /**
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectteamRepository   
      * @inject
      */
     protected $projectteamRepository;
-    
+
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectcatsRepository   
      * @inject
@@ -289,6 +289,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('project', $project);
         $this->view->assign('tickets', $tickets);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', 1);
     }
 
@@ -345,6 +346,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $tickets = $this->ticketsRepository->findByTicketProject($project->getUid());
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', 2);
         $this->view->assign('submenu', 1);
@@ -374,6 +376,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('clients', $clients);
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('status', $status);
     }
 
@@ -388,6 +391,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $status = $this->statusRepository->findByStatusTyp(1);
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('status', $status);
         $this->view->assign('mainmenu', 2);
         $this->view->assign('submenu', 2);
@@ -404,6 +408,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $status = $this->statusRepository->findByStatusTyp(1);
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('status', $status);
         $this->view->assign('mainmenu', 2);
         $this->view->assign('submenu', 3);
@@ -433,6 +438,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 1);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestonesArray);
     }
 
@@ -457,6 +463,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 2);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestonesArray);
     }
 
@@ -481,6 +488,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 3);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestonesArray);
     }
 
@@ -495,6 +503,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $status = $this->statusRepository->findByStatusTyp(4);
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('status', $status);
     }
 
@@ -511,6 +520,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('milestone', $milestone);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('status', $status);
     }
 
@@ -590,6 +600,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('ticketsNullMilestone', $ticketsNullMilestone);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '4');
     }
@@ -607,6 +618,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('ticketsNullMilestone', $tickets);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '4');
     }
@@ -624,6 +636,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('ticketsNullMilestone', $tickets);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '4');
     }
@@ -640,6 +653,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('ticketsNullMilestone', $tickets);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '4');
     }
@@ -654,19 +668,20 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $ticket = $this->ticketsRepository->findByUid($ticketuid);
         $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
         $responses = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
-        
+
         //find notes and write time
         $notes = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
         $worktime = 0;
         foreach ($notes as $note) {
-            if($note->getTrTime() > 0){
-            $worktime = $worktime + $note->getTrTime();
+            if ($note->getTrTime() > 0) {
+                $worktime = $worktime + $note->getTrTime();
             }
-        }    
+        }
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('worktime', $worktime);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('responses', $responses);
         $this->view->assign('mainmenu', '4');
     }
@@ -683,7 +698,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $ticket->setTicketProject($projectuid);
         $ticket->setTicketOwner($this->user->getUid());
         $ticket->setTicketDate(time());
-        
+
         $project = $this->projectsRepository->findByUid($projectuid);
         $milestones = $this->milestonesRepository->findByMsProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
@@ -691,6 +706,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestones);
         $this->view->assign('status', $status);
         $this->view->assign('typ', $typ);
@@ -714,6 +730,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestones);
         $this->view->assign('sprints', $sprints);
         $this->view->assign('status', $status);
@@ -758,6 +775,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('resonse', $response);
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', '4');
     }
 
@@ -805,6 +823,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('response', $response);
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', '4');
     }
 
@@ -878,14 +897,15 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $project = $this->projectsRepository->findByUid($projectuid);
 
         $sprints = $this->sprintRepository->findSprintsByProjectAndStatus($projectuid, 0);
-        
+
         //build sprint / ticket Array
-        foreach($sprints as $sprint){
+        foreach ($sprints as $sprint) {
             $sprintArray[$sprint->getUid()]['sprint'] = $sprint;
             $sprintArray[$sprint->getUid()]['tickets'] = $this->ticketsRepository->findTicketsByProjectSprintAndStatus($projectuid, $sprint->getUid(), 0);
         }
-        
+
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('sprints', $sprintArray);
         $this->view->assign('mainmenu', '7');
         $this->view->assign('submenu', '1');
@@ -901,9 +921,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $project = $this->projectsRepository->findByUid($projectuid);
 
-        
+
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', '7');
         $this->view->assign('submenu', '1');
     }
@@ -939,6 +960,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', '5');
         $this->view->assign('submenu', '1');
     }
@@ -960,6 +982,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('contracts', $contracts);
         $this->view->assign('mainmenu', '6');
         $this->view->assign('submenu', '1');
@@ -978,6 +1001,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 
         $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('contracts', $contracts);
         $this->view->assign('mainmenu', '6');
     }
@@ -1013,12 +1037,12 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->redirect('projectContractList', 'Project', NULL, array('uid' => $contract->getContractProject()));
     }
-    
-        //**************************************************************************
+
+    //**************************************************************************
     // Project Team Actions 
     //**************************************************************************
 
-        /**
+    /**
      * projectCotractList
      * Shows a List of all OPEN Project Contracts
      */
@@ -1026,15 +1050,49 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($this->request->hasArgument('uid')) {
             $projectuid = $this->request->getArgument('uid');
         }
-        
+
         $project = $this->projectsRepository->findByUid($projectuid);
 
 
         $this->view->assign('project', $project);
-        
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
+
         $this->view->assign('mainmenu', '8');
         $this->view->assign('submenu', '1');
     }
+
+        //**************************************************************************
+    // Global Helper Functions 
+    //**************************************************************************
+    /**
+     * Find Planed haours and efforts
+     */
+    public function calculateProjectHours($projectID){
+        $tickets = $this->ticketsRepository->findByTicketProject($projectID);
+        
+        //calculate Plan Effort
+        $plantime = 0;
+        $worktime = 0;
+        foreach ($tickets as $ticket){
+            //calculate Plan Time
+            if( $ticket->getTicketScheduleTime() > 0){
+                $plantime = $plantime + $ticket->getTicketScheduleTime();
+            }
+            //calculate IST Time
+            $ticketresponses = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
+            
+            foreach( $ticketresponses as $response){
+                if($response->getTrTime() > 0){
+                    $worktime = $worktime + $response->getTrTime();
+                }
+            }
+        }
+        $time['plan'] = $plantime;
+        $time['work'] = $worktime;
+        
+        return ($time);
+    }
+    
 }
 
 ?>

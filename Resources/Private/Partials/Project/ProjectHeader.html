@@ -1,4 +1,5 @@
-        <h2>{project.projectTitel}</h2>
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+<h2>{project.projectTitel}</h2>
         
         
         <div class="stage-navi">
@@ -61,6 +62,11 @@
             </div>
             <div class="stage-navi-text">
                 <f:format.nl2br>{project.projectShort}</f:format.nl2br>
+                <div class="stage-navi-text-right">
+                    Planed Time: <vh:time time="{projectHours.plan}"  /><br />
+                    Worked Time: <vh:time time="{projectHours.work}"  />
+                </div>
+                <div class="clear"></div>
             </div>
             
         </div>

@@ -79,8 +79,12 @@ $TCA['tx_projectsandtasks_domain_model_ticketresponse'] = array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
-                'type' => 'text',
-                'size' => 30,
+                 'type' => 'select',
+                'items' => array(
+                    array('', 0),
+                ),
+                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
+               
             )
         ),
         'tr_titel' => array(
