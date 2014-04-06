@@ -5,25 +5,29 @@
         <label>First Name</label>
         <f:form.textfield property="firstName" value="{person.firstName}" class="left-half"/>
     </div>
-    
+
     <div class="input-wrap left-half">
         <label class="small">Last Name</label>
-       <f:form.textfield property="lastName" value="{person.lastName}" class="left-half"/>
+        <f:form.textfield property="lastName" value="{person.lastName}" class="left-half"/>
     </div>
 
     <div class="input-wrap left-fullwidth">
         <label>Street</label>
         <f:form.textfield property="address" value="{person.address}" class="left-large"/>
     </div>
-    
+
     <div class="input-wrap left-large">
         <label>City</label>
         <f:form.textfield property="city" value="{person.city}" class="left-large"/>
     </div>
-    
-     <div class="input-wrap left-small">
+
+    <div class="input-wrap left-small">
         <label class="small">ZIP</label>
-       <f:form.textfield property="zip" value="{person.zip}" class=""/>
+        <f:form.textfield property="zip" value="{person.zip}" class=""/>
+    </div>
+    <div class="input-wrap left-fullwidth">
+        <label>Company</label>
+        <f:form.select property="company" options="{companies}" optionValueField="uid" optionLabelField="cyShort" prependOptionLabel="-- Company --" /><br />
     </div>
     <!--
     <div class="input-wrap left-fullwidth">
@@ -36,17 +40,17 @@
 <div class="form-right">
     <div class="input-wrap right">
         <label class="small">Tel</label>
-         <f:form.textfield property="telephone" value="{person.telephone}" class="right"/>
+        <f:form.textfield property="telephone" value="{person.telephone}" class="right"/>
     </div>
-    
+
     <div class="input-wrap right">
         <label class="small">web</label>
-         <f:form.textfield property="web" value="{person.web}" class="right"/>
+        <f:form.textfield property="web" value="{person.web}" class="right"/>
     </div>
-    
+
     <div class="input-wrap right">
         <label class="small">mail</label>
-         <f:form.textfield property="email" value="{person.email}" class="right"/>
+        <f:form.textfield property="email" value="{person.email}" class="right"/>
     </div>
     <!--
     <div class="input-wrap right">

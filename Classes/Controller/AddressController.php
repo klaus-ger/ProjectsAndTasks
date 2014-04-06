@@ -83,17 +83,21 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $personID = $this->request->getArgument('person');
         }
         $person = $this->userRepository->findByUid($personID);
-
+        $companies = $this->companyRepository->findAll();
+        
         $this->view->assign('mainmenu', '1');
         $this->view->assign('person', $person);
+        $this->view->assign('companies', $companies);
     }
 
         /**
      * Shows the PErson create Form
      */
     public function personNewAction() {
-
+        $companies = $this->companyRepository->findAll();
+        
         $this->view->assign('mainmenu', '1');
+        $this->view->assign('companies', $companies);
     }
     
     /**
