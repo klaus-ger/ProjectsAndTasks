@@ -72,7 +72,7 @@ if (!defined('TYPO3_MODE'))
                     
                     , writePdfTicketlist ',
         
-     'Calender'=>   ' dayview',
+     'Time'=>   ' timeMonth',
         
      'Address'=>    ' personList
                     , personEdit
@@ -166,7 +166,7 @@ if (!defined('TYPO3_MODE'))
                     
                     , writePdfTicketlist',
         
-     'Calender'=>   ' dayview',
+     'Time'=>       ' timeMonth',
         
      'Address'=>    ' personList
                     , personEdit

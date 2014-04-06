@@ -359,36 +359,40 @@ h3 {
     font-size: 90%;
 }
 /* ==========================================================================
-   Calender view
+   time view
    ========================================================================== */
-.calender-dayview-left {
-    width: 500px;
-    float: left;
-    display: block;
-    padding: 10px;
+.timetable {
+    margin: 30px 0 0 30px;
 }
-
-.calender-dayview-right {
+.timetable-cell, .timetable-cell-header {
     float: left;
-    padding: 10px;
-    margin-left: 588px;
+    width: 100px;
+    height: 130px;
+    text-align: right;
 }
-.calender-dayview-hour {
-    height: 15px;
-    display: block;
+.timetable-cell-header {
+    height: 23px;
+     margin-bottom: 10px;
+}
+.timetable-cell-date{
+    color: #777777;
+    height: 17px;
+}
+.timetable-cell-time {
+    height: 44px;
+    line-height: 20px;
+}
+.timetable-cell-total {
+    font-style: italic;
+}
+.timetable-cell-total {
+    margin-top: 5px;
+    color: #777777;
+    padding-bottom: 30px;
+}
+.timetable-border {
     border-bottom: 1px solid #ededed;
-    padding: 10px;
-    width: 500px;
-    position: relative;
 }
-.calender-dayview-timeline {
-    position: absolute;
-    
-}
-.calender-dayview-date {
-    position: relative;
-}
-
 /* ==========================================================================
    forms
    ========================================================================== */
@@ -640,6 +644,12 @@ select option {
     #pat .stage-navi-text {
         clear: both;
         padding: 10px 15px;
+    }
+    #pat .stage-navi-text-right {
+        float: right;
+        width: 150px;
+        text-align: right;
+        font-size: 90%;
     }
     /* SUB Navigation ********************************************************/
      #pat .stage-sub-navi {

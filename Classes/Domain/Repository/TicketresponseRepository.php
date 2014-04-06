@@ -39,10 +39,11 @@ class TicketresponseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * 
      * @param int $start timestamp Start Day
      * @param int $end timestamp End Day
+     * @param int $statusBehaviour status Behaviour, 2= custom time, 3 = internal time
      * 
      * @return object
      */
-    public function findPerDate($start, $end) {
+    public function findPerDate($start, $end, $statusBehaviour) {
        
         $query = $this->createQuery();
 
@@ -50,7 +51,8 @@ class TicketresponseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->logicalAnd(array(
                     $query->greaterThan('trTime', 0),
                     $query->lessThan('trDate', $end),
-                    $query->greaterThan('trDate', $start)
+                    $query->greaterThan('trDate', $start),
+                    $query->equals('trTyp.statusBehaviour', $statusBehaviour)
                 ))
         );
 
