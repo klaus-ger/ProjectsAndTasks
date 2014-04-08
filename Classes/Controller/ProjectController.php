@@ -681,7 +681,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('ticket', $ticket);
         $this->view->assign('worktime', $worktime);
         $this->view->assign('project', $project);
-        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
+        $this->view->assign('projectHours', $this->calculateProjectHours($project->getUid()));
         $this->view->assign('responses', $responses);
         $this->view->assign('mainmenu', '4');
     }
@@ -765,6 +765,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $response = new \T3developer\ProjectsAndTasks\Domain\Model\Ticketresponse;
         $response->setTrTicket($ticketuid);
+        $response->setTrDate(time());
 
         $ticket = $this->ticketsRepository->findByUid($ticketuid);
         $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
@@ -772,10 +773,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $status = $this->statusRepository->findByStatusTyp(5);
 
         $this->view->assign('status', $status);
-        $this->view->assign('resonse', $response);
+        $this->view->assign('response', $response);
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
-        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
+        $this->view->assign('projectHours', $this->calculateProjectHours($project->getUid()));
         $this->view->assign('mainmenu', '4');
     }
 
@@ -1053,7 +1054,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $project = $this->projectsRepository->findByUid($projectuid);
 
-
+        $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
+        $this->view->assign('projectteam', $projectteam);
+        
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
 
@@ -1061,38 +1064,90 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('submenu', '1');
     }
 
-        //**************************************************************************
+    /**
+     * projectCotractList
+     * Shows a List of all OPEN Project Contracts
+     */
+    public function projectTeamNewAction() {
+        if ($this->request->hasArgument('uid')) {
+            $projectuid = $this->request->getArgument('uid');
+        }
+
+        $project = $this->projectsRepository->findByUid($projectuid);
+
+        $persons = $this->userRepository->findAll();
+
+        $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
+
+        $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
+
+        $this->view->assign('projectteam', $projectteam);
+        $this->view->assign('persons', $persons);
+        $this->view->assign('mainmenu', '8');
+        $this->view->assign('submenu', '1');
+    }
+
+    /**
+     * projectCotractList
+     * Shows a List of all OPEN Project Contracts
+     */
+    public function projectTeamEditAction() {
+        
+    }
+
+    /**
+     * save Project Team
+     * 
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Projectteam $teamMember
+     */
+    public function projectTeamSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Projectteam $teamMember) {
+        if ($teamMember->getUid()) {
+            $this->projectteamRepository->update($teamMember);
+        } else {
+            $this->projectteamRepository->add($teamMember);
+        }
+
+        $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $teamMember->getPtProject()));
+    }
+
+    //**************************************************************************
     // Global Helper Functions 
     //**************************************************************************
     /**
-     * Find Planed haours and efforts
+     * Find Planed hours and efforts
      */
-    public function calculateProjectHours($projectID){
+    public function calculateProjectHours($projectID) {
         $tickets = $this->ticketsRepository->findByTicketProject($projectID);
-        
+
         //calculate Plan Effort
-        $plantime = 0;
+        //$plantime = 0;
+        $plantime['total'] = 0;
+        $plantime['open'] = 0;
         $worktime = 0;
-        foreach ($tickets as $ticket){
+        foreach ($tickets as $ticket) {
             //calculate Plan Time
-            if( $ticket->getTicketScheduleTime() > 0){
-                $plantime = $plantime + $ticket->getTicketScheduleTime();
+            if ($ticket->getTicketScheduleTime() > 0) {
+                $plantime['total'] = $plantime['total'] + $ticket->getTicketScheduleTime();
+                if($ticket->getTicketStatus()->getStatusBehaviour() == 0){
+                    $plantime['open'] = $plantime['open'] + $ticket->getTicketScheduleTime();
+                }
             }
             //calculate IST Time
             $ticketresponses = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
-            
-            foreach( $ticketresponses as $response){
-                if($response->getTrTime() > 0){
+
+            foreach ($ticketresponses as $response) {
+                if ($response->getTrTime() > 0) {
                     $worktime = $worktime + $response->getTrTime();
                 }
             }
         }
         $time['plan'] = $plantime;
         $time['work'] = $worktime;
-        
+
         return ($time);
     }
-    
+
 }
 
 ?>

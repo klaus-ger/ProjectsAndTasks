@@ -69,6 +69,9 @@ if (!defined('TYPO3_MODE'))
                     , projectContractSave
                     
                     , projectTeamList
+                    , projectTeamNew
+                    , projectTeamEdit
+                    , projectTeamSave
                     
                     , writePdfTicketlist ',
         

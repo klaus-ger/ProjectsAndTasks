@@ -39,29 +39,29 @@ class Projectteam extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @var \T3developer\ProjectsAndTasks\Domain\Model\Projects
      * 
      */
-    protected $PtProject;
+    protected $ptProject;
 
     /**
-     * The Ticket Titel
+     * The team member
      * @var \T3developer\ProjectsAndTasks\Domain\Model\User
      * 
      */
-    protected $PtUser;
+    protected $ptUser;
 
     public function getPtProject() {
-        return $this->PtProject;
+        return $this->ptProject;
     }
 
     public function setPtProject($PtProject) {
-        $this->PtProject = $PtProject;
+        $this->ptProject = $PtProject;
     }
 
     public function getPtUser() {
-        return $this->PtUser;
+        return $this->ptUser;
     }
 
     public function setPtUser($PtUser) {
-        $this->PtUser = $PtUser;
+        $this->ptUser = $PtUser;
     }
 
 }

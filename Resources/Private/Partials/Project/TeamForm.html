@@ -1,0 +1,23 @@
+<f:form.hidden property="ptProject" value="{project.uid}" />
+
+
+<div class="form-left">
+    <div class="input-wrap left-fullwidth">
+        <label>Team member</label>
+        <f:form.select property="ptUser" options="{persons}" optionValueField="uid" optionLabelField="fullname" prependOptionLabel="-- Person --" /><br />
+
+    </div>
+
+
+</div>
+
+<div class="form-right">
+    <div class="input-wrap right">
+        Team Member
+        <f:for each="{projectteam}" as="teammember">
+            {teammember.ptUser.fullname}<br />
+        </f:for>
+    </div>
+
+
+</div>

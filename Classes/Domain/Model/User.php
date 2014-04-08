@@ -58,6 +58,12 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $lastName;
 
+      /**
+     * Full Name, not stored, for select fields
+     * @var \string 
+     */
+    protected $fullName;
+
     /**
      * Adress
      * @var \string 
@@ -134,10 +140,15 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         return $this->lastName;
     }
 
+    
     public function setLastName($lastName) {
         $this->lastName = $lastName;
     }
 
+     public function getFullName() {
+        $name = $this->lastName . ', ' . $this->firstName;
+        return $name;
+    }
     public function getTelephone() {
         return $this->telephone;
     }

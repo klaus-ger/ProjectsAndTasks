@@ -2,7 +2,7 @@
 
 <f:section name="main">
     <div class="pat-stage">
-        
+
         <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
 
 
@@ -19,15 +19,15 @@
                             Team
                         </f:link.action>
                         </li>
-                        
+
                     </ul>
                     <ul class="right">
                         <li>
-                            <!--    
-                            <f:link.action action="projectMilestonesNew" arguments="{uid: project.uid}">
-                                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
-                            </f:link.action>
-                            -->
+
+                        <f:link.action action="projectTeamNew" arguments="{uid: project.uid}">
+                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new projectMember" />
+                        </f:link.action>
+
                         </li>
                     </ul>
                 </div>
@@ -35,15 +35,39 @@
             </div>
 
             <div class="form-left">
-                Functionality is not programmed yet. 
+                <div class="pat-list">
+                    <f:for each="{projectteam}" as="member" iteration="iterPerson">
+                        <div class="pat-list-item clearfix {f:if(condition: '{iterPerson.isEven} == 1', then: ' even', else: ' odd')}">
+                            <div class="list-item ticket-titel">
+                                {member.ptUser.firstName} {member.ptUser.lastName}
+                            </div>
+
+                            <div class="list-item ticket-status-inline">
+                                {member.ptUser.telephone}
+                            </div>
+                        </div>
+                    </f:for>
+                </div>
             </div>
 
-            <div class="clear"></div><br /><br />
+            <div class="form-right">
+                <f:form action="projectTeamSave" name="teamMember" object="{teamMember}">
+                    <div class="input-wrap right">
+                        <label>Team member</label>
+                        <f:form.select property="ptUser" options="{persons}" optionValueField="uid" optionLabelField="fullname" prependOptionLabel="-- Person --" /><br />
+                        <f:form.submit value="save" class="button"/>
+                </f:form>
+            </div>
+
+
         </div>
 
-
-
+        <div class="clear"></div><br /><br />
     </div>
+
+
+
+</div>
 
 
 </f:section>
