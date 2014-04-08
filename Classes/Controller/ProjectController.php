@@ -1055,7 +1055,13 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $project = $this->projectsRepository->findByUid($projectuid);
 
         $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
+        
+        $persons = $this->userRepository->findAll();
+       
+        
         $this->view->assign('projectteam', $projectteam);
+        $this->view->assign('persons', $persons);
+      
         
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
@@ -1075,7 +1081,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $project = $this->projectsRepository->findByUid($projectuid);
 
-        $persons = $this->userRepository->findAll();
+        
 
         $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
 
@@ -1092,8 +1098,17 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * projectCotractList
      * Shows a List of all OPEN Project Contracts
      */
-    public function projectTeamEditAction() {
+    public function projectTeamDeleteAction() {
+        if ($this->request->hasArgument('uid')) {
+            $projectuid = $this->request->getArgument('uid');
+        }
+        if ($this->request->hasArgument('memberUid')) {
+            $memberUid = $this->request->getArgument('memberUid');
+        }
+        $member = $this->projectteamRepository->findByUid($memberUid);
+        $this->projectteamRepository->remove($member);
         
+        $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $projectuid));
     }
 
     /**
@@ -1108,7 +1123,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->projectteamRepository->add($teamMember);
         }
 
-        $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $teamMember->getPtProject()));
+       $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $teamMember->getPtProject()));
     }
 
     //**************************************************************************

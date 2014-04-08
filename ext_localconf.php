@@ -70,7 +70,7 @@ if (!defined('TYPO3_MODE'))
                     
                     , projectTeamList
                     , projectTeamNew
-                    , projectTeamEdit
+                    , projectTeamDelete
                     , projectTeamSave
                     
                     , writePdfTicketlist ',
