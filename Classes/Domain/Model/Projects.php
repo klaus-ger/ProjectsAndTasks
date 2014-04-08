@@ -79,7 +79,7 @@ class Projects extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     /**
      * The project Owner
-     * @var \int
+     * @var \T3developer\ProjectsAndTasks\Domain\Model\User
      * 
      */
     protected $projectOwner;
