@@ -96,6 +96,14 @@
     padding: 40px 10px;
 }
 
+.pat-stage-inner-left {
+    width: 70%;
+    float: left;
+}
+.pat-stage-inner-right {
+    width: 30%;
+    float: left;
+}
 .clearfix:after {
     clear: both;
     content: ".";
@@ -155,6 +163,12 @@ h3 {
     font-weight: bold;
     margin: 10px 0;
 }
+h4 {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
 /* ==========================================================================
    Log In form
    ========================================================================== */
@@ -181,6 +195,7 @@ h3 {
     width: 100%;
     border: 1px solid #ededed;
 }
+
 
 .pat-list-item {
     padding: 10px 5px 5px 5px;
@@ -407,6 +422,20 @@ select {
     margin: 10px 0;
 }
 */
+
+.pat-form {
+    width: 100%;
+    border: 1px solid #ededed;
+}
+.pat-form-wrap {
+    color: #777777;
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    text-decoration: none;
+    padding: 15px;
+    width: 100%;
+}
 .form-left {
     float: left;
     margin-left: 10px;
@@ -586,7 +615,7 @@ select option {
    ========================================================================== */
 @media screen and (min-width: 820px) {
     #pat .pat-stage, #pat .header-inner {
-        width: 1000px;
+        width: 1200px;
         margin: 0 auto;
     }
 
