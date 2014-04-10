@@ -47,12 +47,13 @@
                 </ul>
             </div>
 
-            <f:form action="projectTicketSave" name="ticket" object="{ticket}">
+            <div class="pat-bg-70-30 clearfix">
+                <f:form action="projectTicketSave" name="ticket" object="{ticket}">
 
-                <f:render partial="Project/TicketForm" arguments="{_all}"/>
+                    <f:render partial="Project/TicketForm" arguments="{_all}"/>
 
-                <f:form.submit value="save" class="button"/>
-            </f:form>
+                </f:form>
+            </div>
 
         </div>
     </div>

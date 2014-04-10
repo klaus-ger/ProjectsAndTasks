@@ -8,23 +8,23 @@
         <f:for each="{ticketsNullMilestone}" as="ticketNull" iteration="iterNull">
             <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticketNull.uid}">
                 <div class="pat-list-item clearfix {f:if(condition: '{iterNull.isEven} == 1', then: ' even', else: ' odd')}">
-                    <div class="list-item ticket-no">
+                    <div class="pat-list-cell cell-first cell-50">
                         {ticketNull.ticketNummer}
                     </div>
 
-                    <div class="list-item ticket-date">
+                    <div class="pat-list-cell cell-75">
                         <f:format.date format="d.m.Y">{ticketNull.ticketDate}</f:format.date>
                     </div>
-                    <div class="list-item ticket-typ">
+                     <div class="pat-list-cell cell-75">
                         {ticketNull.ticketTyp.statusText}
                     </div>
-                    <div class="list-item ticket-titel">
+                    <div class="pat-list-cell cell-bold cell-700">
                         {ticketNull.ticketTitel}
                     </div>
-                    <div class="list-item ticket-date">
+                    <div class="pat-list-cell cell-100">
                         <f:format.date format="d.m.Y">{ticketNull.ticketScheduleDate}</f:format.date>
                     </div>
-                    <div class="list-item ticket-time">
+                    <div class="pat-list-cell cell-50">
 
                         <vh:time time="{ticketNull.ticketScheduleTime}" />
                     </div>
@@ -38,32 +38,34 @@
         <f:groupedFor each="{tickets}" as="msTickets" groupBy="ticketMilestone" groupKey="ticketMilestone">
             <li>
                 <div class="pat-list-item clearfix ">
-                    <b>{ticketMilestone.msTitel} </b>
+                    <div class="pat-list-cell cell-bold cell-700">
+                        {ticketMilestone.msTitel}
+                    </div>
                 </div>
                 <ul>
                     <f:for each="{msTickets}" as="ticket" key="label" iteration="iter">
                         <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticket.uid}">
                             <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                                <div class="list-item ticket-no">
+                                <div class="pat-list-cell cell-first cell-50">
                                     {ticket.ticketNummer}
                                 </div>
 
-                                <div class="list-item ticket-date">
+                                <div class="pat-list-cell cell-75">
                                     <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
                                 </div>
-                                <div class="list-item ticket-typ">
+                                <div class="pat-list-cell cell-75">
                                     {ticket.ticketTyp.statusText}
                                 </div>
-                                <div class="list-item ticket-titel">
+                                <div class="pat-list-cell cell-bold cell-700">
                                     {ticket.ticketTitel}
                                 </div>
-                                <div class="list-item ticket-sprint">
+                                <div class="pat-list-cell cell-100">
                                     {ticket.ticketSprint.sprintTitel}
                                 </div>
-                                <div class="list-item ticket-date">
+                                <div class="pat-list-cell cell-100">
                                     <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
                                 </div>
-                                <div class="list-item ticket-time">
+                                <div class="pat-list-cell cell-50">
 
                                     <vh:time time="{ticket.ticketScheduleTime}" />
                                 </div>

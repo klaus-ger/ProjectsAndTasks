@@ -11,7 +11,7 @@
         <br />
 
         <h3>Ticketdetails</h3>
-        <div class="stage-list">
+        <div class="pat-stage-frame clearfix">
             <div class="stage-sub-navi">
                 <ul>
                     <li class="active">
@@ -40,79 +40,84 @@
                     </li>
                 </ul>
             </div>
+
+
             <!-- ticket details -->
-            <div class="pat-detail">
-                <div class="pat-list-item clearfix">
-                    <div class="form-left">
-                        <div class="detail-item detail-ticketstitle">
+            <div class="pat-bg-70-30 clearfix">
+                <div class="pat-stage-left">
+                    <div class="pat-stage-inside">
+                        <div class="pat-form-wrap">
                             {ticket.ticketNummer} | {ticket.ticketTitel}
                         </div>
-                        <div class="clear">&nbsp;</div>
-                        <div class="detail-item detail-tickettext">
+                        <div class="pat-form-wrap">
                             {ticket.ticketText}
                         </div>
                     </div>
-
-                    <div class="form-right">
-                        <div class="detail-item detail-ticketlabel">
-                            Start:
-                        </div>
-                        <div class="detail-item detail-ticketright">
-                            <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
-                        </div>
-                        <div class="detail-item detail-ticketlabel">
-                            Scheduled:
-                        </div>
-                        <div class="detail-item detail-ticketright">
-                            <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>&nbsp;
-                        </div>
-                        <div class="detail-item detail-ticketlabel">
-                            Status: 
-                        </div>
-                        <div class="detail-item detail-ticketright">
-                            {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
-                        </div>
-                        <div class="detail-item detail-ticketlabel">
-                            Time Budget: 
-                        </div>
-                        <div class="detail-item detail-ticketright">
-                          <vh:time time="{ticket.ticketScheduleTime}"  />
-                        </div>
-                        <div class="detail-item detail-ticketlabel">
-                            Effort: 
-                        </div>
-                        <div class="detail-item detail-ticketright">
-                          <vh:time time="{worktime}"  />
-                        </div>
-                    </div>
-
                 </div>
+                
+                <div class="pat-stage-right">
+                <div class="pat-stage-inside">
+                    
+                    <div class="pat-form-wrap">
+                        <label class="w100">Start:</label>
+                        <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                    </div>
+                    
+                    <div class="pat-form-wrap">
+                        <label class="w100">Scheduled:</label>
+                        <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
+                    </div>
+                    
+                    <div class="pat-form-wrap">
+                        <label class="w100">Status:</label>
+                        {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
+                    </div>
+                    
+                    <div class="pat-form-wrap">
+                        <label class="w100">Time Budget:</label>
+                        <vh:time time="{ticket.ticketScheduleTime}"  />
+                    </div>
+                    
+                    <div class="pat-form-wrap">
+                        <label class="w100">Worked:</label>
+                        <vh:time time="{worktime}"  />
+                    </div>
+               </div>
             </div>
+           </div>
             <!----->
 
-            <br />
-            <h3>&nbsp;&nbsp;&nbsp;Notes</h3>
+            <div class="pat-stage-inside">
+                <h4>Notes</h4>
+            </div>
             <div class="pat-list">
                 <f:for each="{responses}" as="single" iteration="iter">
                     <f:link.action action="projectResponseEdit" controller="Project" arguments="{uid: single.uid}">
-                    <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                        <div class="list-item note-date">
-                            <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
-                        </div>
-                        <div class="list-item note-titel">
-                            {single.trTitel}  
-                        </div>
-                        <div class="list-item note-status">
-                            {single.trTyp.statusText}
-                        </div>
-                        <div class="list-item note-time">
-                            <vh:time time="{single.trTime}" />
-                        </div>
-                        <div class="list-item note-text">
-                            <f:format.nl2br>{single.trText}</f:format.nl2br>
-                        </div>
+                        <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                            <div class="pat-list-cell cell-first cell-100">
+                                <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
+                            </div>
+                            <div class="pat-list-cell cell-bold cell-700">
+                                {single.trTitel}  
+                            </div>
+                            <div class="pat-list-cell cell-100">
+                                {single.trTyp.statusText}
+                            </div>
+                            <div class="pat-list-cell cell-100">
+                                name here
+                            </div>
+                            <div class="pat-list-cell cell-100">
+                                <vh:time time="{single.trTime}" />
+                            </div>
+                            <div class="clear"></div>
+                            <div class="pat-list-cell cell-first cell-100">
+                                &nbsp;
+                            </div>
+                            <div class="pat-list-cell cell-700">
+                                <f:format.nl2br>{single.trText}</f:format.nl2br>
+                            </div>
 
-                    </div>
+                        </div>
                     </f:link.action>
                 </f:for>
             </div>

@@ -6,26 +6,26 @@
         <f:for each="{ticketsNullMilestone}" as="ticketNull" iteration="iterNull">
             <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticketNull.uid}">
                 <div class="pat-list-item clearfix {f:if(condition: '{iterNull.isEven} == 1', then: ' even', else: ' odd')}">
-                    <div class="list-item ticket-no">
+                    <div class="pat-list-cell cell-first cell-50">
                         {ticketNull.ticketNummer}
                     </div>
 
-                    <div class="list-item ticket-date">
+                    <div class="pat-list-cell cell-100">
                         <f:format.date format="d.m.Y">{ticketNull.ticketDate}</f:format.date>
                     </div>
-                    <div class="list-item ticket-typ">
+                    <div class="pat-list-cell cell-100">
                         {ticketNull.ticketTyp.statusText}
                     </div>
-                    <div class="list-item ticket-titel">
+                    <div class="pat-list-cell cell-100">
                         {ticketNull.ticketTitel}
                     </div>
-                    <div class="list-item ticket-status-inline">
+                    <div class="pat-list-cell cell-100">
                         Status: {ticketNull.ticketStatus.statusText}
                     </div>
-                    <div class="list-item ticket-date">
+                    <div class="pat-list-cell cell-100">
                         <f:format.date format="d.m.Y">{ticketNull.ticketScheduleDate}</f:format.date>
                     </div>
-                    <div class="list-item ticket-time">
+                    <div class="pat-list-cell cell-100">
                         <vh:time time="{ticketNull.ticketScheduleTime}" />
                     </div>
 

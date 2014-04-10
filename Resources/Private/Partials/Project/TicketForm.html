@@ -1,52 +1,80 @@
 <f:form.hidden property="ticketProject" value="{ticket.ticketProject}" />
 <f:form.hidden property="ticketOwner" value="{ticket.ticketOwner}" />
-
-<div class="form-left">
-    <div class="input-wrap left-fullwidth">
-        <label>Ticket Titel</label>
-        <f:form.textfield property="ticketTitel" value="{ticket.ticketTitel}" class="left-large"/>
-        Ticket ID {ticket.uid}
-    </div>
-
-    <div class="input-wrap left-fullwidth">
-        <label>Ticket Text</label>
-        <f:form.textarea cols="50" rows="10" property="ticketText" value="{ticket.ticketText}" class="project-shorttext"  />
-    </div>
-</div>
-
-<div class="form-right">
-    <div class="input-wrap right">
-       <label class="small">Milestone</label>
-        <f:form.select property="ticketMilestone" options="{milestones}" optionValueField="uid" optionLabelField="msTitel" prependOptionLabel="-- Milestone --" /><br />
-    </div>
-    <div class="input-wrap right">
-       <label class="small">Sprint</label>
-        <f:form.select property="ticketSprint" options="{sprints}" optionValueField="uid" optionLabelField="sprintTitel" prependOptionLabel="-- Sprint --" /><br />
-    </div>
-    <div class="input-wrap right">
-        <label class="small">Custom ID</label>
-        <f:form.textfield property="ticketCustomId" value="{ticket.ticketCustomId}" />
+<div class="pat-stage-left">
+    <div class="pat-stage-inside">
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Ticket Titel</label>
+            <f:form.textfield property="ticketTitel" value="{ticket.ticketTitel}" class="form-control field-600"/>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Ticket Text</label>
+            <f:form.textarea cols="50" rows="10" property="ticketText" value="{ticket.ticketText}" class="form-control field-height-200 field-600"/>
+        </div>
+        
+        <div class="pat-form-wrap">&nbsp;</div>
+        <div class="pat-form-wrap">
+            <label class="form-field w100">&nbsp;</label>
+        <f:form.submit value="save" class="btn"/>
+        </div>
         
     </div>
-    <div class="input-wrap right">
-        <label class="small">Datum</label>
-        <input type="date" name="tx_projectsandtasks_pat[ticket][ticketDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketDate)}" class="datepicker">
-    </div>
-    <div class="input-wrap right">
-        <label class="small">Planed Date</label>
-        <input type="date" name="tx_projectsandtasks_pat[ticket][ticketScheduleDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketScheduleDate)}" class="datepicker">
-    </div>
-    <div class="input-wrap right">
-        <label class="small">Planed Time</label>
-        <f:form.select property="ticketScheduleTime" options="{1800: '0,5 h', 3600: '1 h', 5400: '1,5 h', 7200: '2 h', 10800: '3 h', 14400: '4 h' }" />
-    </div>
-    <div class="input-wrap right">
-        <label class="small">Status</label>
-        <f:form.select property="ticketStatus" options="{status}" optionValueField="uid" optionLabelField="statusText" />
-    </div>
-    <div class="input-wrap right">
-        <label class="small">Typ</label>
-        <f:form.select property="ticketTyp" options="{typ}" optionValueField="uid" optionLabelField="statusText" />
-    </div>
-
 </div>
+
+<div class="pat-stage-right">
+    <div class="pat-stage-inside">
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Milestone</label>
+            <div class="styled-select field-200">
+            <f:form.select property="ticketMilestone" options="{milestones}" optionValueField="uid" optionLabelField="msTitel" prependOptionLabel="-- Milestone --" />
+            </div>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Sprint</label>
+            <div class="styled-select field-200">
+            <f:form.select property="ticketSprint" options="{sprints}" optionValueField="uid" optionLabelField="sprintTitel" prependOptionLabel="-- Sprint --" />
+            </div>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Custom ID</label>
+             <f:form.textfield property="ticketCustomId" value="{ticket.ticketCustomId}" class="form-control field-100"/>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Datum</label>
+             <input type="date" name="tx_projectsandtasks_pat[ticket][ticketDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketDate)}" class="datepicker form-control field-100"/>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Planed Date</label>
+            <input type="date" name="tx_projectsandtasks_pat[ticket][ticketScheduleDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketScheduleDate)}" class="datepicker form-control field-100"/>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Planed Time</label>
+            <div class="styled-select field-200">
+            <f:form.select property="ticketScheduleTime" options="{1800: '0,5 h', 3600: '1 h', 5400: '1,5 h', 7200: '2 h', 10800: '3 h', 14400: '4 h' }" />
+            </div>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Status</label>
+            <div class="styled-select field-200">
+            <f:form.select property="ticketStatus" options="{status}" optionValueField="uid" optionLabelField="statusText"  />
+            </div>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Typ</label>
+            <div class="styled-select field-200">
+            <f:form.select property="ticketTyp" options="{typ}" optionValueField="uid" optionLabelField="statusText" />
+            </div>
+        </div>
+    </div>
+</div>
+
+

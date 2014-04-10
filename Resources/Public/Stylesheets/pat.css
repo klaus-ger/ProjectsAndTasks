@@ -95,14 +95,29 @@
 .pat-stage {
     padding: 40px 10px;
 }
-
-.pat-stage-inner-left {
+.pat-stage-frame {
+    border:1px solid #dcdcdc;
+    border-radius:8px;
+}
+.pat-bg-70-30 {
+    background: #fff url(../Images/bg_70_30.gif) repeat-y;
+}
+.pat-stage-left {
     width: 70%;
     float: left;
 }
-.pat-stage-inner-right {
+.pat-stage-right {
     width: 30%;
     float: left;
+}
+.pat-stage-inside {
+    padding: 20px 20px 0 20px;
+}
+.pat-spacer {
+    border-bottom: 1px solid #dcdcdc;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    margin-bottom: 20px;
 }
 .clearfix:after {
     clear: both;
@@ -164,9 +179,9 @@ h3 {
     margin: 10px 0;
 }
 h4 {
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
-    margin: 0;
+    margin-bottom: 15px;
     color: #333;
 }
 /* ==========================================================================
@@ -185,7 +200,7 @@ h4 {
     width: 100px;
 }
 .pat-login fieldset input{
-     margin: 10px;
+    margin: 10px;
     padding: 5px;
 }
 /* ==========================================================================
@@ -193,14 +208,14 @@ h4 {
    ========================================================================== */
 .pat-list {
     width: 100%;
-    border: 1px solid #ededed;
+
 }
 
 
 .pat-list-item {
     padding: 10px 5px 5px 5px;
     clear: both;
-    border-bottom: 1px solid #ededed;
+    border-top: 1px solid #ededed;
 }
 .pat-sublist-item {
     padding: 7px 0px 2px 0px;
@@ -213,11 +228,28 @@ h4 {
 .odd {
 
 }
-.list-item{
+.pat-list-cell{
     float: left;
-    font-size:90%;
+    font-size: 12px;
     padding: 5px 0; 
 }
+
+.cell-first {
+    padding-left: 15px;
+}
+.cell-bold {
+    font-weight: bold;
+}
+.cell-50 { width: 50px;}
+.cell-75 { width: 75px;}
+.cell-100 { width: 100px;}
+.cell-200 { width: 200px;}
+.cell-300 { width: 300px;}
+.cell-400 { width: 400px;}
+.cell-500 { width: 500px;}
+.cell-600 { width: 600px;}
+.cell-700 { width: 700px;}
+
 /* ==========================================================================
    TICKET LIST
    ========================================================================== */
@@ -245,7 +277,7 @@ h4 {
 .ticket-status-inline {
     width: 150px;
 }
- .ticket-status {
+.ticket-status {
     float: right;
     font-size:90%;
 }
@@ -273,10 +305,10 @@ h4 {
     font-weight: bold;
 }
 
- .note-status {
+.note-status {
     width: 80px;
 }
- .note-time {
+.note-time {
     float: right;
     font-size:90%;
 }
@@ -387,7 +419,7 @@ h4 {
 }
 .timetable-cell-header {
     height: 23px;
-     margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .timetable-cell-date{
     color: #777777;
@@ -430,12 +462,139 @@ select {
 .pat-form-wrap {
     color: #777777;
     display: block;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: normal;
     text-decoration: none;
-    padding: 15px;
+    padding: 7px 0;
     width: 100%;
+    clear: both;
 }
+label { 
+    display: inline-block;
+    color: #555555;
+    font-weight: 500;
+    float: left;
+}
+label.form-field {
+    margin-top: 10px;
+}
+label.w100 {width: 100px;}
+
+
+.bs-customizer-input {
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 33.3333%;
+}
+
+
+.styled-select select {
+    background: transparent;
+    width: 115%;
+    padding: 9px 0;
+    color: #555555;
+    font-size: 14px;
+     line-height: 1.42857;
+    border: 0;
+    border-radius: 0;
+    height: 34px;
+    -webkit-appearance: none;
+}
+.styled-select {
+    background-color: #FAFAFA;
+    background-image: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 0px 0 0 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    
+    
+   
+    overflow: hidden;
+    background: url(../Images/icon_arrow_select.jpg) no-repeat right #fafafa;
+    
+}
+
+.form-control {
+    background-color: #FAFAFA;
+    background-image: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 0px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    
+}
+
+.form-control:focus {
+    border-color: #66AFE9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
+}
+.field-100 {width: 100px;}
+.field-200 {width: 200px;}
+.field-600 {width: 600px;}
+
+.field-height-100 {height: 100px;}
+.field-height-200 {height: 200px;}
+
+textarea {
+    padding: 6px 12px !important;
+}
+.btn {
+    -moz-box-shadow:inset 0px 1px 0px 0px #54a3f7;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #54a3f7;
+    box-shadow:inset 0px 1px 0px 0px #54a3f7;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #007dc1), color-stop(1, #0061a7));
+    background:-moz-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+    background:-webkit-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+    background:-o-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+    background:-ms-linear-gradient(top, #007dc1 5%, #0061a7 100%);
+    background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#007dc1', endColorstr='#0061a7',GradientType=0);
+    background-color:#007dc1;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border:1px solid #124d77;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:arial;
+    font-size:13px;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #154682;
+}
+.btn:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0061a7), color-stop(1, #007dc1));
+    background:-moz-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+    background:-webkit-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+    background:-o-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+    background:-ms-linear-gradient(top, #0061a7 5%, #007dc1 100%);
+    background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0061a7', endColorstr='#007dc1',GradientType=0);
+    background-color:#0061a7;
+}
+.btn:active {
+    position:relative;
+    top:1px;
+}
+
+
+
 .form-left {
     float: left;
     margin-left: 10px;
@@ -538,7 +697,7 @@ select option {
 .ui-datepicker-title {
     margin-left: 30px;
 }
- .ui-datepicker-next{
+.ui-datepicker-next{
     float: right;
 }
 .ui-datepicker-calendar a{
@@ -623,9 +782,9 @@ select option {
         display: block;
     }
     #pat .pat-list {
-       
+
     }
-    
+
     #pat h2 {
         font-size: 24px;
         color: #333;
@@ -636,7 +795,7 @@ select option {
         width: 100%;
         border-radius:8px;
         border:1px solid #dcdcdc;
-        
+
     }
     #pat .stage-navi-navi {
         height: 45px;
@@ -655,7 +814,7 @@ select option {
     }
     #pat .stage-navi-navi ul li.active {
         background-color: #fff;
-       
+
     }
     #pat .stage-navi-navi ul li a {
         font-family: Arial, sans-serif;
@@ -681,9 +840,9 @@ select option {
         font-size: 90%;
     }
     /* SUB Navigation ********************************************************/
-     #pat .stage-sub-navi {
+    #pat .stage-sub-navi {
         width: 100%;
-         height: 27px;
+        height: 27px;
         background-color: rgb(245,245,245);
         margin-bottom: 20px;
         font-size: 12px;
@@ -703,7 +862,7 @@ select option {
         float: right;
         border-left: 1px solid #dcdcdc;
     }
-        #pat .stage-sub-navi ul.right li {
+    #pat .stage-sub-navi ul.right li {
         border: none;
         padding: 5px 15px;
     }
@@ -716,9 +875,9 @@ select option {
     /* Lists  ********************************************************/
     #pat .stage-list {
         border:1px solid #dcdcdc;
-       border-radius:8px;
-        
+        border-radius:8px;
+
     }
-    
+
 
 }

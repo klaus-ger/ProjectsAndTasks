@@ -13,23 +13,27 @@
                     
                     <f:for each="{sprint.tickets}" as="sprintticket" iteration="iter">
                         <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                                <div class="list-item ticket-no">
+                                <div class="pat-list-cell cell-first cell-50">
                                     {sprintticket.ticketNummer}
                                 </div>
 
-                                <div class="list-item ticket-date">
+                                <div class="pat-list-cell cell-100">
                                     <f:format.date format="d.m.Y">{sprintticket.ticketDate}</f:format.date>
                                 </div>
-                                <div class="list-item ticket-typ">
+                            
+                                <div class="pat-list-cell cell-100">
                                     {sprintticket.ticketTyp.statusText}
                                 </div>
-                                <div class="list-item ticket-titel">
+                                <div class="pat-list-cell cell-500">
                                     {sprintticket.ticketTitel}
                                 </div>
-                                <div class="list-item ticket-date">
+                                <div class="pat-list-cell cell-100">
+                                    Ticket owner
+                                </div>
+                                <div class="pat-list-cell cell-100">
                                     <f:format.date format="d.m.Y">{sprintticket.ticketScheduleDate}</f:format.date>
                                 </div>
-                                <div class="list-item ticket-time">
+                                <div class="pat-list-cell cell-100">
 
                                     <vh:time time="{sprintticket.ticketScheduleTime}" />
                                 </div>

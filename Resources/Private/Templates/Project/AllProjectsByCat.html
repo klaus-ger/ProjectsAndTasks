@@ -44,22 +44,23 @@
                 <f:for each="{projectsWithoutCat}" as="project" iteration="iterWO">
                     <f:link.action action="projectIndex" arguments="{uid: project.uid}">
                         <div class="pat-list-item clearfix {f:if(condition: '{iterWO.isEven} == 1', then: ' even', else: ' odd')}">
-                            <div class="list-item project-no">
-                                &nbsp;
-                            </div>
-                            <div class="list-item project-no">
+
+                            <div class="pat-list-cell cell-first cell-50">
                                 {project.projectNumber}
                             </div>
-                            <div class="list-item project-titel">
+                            <div class="pat-list-cell cell-bold cell-700">
                                 {project.projectTitel}
                             </div>
-                            <div class="list-item project-date">
+                            <div class="pat-list-cell cell-100">
                                 <f:format.date format="d.m.Y">{project.projectDate}</f:format.date>
                             </div>
-                            <div class="list-item project-status">
+                            <div class="pat-list-cell cell-100">
                                 {project.projectStatus.statusText}
                             </div>
-                            <div class="list-item project-tickets">
+                            <div class="pat-list-cell cell-100">
+                                {project.projectOwner.username}
+                            </div>
+                            <div class="pat-list-cell cell-100">
                                 {project.openTickets} Tickets open
                             </div>
                         </div>
@@ -74,29 +75,29 @@
                     <f:for each="{catpro.pro}" as="mainpro" iteration="iter">
                         <f:link.action action="projectIndex" arguments="{uid: mainpro.uid}">
                             <div class="pat-list-item clearfix">
-                                <div class="list-item project-no">
-                                    &nbsp;
-                                </div>
-                                <div class="list-item project-no">
+                                <div class="pat-list-cell cell-first cell-50">
                                     {mainpro.projectNumber}
                                 </div>
-                                <div class="list-item project-titel">
+                                <div class="pat-list-cell cell-bold cell-700">
                                     {mainpro.projectTitel}
                                 </div>
-                                <div class="list-item project-date">
+                                <div class="pat-list-cell cell-100">
                                     <f:format.date format="d.m.Y">{mainpro.projectDate}</f:format.date>
                                 </div>
-                                <div class="list-item project-status">
+                                <div class="pat-list-cell cell-100">
                                     {mainpro.projectStatus.statusText}
                                 </div>
-                                <div class="list-item project-tickets">
+                                <div class="pat-list-cell cell-100">
+                                    {mainpro.projectOwner.username}
+                                </div>
+                                <div class="pat-list-cell cell-100">
                                     {mainpro.openTickets} Tickets open
                                 </div>
                             </div>
                         </f:link.action>
                     </f:for>
 
-                    
+
                 </f:for>
             </div>
 
