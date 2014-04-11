@@ -45,7 +45,7 @@
         </div>
         
         <div class="pat-form-wrap">
-            <label class="form-field field-100">Datum</label>
+            <label class="form-field field-100">Date</label>
              <input type="date" name="tx_projectsandtasks_pat[ticket][ticketDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketDate)}" class="datepicker form-control field-100"/>
         </div>
         
@@ -58,6 +58,13 @@
             <label class="form-field field-100">Planed Time</label>
             <div class="styled-select field-200">
             <f:form.select property="ticketScheduleTime" options="{1800: '0,5 h', 3600: '1 h', 5400: '1,5 h', 7200: '2 h', 10800: '3 h', 14400: '4 h' }" />
+            </div>
+        </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field field-100">Assigned</label>
+            <div class="styled-select field-200">
+            <f:form.select property="ticketAssigned" options="{projectteam}" optionValueField="uid" optionLabelField="ptUser.username" prependOptionLabel="-- assigned to --"/>
             </div>
         </div>
         

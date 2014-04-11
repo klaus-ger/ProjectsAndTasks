@@ -82,7 +82,8 @@ CREATE TABLE tx_projectsandtasks_domain_model_tickets (
     ticket_typ int(11) unsigned DEFAULT '0' NOT NULL,  
     ticket_text text,
     ticket_custom_id varchar(10) DEFAULT '' NOT NULL,
-    ticket_owner int(11) unsigned DEFAULT '0' NOT NULL, 
+    ticket_owner int(11) unsigned DEFAULT '0' NOT NULL,
+    ticket_assigned int(11) unsigned DEFAULT '0' NOT NULL, 
 
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,

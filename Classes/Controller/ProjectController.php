@@ -698,17 +698,21 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $ticket->setTicketProject($projectuid);
         $ticket->setTicketOwner($this->user->getUid());
         $ticket->setTicketDate(time());
-
+        
         $project = $this->projectsRepository->findByUid($projectuid);
         $milestones = $this->milestonesRepository->findByMsProject($project->getUid());
+        $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
         $typ = $this->statusRepository->findByStatusTyp(3);
+        $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestones);
+        $this->view->assign('sprints', $sprints);
         $this->view->assign('status', $status);
+        $this->view->assign('projectteam', $projectteam);
         $this->view->assign('typ', $typ);
         $this->view->assign('mainmenu', '4');
     }
@@ -727,6 +731,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
         $typ = $this->statusRepository->findByStatusTyp(3);
+        $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
@@ -734,6 +739,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('milestones', $milestones);
         $this->view->assign('sprints', $sprints);
         $this->view->assign('status', $status);
+        $this->view->assign('projectteam', $projectteam);
         $this->view->assign('typ', $typ);
         $this->view->assign('mainmenu', '4');
     }

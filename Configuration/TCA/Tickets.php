@@ -168,6 +168,14 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'size' => 100,
             )
         ),
+         'ticket_assigned' => array(
+            'exclude' => 0,
+            'label' => 'Owner',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
     ),
 );
 ?>
