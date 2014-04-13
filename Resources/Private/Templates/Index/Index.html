@@ -1,3 +1,4 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
 <f:layout name="Default" />
 
 <f:section name="main">
@@ -43,20 +44,30 @@
             
             <div class="pat-stage-right">
                 <div class="pat-stage-inside">
-                    <h4>Summary</h4>
+                    <h4>Graph</h4>
+                    <br />
+                    <br />
+                    <div class="pat-spacer"></div>
+                    <h4>My Summary</h4>
                     <div class="pat-form-wrap">
                         <label class="w100">Open Tickets:</label>
-                        899
+                        {countOpenTickets}
                     </div>
                     
                     <div class="pat-form-wrap">
                         <label class="w100">Open Time:</label>
-                        92h
+                        <vh:time time="{openTime}"  />
+                    </div>
+                    
+                    <div class="pat-form-wrap">
+                        <label class="w100">Age:</label>
+                        {openAge} days
                     </div>
                     <div class="pat-spacer"></div>
                     
                     <h4>Projects</h4>
-                    
+                    Project | open Ticket | open Time
+                    <div class="pat-spacer"></div>
                 </div>
             </div>
         </div>

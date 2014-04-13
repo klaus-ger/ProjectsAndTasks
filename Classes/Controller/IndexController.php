@@ -72,11 +72,25 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->redirect( 'adminIndex', 'Admin');
         }
         
-        //non-admin user
-       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->user);
-        $tickets = $this->ticketsRepository->findAll();
         
-        $this->view->assign('tickets', $tickets);
+        $openTickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
+        $countOpenTickets = count($openTickets);
+        
+        $openTime = 0;
+        $actualTime = time();
+        $ticketAgeTotal = 0;
+        foreach($openTickets as $openTi){
+           $openTime = $openTime + $openTi->getTicketScheduleTime();
+           $ticketdate = $openTi->getTicketDate()->getTimestamp();
+           $ticketage = $actualTime - $ticketdate;
+           $ticketAgeTotal = $ticketAgeTotal + $ticketage;
+        }
+        $averageTicketAge = $ticketAgeTotal / $countOpenTickets;
+        $averageAge = $averageTicketAge / 3600 / 24;
+        
+        $this->view->assign('countOpenTickets', $countOpenTickets);
+        $this->view->assign('openTime', $openTime);
+        $this->view->assign('openAge', round($averageAge, 2));
         //$this->view->assign('user', $this->user);
     }
 
