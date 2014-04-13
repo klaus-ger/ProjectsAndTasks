@@ -29,7 +29,14 @@
 
 <div class="pat-stage-right">
     <div class="pat-stage-inside">
-
+        
+        <div class="pat-form-wrap">
+            <label class="form-field w100">Owner</label>
+            <div class="styled-select field-200">
+            <f:form.select property="projectOwner" options="{user}" optionValueField="uid" optionLabelField="username" class="right" prependOptionLabel="-- Owner --"/>
+            </div>
+        </div>
+        
         <div class="pat-form-wrap">
             <label class="form-field w100">Datum</label>
             <input type="date" name="tx_projectsandtasks_pat[project][projectDate]" class="datepicker form-control field-100"/>

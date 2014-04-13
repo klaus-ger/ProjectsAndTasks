@@ -64,7 +64,7 @@
                     </div>
                     
                     <div class="pat-form-wrap">
-                        <label class="w100">Scheduled:</label>
+                        <label class="w100">Scheduled:</label>&nbsp;
                         <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
                     </div>
                     
@@ -106,10 +106,10 @@
                                 {single.trTitel}  
                             </div>
                             <div class="pat-list-cell cell-100">
-                                {single.trTyp.statusText}
+                                {single.trOwner.username}
                             </div>
                             <div class="pat-list-cell cell-100">
-                                name here
+                                {single.trTyp.statusText}
                             </div>
                             <div class="pat-list-cell cell-100">
                                 <vh:time time="{single.trTime}" />
@@ -121,7 +121,7 @@
                             <div class="pat-list-cell cell-700">
                                 <f:format.nl2br>{single.trText}</f:format.nl2br>
                             </div>
-
+                            
                         </div>
                     </f:link.action>
                 </f:for>
