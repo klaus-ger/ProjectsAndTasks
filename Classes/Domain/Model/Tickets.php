@@ -126,7 +126,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $ticketOwner;
     
     /**
-     * Ticket Owner
+     * Ticket assigned to
      * @var \T3developer\ProjectsAndTasks\Domain\Model\User
      * 
      */

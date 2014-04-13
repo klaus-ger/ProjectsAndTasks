@@ -72,15 +72,18 @@
                 </div>
             </div>
         <!----->
+        <div class="pat-bg-70-30 clearfix">
+            <p><b>New Note</b></p>
+                <f:form action="projectResponseSave" name="response" object="{response}">
+
+                    <f:render partial="Project/ResponseForm" arguments="{_all}"/>
+                
+                </f:form>
+            </div>
         
         <br />
-        <h3>&nbsp;&nbsp;&nbsp;edit Note</h3>
-        <f:form action="projectResponseSave" name="response" object="{response}">
-            
-            <f:render partial="Project/ResponseForm" arguments="{_all}"/>
-
-            <f:form.submit value="save" class="button"/>
-        </f:form>
+        
+        
         
         
        

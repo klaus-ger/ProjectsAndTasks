@@ -34,13 +34,13 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
  */
 class Ticketresponse extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-        /**
+    /**
      * The Ticket
      * @var \T3developer\ProjectsAndTasks\Domain\Model\Tickets
      * 
      */
     protected $trTicket;
-    
+
     /**
      * The Status Text
      * @var \T3developer\ProjectsAndTasks\Domain\Model\Status
@@ -54,42 +54,49 @@ class Ticketresponse extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $trTitel;
-    
-        /**
+
+    /**
      * The Status Text
      * @var \string
      * 
      */
     protected $trText;
-    
-        /**
+
+    /**
      * The Status Text
      * @var \DateTime
      * 
      */
     protected $trDate;
-    
-        /**
+
+    /**
      * The Status Text
      * @var \string
      * 
      */
     protected $trStart;
-    
-        /**
+
+    /**
      * The Status Text
      * @var \string
      * 
      */
     protected $trEnd;
-    
-        /**
+
+    /**
      * The Status Text
      * @var \int
      * 
      */
     protected $trTime;
-    
+
+    /**
+     * owner of the note
+     * @var \T3developer\ProjectsAndTasks\Domain\Model\User
+     * 
+     */
+    protected $trOwner;
+
     public function getTrTyp() {
         return $this->trTyp;
     }
@@ -154,10 +161,13 @@ class Ticketresponse extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->trTicket = $trTicket;
     }
 
+    public function getTrOwner() {
+        return $this->trOwner;
+    }
 
-
-
-
+    public function setTrOwner($trOwner) {
+        $this->trOwner = $trOwner;
+    }
 
 }
 

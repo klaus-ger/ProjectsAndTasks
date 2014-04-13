@@ -375,6 +375,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $clients = $this->companyRepository->findByCyCustomer(1);
         $this->view->assign('clients', $clients);
 
+        $this->view->assign('user',$persons = $this->userRepository->findAll());
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('status', $status);
@@ -698,13 +699,25 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $ticket->setTicketProject($projectuid);
         $ticket->setTicketOwner($this->user->getUid());
         $ticket->setTicketDate(time());
-        
+
         $project = $this->projectsRepository->findByUid($projectuid);
         $milestones = $this->milestonesRepository->findByMsProject($project->getUid());
         $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
         $typ = $this->statusRepository->findByStatusTyp(3);
+
+        //Build assigned to select options:
+        if ($project->getProjectOwner()) {
+            $pteam[0] = $project->getProjectOwner();
+        }
         $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
+        if ($projectteam[0]) {
+            $i = 1;
+            foreach ($projectteam as $pmember) {
+                $pteam[$i] = $pmember->getPtUser();
+                $i++;
+            }
+        }
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
@@ -712,7 +725,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('milestones', $milestones);
         $this->view->assign('sprints', $sprints);
         $this->view->assign('status', $status);
-        $this->view->assign('projectteam', $projectteam);
+        $this->view->assign('projectteam', $pteam);
         $this->view->assign('typ', $typ);
         $this->view->assign('mainmenu', '4');
     }
@@ -731,7 +744,19 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
         $typ = $this->statusRepository->findByStatusTyp(3);
+        
+        //Build assigned to select options:
+        if ($project->getProjectOwner()) {
+            $pteam[0] = $project->getProjectOwner();
+        }
         $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
+        if ($projectteam[0]) {
+            $i = 1;
+            foreach ($projectteam as $pmember) {
+                $pteam[$i] = $pmember->getPtUser();
+                $i++;
+            }
+        }
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
@@ -739,7 +764,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('milestones', $milestones);
         $this->view->assign('sprints', $sprints);
         $this->view->assign('status', $status);
-        $this->view->assign('projectteam', $projectteam);
+        $this->view->assign('projectteam', $pteam);
         $this->view->assign('typ', $typ);
         $this->view->assign('mainmenu', '4');
     }
@@ -760,6 +785,33 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
+     * Deletes a ticket (and notes)
+     * 
+     */
+    public function projectTicketDeleteAction() {
+        if ($this->request->hasArgument('ticketUid')) {
+            $ticketUid = $this->request->getArgument('ticketUid');
+        }
+        if ($this->request->hasArgument('projectUid')) {
+            $projectUid = $this->request->getArgument('projectUid');
+        }
+
+        //find all notes from ticket and deletes them
+        $notes = $this->ticketresponseRepository->findByTrTicket($ticketUid);
+        if ($notes[0]) {
+            foreach ($note as $note) {
+                $this->ticketresponseRepository->remove($note);
+            }
+        }
+
+        //ticket delete
+        $ticket = $this->ticketsRepository->findByUid($ticketUid);
+        $this->ticketsRepository->remove($ticket);
+
+        $this->redirect('projectTicketsOpen', 'Project', NULL, array('uid' => $projectUid));
+    }
+
+    /**
      * Shows a form for a new response
      * 
      */
@@ -772,6 +824,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $response = new \T3developer\ProjectsAndTasks\Domain\Model\Ticketresponse;
         $response->setTrTicket($ticketuid);
         $response->setTrDate(time());
+        $response->setTrOwner($this->user->getUid());
 
         $ticket = $this->ticketsRepository->findByUid($ticketuid);
         $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
@@ -1061,14 +1114,14 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $project = $this->projectsRepository->findByUid($projectuid);
 
         $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
-        
+
         $persons = $this->userRepository->findAll();
-       
-        
+
+
         $this->view->assign('projectteam', $projectteam);
         $this->view->assign('persons', $persons);
-      
-        
+
+
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
 
@@ -1087,7 +1140,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $project = $this->projectsRepository->findByUid($projectuid);
 
-        
+
 
         $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
 
@@ -1113,7 +1166,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         $member = $this->projectteamRepository->findByUid($memberUid);
         $this->projectteamRepository->remove($member);
-        
+
         $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $projectuid));
     }
 
@@ -1129,7 +1182,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->projectteamRepository->add($teamMember);
         }
 
-       $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $teamMember->getPtProject()));
+        $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $teamMember->getPtProject()));
     }
 
     //**************************************************************************
@@ -1150,7 +1203,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             //calculate Plan Time
             if ($ticket->getTicketScheduleTime() > 0) {
                 $plantime['total'] = $plantime['total'] + $ticket->getTicketScheduleTime();
-                if($ticket->getTicketStatus()->getStatusBehaviour() == 0){
+                if ($ticket->getTicketStatus()->getStatusBehaviour() == 0) {
                     $plantime['open'] = $plantime['open'] + $ticket->getTicketScheduleTime();
                 }
             }

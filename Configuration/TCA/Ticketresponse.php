@@ -135,6 +135,14 @@ $TCA['tx_projectsandtasks_domain_model_ticketresponse'] = array(
                 'size' => 30,
             )
         ),
+        'tr_owner' => array(
+            'exclude' => 0,
+            'label' => 'Titel',
+            'config' => array(
+                'type' => 'text',
+                'size' => 30,
+            )
+        ),
     ),
 );
 ?>
