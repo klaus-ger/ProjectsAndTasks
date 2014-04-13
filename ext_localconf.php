@@ -50,6 +50,7 @@ if (!defined('TYPO3_MODE'))
                     , projectTicketNew
                     , projectTicketEdit
                     , projectTicketSave
+                    , projectTicketDelete
                     
                     , projectResponseNew
                     , projectResponseEdit
@@ -147,6 +148,7 @@ if (!defined('TYPO3_MODE'))
                     , projectTicketNew
                     , projectTicketEdit
                     , projectTicketSave
+                    , projectTicketDelete
                     
                     , projectResponseNew
                     , projectResponseEdit
