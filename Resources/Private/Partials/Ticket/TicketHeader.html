@@ -1,0 +1,33 @@
+<ul>
+    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+    <f:link.action action="ticketListDate">
+        Open by Date
+    </f:link.action>
+    </li>
+    
+    <li class="{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+        <f:link.action action="ticketListScheduled">
+            Open by Scheduled
+        </f:link.action>
+    </li>
+
+    <li class="{f:if(condition: '{mainmenu} == 4', then: ' active')}">
+        <f:link.action action="ticketListProject" >
+            Open by Project
+        </f:link.action>
+    </li>
+
+</ul>
+
+<ul class="right">
+    <li>
+        <f:link.action action="projectEdit" arguments="{uid: project.uid}">
+            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Project edit" />
+        </f:link.action>
+    </li>
+    <li>
+        <f:link.action action="index">
+            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Project close" />
+        </f:link.action>
+    </li>
+</ul>

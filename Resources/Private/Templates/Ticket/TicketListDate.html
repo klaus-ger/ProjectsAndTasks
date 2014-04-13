@@ -4,99 +4,22 @@
 <f:section name="main">
     <div class="pat-stage">
         
-                <h2>open Tickets</h2>
+                <h2>open Tickets assigned to me</h2>
         
         
         <div class="stage-navi clearfix">
             <div class="stage-navi-navi">
-                <ul>
-                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-                        <f:link.action action="ticketListDate">
-                            Open by Date
-                        </f:link.action>
-                    </li>
-                    <li>
-                        <f:link.action action="ticketListScheduled">
-                            Open by Scheduled
-                        </f:link.action>
-                    </li>
-                    
-                    <li class="{f:if(condition: '{mainmenu} == 4', then: ' active')}">
-                        <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
-                            Planview
-                        </f:link.action>
-                    </li>
-                   
-                </ul>
-                <ul class="right">
-                    <li>
-                        <f:link.action action="projectEdit" arguments="{uid: project.uid}">
-                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Project edit" />
-                        </f:link.action>
-                    </li>
-                    <li>
-                        <f:link.action action="index">
-                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Project close" />
-                        </f:link.action>
-                    </li>
-                </ul>
+                <f:render partial="Ticket/TicketHeader" arguments="{_all}"/>
                
             </div>
             
-            
-        
-        
-        <div class="pat-list">
+         <div class="pat-list">
             <br />
-            <f:for each="{tickets}" as="ticket" iteration="iter">
-                <f:link.action action="ticketDetail" arguments="{uid: ticket.uid}">
-                <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                    <div class="list-item ticket-no">
-                        {ticket.ticketNummer}
-                    </div>
-                    
-                   <div class="list-item ticket-date">
-                        <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
-                    </div>
-                    <div class="list-item ticket-titel">
-                    {ticket.ticketTitel}
-                    </div>
-                    <div class="list-item ticket-project">
-                        Projekt {ticket.ticketProject.projectTitel}
-                    </div>
-                    <div class="list-item ticket-date">
-                    <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
-                    </div>
-                    <div class="ticket-time">
-                     <vh:time time="{ticket.ticketScheduleTime}" />
-                    </div>
-      
-                </div>
-                </f:link.action>
-            </f:for>
+            <f:render partial="Ticket/TicketList" arguments="{_all}"/>
         </div>
          
         
-        
-       
-            
-   
-
 </div><!-- end main Frame -->
 
- <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
-
-            <input id="button" type="submit" name="submit" value="abmelden" class="logoutbutton"/>
-
-            <div class="felogin-hidden">
-                <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
-                <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
-                <input type="hidden" name="logintype" value="logout"/>
-                <input type="hidden" name="id" value="{currentPid}"/>
-                <input type="hidden" name="redirect_url" value="{currentPid}"/>
-                <input type="hidden" name="pid" value="{storagePid}"/>
-                <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
-            </div>
-
-        </form> 
+ 
 </f:section>
