@@ -250,6 +250,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_ticketresponse (
     tr_start varchar(100) DEFAULT '' NOT NULL,
     tr_end varchar(100) DEFAULT '' NOT NULL,
     tr_time int(11) unsigned DEFAULT '0' NOT NULL,
+    tr_owner int(11) unsigned DEFAULT '0' NOT NULL,
     
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,
