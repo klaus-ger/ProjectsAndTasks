@@ -39,14 +39,18 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @inject
      */
     protected $userRepository;
-    
+
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketsRepository   
      * @inject
      */
     protected $ticketsRepository;
 
-
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatisticRepository   
+     * @inject
+     */
+    protected $statisticRepository;
 
     /**
      * Initializes the current action 
@@ -58,7 +62,7 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($user == NULL) {
             $this->redirect('logIn', 'Login');
         } else {
-            $this->user =$this->userRepository->findByUid( $GLOBALS['TSFE']->fe_user->user['uid']);
+            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
             $this->settings['username'] = $this->user->getUsername();
         }
     }
@@ -68,26 +72,54 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function indexAction() {
         //if loged in User is admin -> redirect to admin panel
-        if($this->user->getUsername() == 'admin'){
-            $this->redirect( 'adminIndex', 'Admin');
+        if ($this->user->getUsername() == 'admin') {
+            $this->redirect('adminIndex', 'Admin');
         }
-        
-        
+
+
         $openTickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
         $countOpenTickets = count($openTickets);
-        
+
         $openTime = 0;
         $actualTime = time();
         $ticketAgeTotal = 0;
-        foreach($openTickets as $openTi){
-           $openTime = $openTime + $openTi->getTicketScheduleTime();
-           $ticketdate = $openTi->getTicketDate()->getTimestamp();
-           $ticketage = $actualTime - $ticketdate;
-           $ticketAgeTotal = $ticketAgeTotal + $ticketage;
+        foreach ($openTickets as $openTi) {
+            $openTime = $openTime + $openTi->getTicketScheduleTime();
+            $ticketdate = $openTi->getTicketDate()->getTimestamp();
+            $ticketage = $actualTime - $ticketdate;
+            $ticketAgeTotal = $ticketAgeTotal + $ticketage;
         }
         $averageTicketAge = $ticketAgeTotal / $countOpenTickets;
         $averageAge = $averageTicketAge / 3600 / 24;
-        
+
+        //write stats
+        $stats = $this->statisticRepository->findLast();
+        if ($stats[0]) {
+            //aktual date 
+            $acutalString = date('d-m-Y');
+            $lastString = date('d-m-Y', $stats[0]->getStatsDate()->getTimestamp());
+            
+           
+            if ($acutalString == $lastString) {
+            }else{
+                $newStat = new \T3developer\ProjectsAndTasks\Domain\Model\Statistic;
+                $newStat->setStatsDate(time());
+                $newStat->setStatsTickets($countOpenTickets);
+                $newStat->setStatsOpentime($openTime);
+                $newStat->setStatsAge($averageAge);
+
+                $this->statisticRepository->add($newStat);
+            }
+        } else {
+            $newStat = new \T3developer\ProjectsAndTasks\Domain\Model\Statistic;
+            $newStat->setStatsDate(time());
+            $newStat->setStatsTickets($countOpenTickets);
+            $newStat->setStatsOpentime($openTime);
+            $newStat->setStatsAge($averageAge);
+
+            $this->statisticRepository->add($newStat);
+        }
+
         $this->view->assign('countOpenTickets', $countOpenTickets);
         $this->view->assign('openTime', $openTime);
         $this->view->assign('openAge', round($averageAge, 2));
