@@ -35,67 +35,87 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
 class Documents extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     /**
-     * The Doc Typ: 1: Projekte, 2 Tickets
+     * project
      * @var \int
-     * 
      */
-    protected $docTyp;
-
-       /**
-     * The Parent Object Project or Ticket uid
-     * @var \int
-     * 
-     */
-    protected $docParent;
-
-    
-    /**
-     * The Status Typ
-     * @var \string
-     * 
-     */
-    protected $docTitel;
+    protected $docProject;
 
     /**
-     * The Status Behaviour
+     * title
+     *
      * @var \string
-     * 
      */
-    protected $docUrl;
+    protected $docDescription;
 
-    public function getDocTyp() {
-        return $this->docTyp;
+ /**
+	 * File reference for FAL
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\ProjectsAndTasks\Domain\Model\FileReference>
+	 * @lazy
+	 */
+	protected $files;
+
+    /**
+     * Construct
+     */
+    public function __construct() {
+        $this->initStorageObjects();
     }
 
-    public function setDocTyp($docTyp) {
-        $this->docTyp = $docTyp;
+    /**
+     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
+     *
+     * @return void
+     */
+    protected function initStorageObjects() {
+        $this->files = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
-    public function getDocParent() {
-        return $this->docParent;
+    public function getDocProject() {
+        return $this->docProject;
     }
 
-    public function setDocParent($docParent) {
-        $this->docParent = $docParent;
+    public function setDocProject($docProject) {
+        $this->docProject = $docProject;
     }
 
-    public function getDocTitel() {
-        return $this->docTitel;
+    public function getDocDescription() {
+        return $this->docDescription;
     }
 
-    public function setDocTitel($docTitel) {
-        $this->docTitel = $docTitel;
+    public function setDocDescription($docDescription) {
+        $this->docDescription = $docDescription;
     }
 
-    public function getDocUrl() {
-        return $this->docUrl;
-    }
+    /**
+	 * Returns the files
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+	 */
+	public function getFiles() {
+		return $this->files;
+	}
 
-    public function setDocUrl($docUrl) {
-        $this->docUrl = $docUrl;
-    }
+	/**
+	 * Sets the files
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
+	 * @return void
+	 */
+	public function setFiles($files) {
+		$this->files = $files;
+	}
 
-
+	/**
+	 * Adds a file
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $file
+	 *
+	 * @return void
+	 */
+	public function addFile(\TYPO3\CMS\Extbase\Domain\Model\FileReference $file) {
+		$this->files->attach($file);
+	}
 
 }
 
