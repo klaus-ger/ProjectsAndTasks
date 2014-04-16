@@ -3,10 +3,10 @@
 $TCA['tx_projectsandtasks_domain_model_documents'] = array(
     'ctrl' => $TCA['tx_projectsandtasks_domain_model_documents']['ctrl'],
     'interface' => array(
-        'showRecordFieldList' => ''
+        'showRecordFieldList' => 'doc_description, files'
     ),
     'types' => array(
-        '1' => array('showitem' => '
+        '1' => array('showitem' => 'doc_description, files
                                      ')
     ),
     'palettes' => array(
@@ -67,7 +67,7 @@ $TCA['tx_projectsandtasks_domain_model_documents'] = array(
                 'eval' => 'trim',
             )
         ),
-        'doc_typ' => array(
+        'doc_project' => array(
             'exclude' => 0,
             'label' => 'Status Typ: 1 projekte, 2 Tickets',
             'config' => array(
@@ -83,7 +83,7 @@ $TCA['tx_projectsandtasks_domain_model_documents'] = array(
                 'size' => 30,
             )
         ),
-        'doc_url' => array(
+        'doc_description' => array(
             'exclude' => 0,
             'label' => 'Verhalten: 1 offen 2 erledigt',
             'config' => array(
@@ -91,14 +91,17 @@ $TCA['tx_projectsandtasks_domain_model_documents'] = array(
                 'size' => 30,
             )
         ),
-        'doc_parent' => array(
-            'exclude' => 0,
-            'label' => 'Verhalten: 1 offen 2 erledigt',
-            'config' => array(
-                'type' => 'text',
-                'size' => 30,
-            )
-        ),
-    ),
+	'files' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lw_drx_intra_marketplace/Resources/Private/Language/locallang_db.xlf:tx_falfeupload_domain_model_entry.files',
+			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', array(
+				'appearance' => array(
+					'createNewRelationLinkTitle' => 'falrel'
+				),
+				'minitems' => 0,
+				'maxitems' => 3,
+			), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+		),
+	),
 );
 ?>

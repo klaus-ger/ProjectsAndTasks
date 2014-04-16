@@ -82,11 +82,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $ticketresponseRepository;
 
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ContractsRepository   
-     * @inject
-     */
-    protected $contractsRepository;
 
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\CompanyRepository   
@@ -99,6 +94,19 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @inject
      */
     protected $statusRepository;
+    
+        /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\DocumentsRepository   
+     * @inject
+     */
+    protected $documentsRepository;
+    
+            /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\FileRepository   
+     * @inject
+     */
+    protected $fileRepository;
+
 
     /**
      * @var \T3developer\ProjectsAndTasks\Utility\Pdf  
@@ -375,7 +383,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $clients = $this->companyRepository->findByCyCustomer(1);
         $this->view->assign('clients', $clients);
 
-        $this->view->assign('user',$persons = $this->userRepository->findAll());
+        $this->view->assign('user', $persons = $this->userRepository->findAll());
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('status', $status);
@@ -744,7 +752,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
         $typ = $this->statusRepository->findByStatusTyp(3);
-        
+
         //Build assigned to select options:
         if ($project->getProjectOwner()) {
             $pteam[0] = $project->getProjectOwner();
@@ -1010,93 +1018,71 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * Shows the Document Index Page
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Documents $newDocument
      */
-    public function projectDocumentIndexAction() {
+    public function projectDocumentIndexAction(\T3developer\ProjectsAndTasks\Domain\Model\Documents $newDocument = NULL) {
         if ($this->request->hasArgument('uid')) {
             $projectuid = $this->request->getArgument('uid');
         }
-
+        
+        
         $project = $this->projectsRepository->findByUid($projectuid);
 
-
+        $this->view->assign('documents', $this->documentsRepository->findByDocProject($projectuid));
+        $this->view->assign('newDocument', $newDocument);
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', '5');
         $this->view->assign('submenu', '1');
     }
 
-    //**************************************************************************
-    // Project Contract Actions
-    //**************************************************************************
-
     /**
-     * projectCotractList
-     * Shows a List of all OPEN Project Contracts
+     * save new Documents from upload form
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Documents $newDocument
      */
-    public function projectContractListAction() {
-        if ($this->request->hasArgument('uid')) {
-            $projectuid = $this->request->getArgument('uid');
+    public function projectDocumentSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Documents $newDocument) {
+
+        if (!empty($_FILES['tx_projectsandtasks_pat'])) {
+
+            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+            $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
+            /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
+            $storage = $storageRepository->findByUid('1');
+
+            for ($index = 0; $index < count($_FILES['tx_projectsandtasks_pat']['name']['file']); $index++) {
+                // setting up file data
+                $fileData = array();
+                $fileData['name'] = $_FILES['tx_projectsandtasks_pat']['name']['file'][$index];
+                $fileData['type'] = $_FILES['tx_projectsandtasks_pat']['type']['file'][$index];
+                $fileData['tmp_name'] = $_FILES['tx_projectsandtasks_pat']['tmp_name']['file'][$index];
+                $fileData['size'] = $_FILES['tx_projectsandtasks_pat']['size']['file'][$index];
+
+                if ($fileData['name']) {
+                    // this will already handle the moving of the file to the storage:
+                    $newFileObject = $storage->addFile(
+                            $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
+                    );
+                    $newFileObject = $storage->getFile($newFileObject->getIdentifier());
+                    $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
+
+                    /** @var \T3developer\ProjectsAndTasks\Domain\Model\FileReference $newFileReference */
+                    $newFileReference = $this->objectManager->get('T3developer\ProjectsAndTasks\Domain\Model\FileReference');
+                    $newFileReference->setFile($newFile);
+
+                    $newDocument->addFile($newFileReference);
+                   
+                }
+            }
+
+            $this->documentsRepository->add($newDocument);
         }
-        $contracts = $this->contractsRepository->findByContractProject($projectuid);
-        $project = $this->projectsRepository->findByUid($projectuid);
-
-
-        $this->view->assign('project', $project);
-        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
-        $this->view->assign('contracts', $contracts);
-        $this->view->assign('mainmenu', '6');
-        $this->view->assign('submenu', '1');
+        
+       
+       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newDocument, 'dokument');
+        $this->redirect('projectDocumentIndex', 'Project', NULL, array('uid' => $newDocument->getDocProject()));
     }
 
-    /**
-     * projectCotractDetail
-     * Shows Detail Page Contracts
-     */
-    public function projectContractDetailAction() {
-        if ($this->request->hasArgument('uid')) {
-            $projectuid = $this->request->getArgument('uid');
-        }
-        $contracts = $this->contractsRepository->findByContractProject($projectuid);
-        $project = $this->projectsRepository->findByUid($projectuid);
-
-
-        $this->view->assign('project', $project);
-        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
-        $this->view->assign('contracts', $contracts);
-        $this->view->assign('mainmenu', '6');
-    }
-
-    /**
-     * projectCotractNew
-     * Shows a Form for a new Contract
-     */
-    public function projectContractNewAction() {
-        if ($this->request->hasArgument('uid')) {
-            $projectuid = $this->request->getArgument('uid');
-        }
-
-        $project = $this->projectsRepository->findByUid($projectuid);
-
-
-        $this->view->assign('project', $project);
-
-        $this->view->assign('mainmenu', '6');
-    }
-
-    /**
-     * Saves a Contract
-     * @param \T3developer\ProjectsAndTasks\Domain\Model\Contracts $contract
-     */
-    public function projectContractSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Contracts $contract) {
-
-        if ($contract->getUid()) {
-            $this->contractsRepository->update($contract);
-        } else {
-            $this->contractsRepository->add($contract);
-        }
-
-        $this->redirect('projectContractList', 'Project', NULL, array('uid' => $contract->getContractProject()));
-    }
+    
 
     //**************************************************************************
     // Project Team Actions 

@@ -279,10 +279,9 @@ CREATE TABLE tx_projectsandtasks_domain_model_documents (
     deleted tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     hidden tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     
-    doc_parent int(11) unsigned DEFAULT '0' NOT NULL,
-    doc_typ tinyint(4) unsigned DEFAULT '0' NOT NULL, 
-    doc_titel varchar(255) DEFAULT '' NOT NULL,
-    doc_url varchar(255) DEFAULT '' NOT NULL,
+    doc_project int(11) unsigned DEFAULT '0' NOT NULL,
+    doc_description text;
+    files text NOT NULL,
 
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,

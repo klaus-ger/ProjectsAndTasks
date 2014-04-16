@@ -1,4 +1,24 @@
-
+config.tx_extbase {
+	persistence {
+		classes {
+			T3developer\ProjectsAndTasks\Domain\Model\File {
+				mapping {
+					tableName = sys_file
+				}
+			}
+			T3developer\ProjectsAndTasks\Domain\Model\FileReference {
+				mapping {
+					tableName = sys_file_reference
+					columns {
+						uid_local.mapOnProperty = file
+					}
+				}
+			}
+		}
+		# make sure ref_index is updated
+		updateReferenceIndex = 1
+	}
+}
 config.tx_extbase{
     persistence{
         storagePid = {$plugin.tx_projectsandtasks.persistence.storagePid}
@@ -39,9 +59,11 @@ config.tx_extbase{
                         }
                 }
             }
-    	}
+            
+       }
     }
 }
+
 
 plugin.tx_projectsandtasks {
     view {
