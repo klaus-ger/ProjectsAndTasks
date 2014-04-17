@@ -788,8 +788,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         } else {
             $this->ticketsRepository->add($ticket);
         }
-
-        $this->redirect('projectTicketsOpen', 'Project', NULL, array('uid' => $ticket->getTicketProject()));
+        $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        $persistenceManager->persistAll();
+        
+        $this->redirect('projectTicketDetail', 'Project', NULL, array('uid' => $ticket->getUid()));
     }
 
     /**
@@ -991,6 +993,27 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
 
 
+        $this->view->assign('project', $project);
+        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
+        $this->view->assign('mainmenu', '7');
+        $this->view->assign('submenu', '1');
+    }
+    
+     /**
+     * Shows the Sprint Index Page
+     */
+    public function projectSprintEditAction() {
+        if ($this->request->hasArgument('uid')) {
+            $projectuid = $this->request->getArgument('uid');
+        }
+        if ($this->request->hasArgument('sprintId')) {
+            $sprintId = $this->request->getArgument('sprintId');
+        }
+        
+        $project = $this->projectsRepository->findByUid($projectuid);
+        $sprint = $this->sprintRepository->findByUid($sprintId);
+
+        $this->view->assign('sprint', $sprint);
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', '7');
