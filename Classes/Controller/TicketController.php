@@ -125,7 +125,7 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $this->view->assign('mainmenu', '1');
     }
     
-            /**
+    /**
      * Index Action: Shows a list of all User
      */
     public function ticketListScheduledAction() {
@@ -136,6 +136,16 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $this->view->assign('mainmenu', '2');
     }
     
+        /**
+     * Index Action: Shows a list of all User
+     */
+    public function ticketListProjectAction() {
+
+        $tickets = $this->ticketsRepository->findOpenTicketsScheduled();
+
+        $this->view->assign('tickets', $tickets);
+        $this->view->assign('mainmenu', '2');
+    }
     /**
      * Shows a form for a new Ticket
      */

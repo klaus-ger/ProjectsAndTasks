@@ -12,6 +12,8 @@ if (!defined('TYPO3_MODE'))
     'Login' =>      'logIn',
     'Ticket' =>     ' ticketListDate
                     , ticketListScheduled
+                    , ticketListProject
+                    
                     , ticketNew
                     , ticketEdit
                     , ticketSave
@@ -62,12 +64,7 @@ if (!defined('TYPO3_MODE'))
                     , projectSprintSave
                     
                     , projectDocumentIndex
-                    
-                    , projectContractList
-                    , projectContractDetail
-                    , projectContractNew
-                    , projectContractEdit
-                    , projectContractSave
+                    , projectDocumentSave
                     
                     , projectTeamList
                     , projectTeamNew
@@ -110,6 +107,8 @@ if (!defined('TYPO3_MODE'))
             
     'Ticket' =>     ' ticketListDate
                     , ticketListScheduled
+                    , ticketListProject
+                    
                     , ticketNew
                     , ticketEdit
                     , ticketSave
@@ -160,13 +159,8 @@ if (!defined('TYPO3_MODE'))
                     , projectSprintSave
                     
                     , projectDocumentIndex
-                    
-                    , projectContractList
-                    , projectContractDetail
-                    , projectContractNew
-                    , projectContractEdit
-                    , projectContractSave
-                    
+                    , projectDocumentSave
+    
                     , projectTeamList
                     
                     , writePdfTicketlist',

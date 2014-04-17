@@ -4,29 +4,30 @@
     <f:for each="{milestones}" as="ms" iteration="iter">
         <f:link.action action="projectMilestonesEdit" controller="Project" arguments="{uid: ms.uid}">
             <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                <div class="list-item ms-no">
+                <div class="pat-list-cell cell-first cell-50">
                     {ms.msOrder}
                 </div>
 
-                <div class="list-item ms-date">
+                <div class="pat-list-cell cell-100">
                     <f:format.date format="d.m.Y">{ms.msStart}</f:format.date>
                 </div>
                 
-                <div class="list-item ms-titel-long">
+                <div class="pat-list-cell cell-bold  cell-600">
                     {ms.msTitel}
                 </div>
-                <div class="list-item ticket-date">
+                <div class="pat-list-cell cell-100">
                     <f:format.date format="d.m.Y">{ms.msEnd}</f:format.date>
                 </div>
-                <div class="list-item ms-status">
+                <div class="pat-list-cell cell-100">
                     Status: {ms.msStatus.statusText}
                 </div>
-                <div class="list-item ms-status">
+                <div class="pat-list-cell cell-100">
                     Tickets open: {ms.msTicketOpen}
                   
                 </div>
+                
             </f:link.action>
-        <div class="ticket-status">
+        <div class="pat-list-cell cell-100">
             <f:if condition="{iter.isFirst} == 0">
                 <f:link.action action="projectMilestonesMoveUp" controller="Project" arguments="{milestone: ms}">
                     <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_up.png" width="17" height="17" alt="new Category" />
