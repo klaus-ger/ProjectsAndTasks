@@ -5,7 +5,9 @@
         <f:for each="{sprints}" as="sprint">
             <li>
                 <div class="pat-list-item clearfix ">
+                    <f:link.action action="projectSprintEdit" arguments="{uid: project.uid, sprintId: sprint.sprint.uid}">
                     <b>{sprint.sprint.sprintTitel} </b>&nbsp;&nbsp;&nbsp;
+                    </f:link.action>
                     start: <f:format.date format="d.m.Y">{sprint.sprint.sprintStart}</f:format.date>
                     end: <f:format.date format="d.m.Y">{sprint.sprint.sprintEnd}</f:format.date>
                 </div>

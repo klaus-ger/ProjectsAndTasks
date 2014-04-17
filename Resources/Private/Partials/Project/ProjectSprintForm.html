@@ -20,12 +20,12 @@
     
     <div class="input-wrap right">
         <label class="small">End Date</label>
-        <input type="date" name="tx_projectsandtasks_pat[sprint][sprintEnd]" value="{f:format.date(format : 'Y-m-d', date : sprint.c)}" class="datepicker">
+        <input type="date" name="tx_projectsandtasks_pat[sprint][sprintEnd]" value="{f:format.date(format : 'Y-m-d', date : sprint.sprintEnd)}" class="datepicker">
     </div>
     
     <div class="input-wrap right">
         <label class="small">Status</label>
-        <f:form.select property="sprintStatus" options="{status}" optionValueField="uid" optionLabelField="statusText" />
+        <f:form.select property="sprintStatus" options="{status}" value="sprintStatus" optionValueField="uid" optionLabelField="statusText" />
     </div>
     
 
