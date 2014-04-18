@@ -707,6 +707,32 @@ select option {
     text-align: right;
     height: 20px;
 }
+
+.timepicker-layer{
+    background-color: #fff;
+    font-size: 11px;
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+    color: #777777;
+    margin-left: 100px;
+}
+.timepicker-row {
+    clear: both;
+}
+.timepicker-border-bottom {
+    border-bottom: 1px solid #dcdcdc;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+.timepicker-border-right {
+    border-right: 1px solid #dcdcdc;
+}
+.timepicker-cell{
+    float: left;
+    padding: 1px 5px;
+    cursor: pointer;
+}
+
 /* Buttons */
 .form-button {
     cursor: pointer;

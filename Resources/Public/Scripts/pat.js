@@ -39,15 +39,6 @@ jQuery("document").ready(function(){
         $.datepicker.setDefaults($.datepicker.regional['de']);
     });
 
-    $("#editor").cleditor({
-        width:        680, // width not including margins, borders or padding
-        height:       250, // height not including margins, borders or padding
-        controls:     // controls to add to the toolbar
-        "bold italic bullets numbering |",
-        bodyStyle:    // style to assign to document body contained within the editor
-        "margin:10px; font:12px/21px 'Lato',​Arial,​Helvetica,​sans-serif; cursor:text; color:#384953; "
-    });
-
 
 
 
@@ -55,465 +46,136 @@ jQuery("document").ready(function(){
         $( ".datepicker" ).datepicker();
         $( "#datepicker2" ).datepicker(); 
         
-        //**********************************************************************/
-        // Header Actions                   ************************************/
-        //**********************************************************************/
-        $('.jqToggleMenu').click(function(e)  { 
-            $('.mobil-nav').toggle();
-        });
+   });
+   
+   $('.timepicker').click(function(e)  { 
+       var timepicker = '<div class="timepicker-layer" style="position: absolute;">';
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">7:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">7:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">7:30</div>';
+       timepicker+=  '<div class="timepicker-cell">7:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">8:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">8:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">8:30</div>';
+       timepicker+=  '<div class="timepicker-cell">8:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">9:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">9:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">9:30</div>';
+       timepicker+=  '<div class="timepicker-cell">9:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">10:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">10:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">10:30</div>';
+       timepicker+=  '<div class="timepicker-cell">10:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">11:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">11:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">11:30</div>';
+       timepicker+=  '<div class="timepicker-cell">11:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">12:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">12:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">12:30</div>';
+       timepicker+=  '<div class="timepicker-cell">12:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">13:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">13:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">13:30</div>';
+       timepicker+=  '<div class="timepicker-cell">13:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">14:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">14:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">14:30</div>';
+       timepicker+=  '<div class="timepicker-cell">14:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">15:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">15:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">15:30</div>';
+       timepicker+=  '<div class="timepicker-cell">15:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">16:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">16:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">16:30</div>';
+       timepicker+=  '<div class="timepicker-cell">16:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">17:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">17:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">17:30</div>';
+       timepicker+=  '<div class="timepicker-cell">17:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">18:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">18:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">18:30</div>';
+       timepicker+=  '<div class="timepicker-cell">18:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">19:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">19:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">19:30</div>';
+       timepicker+=  '<div class="timepicker-cell">19:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">20:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">20:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">20:30</div>';
+       timepicker+=  '<div class="timepicker-cell">20:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">21:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">21:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">21:30</div>';
+       timepicker+=  '<div class="timepicker-cell">21:45</div>';
+       timepicker+= '</div>'
+       
+       timepicker+= '<div class="timepicker-row timepicker-border-bottom clearfix">';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">22:00</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">22:15</div>';
+       timepicker+=  '<div class="timepicker-cell timepicker-border-right">22:30</div>';
+       timepicker+=  '<div class="timepicker-cell">22:45</div>';
+       timepicker+= '</div>'
+       
+        
+           
+       timepicker+='</div>';
+       $(this).closest('.pat-form-wrap').append(timepicker);
+   
+});
+
+ $(document).on("click", ".timepicker-cell", function() {
+     var value = $(this).text();
+     
+     $(this).closest('.pat-form-wrap').find('input').val(value);
+     $('.timepicker-layer').empty();
     
-        //**********************************************************************/
-        // Actions on InBox -> Project Page ************************************/
-        //**********************************************************************/
-        
-        
-        //Inbox Project List: Toggle sub projects
-        $('.jqToggleProjects').click(function(e)  { 
-            var category = $(this).closest('li');
-            //toggle function
-            var subcategories = category.find('ul');
-            subcategories.toggle();
-            if(subcategories.hasClass('hidden'))subcategories.removeClass('hidden') ;
-            //change Icon
-            var icon  = category.find('.jqToggleProjects');
-             
-            if(icon.hasClass('toggle-icon-plus')){
-                icon.removeClass('toggle-icon-plus');
-                icon.addClass('toggle-icon-minus');
-            } else {
-                icon.removeClass('toggle-icon-minus');
-                icon.addClass('toggle-icon-plus');
-            }
-
-        });
-        
-        // Show All Projects
-        $('.jqShowAllProjects').click(function(e)  { 
-            $('ul').each( function() { 
-                $(this).removeClass('hidden');
-                //toggle icon
-                var category = $(this).closest('li');
-                var icon  = category.find('.jqToggleProjects');
-                icon.removeClass('toggle-icon-plus');
-                icon.addClass('toggle-icon-minus');
-            });
-        });
-        
-        // Hide All Sub Projects
-        $('.jqHideSubProjects').click(function(e)  { 
-            $('ul ul').each( function() { 
-                $(this).addClass('hidden');
-            });
-            //toggle Icon
-            $('ul').each( function() { 
-                var category = $(this).closest('li');
-                var icon  = category.find('.jqToggleProjects');
-                icon.removeClass('toggle-icon-minus');
-                icon.addClass('toggle-icon-plus');
-            });
-        });
-    
-        //**********************************************************************/
-        // Actions on Projects -> ToDo Page ************************************/
-        //**********************************************************************/ 
-         
-        //ToDoList: Hide done todos
-        $('.jqLoadTodo').each( function() { 
-            var status = $(this).find('.status').html();
-            status = status.replace(/ /g,'');
-            if( status > 5){
-                $(this).addClass('hidden');
-            }
-                
-        });
-        
-        
-        $('.jqHideDoneTodos').click(function(e)  { 
-            $('.jqLoadTodo').each( function() { 
-                var status = $(this).find('.status').html();
-                status = status.replace(/ /g,'');
-                if( status > 5){
-                    $(this).addClass('hidden');
-                }
-            });
-        });
-        
-        //ToDo List: Show All
-        $('.jqShowAllTodos').click(function(e)  { 
-            
-            $('.jqLoadTodo').each( function() { 
-                $(this).removeClass('hidden');
-            });
-        });
-        
-        //Shows the hidden Edit / New Form on List View
-        $('.form').hide();
-        $('.jqShowForm').click(function(e)  {  
-            $('.form').show();
-            $('html, body').animate({
-                scrollTop: 80
-            });
-            var todoList = $('.jqTodoList').html();
-            $('.jqTodoFormUid').val('');
-            $('.jqTodoFormList').val(todoList);
-            $('.jqTodoFormTitle').val('');
-            $('.jqTodoFormDescription').val('');
-            $('.jqTodoFormComment').val('');
-            $('.jqTodoFormStatus').val('');
-            $('.jqTodoFormTyp').val('');
-            $('.jqTodoFormUser').val('');
-            $('.jqTodoFormPlantime').val('');
-            $('.jqTodoFormStartdate').val('');
-            $('.jqTodoFormEnddate').val('');
-        });
-        
-        
-        //Load ToDo from List into Form
-        $('.jqLoadTodo').click(function(e)  { 
-        
-            var uid = $(this).find('.jqtodo_uid').html();
-            var storagePid = $('.jqStoragePid').html();
-        
-            $.ajax({
-                async: 'true',
-                url: 'index.php',       
-                type: 'POST',  
-          
-                data: {
-                    eID: "ajaxDispatcher",   
-                    request: {
-                        extensionName:  'ProjectsAndTasks',
-                        pluginName:     'patsystem',
-                        controller:     'Project', 
-                        action:         'todoByAjax',
-                        arguments: {
-                            'uid': uid,
-                            'storagePid': storagePid
-                        }
-                    } 
-                },
-                dataType: "json",       
-            
-                success: function(result) {
-                    $('.form').show();
-                    $('html, body').animate({
-                        scrollTop: 80
-                    });
-                    var todoList = $('.jqTodoList').html();
-                    $('.jqTodoFormUid').val(result.uid);
-                    $('.jqTodoFormList').val(todoList);
-                    $('.jqTodoFormTitle').val(result.todoTitel);
-                    $('.jqTodoFormDescription').val(result.todoDescription);
-                    $('.jqTodoFormComment').val(result.todoComment);
-                    $('.jqTodoFormStatus').val(result.todoStatus);
-                    $('.jqTodoFormTyp').val(result.todoTyp);
-                    $('.jqTodoFormUser').val(result.todoAssigned);
-                    $('.jqTodoFormPlantime').val(result.todoPlantime);
-                    $('.jqTodoFormStartdate').val(result.todoDate);
-                    $('.jqTodoFormEnddate').val(result.todoEnd);
-                    console.log(result);
-                
-                },
-                error: function(error) {
-               
-                    console.log(error);                
-                }
-            });
-        
-
-        });
-    
-        //Loads an other ToDolist (select change in Submenu)
-        $('.jqSelectTodoList').change(function(e)  { 
-            $('#todoListSelect').submit();
-        });
-        
-        //Shows the ToDo LIST Form for editing
-        $('.listform').hide();
-        $('.jqEditTodoList').click(function(e)  { 
-            $('.jqTodoListForm').show();
-        });
-        
-        //Shows the ToDo LIST Form for creating a new TodoList
-        $('.jqNewTodoList').click(function(e)  { 
-            $('.jqTodoListFormUid').val('');
-            $('.jqTodoListFormTitle').val('');
-            $('.jqTodoListFormShortTitle').val('');
-            $('.jqTodoListFormDescription').val('');
-            $('.jqTodoListFormStatus').val('');
-            $('.jqTodoListFormOwner').val('');
-            
-            $('.jqTodoListForm').show();
-        });
-        
-        //**********************************************************************/
-        // Actions on Project -> Efforts Page **********************************/
-        //**********************************************************************/
-        
-        //WorkList: Hide invoiced work
-        $('.jqHideInvoiceWork').click(function(e)  { 
-            
-            $('.jqLoadEffort').each( function() { 
-                var status = $(this).find('.status').html();
-                status = status.replace(/ /g,'');
-                if(status == 6)$(this).addClass('hidden');
-                if(status == 1)$(this).addClass('hidden');
-            });
-        });
-        
-        //Work List: Show All
-        $('.jqShowAllWork').click(function(e)  { 
-            
-            $('.jqLoadEffort').each( function() { 
-                $(this).removeClass('hidden');
-            });
-        });
-        
-        //Shows the hidden Edit / New Form on List View
-        $('.form').hide();
-        $('.jqShowForm').click(function(e)  {  
-            $('.form').show();
-            $('html, body').animate({
-                scrollTop: 80
-            });
-            var project = $('.jqEffortProjectUid').html();
-            $('.jqEffortFormUid').val('');
-            $('.jqEffortFormProject').val(project);
-            $('.jqEffortFormTitle').val('');
-            $('.jqEffortFormText').val('');
-            $('.jqEffortFormStatus').val('');
-            //$('.jqEffortFormUser').val(''); 
-            $('.jqEffortFormDate').val('');
-            $('.jqEffortFormStart').val('');
-            $('.jqEffortFormEnd').val('');
-        });
-        
-        
-        //Load Effort from List into Form
-        $('.jqLoadEffort').click(function(e)  { 
-        
-            var uid = $(this).find('.jqEffort_uid').html();
-            var storagePid = $('.jqStoragePid').html();
-        
-            $.ajax({
-                async: 'true',
-                url: 'index.php',       
-                type: 'POST',  
-          
-                data: {
-                    eID: "ajaxDispatcher",   
-                    request: {
-                        extensionName:  'ProjectsAndTasks',
-                        pluginName:     'patsystem',
-                        controller:     'Project', 
-                        action:         'effortByAjax',
-                        arguments: {
-                            'uid':        uid,
-                            'storagePid': storagePid
-                        }
-                    } 
-                },
-                dataType: "json",       
-            
-                success: function(result) {
-                    $('.form').show();
-                    $('html, body').animate({
-                        scrollTop: 80
-                    });
-                    //var project = $('.jqTodoList').html();
-                    $('.jqEffortFormUid').val(result.uid);
-                    $('.jqEffortFormProject').val(result.effortProject);
-                    $('.jqEffortFormTitle').val(result.effortTitel);
-                    $('.jqEffortFormText').val(result.effortDescription);
-                    $('.jqEffortFormStatus').val(result.effortStatus);
-                    $('.jqEffortFormUser').val(result.effortUser);
-                    $('.jqEffortFormDate').val(result.effortDate);
-                    $('.jqEffortFormStart').val(result.effortStart);
-                    $('.jqEffortFormEnd').val(result.effortEnd);
-                    
-                    
-                    console.log(result);
-                
-                },
-                error: function(error) {
-               
-                    console.log(error);                
-                }
-            });
-        
-        
-            console.log(uid);
-        });
-        
-        //**********************************************************************/
-        // Actions on Project -> Budget Page ***********************************/
-        //**********************************************************************/
-        
-        //Shows the hidden Edit / New Form on List View
-        $('.form').hide();
-        $('.jqShowBudgetForm').click(function(e)  {  
-            $('.form').show();
-            $('html, body').animate({
-                scrollTop: 80
-            });
-            
-            $('.jqBudgetFormTitle').val('');
-            $('.jqBudgetListFormInvoice').val('');
-            $('.jqBudgetFormText').val('');
-            $('.jqBudgetFormValue').val('');
-            $('.jqBudgetFormTime').val('');
-            
-        });
-        
-        //Load Budget from List into Form
-        
-        $('.jqLoadBudget').click(function(e)  { 
-        
-            var uid = $(this).find('.jqbudgetListUid').html();
-            var storagePid = $('.jqStoragePid').html();
-        
-            $.ajax({
-                async: 'true',
-                url: 'index.php',       
-                type: 'POST',  
-          
-                data: {
-                    eID: "ajaxDispatcher",   
-                    request: {
-                        extensionName:  'ProjectsAndTasks',
-                        pluginName:     'patsystem',
-                        controller:     'Project', 
-                        action:         'budgetByAjax',
-                        arguments: {
-                            'uid':        uid,
-                            'storagePid': storagePid
-                        }
-                    } 
-                },
-                dataType: "json",       
-            
-                success: function(result) {
-                    $('.form').show();
-                    $('html, body').animate({
-                        scrollTop: 80
-                    });
-                    $('.jqbudgetFormUid').val(result.uid);
-                    $('.jqBudgetFormTitle').val(result.budgetTitle);
-                    $('.jqBudgetFormInvoice').val(result.budgetInvoice);
-                    $('.jqBudgetFormText').val(result.budgetText);
-                    $('.jqBudgetFormValue').val(result.budgetValue);
-                    $('.jqBudgetFormTime').val(result.budgetTime);
-                    
-                    
-                    console.log(result);
-                
-                },
-                error: function(error) {
-               
-                    console.log(error);                
-                }
-            });
-
-        });
-        
-        //**********************************************************************/
-        // Actions on Project -> Ticket Page ***********************************/
-        //**********************************************************************/
-        
-        //Shows the hidden Edit / New Form on List View
-        $('.form').hide();
-        $('.jqShowTicketForm').click(function(e)  {  
-            $('.form').show();
-            $('html, body').animate({
-                scrollTop: 80
-            });
-            
-            $('.jqTicketFormUid').val('');
-            $('.jqTicketFormTicketNo').val('');
-            $('.jqTicketFormTitle').val('');
-            $('.jqTicketFormText').val('');
-            $('.jqTicketFormProject').val('');
-            
-        });
-        
-        //Load Budget from List into Form
-        
-        $('.jqLoadTicket').click(function(e)  { 
-        
-            var uid = $(this).find('.jqTicketListUid').html();
-            var storagePid = $('.jqStoragePid').html();
-        
-            $.ajax({
-                async: 'true',
-                url: 'index.php',       
-                type: 'POST',  
-          
-                data: {
-                    eID: "ajaxDispatcher",   
-                    request: {
-                        extensionName:  'ProjectsAndTasks',
-                        pluginName:     'patsystem',
-                        controller:     'Project', 
-                        action:         'ticketByAjax',
-                        arguments: {
-                            'uid':        uid,
-                            'storagePid': storagePid
-                        }
-                    } 
-                },
-                dataType: "json",       
-            
-                success: function(result) {
-                    $('.form').show();
-                    $('html, body').animate({
-                        scrollTop: 80
-                    });
-                    $('.jqTicketFormUid').val(result.uid);
-                    $('.jqTicketFormTicketNo').val(result.ticketNo);
-                    $('.jqTicketFormTitle').val(result.ticketTitle);
-                    $('.jqTicketFormText').val(result.ticketText);
-                    $('.jqTicketFormProject').val(result.ticketProject);
-                    $('.jqTicketFormStatus').val(result.ticketStatus);
-                    $('.jqTicketFormCreate').html('Erstellt am ' + result.ticketDate + ' | ' + result.ticketOwner);
-                    $('.jqTicketFormTime').val(result.ticketTime);
-                    $('.jqTicketFormDeadline').val(result.ticketDeadline);
-                    $('.jqTicketFormAssigned').val(result.ticketAssigned);
-                    if(result.ticketInvoice == 1) $('.jqTicketFormInvocie').attr("checked",true);
-                    if(result.ticketInvoice == 0) $('.jqTicketFormInvocie').removeAttr("checked");
-                    
-                    $("#editor").cleditor()[0].refresh();
-                    console.log(result);
-                
-                },
-                error: function(error) {
-               
-                    console.log(error);                
-                }
-            });
-
-        });
-
-        //**********************************************************************/
-        // Actions on Project -> Ticket Detail Page ****************************/
-        //**********************************************************************/
-        
-        $('.jqShowTicketAufwandForm').click(function(e)  {  
-            $('.effortsform').removeClass('hidden');
-            $('.notesform').addClass('hidden');
-            $('html, body').animate({
-                scrollTop: 80
-            });
-        });
-        
-        $('.jqShowTicketNoteForm').click(function(e)  {  
-            $('.notesform').removeClass('hidden');
-            $('.effortsform').addClass('hidden');
-            $('html, body').animate({
-                scrollTop: 80
-            });
-        });
-        
-    });
+ });
 
  
     
