@@ -53,7 +53,12 @@
             <label class="form-field w100">Status</label>
             <div class="styled-select field-200">
             <f:form.select property="projectStatus" options="{status}" optionValueField="uid" optionLabelField="statusText" class="right"/>
+            </div>
         </div>
+        
+        <div class="pat-form-wrap">
+            <label class="form-field w100">Budget Time (h)</label>
+            <f:form.textfield property="projectBudgetTime" value="{project.projectBudgetTime}" class="form-control field-100"/>
         </div>
 
         <div class="pat-form-wrap">&nbsp;</div>

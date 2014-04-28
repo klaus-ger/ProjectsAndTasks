@@ -136,6 +136,14 @@ $TCA['tx_projectsandtasks_domain_model_projects'] = array(
                 'size' => 100,
             )
         ),
+        'project_budget_time' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
     ),
 );
 ?>

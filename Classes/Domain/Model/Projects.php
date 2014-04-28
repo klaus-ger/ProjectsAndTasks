@@ -105,6 +105,13 @@ class Projects extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $projectClient;
 
+    /**
+     * The Project Budget Time
+     * @var \int
+     * 
+     */
+    protected $projectBudgetTime;
+    
     public function getProjectNumber() {
        return 'P-' . str_pad($this->uid, 3, "0", STR_PAD_LEFT) ;
     }
@@ -178,6 +185,14 @@ class Projects extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setProjectClient($projectClient) {
         $this->projectClient = $projectClient;
+    }
+
+    public function getProjectBudgetTime() {
+        return $this->projectBudgetTime;
+    }
+
+    public function setProjectBudgetTime($projectBudgetTime) {
+        $this->projectBudgetTime = $projectBudgetTime;
     }
 
 

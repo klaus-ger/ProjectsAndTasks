@@ -116,6 +116,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_projects (
     project_short varchar(255) DEFAULT '' NOT NULL,
     project_date varchar(255) DEFAULT '' NOT NULL,
     project_owner int(11) unsigned DEFAULT '0' NOT NULL,
+    project_budget_time int(11) unsigned DEFAULT '0' NOT NULL,
     project_status tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     project_text text,
     project_cat tinyint(4) unsigned DEFAULT '0' NOT NULL, 
