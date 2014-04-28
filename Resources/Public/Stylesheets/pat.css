@@ -864,6 +864,7 @@ select option {
         width: 150px;
         text-align: right;
         font-size: 90%;
+        line-height: 18px;
     }
     /* SUB Navigation ********************************************************/
     #pat .stage-sub-navi {

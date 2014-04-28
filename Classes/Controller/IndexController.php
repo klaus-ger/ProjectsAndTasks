@@ -98,10 +98,11 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             //aktual date 
             $acutalString = date('d-m-Y');
             $lastString = date('d-m-Y', $stats[0]->getStatsDate()->getTimestamp());
-            
-           
+
+
             if ($acutalString == $lastString) {
-            }else{
+                
+            } else {
                 $newStat = new \T3developer\ProjectsAndTasks\Domain\Model\Statistic;
                 $newStat->setStatsDate(time());
                 $newStat->setStatsTickets($countOpenTickets);
@@ -120,12 +121,54 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->statisticRepository->add($newStat);
         }
 
+        //find statics
+        $stats = $this->statisticRepository->findLastStatForGraph();
+        
+        //find max value
+        $max = 0;
+        foreach ($stats as $stat) {
+            if( $stat->getStatsTickets() > $max) {
+                $max = $stat->getStatsTickets();
+            }
+            if( $stat->getStatsOpentime()/3600 > $max) {
+                $max = $stat->getStatsOpentime()/3600;
+            }
+            if( $stat->getStatsAge() > $max) {
+                $max = $stat->getStatsAge();
+            }
+        }
+        
+        //write % stst array
+        $li = 0;
+        $statArray['date'] = '';
+        $statArray['ticket'] = '';
+        $statArray['time'] ='';
+        $statArray['age'] = '';
+        foreach ($stats as $stat) {
+            $time = $stat->getStatsOpentime()/3600;
+            $statArray['date'][$li]   = date('d.m.', $stat->getStatsDate()->getTimestamp());
+            $statArray['ticket'][$li] = round($stat->getStatsTickets() *100/$max);
+            $statArray['time'][$li]   = round($time*100/$max);
+            $statArray['age'][$li]    = round($stat->getStatsAge()*100/$max);
+
+            $li++;
+            if ($li == 10) {
+                break;
+            }
+        }
+        $statArray['date'] = implode(',', $statArray['date']); 
+        $statArray['ticket'] = implode(',', $statArray['ticket']);
+        $statArray['time'] = implode(',', $statArray['time']);
+        $statArray['age'] = implode(',', $statArray['age']);; 
+
+        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($statArray, 'dokument');
+
+
         $this->view->assign('countOpenTickets', $countOpenTickets);
         $this->view->assign('openTime', $openTime);
         $this->view->assign('openAge', round($averageAge, 2));
-        //$this->view->assign('user', $this->user);
+        $this->view->assign('statArray', $statArray);
     }
 
 }
-
 ?>

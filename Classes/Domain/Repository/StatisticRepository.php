@@ -48,6 +48,22 @@ class StatisticRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
+    
+          /**
+     * find last stat entry
+     * 
+     * 
+     * @return object
+     */
+    public function findLastStatForGraph() {
+        $query = $this->createQuery();
+    $orderings = array('stats_date' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+    $query->setOrderings($orderings);
+    $query ->setLimit(10);
+ 
+
+        return $query->execute();
+    }
 }
 
 ?>

@@ -44,9 +44,17 @@
             
             <div class="pat-stage-right">
                 <div class="pat-stage-inside">
-                    <h4>Graph</h4>
-                    <br />
-                    <br />
+                    <h4>Trend</h4>
+                    <div class="hidden chartDate">{statArray.date}</div>
+                    <div class="hidden chartTicket">{statArray.ticket}</div>
+                    <div class="hidden chartTime">{statArray.time}</div>
+                    <div class="hidden chartAge">{statArray.age}</div>
+                    
+                    <canvas id="myChart" width="319" height="200"></canvas>
+                     <br />
+                    &nbsp;&nbsp;
+                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/graph-legend.png" width="268" height="16" alt="legend" />
+                   
                     <div class="pat-spacer"></div>
                     <h4>My Summary</h4>
                     <div class="pat-form-wrap">

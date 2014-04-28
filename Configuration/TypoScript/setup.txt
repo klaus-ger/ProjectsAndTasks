@@ -107,7 +107,7 @@ page {
     
     tx_projects_file_2 = EXT:projects_and_tasks/Resources/Public/Scripts/CLEditor/jquery.cleditor.min.js
     tx_projects_file_3 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery-ui-1.10.3.custom.min.js
-    
+    tx_projects_file_4 = EXT:projects_and_tasks/Resources/Public/Scripts/jquery.chart.min.js
     tx_projects_file_7 = EXT:projects_and_tasks/Resources/Public/Scripts/pat.js
     }
 }
