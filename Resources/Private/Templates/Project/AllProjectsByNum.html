@@ -3,71 +3,89 @@
 <f:section name="main">
     <div class="pat-stage">
 
-        <h2>Projects</h2>
-
-        <div class="stage-navi clearfix">
-
-            <div class="stage-navi-navi">
-                <ul>
-                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-                    <f:link.action action="allProjectsByCat">
-                        Projects by Kategory
-                    </f:link.action>
-                    </li>
-                    <li class="{f:if(condition: '{mainmenu} == 2', then: ' active')}">
-                    <f:link.action action="allProjectsByNum">
-                        Projects by Number
-                    </f:link.action>
-                    </li>
-
-                    <li class="{f:if(condition: '{mainmenu} == 3', then: ' active')}">
-                    <f:link.action action="allProjectsByArchive" arguments="{uid: project.uid}">
-                        Archive
-                    </f:link.action>
-                    </li>
-
-                </ul>
-                <ul class="right">
-                    <li>
-                    <f:link.action action="projectNew">
-                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Project" />
-                    </f:link.action>
-                    </li>
-                </ul>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Projects</h2>
+                </div>
             </div>
+        </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                                <f:link.action action="allProjectsByCat">
+                                    Projects by Kategory
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                <f:link.action action="allProjectsByNum">
+                                    Projects by Number
+                                </f:link.action>
+                                </li>
 
-            <div class="pat-list">
-                <br />
-                <!-- projects without Cat -->
-                <f:for each="{projects}" as="project" iteration="iterWO">
-                    <f:link.action action="projectIndex" arguments="{uid: project.uid}">
-                        <div class="pat-list-item clearfix {f:if(condition: '{iterWO.isEven} == 1', then: ' even', else: ' odd')}">
-                            <div class="pat-list-cell cell-first cell-50">
-                                {project.projectNumber}
-                            </div>
-                            <div class="pat-list-cell cell-bold cell-700">
-                                {project.projectTitel}
-                            </div>
-                            <div class="pat-list-cell cell-200">
-                                {project.projectCat.catParent.catTitle} {project.projectCat.catTitle}
-                            </div>
-                            <div class="pat-list-cell cell-100">
-                                {project.projectStatus.statusText}
-                            </div>
-                           <div class="pat-list-cell cell-100">
-                                {project.openTickets} Tickets open
-                            </div>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
+                                <f:link.action action="allProjectsByArchive" arguments="{uid: project.uid}">
+                                    Archive
+                                </f:link.action>
+                                </li>
+
+                            </ul>
+
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="projectNew">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </f:link.action>
+                                </li>
+                            </ul>
                         </div>
-                    </f:link.action>
-                </f:for>
-                <!-- Projects By Cat -->
-  
-            </div>
+                        <div class="panel-body">
+                            <!-- Projects without cat -->
+                            <f:for each="{projects}" as="project" iteration="iterWO">
+                                    <f:link.action action="projectIndex" arguments="{uid: project.uid}">
+                                        <div class="pat-list-item clearfix {f:if(condition: '{iterWO.isEven} == 1', then: ' even', else: ' odd')}">
+                                            <div class="pat-list-cell cell-first cell-50">
+                                                {project.projectNumber}
+                                            </div>
+                                            <div class="pat-list-cell cell-bold cell-600">
+                                                {project.projectTitel}
+                                            </div>
+                                            <div class="pat-list-cell cell-200">
+                                                {project.projectCat.catParent.catTitle} {project.projectCat.catTitle}
+                                            </div>
+                                            <div class="pat-list-cell cell-100">
+                                                {project.projectStatus.statusText}
+                                            </div>
+                                            <div class="pat-list-cell cell-100">
+                                                {project.openTickets} Tickets open
+                                            </div>
+                                        </div>
+                                    </f:link.action>
+                                </f:for>
 
+
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
 
         </div>
+
+
+
+
     </div><!-- end main Frame -->
+
+   
 
 </f:section>

@@ -49,23 +49,27 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         return $query->execute();
     }
     
-        /**
+    
+    /**
      * findOpenTickets ordered by scheduel
-     * 
+     * @param int $userId Description
      * @return object
      */
-    public function findOpenTicketsScheduled() {
+    public function findOpenTicketsScheduled($userId) {
         $orderings = array('ticketScheduleDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
         $query = $this->createQuery();
         $query->setOrderings($orderings);
         $query->matching(
-                $query->equals('ticketStatus.statusBehaviour', 0)
+                $query->logicalAnd(array(
+                $query->equals('ticketStatus.statusBehaviour', 0),
+                $query->equals('ticketAssigned', $userId)
+                    ))
         );
 
         return $query->execute();
     }
 
-        /**
+    /**
      * findOpenTickets
      * @param int $userId Description
          * 

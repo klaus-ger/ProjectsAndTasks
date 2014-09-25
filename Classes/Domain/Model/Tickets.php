@@ -136,6 +136,10 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         return '#' . str_pad($this->uid, 4, "0", STR_PAD_LEFT);
     }
 
+    /**
+     * 
+     * @return \T3developer\ProjectsAndTasks\Domain\Model\Projects
+     */
     public function getTicketProject() {
         return $this->ticketProject;
     }

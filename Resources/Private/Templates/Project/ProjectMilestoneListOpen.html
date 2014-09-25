@@ -5,43 +5,57 @@
 
         <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Milestones</h4>
+                </div>
+            </div>
+        </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link{f:if(condition: '{submenu} == 1', then: ' active')}">
+                                <f:link.action action="projectMilestoneListAll" arguments="{uid: project.uid}">
+                                    all
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link{f:if(condition: '{submenu} == 2', then: ' active')}">
+                                <f:link.action action="projectMilestoneListOpen" arguments="{uid: project.uid}">
+                                    open
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link{f:if(condition: '{submenu} == 3', then: ' active')}">
+                                <f:link.action action="projectMilestoneListClosed" arguments="{uid: project.uid}">
+                                    achived
+                                </f:link.action>
+                                </li>
+                            </ul>
 
-        <br />
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="projectMilestonesNew" arguments="{uid: project.uid}">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
+                                </f:link.action>
+                                </li>
+                            </ul>
 
-        <h3>Milestones</h3>
-        <div class="stage-list">
-            <div class="stage-sub-navi">
-                <div class="stage-sub-navi-top">
-                    <ul>
-                        <li class="{f:if(condition: '{submenu} == 1', then: ' active')}">
-                            <f:link.action action="projectMilestoneListAll" arguments="{uid: project.uid}">
-                                all
-                            </f:link.action>
-                        </li>
-                        <li class="{f:if(condition: '{submenu} == 2', then: ' active')}">
-                            <f:link.action action="projectMilestoneListOpen" arguments="{uid: project.uid}">
-                                open
-                            </f:link.action>
-                        </li>
-                        <li class="{f:if(condition: '{submenu} == 3', then: ' active')}">
-                            <f:link.action action="projectMilestoneListClosed" arguments="{uid: project.uid}">
-                                achived
-                            </f:link.action>
-                        </li>
-                    </ul>
-                    <ul class="right">
-                        <li>
-                        <f:link.action action="projectMilestonesNew" arguments="{uid: project.uid}">
-                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
-                        </f:link.action></li>
-                    </ul>
+                        </div>
+
+                        <div class="panel-body">
+                            <f:render partial="Project/ProjectMilestonesList" arguments="{_all}"/>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-
-            <f:render partial="Project/ProjectMilestonesListStatus" arguments="{_all}"/>
         </div>
+
+    
 
 
 

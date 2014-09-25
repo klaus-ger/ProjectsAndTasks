@@ -6,76 +6,105 @@
         <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
 
 
-
-        <br />
-
-        <h3>Project Team</h3>
-        <div class="stage-list clearfix">
-            <div class="stage-sub-navi">
-                <div class="stage-sub-navi-top">
-                    <ul>
-                        <li class="{f:if(condition: '{submenu} == 1', then: ' active')}">
-                        <f:link.action action="projectContractList" arguments="{uid: project.uid}">
-                            Team
-                        </f:link.action>
-                        </li>
-
-                    </ul>
-                    <ul class="right">
-                        <li>
-
-                        <f:link.action action="projectTeamNew" arguments="{uid: project.uid}">
-                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new projectMember" />
-                        </f:link.action>
-
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="pat-stage-inner-left">
-                <div class="pat-list">
-                    <f:for each="{projectteam}" as="member" iteration="iterPerson">
-                        <div class="pat-list-item clearfix {f:if(condition: '{iterPerson.isEven} == 1', then: ' even', else: ' odd')}">
-                            <div class="list-item ticket-titel">
-                                {member.ptUser.firstName} {member.ptUser.lastName}
-                            </div>
-
-                            <div class="list-item ticket-status-inline">
-                                Tel: {member.ptUser.telephone}
-                            </div>
-                            <f:link.action action="projectTeamDelete" arguments="{uid: project.uid, memberUid: member.uid}">
-                                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="14" height="14" alt="delete Project Member" />
-                            </f:link.action>
-                        </div>
-                    </f:for>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Project Team</h4>
                 </div>
             </div>
-
-            <div class="pat-stage-inner-right">
-                <div class="pat-form">
-                <f:form action="projectTeamSave" name="teamMember" object="{teamMember}">
-                    <f:form.hidden property="ptProject" value="{project.uid}" />
-                    <div class="pat-form-wrap">
-                        <h4>Add Member</h4>
-                    </div>
-                    <div class="pat-form-wrap">
-                        <f:form.select property="ptUser" options="{persons}" optionValueField="uid" optionLabelField="fullname" prependOptionLabel="-- Person --" /><br />
-                    </div>
-                    <div class="pat-form-wrap">
-                        <f:form.submit value="save" class="button"/>
-                    </div>    
-                        
-                </f:form>
-                </div>
-            </div>
-
-
         </div>
 
-        <div class="clear"></div><br /><br />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link{f:if(condition: '{submenu} == 1', then: ' active')}">
+                                <f:link.action action="projectContractList" arguments="{uid: project.uid}">
+                                    Team
+                                </f:link.action>
+                                </li>
+
+                            </ul>
+
+                            <ul class="pull-right">
+
+                            </ul>
+
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="pat-list-item clearfix">
+                                <div class="pat-list-cell cell-50"></div>
+                                <div class="pat-list-cell cell-200 cell-first">
+                                    {project.projectOwner.firstName} {project.projectOwner.lastName}
+                                </div>
+
+                                <div class="pat-list-cell cell-200">
+                                    Tel: {member.ptUser.telephone}
+                                </div>
+                                <div class="pat-list-cell cell-200">
+                                    (Project Owner)
+                                </div>
+                            </div>
+
+                            <f:for each="{projectteam}" as="member" iteration="iterPerson">
+                                <div class="pat-list-item clearfix {f:if(condition: '{iterPerson.isEven} == 1', then: ' even', else: ' odd')}">
+                                    <div class="pat-list-cell cell-50"></div>
+                                    <div class="pat-list-cell cell-200">
+                                        {member.ptUser.firstName} {member.ptUser.lastName}
+                                    </div>
+
+                                    <div class="pat-list-cell cell-200">
+                                        Tel: {member.ptUser.telephone}
+                                    </div><div class="pat-list-cell cell-50">
+                                        <f:link.action action="projectTeamDelete" arguments="{uid: project.uid, memberUid: member.uid}">
+                                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="14" height="14" alt="delete Project Member" />
+                                        </f:link.action>
+                                    </div>
+                                </div>
+                            </f:for>
+
+
+
+                        </div>
+
+                        <div class="panel-footer clearfix">
+                            <h5>Add Member</h5>
+                            <f:form action="projectTeamSave"  enctype="multipart/form-data"  name="teamMember" object="{teamMember}" class="form-horizontal" >
+
+                                <f:form.hidden property="projectUid" value="{project.uid}" />
+
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+                                        <div class="col-sm-10">
+                                            <f:form.select property="ptUser" options="{persons}" optionValueField="uid" optionLabelField="fullname" prependOptionLabel="-- Person --" class="form-control"/>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+                                <div class="col-md-2"></div>
+                                <div class="col-md-1 pull-right">
+                                    <f:form.submit value="   save    " class="btn btn-primary"/>
+                                </div>
+
+
+                            </f:form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+
 
 
 

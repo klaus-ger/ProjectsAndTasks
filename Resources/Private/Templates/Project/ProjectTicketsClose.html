@@ -5,55 +5,70 @@
 
         <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
 
-
-
-        <br />
-
-        <h3>Tickets closed</h3>
-        
-        <div class="stage-list">
-            
-        <div class="stage-sub-navi">
-            <ul>
-                <li >
-                    <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
-                        Open by Milestone <span class="sub-navi-small"></span>
-                    </f:link.action>
-                </li>
-                <li >
-                    <f:link.action action="projectTicketsOpenNo" arguments="{uid: project.uid}">
-                        Open By Date 
-                    </f:link.action>
-                </li>
-                <li class="active">
-                    <f:link.action action="projectTicketsClose" arguments="{uid: project.uid}">
-                        closed
-                    </f:link.action>
-                </li>
-                <li>
-                    <f:link.action action="projectTicketsAll" arguments="{uid: project.uid}">
-                        all
-                    </f:link.action>
-                </li>
-            </ul>
-            <ul class="right">
-                <li>
-                    <f:link.action action="writePdfTicketlist" arguments="{uid: project.uid}">
-                        pdf
-                    </f:link.action>
-                </li>
-                <li>
-                    <f:link.action action="projectTicketNew" arguments="{uid: project.uid}">
-                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
-                    </f:link.action>
-                </li>
-            </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Tickets</h4>
+                </div>
+            </div>
         </div>
-        
-         <f:render partial="Project/ProjectTicketList" arguments="{_all}"/>
-         
-         
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link">
+                                <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+                                    Open by Milestone <span class="sub-navi-small"></span>
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link">
+                                <f:link.action action="projectTicketsOpenNo" arguments="{uid: project.uid}">
+                                    Open By Date 
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link active">
+                                <f:link.action action="projectTicketsClose" arguments="{uid: project.uid}">
+                                    closed
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link">
+                                <f:link.action action="projectTicketsAll" arguments="{uid: project.uid}">
+                                    all
+                                </f:link.action>
+                                </li>
+
+
+                            </ul>
+
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="writePdfTicketlist" arguments="{uid: project.uid}">
+                                    pdf
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link">
+                                <f:link.action action="projectTicketNew" arguments="{uid: project.uid}">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
+                                </f:link.action>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="panel-body">
+                             <f:render partial="Project/ProjectTicketList" arguments="{_all}"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+
+
+       
 
     </div>
 

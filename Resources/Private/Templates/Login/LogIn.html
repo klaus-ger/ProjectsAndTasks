@@ -3,55 +3,49 @@
 <f:section name="main">
 
     <div class="pat-stage">
-        
 
-            <form class="pat-login"
-                  action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}"
-                  method="post" onsubmit="{onSubmit}">
-                <fieldset>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
 
-                    <ptextbase:flashMessages renderMode="div"
-                                             messageCssClasses="{0: 'alert alert-success', 1: 'alert alert-warning', 2: 'alert alert-error'}"/>
+                <div class="col-md-4">
+                    <h2>Login</h2>
+                    <form class="pat-login"
+                          action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}"
+                          method="post" onsubmit="{onSubmit}">
 
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Username</span>
+                                <input type="text" class="form-control" placeholder="Username" id="user" name="user" />
+                            </div>
+                        </div>
 
-                    <input type="text" id="user" name="user"  placeholder="user"/><br 7>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Passwort&nbsp;</span>
+                                <input type="password" id="pass" name="pass"  placeholder="password" class="form-control"/>
+                            </div>
+                        </div>
 
-                    <input type="password" id="pass" name="pass"  placeholder="password"/>
+                        <div class="hidden">
+                            <input type="hidden" name="logintype" value="login"/>
+                            <input type="hidden" name="id" value="{currentPid}"/>
+                            <input type="hidden" name="redirect_url" value="{currentPid}"/>
+                            <input type="hidden" name="pid" value="{storagePid}"/>
+                            <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
+                        </div>
+                        
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary active">absenden</button>
+                        </div>
+                    </form>
+                </div>
 
-
-                    
-                        <input id="button"class="button" type="submit" name="submit" value="   OK   "/>
-                    
-
-                    <div class="felogin-hidden">
-                        <input type="hidden" name="logintype" value="login"/>
-                        <input type="hidden" name="id" value="{currentPid}"/>
-                        <input type="hidden" name="redirect_url" value="{currentPid}"/>
-                        <input type="hidden" name="pid" value="{storagePid}"/>
-                        <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
-                    </div>
-                </fieldset>
-            </form>    
-
-        
-                    <div class="login">
-               
-
-                <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
-
-                    <input id="button" type="submit" name="submit" value="abmelden" class="logoutbutton"/>
-
-                    <div class="felogin-hidden">
-                        <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
-                        <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
-                        <input type="hidden" name="logintype" value="logout"/>
-                        <input type="hidden" name="id" value="{currentPid}"/>
-                        <input type="hidden" name="redirect_url" value="{currentPid}"/>
-                        <input type="hidden" name="pid" value="{storagePid}"/>
-                        <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
-                    </div>
-
-                </form>  
+                <div class="col-md-4"></div>
             </div>
+
+        </div>
+    </div>
 
 </f:section>

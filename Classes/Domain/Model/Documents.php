@@ -47,13 +47,13 @@ class Documents extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $docDescription;
 
- /**
-	 * File reference for FAL
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\ProjectsAndTasks\Domain\Model\FileReference>
-	 * @lazy
-	 */
-	protected $files;
+    /**
+     * File reference for FAL
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\ProjectsAndTasks\Domain\Model\FileReference>
+     * @lazy
+     */
+    protected $files;
 
     /**
      * Construct
@@ -88,34 +88,34 @@ class Documents extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     }
 
     /**
-	 * Returns the files
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-	 */
-	public function getFiles() {
-		return $this->files;
-	}
+     * Returns the files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getFiles() {
+        return $this->files;
+    }
 
-	/**
-	 * Sets the files
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
-	 * @return void
-	 */
-	public function setFiles($files) {
-		$this->files = $files;
-	}
+    /**
+     * Sets the files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
+     * @return void
+     */
+    public function setFiles($files) {
+        $this->files = $files;
+    }
 
-	/**
-	 * Adds a file
-	 *
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $file
-	 *
-	 * @return void
-	 */
-	public function addFile(\TYPO3\CMS\Extbase\Domain\Model\FileReference $file) {
-		$this->files->attach($file);
-	}
+    /**
+     * Adds a file
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $file
+     *
+     * @return void
+     */
+    public function addFile(\TYPO3\CMS\Extbase\Domain\Model\FileReference $file) {
+        $this->files->attach($file);
+    }
 
 }
 

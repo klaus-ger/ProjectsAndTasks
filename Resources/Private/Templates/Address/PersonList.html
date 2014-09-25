@@ -3,61 +3,79 @@
 <f:section name="main">
     <div class="pat-stage">
 
-        <h2>Address</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Address</h2>
+                </div>
+            </div>
+        </div>
 
-        <div class="stage-navi clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                                <f:link.action action="settingsProjectCat">
+                                    Persons
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                <f:link.action action="companyList">
+                                    Companies
+                                </f:link.action>
+                                </li>
 
-            <div class="stage-navi-navi">
-                <ul>
-                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-                    <f:link.action action="settingsProjectCat">
-                        Persons
-                    </f:link.action>
-                    </li>
-                    <li class="{f:if(condition: '{mainmenu} == 2', then: ' active')}">
-                    <f:link.action action="companyList">
-                        Companies
-                    </f:link.action>
-                    </li>
+                            </ul>
 
-
-
-                </ul>
-                <ul class="right">
-                    <li>
-                    <f:link.action action="personNew">
-                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
-                    </f:link.action>
-                    </li>
-                </ul>
-
-            </div>   
-
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="personNew">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
+                                </f:link.action>
+                                </li>
+                            </ul>
 
 
 
-            <f:for each="{persons}" as="person" iteration="iter">
+                        </div>
 
-                <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                    
+                        <div class="panel-body">
+                            <div class="col-md-12">&nbsp;</div>
+                            <f:for each="{persons}" as="person" iteration="iter">
 
-                            <f:link.action action="personEdit" arguments="{person: person.uid}">
-                            <div class="list-item cat-no">
-                                {cat.main.catOrder}
-                            </div>
-                            <div class="list-item cat-titel">
-                                {person.firstName} {person.lastName} ({person.username})
-                            </div>
-                            </f:link.action>
-                            <div class="list-item project-status">
-                                {company.cyPLZ} {company.cyCity}
-                            </div>
-                    
-                    
+                                <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+
+
+                                    <f:link.action action="personEdit" arguments="{person: person.uid}">
+                                        <div class="list-item cat-no">
+                                            {cat.main.catOrder}
+                                        </div>
+                                        <div class="list-item cat-titel">
+                                            {person.firstName} {person.lastName} ({person.username})
+                                        </div>
+                                    </f:link.action>
+                                    <div class="list-item project-status">
+                                        {company.cyPLZ} {company.cyCity}
+                                    </div>
+
+
+                                </div>
+
+                            </f:for>
+                        </div>
+
+
+
+                    </div>
                 </div>
 
-            </f:for>
+            </div>
         </div>
+
+       
 
     </div>
 

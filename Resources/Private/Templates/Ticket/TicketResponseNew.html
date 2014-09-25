@@ -1,0 +1,137 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>open Tickets assigned to me</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link active">
+                                    Ticket Details
+                                </li>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                                <f:link.action action="ticketListDate">
+                                    Open by Date
+                                </f:link.action>
+                                </li>
+
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                <f:link.action action="ticketListScheduled">
+                                    Open by Deadline
+                                </f:link.action>
+                                </li>
+
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 4', then: ' active')}">
+                                <f:link.action action="ticketListProject" >
+                                    Open by Project
+                                </f:link.action>
+                                </li>
+
+
+
+                            </ul>
+
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="ticketEdit" arguments="{uid: ticket.uid}" class="button">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Ticket edit" />
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link">
+                                <f:link.action action="ticketListDate" class="button">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket close" />
+                                </f:link.action>
+                                </li>
+                            </ul>
+
+
+
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="col-md-7">
+                                <table class="table">
+                                    <tr>
+                                        <td>{ticket.ticketNummer} | <b>{ticket.ticketTitel}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><f:format.html>{ticket.ticketText}</f:format.html></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td>Start</td>
+                                        <td>
+                                    <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scheduled</td>
+                                        <td>
+                                    <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Assigned</td>
+                                        <td>
+                                            {ticket.ticketAssigned.username}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td>
+                                            {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Time Budget</td>
+                                        <td>
+                                    <vh:time time="{ticket.ticketScheduleTime}"  />
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Worked</td>
+                                        <td>
+                                    <vh:time time="{worktime}"  />
+                                    </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="panel-footer clearfix">
+                            <h5>New Note</h5>
+                                <f:form action="ticketResponseSave" name="response" object="{response}" class="form-horizontal">
+
+                                    <f:render partial="Project/ResponseForm" arguments="{_all}"/>
+
+                                </f:form>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+
+</f:section>

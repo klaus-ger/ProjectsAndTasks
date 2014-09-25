@@ -1,56 +1,61 @@
 <f:form.hidden property="trTicket" value="{ticket.uid}" />
 <f:form.hidden property="trOwner" value="{response.trOwner}" />
 
-<div class="pat-stage-left">
-    <div class="pat-stage-inside">
-
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Titel</label>
-            <f:form.textfield property="trTitel" value="{response.trTitel}" class="form-control field-600"/>
+<div class="col-md-7">
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="trTitel" value="{response.trTitel}" class="form-control"/>
         </div>
-
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Ticket Text</label>
-            <f:form.textarea cols="50" rows="10" property="trText" value="{response.trText}" class="form-control field-height-200 field-600"/>
+    </div>
+    
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Text</label>
+        <div class="col-sm-10">
+             <f:form.textarea cols="50" rows="10" property="trText" value="{response.trText}" class="form-control"/>
         </div>
+    </div>
+    
+    
+</div>
 
-        
+<div class="col-md-1"></div>
 
+<div class="col-md-4">
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Date</label>
+        <div class="col-sm-10">
+              <input type="date" name="tx_projectsandtasks_pat[response][trDate]" value="{f:format.date(format : 'd-m-Y', date : response.trDate)}" class="datepicker form-control" data-date-format="dd-mm-yyyy"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Start</label>
+        <div class="col-sm-10">
+              <f:form.textfield property="trStart" value="{response.trStart}" class="form-control timepicker"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">End</label>
+        <div class="col-sm-10">
+              <f:form.textfield property="trEnd" value="{response.trEnd}" class="form-control timepicker"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Worktime</label>
+        <div class="col-sm-10">
+               <f:form.select property="trTyp" options="{status}" optionValueField="uid" optionLabelField="statusText" prependOptionLabel="-- Time Typ --" class="form-control"/>
+        </div>
+    </div>
+    
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <f:form.submit value="   save    " class="btn btn-primary"/>
     </div>
 </div>
 
-<div class="pat-stage-right">
-    <div class="pat-stage-inside">
 
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Date</label>
-            <input type="date" name="tx_projectsandtasks_pat[response][trDate]" value="{f:format.date(format : 'Y-m-d', date : response.trDate)}" class="datepicker form-control field-100"/>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Start</label>
-             <f:form.textfield property="trStart" value="{response.trStart}" class="form-control field-100 timepicker"/>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">End</label>
-             <f:form.textfield property="trEnd" value="{response.trEnd}" class="form-control field-100 timepicker"/>
-        </div>
-
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Worktime</label>
-            <div class="styled-select field-200">
-            <f:form.select property="trTyp" options="{status}" optionValueField="uid" optionLabelField="statusText" prependOptionLabel="-- Time Typ --" />
-            </div>
-        </div>
-        
-        <div class="pat-form-wrap">&nbsp;</div>
-        <div class="pat-form-wrap">
-            <label class="form-field w100">&nbsp;</label>
-            <f:form.submit value="save" class="btn"/>
-        </div>
-        
-    </div>
-</div>
 
 

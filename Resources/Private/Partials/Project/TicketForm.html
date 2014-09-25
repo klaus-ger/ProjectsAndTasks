@@ -1,87 +1,93 @@
 <f:form.hidden property="ticketProject" value="{ticket.ticketProject}" />
 <f:form.hidden property="ticketOwner" value="{ticket.ticketOwner}" />
-<div class="pat-stage-left">
-    <div class="pat-stage-inside">
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Ticket Titel</label>
-            <f:form.textfield property="ticketTitel" value="{ticket.ticketTitel}" class="form-control field-600"/>
+
+<div class="col-md-7">
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Ticket Title</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="ticketTitel" value="{ticket.ticketTitel}" class="form-control" placeholder="Ticket Title"/>
         </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Ticket Text</label>
-            <f:form.textarea cols="50" rows="10" property="ticketText" value="{ticket.ticketText}" class="form-control field-height-200 field-600"/>
-        </div>
-        
-        <div class="pat-form-wrap">&nbsp;</div>
-        <div class="pat-form-wrap">
-            <label class="form-field w100">&nbsp;</label>
-        <f:form.submit value="save" class="btn"/>
-        </div>
-        
     </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Ticket text</label>
+        <div class="col-sm-10">
+            <f:form.textarea cols="50" rows="10" property="ticketText" value="{ticket.ticketText}" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <f:form.submit value="   save    " class="btn btn-primary"/>
+    </div>
+
+</div>
+<div class="col-md-1"></div>
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">Milestone</label>
+        <div class="col-sm-8">
+            <f:form.select property="ticketMilestone" options="{milestones}" optionValueField="uid" optionLabelField="msTitel" prependOptionLabel="-- Milestone --" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">Sprint</label>
+        <div class="col-sm-8">
+            <f:form.select property="ticketSprint" options="{sprints}" optionValueField="uid" optionLabelField="sprintTitel" prependOptionLabel="-- Sprint --" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">Custom ID</label>
+        <div class="col-sm-8">
+            <f:form.textfield property="ticketCustomId" value="{ticket.ticketCustomId}" class="form-control "/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">Date</label>
+        <div class="col-sm-8">
+            <input type="date" name="tx_projectsandtasks_pat[ticket][ticketDate]" value="{f:format.date(format : 'd-m-Y', date : ticket.ticketDate)}" class="datepicker form-control" data-date-format="dd-mm-yyyy"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">Planed Time</label>
+        <div class="col-sm-8">
+            <f:form.select property="ticketScheduleTime" options="{1800: '0,5 h', 3600: '1 h', 5400: '1,5 h', 7200: '2 h', 10800: '3 h', 14400: '4 h' }" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">Assigned</label>
+        <div class="col-sm-8">
+            <f:form.select property="ticketAssigned" options="{projectteam}" optionValueField="uid" optionLabelField="firstName" prependOptionLabel="-- assigned to --" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">Status</label>
+        <div class="col-sm-8">
+            <f:form.select property="ticketStatus" options="{status}" optionValueField="uid" optionLabelField="statusText"  class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-4 control-label">Typ</label>
+        <div class="col-sm-8">
+            <f:form.select property="ticketTyp" options="{typ}" optionValueField="uid" optionLabelField="statusText" class="form-control"/>
+        </div>
+    </div>
+
+
+
 </div>
 
-<div class="pat-stage-right">
-    <div class="pat-stage-inside">
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Milestone</label>
-            <div class="styled-select field-200">
-            <f:form.select property="ticketMilestone" options="{milestones}" optionValueField="uid" optionLabelField="msTitel" prependOptionLabel="-- Milestone --" />
-            </div>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Sprint</label>
-            <div class="styled-select field-200">
-            <f:form.select property="ticketSprint" options="{sprints}" optionValueField="uid" optionLabelField="sprintTitel" prependOptionLabel="-- Sprint --" />
-            </div>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Custom ID</label>
-             <f:form.textfield property="ticketCustomId" value="{ticket.ticketCustomId}" class="form-control field-100"/>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Date</label>
-             <input type="date" name="tx_projectsandtasks_pat[ticket][ticketDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketDate)}" class="datepicker form-control field-100"/>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Planed Date</label>
-            <input type="date" name="tx_projectsandtasks_pat[ticket][ticketScheduleDate]" value="{f:format.date(format : 'Y-m-d', date : ticket.ticketScheduleDate)}" class="datepicker form-control field-100"/>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Planed Time</label>
-            <div class="styled-select field-200">
-            <f:form.select property="ticketScheduleTime" options="{1800: '0,5 h', 3600: '1 h', 5400: '1,5 h', 7200: '2 h', 10800: '3 h', 14400: '4 h' }" />
-            </div>
-        </div>
-       
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Assigned</label>
-            <div class="styled-select field-200">
-            <f:form.select property="ticketAssigned" options="{projectteam}" optionValueField="uid" optionLabelField="firstName" prependOptionLabel="-- assigned to --"/>
-            </div>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Status</label>
-            <div class="styled-select field-200">
-            <f:form.select property="ticketStatus" options="{status}" optionValueField="uid" optionLabelField="statusText"  />
-            </div>
-        </div>
-        
-        <div class="pat-form-wrap">
-            <label class="form-field field-100">Typ</label>
-            <div class="styled-select field-200">
-            <f:form.select property="ticketTyp" options="{typ}" optionValueField="uid" optionLabelField="statusText" />
-            </div>
-        </div>
-    </div>
-</div>
+
+
+
 
 

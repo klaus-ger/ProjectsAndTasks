@@ -35,6 +35,12 @@ namespace T3developer\ProjectsAndTasks\Controller;
 class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
+     * @inject
+     */
+    protected $userRepository;
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketsRepository   
      * @inject
      */
@@ -67,6 +73,9 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $user = $GLOBALS['TSFE']->fe_user->user;
         if ($user == NULL) {
             $this->redirect('logIn', 'Login');
+        } else {
+            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+            $this->settings['username'] = $this->user->getUsername();
         }
 
 
@@ -76,9 +85,9 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             $this->arguments['ticket']
                     ->getPropertyMappingConfiguration()->allowProperties('ticketDate')
                     ->forProperty('ticketDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
-                // this configures the parsing
+        // this configures the parsing
         if (isset($this->arguments['response'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['response']
@@ -86,21 +95,21 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
                     //->getPropertyMappingConfiguration()->allowProperties('trStart')
                     //->getPropertyMappingConfiguration()->allowProperties('trEnd')
                     ->forProperty('trDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
         if (isset($this->arguments['response'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['response']
                     ->getPropertyMappingConfiguration()->allowProperties('trStart')
-                    ->forProperty('trStart')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter');
+                    ->forProperty('trStart');
+            // ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter');
         }
         if (isset($this->arguments['response'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['response']
                     ->getPropertyMappingConfiguration()->allowProperties('trEnd')
-                    ->forProperty('trEnd')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter');
+                    ->forProperty('trEnd');
+            // ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter');
         }
     }
 
@@ -109,43 +118,44 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      */
     public function indexAction() {
 
-        $tickets = $this->ticketsRepository->findOpenTickets();
+        $tickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
 
         $this->view->assign('tickets', $tickets);
     }
 
-        /**
+    /**
      * Index Action: Shows a list of all User
      */
     public function ticketListDateAction() {
 
-        $tickets = $this->ticketsRepository->findOpenTickets();
+        $tickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
 
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '1');
     }
-    
+
     /**
      * Index Action: Shows a list of all User
      */
     public function ticketListScheduledAction() {
 
-        $tickets = $this->ticketsRepository->findOpenTicketsScheduled();
+        $tickets = $this->ticketsRepository->findOpenTicketsScheduled($this->user->getUid());
 
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '2');
     }
-    
-        /**
+
+    /**
      * Index Action: Shows a list of all User
      */
     public function ticketListProjectAction() {
 
-        $tickets = $this->ticketsRepository->findOpenTicketsScheduled();
+        $tickets = $this->ticketsRepository->findOpenTicketsScheduled($this->user->getUid());
 
         $this->view->assign('tickets', $tickets);
-        $this->view->assign('mainmenu', '2');
+        $this->view->assign('mainmenu', '3');
     }
+
     /**
      * Shows a form for a new Ticket
      */
@@ -189,7 +199,6 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $projects = $this->projectsRepository->findAll();
         $status = $this->statusRepository->findAll();
         $responses = $this->ticketresponseRepository->findByTrTicket($ticketUid);
-        $response = new \T3developer\ProjectsAndTasks\Domain\Model\Ticketresponse;
 
         $this->view->assign('ticket', $ticket);
         $this->view->assign('projects', $projects);
@@ -211,15 +220,80 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
         $this->redirect('index');
     }
-    
-    
+
+    /**
+     * Shwos a form for a new Ticket Response
+     */
+    public function ticketResponseNewAction() {
+        if ($this->request->hasArgument('uid')) {
+            $ticketUid = $this->request->getArgument('uid');
+        }
+
+        $ticket = $this->ticketsRepository->findByUid($ticketUid);
+        $projects = $this->projectsRepository->findAll();
+        $status = $this->statusRepository->findAll();
+        $responses = $this->ticketresponseRepository->findByTrTicket($ticketUid);
+        $response = new \T3developer\ProjectsAndTasks\Domain\Model\Ticketresponse;
+
+        $this->view->assign('ticket', $ticket);
+        $this->view->assign('projects', $projects);
+        $this->view->assign('status', $status);
+        $this->view->assign('responses', $responses);
+    }
+
+    /**
+     * Shows a form for a new response
+     * 
+     */
+    public function ticketResponseEditAction() {
+        if ($this->request->hasArgument('uid')) {
+            $responseuid = $this->request->getArgument('uid');
+        }
+        $response = $this->ticketresponseRepository->findByUid($responseuid);
+
+        //calculate Start and end Time format
+        if ($response->getTrStart()) {
+            $start = $response->getTrStart();
+            $startH = floor($start / 3600);
+            $startS = $start - ($startH * 3600);
+            $startM = $startS / 60;
+            if ($startH < 10)
+                $startH = '0' . $startH;
+            if ($startM < 10)
+                $startM = '0' . $startM;
+            $response->setTrStart($startH . ':' . $startM);
+        }
+        if ($response->getTrEnd()) {
+            $end = $response->getTrEnd();
+            $endH = floor($end / 3600);
+            $endS = $end - ($endH * 3600);
+            $endM = $endS / 60;
+            if ($endH < 10) {
+                $endH = '0' . $endH;
+            }
+            if ($endM < 10) {
+                $endM = '0' . $endM;
+            }
+            $response->setTrEnd($endH . ':' . $endM);
+        }
+        $ticket = $response->getTrTicket();
+        $project = $ticket->getTicketProject();
+
+        $status = $this->statusRepository->findByStatusTyp(5);
+
+        $this->view->assign('status', $status);
+        $this->view->assign('response', $response);
+        $this->view->assign('ticket', $ticket);
+        $this->view->assign('project', $project);
+    }
+
     /**
      * Save a ticketresponse (new and update)
      * @param \T3developer\ProjectsAndTasks\Domain\Model\Ticketresponse $response Description
      */
     public function ticketResponseSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Ticketresponse $response) {
-       
-        if($response->getTrStart() && $response->getTrEnd()){
+
+        if ($response->getTrStart() && $response->getTrEnd()) {
             $startArray = explode(":", $response->getTrStart());
             $endArray = explode(":", $response->getTrEnd());
             $hours = $endArray[0] - $startArray[0];
@@ -232,9 +306,10 @@ class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         } else {
             $this->ticketresponseRepository->add($response);
         }
-         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($endArray);
-        $this->redirect('index');
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($endArray);
+        $this->redirect('ticketDetail', 'Ticket', NULL, array('uid' => $response->getTrTicket()));
     }
+
 }
 
 ?>

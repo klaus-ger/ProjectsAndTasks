@@ -6,102 +6,71 @@
     */
 </f:comment>
 
-<div id="header">
-    <div class="header-inner">
-        <div class="pat-title">PROJECTS and TASKS</div>
-        <div class="desktop-menu">
-            <div class="divider"></div>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">PROJECTS and TASKS</a>
+        </div>
 
-            <f:link.action action="index" controller="Index">
-                InBox
-            </f:link.action>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                <f:link.action action="index" controller="Index">
+                    InBox
+                </f:link.action>
+                </li>
+                <li {f:if(condition: '{topmenu} == 1', then: 'class="active"')}>
+                <f:link.action action="allProjectsByCat" controller="Project">
+                    Projects
+                </f:link.action>
+                </li>
+                <li>
+                <f:link.action action="ticketListDate" controller="Ticket">
+                    Tickets
+                </f:link.action>
+                </li>
+                <li>
+                <f:link.action action="timeMonth" controller="Time">
+                    Time
+                </f:link.action>
+                </li>
+                <li>
 
-            <div class="divider"></div>
+                <f:link.action action="personList" controller="Address">
+                    Address
+                </f:link.action>
+                </li>
+                <li>
+                <f:link.action action="whiteboardOverview" controller="Whiteboard">
+                    Whiteboard
+                </f:link.action>
+                </li>
+            </ul>
 
-            <f:link.action action="allProjectsByCat" controller="Project">
-                Projects
-            </f:link.action>
-
-            <div class="divider"></div>
-
-            <f:link.action action="ticketListDate" controller="Ticket">
-                Tickets
-            </f:link.action>
-
-            <div class="divider"></div>
-
-            <f:link.action action="timeMonth" controller="Time">
-                Time
-            </f:link.action>
-
-            <div class="divider"></div>
-
-            <f:link.action action="personList" controller="Address">
-                Address
-            </f:link.action>
-
-            <div class="divider"></div>
-
-            <f:link.action action="whiteboardOverview" controller="Whiteboard">
-                Whiteboard
-            </f:link.action>
-
-            <div class="divider"></div>
-
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                <f:link.action action="settingsProjectCat" controller="Settings">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </f:link.action>
+                </li>
+            </ul>
             
-        </div>
-        <div class="header-menu">
-            <p>Hi {settings.username}!</p>
-            <f:link.action action="settingsProjectCat" controller="Settings">
-                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_settings.png" width="20px" height="20px" alt="settings" />
-            </f:link.action>
-            <!--
-            <span class="jqToggleMenu">Menu</span>
-            -->
-            <div class="login">
-
-
-                <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
-
-                    <input id="button" type="submit" name="submit" value="abmelden" class="logoutbutton"/>
-
-                    <div class="felogin-hidden">
-                        <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
-                        <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
-                        <input type="hidden" name="logintype" value="logout"/>
-                        <input type="hidden" name="id" value="{currentPid}"/>
-                        <input type="hidden" name="redirect_url" value="{currentPid}"/>
-                        <input type="hidden" name="pid" value="{storagePid}"/>
-                        <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
-                    </div>
-
-                </form>  
-            </div>
+            <ul class="nav navbar-nav navbar-right">
+               <p class="navbar-text navbar-right">Hi {settings.username}! &nbsp;&nbsp;</p>
+            </ul>
+            
+            
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
 
 
-        </div>
-    </div>
-    <div class="clear"></div>
-</div>
-
-
-<div class="mobil-nav">
-    <ul>
-        <li>
-        <f:link.action action="index" controller="Index">
-            Start
-        </f:link.action>
-        </li>
-        <li>
-        <f:link.action action="index" controller="Project">
-            Project
-        </f:link.action>
-        </li>
-        <li>
-        <f:link.action action="index" controller="Ticket">
-            Tickets
-        </f:link.action>
-        </li>
-    </ul>
-</div>

@@ -74,6 +74,14 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         
     }
 
+     /**
+     * Index Action: Shows the Whiteboard
+     */
+    public function whiteboardShowTopicAction() {
+        
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($companies);
+        
+    }
    
 
 }

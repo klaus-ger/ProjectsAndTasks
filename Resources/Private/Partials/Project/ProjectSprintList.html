@@ -1,9 +1,10 @@
 {namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
 
 <div class="pat-list">
-    <ul>
+    <f:if condition="{sprints}">
+        <f:then>
         <f:for each="{sprints}" as="sprint">
-            <li>
+          
                 <div class="pat-list-item clearfix ">
                     <f:link.action action="projectSprintEdit" arguments="{uid: project.uid, sprintId: sprint.sprint.uid}">
                     <b>{sprint.sprint.sprintTitel} </b>&nbsp;&nbsp;&nbsp;
@@ -11,7 +12,7 @@
                     start: <f:format.date format="d.m.Y">{sprint.sprint.sprintStart}</f:format.date>
                     end: <f:format.date format="d.m.Y">{sprint.sprint.sprintEnd}</f:format.date>
                 </div>
-                <ul>
+              
                     
                     <f:for each="{sprint.tickets}" as="sprintticket" iteration="iter">
                         <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
@@ -42,13 +43,19 @@
 
                             </div>
                     </f:for>
-                </ul>
-            </li>
+               
 
 
 
 
 
         </f:for>
-    </ul>
+        </f:then>
+        <f:else>
+            <div class="pat-list-item clearfix ">
+                No data found.
+            </div>
+        </f:else>
+    </f:if>
+   
 </div>

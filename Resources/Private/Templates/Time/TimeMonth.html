@@ -4,139 +4,144 @@
 <f:section name="main">
     <div class="pat-stage">
 
-        <h2>Booked Time</h2>
-
-        <div class="stage-navi clearfix" style="height: 1600px;">
-
-            <div class="stage-navi-navi">
-                <ul>
-                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-                    <f:link.action action="timeMonth">
-                        Actual Month
-                    </f:link.action>
-                    </li>
-                    <!--
-                    <li class="{f:if(condition: '{mainmenu} == 2', then: ' active')}">
-                    <f:link.action action="allProjectsByNum">
-                        Week
-                    </f:link.action>
-                    </li>
-
-                    <li class="{f:if(condition: '{mainmenu} == 3', then: ' active')}">
-                    <f:link.action action="allProjectsByArchive" arguments="{uid: project.uid}">
-                        Month
-                    </f:link.action>
-                    </li>
-                    <li class="active">
-                        Today
-                    </li>
-                    -->
-                </ul>
-                <ul class="right">
-                    <li>
-                        <!--
-                    <f:link.action action="projectNew">
-                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Project" />
-                    </f:link.action>
-                        -->
-                    </li>
-                </ul>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Booked Time</h2>
+                </div>
             </div>
+        </div>
 
 
-            <div class="pat-list clearfix">
-                <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                                <f:link.action action="timeMonth">
+                                    Actual Month
+                                </f:link.action>
+                                </li>
 
-                <h3>&nbsp;&nbsp;Booked Time Sheet</h3>
-                <div class="timetable">
-                    <div class="timetable-cell-header clearfix timetable-border">
-                        <div class="timetable-cell-date">
-                            &nbsp;
-                        </div>
-                    </div>
-                    <div class="timetable-cell-header clearfix timetable-border">
-                        <div class="timetable-cell-date">
-                            Mo
-                        </div>
-                    </div>
-                    <div class="timetable-cell-header clearfix timetable-border">
-                        <div class="timetable-cell-date">
-                            Di
-                        </div>
-                    </div>
-                    <div class="timetable-cell-header clearfix timetable-border">
-                        <div class="timetable-cell-date">
-                            Mi
-                        </div>
-                    </div>
-                    <div class="timetable-cell-header clearfix timetable-border">
-                        <div class="timetable-cell-date">
-                            Do
-                        </div>
-                    </div>
-                    <div class="timetable-cell-header clearfix timetable-border">
-                        <div class="timetable-cell-date">
-                            Fr
-                        </div>
-                    </div>
-                    <div class="timetable-cell-header clearfix timetable-border">
-                        <div class="timetable-cell-date">
-                            Sa
-                        </div>
-                    </div>
-                    <div class="timetable-cell-header clearfix timetable-border">
-                        <div class="timetable-cell-date">
-                            So
-                        </div>
-                    </div>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                <f:link.action action="timeDay">
+                                    Day
+                                </f:link.action>
+                                </li>
+                            </ul>
 
-                    <f:for each="{arrayMonth}" as="week" iteration="iter">
-                        <div class="timetable-cell clear">
+                            <ul class="pull-right">
 
-                            <div class="timetable-cell-date">
-                                Date 
-                            </div>
-                            <div class="timetable-cell-time">
-                                Custom<br />
-                                internal
-                            </div>
-                            <div class="timetable-cell-total">
-                                total
-                            </div>
+                            </ul>
+
                         </div>
 
-                        <f:for each="{week}" as="day">
-                            <div class="timetable-cell clearfix">
-                                <div class="timetable-cell-date">
-                                    &nbsp;{day.date}
-                                </div>
-                                <div class="timetable-cell-time timetable-border">
-                                    <div>&nbsp;
-                                        <f:if condition="{day.bookedtime.custom} >0">
-                                            <vh:time time="{day.bookedtime.custom}"  />
-                                        </f:if>
+                        <div class="panel-body">
+
+                            <h5>&nbsp;&nbsp;Booked Time Sheet</h5>
+                            <div class="timetable">
+                                <div class="timetable-row clearfix">
+                                    <div class="timetable-cell-header clearfix timetable-border">
+                                        <div class="timetable-cell-date">
+                                            &nbsp;
+                                        </div>
                                     </div>
-                                    <div>
-                                        <f:if condition="{day.bookedtime.internal} >0">
-                                            <vh:time time="{day.bookedtime.internal}"  />
-                                        </f:if>
+                                    <div class="timetable-cell-header clearfix timetable-border">
+                                        <div class="timetable-cell-date">
+                                            Mo
+                                        </div>
+                                    </div>
+                                    <div class="timetable-cell-header clearfix timetable-border">
+                                        <div class="timetable-cell-date">
+                                            Di
+                                        </div>
+                                    </div>
+                                    <div class="timetable-cell-header clearfix timetable-border">
+                                        <div class="timetable-cell-date">
+                                            Mi
+                                        </div>
+                                    </div>
+                                    <div class="timetable-cell-header clearfix timetable-border">
+                                        <div class="timetable-cell-date">
+                                            Do
+                                        </div>
+                                    </div>
+                                    <div class="timetable-cell-header clearfix timetable-border">
+                                        <div class="timetable-cell-date">
+                                            Fr
+                                        </div>
+                                    </div>
+                                    <div class="timetable-cell-header clearfix timetable-border">
+                                        <div class="timetable-cell-date">
+                                            Sa
+                                        </div>
+                                    </div>
+                                    <div class="timetable-cell-header clearfix timetable-border">
+                                        <div class="timetable-cell-date">
+                                            So
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="timetable-cell-total">
-                                    <f:if condition="{day.bookedtime.total} >0">
-                                        <vh:time time="{day.bookedtime.total}"  />
-                                    </f:if>
-                                </div>
+                                <f:for each="{arrayMonth}" as="week" iteration="iter">
+                                    <div class="timetable-row clearfix">
+                                        <div class="timetable-cell clear">
+
+                                            <div class="timetable-cell-date">
+                                                Date 
+                                            </div>
+                                            <div class="timetable-cell-time">
+                                                Custom<br />
+                                                internal
+                                            </div>
+                                            <div class="timetable-cell-total">
+                                                total
+                                            </div>
+                                        </div>
+
+                                        <f:for each="{week}" as="day">
+                                            <div class="timetable-cell clearfix">
+                                                <div class="timetable-cell-date">
+                                                    <f:link.action action="timeDay" arguments="{date: day.date}">
+                                                        &nbsp;{day.date}
+                                                    </f:link.action>
+                                                </div>
+                                                <div class="timetable-cell-time timetable-border">
+                                                    <div>&nbsp;
+                                                        <f:if condition="{day.bookedtime.custom} >0">
+                                                            <vh:time time="{day.bookedtime.custom}"  />
+                                                        </f:if>
+                                                    </div>
+                                                    <div>
+                                                        <f:if condition="{day.bookedtime.internal} >0">
+                                                            <vh:time time="{day.bookedtime.internal}"  />
+                                                        </f:if>
+                                                    </div>
+                                                </div>
+                                                <div class="timetable-cell-total">
+                                                    <f:if condition="{day.bookedtime.total} >0">
+                                                        <vh:time time="{day.bookedtime.total}"  />
+                                                    </f:if>
+                                                </div>
+                                            </div>
+                                        </f:for>
+                                    </div>
+                                </f:for>
+
+
                             </div>
-                        </f:for>
-
-                    </f:for>
+                        </div>
 
 
+
+                    </div>
                 </div>
 
             </div>
-        </div><!-- end main Frame -->
+        </div>
+
+
+    </div><!-- end main Frame -->
 
 </f:section>

@@ -92,7 +92,8 @@ class TimeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * Shows the List of Project cats
      */
     public function timeMonthAction() {
-
+        //search worktime only for loged in user
+        //
         //This gets today's date
         $date = time();
 
@@ -110,18 +111,63 @@ class TimeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         }
 
         //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arrayMonth);
-
-
         $this->view->assign('arrayMonth', $arrayMonth);
         $this->view->assign('mainmenu', 1);
         
     }
 
+        /**
+     * Shows the booked time for a day
+     */
+    public function timeDayAction() {
+        // TODO:
+        //search worktime only for loged in user
+        if($this->request->hasArgument('date')){
+            $date = $this->request->getArgument('date');
+        } else {
+            $date = date("d.m.Y");
+        }
+        $headlineDate = $date;
+        //set the start/end timestamps for the day
+        $date = explode('.', $date);
+        $start = mktime(0, 0, 0, $date[1], $date[0], $date[2]);
+        $end = mktime(23, 59, 59, $date[1], $date[0], $date[2]);
+        
+        //loged in user
+        $userID = $GLOBALS['TSFE']->fe_user->user['uid'];
+        
+        $workNotesCustom = $this->ticketresponseRepository->findPerDate($start, $end, 2);
+        $workNotesInternal = $this->ticketresponseRepository->findPerDate($start, $end, 3);
+        
+        $time['custom'] = 0;
+        $time['internal'] = 0;
+        if ($workNotesCustom[0]) {
+            foreach ($workNotesCustom as $noteCustom) {
+
+                $time['custom'] = $time['custom'] + $noteCustom->getTrTime();
+            }
+        }
+        if ($workNotesInternal[0]) {
+            foreach ($workNotesInternal as $noteInternal) {
+
+                $time['internal'] = $time['internal'] + $noteInternal->getTrTime();
+            }
+        }
+        $time['total'] = $time['custom'] + $time['internal'];
+        
+        
+        //This gets today's date
+       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($workNotesInternal);
+        $this->view->assign('date', $headlineDate);
+        $this->view->assign('workNotesInternal', $workNotesInternal);
+        $this->view->assign('workNotesCustom', $workNotesCustom);
+        $this->view->assign('mainmenu', 2);
+    }
     /**
      * Search the notes and worktime for a date
      */
     public function searchWorktime($date) {
-
+        
         //expolde the date string format D.M.Y
         $date = explode('.', $date);
 

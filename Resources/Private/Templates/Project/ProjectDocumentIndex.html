@@ -6,73 +6,103 @@
         <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
 
 
-
-        <br />
-        <h3>Documents</h3>
-        <div class="pat-stage-frame clearfix">
-            <div class="stage-sub-navi">
-
-                <ul>
-                    <li class="{f:if(condition: '{submenu} == 1', then: ' active')}">
-                    <f:link.action action="projectDocumentIndex" arguments="{uid: project.uid}">
-                        All Documents
-                    </f:link.action>
-                    </li>
-
-                </ul>
-                <ul class="right">
-                    <li>
-
-                    </li>
-                </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Documents</h4>
+                </div>
             </div>
+        </div>
 
-            <!-- ticket details -->
-            <div class="pat-bg-70-30 clearfix">
-                <div class="pat-stage-left">
-                    <div class="pat-stage-inside">
-                        <f:for each="{documents}" as="doc">
-                            <b>title</b><br />
-                            <f:for each="{doc.files}" as="file">
-                                <f:image src="{file.originalResource.originalFile.uid}" alt="" maxWidth="700px" maxHeight="300px"/><br />
-                            </f:for>
-                            <br />linie einfügen <br />
-                        </f:for>  
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link{f:if(condition: '{submenu} == 1', then: ' active')}">
+                                <f:link.action action="projectDocumentIndex" arguments="{uid: project.uid}">
+                                    All Documents
+                                </f:link.action>
+                                </li>
+                            </ul>
+
+                            <ul class="pull-right">
+
+                            </ul>
+
+                        </div>
+
+                        <div class="panel-body">
+                            <f:if condition="{documents}">
+                                <f:then>
+                                    <f:for each="{documents}" as="doc">
+                                        <div class="pat-list-item clearfix">
+                                            <div class="pat-list-cell cell-200">
+                                                {doc.docDescription}
+                                            </div>
+
+                                            <div class="pat-list-cell cell-500">
+                                            <f:for each="{doc.files}" as="file">
+                                                <f:image src="{file.originalResource.originalFile.uid}" alt="" maxWidth="500" maxHeight="300"/><br />
+                                            </f:for>
+                                            </div>
+                                            
+                                        </div>
+                                    </f:for>
+                                </f:then>
+                                <f:else>
+                                    <div class="pat-list-item clearfix ">
+                                        No data found.
+                                    </div>
+                                </f:else>
+                            </f:if>
+                        </div>
+
+                        <div class="panel-footer clearfix">
+                            <h5>Add Document</h5>
+                            <f:form action="projectDocumentSave"  enctype="multipart/form-data"  name="newDocument" object="{newDocument}" class="form-horizontal" >
+
+                                <f:form.hidden property="docProject" value="{project.uid}" />
+
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+                                        <div class="col-sm-10">
+                                            <f:form.textfield property="docDescription" id="falfeupload-entry-title" class="form-control"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-1"></div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">File</label>
+                                        <div class="col-sm-10">
+                                            <f:form.upload id="falfeupload-entry-files-1" name="file[0]"  />
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-1 pull-right">
+                                    <f:form.submit value="   save    " class="btn btn-primary"/>
+                                </div>
+
+
+                            </f:form>
+                        </div>
                     </div>
                 </div>
 
-
-                <div class="pat-stage-right">
-                    <div class="pat-stage-inside">
-                        <f:form action="projectDocumentSave"  enctype="multipart/form-data"  name="newDocument" object="{newDocument}">
-                            <f:form.hidden property="docProject" value="{project.uid}" />
-                            
-                            <div class="pat-form-wrap">
-                                <label class="form-field field-100">Titel</label>
-                                <f:form.textfield property="docDescription" id="falfeupload-entry-title" />
-                            </div>
-                            
-                            <div class="pat-form-wrap">
-                                <label class="form-field field-100">File</label>
-                                <f:form.upload id="falfeupload-entry-files-1" name="file[0]" />
-                            </div>
-                            
-                            <div class="pat-form-wrap"></div>
-                            
-                            <div class="pat-form-wrap">
-                                <f:form.submit value="upload" class="btn"/>
-                            </div>
-                            
-                        </f:form> 
-                    </div>   
-                </div>
-
             </div>
-
-
-
-            <div class="clear"></div><br /><br />
         </div>
+
+
 
 
 

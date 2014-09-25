@@ -19,6 +19,8 @@ if (!defined('TYPO3_MODE'))
                     , ticketSave
                     , ticketDelete
                     , ticketDetail
+                    , ticketResponseNew
+                    , ticketResponseEdit
                     , ticketResponseSave',
             
     'Project' =>    ' allProjectsByCat
@@ -73,7 +75,8 @@ if (!defined('TYPO3_MODE'))
                     
                     , writePdfTicketlist ',
         
-     'Time'=>   ' timeMonth',
+     'Time'=>       ' timeMonth
+                    , timeDay ',
         
      'Address'=>    ' personList
                     , personEdit
@@ -84,7 +87,9 @@ if (!defined('TYPO3_MODE'))
                     , companyNew
                     , companySave ',
         
-     'Whiteboard'=> ' whiteboardOverview',
+     'Whiteboard'=> ' whiteboardOverview
+                    , whiteboardShowTopic
+                    ',
             
      'Settings'=>   ' settingsProjectCat
                     , settingsProjectCatNew
@@ -114,6 +119,8 @@ if (!defined('TYPO3_MODE'))
                     , ticketSave
                     , ticketDelete
                     , ticketDetail
+                    , ticketresponseNew
+                    , ticketResponseEdit
                     , ticketResponseSave',
             
     'Project' =>    ' allProjectsByCat
@@ -176,7 +183,8 @@ if (!defined('TYPO3_MODE'))
                     , companyNew
                     , companySave ',
         
-     'Whiteboard'=> ' whiteboardOverview',
+     'Whiteboard'=> ' whiteboardOverview
+                    , whiteboardShowTopic',
             
      'Settings'=>   ' settingsProjectCat
                     , settingsProjectCatNew

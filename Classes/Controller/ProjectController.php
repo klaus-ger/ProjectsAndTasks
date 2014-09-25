@@ -135,7 +135,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->arguments['project']
                     ->getPropertyMappingConfiguration()->allowProperties('projectDate')
                     ->forProperty('projectDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
             $this->arguments['project']
                     ->getPropertyMappingConfiguration()->allowProperties('projectCat')
                     ->forProperty('projectCat')
@@ -146,14 +146,14 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->arguments['ticket']
                     ->getPropertyMappingConfiguration()->allowProperties('ticketDate')
                     ->forProperty('ticketDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
         if (isset($this->arguments['ticket'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['ticket']
                     ->getPropertyMappingConfiguration()->allowProperties('ticketScheduleDate')
                     ->forProperty('ticketScheduleDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
         // this configures the parsing
         if (isset($this->arguments['response'])) {
@@ -163,49 +163,49 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     //->getPropertyMappingConfiguration()->allowProperties('trStart')
                     //->getPropertyMappingConfiguration()->allowProperties('trEnd')
                     ->forProperty('trDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
         if (isset($this->arguments['response'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['response']
                     ->getPropertyMappingConfiguration()->allowProperties('trStart')
-                    ->forProperty('trStart')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter');
+                    ->forProperty('trStart');
+                   // ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
         }
         if (isset($this->arguments['response'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['response']
                     ->getPropertyMappingConfiguration()->allowProperties('trEnd')
-                    ->forProperty('trEnd')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter');
+                    ->forProperty('trEnd');
+                  //  ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
         }
         if (isset($this->arguments['milestone'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['milestone']
                     ->getPropertyMappingConfiguration()->allowProperties('msStart')
                     ->forProperty('msStart')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
         if (isset($this->arguments['milestone'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['milestone']
                     ->getPropertyMappingConfiguration()->allowProperties('msEnd')
                     ->forProperty('msEnd')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
         if (isset($this->arguments['sprint'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['sprint']
                     ->getPropertyMappingConfiguration()->allowProperties('sprintStart')
                     ->forProperty('sprintStart')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
         if (isset($this->arguments['sprint'])) {
             // sprint->allowProperties('ticketDate');
             $this->arguments['sprint']
                     ->getPropertyMappingConfiguration()->allowProperties('sprintEnd')
                     ->forProperty('sprintEnd')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
         }
     }
 
@@ -214,9 +214,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * Ordered by Category
      */
     public function allProjectsByCatAction() {
+        
+        $catArray = array();
+        
         //search all projects without cat
         $projectsWithoutCat = $this->projectsRepository->findByProjectCatAndStatus(0, 0);
-
+        if($projectsWithoutCat[0] != 0){
+            foreach($projectsWithoutCat as $proWithoutCat){
+                $proWithoutCat->setOpenTickets($this->ticketsRepository->countOpenTicketsByProject($proWithoutCat->getUid()));
+            }
+        }
 
         //Search projects with cats
         $cats = $this->projectcatsRepository->findByCatParent(0);
@@ -248,6 +255,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('projectsByCat', $projektArray);
         $this->view->assign('projectsWithoutCat', $projectsWithoutCat);
         $this->view->assign('mainmenu', 1);
+        $this->view->assign('topmenu', 1);
     }
 
     /**
@@ -524,7 +532,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $milestoneuid = $this->request->getArgument('uid');
         }
         $milestone = $this->milestonesRepository->findByUid($milestoneuid);
-        $project = $this->projectsRepository->findByUid($milestone->getMsProject());
+        $project = $milestone->getMsProject();
         $status = $this->statusRepository->findByStatusTyp(4);
 
         $this->view->assign('milestone', $milestone);
@@ -675,7 +683,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $ticketuid = $this->request->getArgument('uid');
         }
         $ticket = $this->ticketsRepository->findByUid($ticketuid);
-        $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
+        $project = $ticket->getTicketProject();
         $responses = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
 
         //find notes and write time
@@ -747,7 +755,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         $ticket = $this->ticketsRepository->findByUid($ticketuid);
-        $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
+        $project = $ticket->getTicketProject();
         $milestones = $this->milestonesRepository->findByMsProject($project->getUid());
         $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
         $status = $this->statusRepository->findByStatusTyp(2);
@@ -837,7 +845,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $response->setTrOwner($this->user->getUid());
 
         $ticket = $this->ticketsRepository->findByUid($ticketuid);
-        $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
+        $project = $ticket->getTicketProject();
 
         $status = $this->statusRepository->findByStatusTyp(5);
 
@@ -884,8 +892,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             }
             $response->setTrEnd($endH . ':' . $endM);
         }
-        $ticket = $this->ticketsRepository->findByUid($response->getTrTicket());
-        $project = $this->projectsRepository->findByUid($ticket->getTicketProject());
+        $ticket = $response->getTrTicket();
+        $project = $ticket->getTicketProject();
 
         $status = $this->statusRepository->findByStatusTyp(5);
 
@@ -1138,29 +1146,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('submenu', '1');
     }
 
-    /**
-     * projectCotractList
-     * Shows a List of all OPEN Project Contracts
-     */
-    public function projectTeamNewAction() {
-        if ($this->request->hasArgument('uid')) {
-            $projectuid = $this->request->getArgument('uid');
-        }
 
-        $project = $this->projectsRepository->findByUid($projectuid);
-
-
-
-        $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
-
-        $this->view->assign('project', $project);
-        $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
-
-        $this->view->assign('projectteam', $projectteam);
-        $this->view->assign('persons', $persons);
-        $this->view->assign('mainmenu', '8');
-        $this->view->assign('submenu', '1');
-    }
 
     /**
      * projectCotractList
@@ -1184,14 +1170,27 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * 
      * @param \T3developer\ProjectsAndTasks\Domain\Model\Projectteam $teamMember
      */
-    public function projectTeamSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Projectteam $teamMember) {
-        if ($teamMember->getUid()) {
-            $this->projectteamRepository->update($teamMember);
+    public function projectTeamSaveAction() {
+        if($this->request->hasArgument('teamMember')){
+            $formValue = $this->request->getArgument('teamMember');
+        }
+         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($formValue);
+        if($formValue['ptUser'] == null) {
+            $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $formValue['projectUid']));
         } else {
-            $this->projectteamRepository->add($teamMember);
+            $member =  new \T3developer\ProjectsAndTasks\Domain\Model\Projectteam;
+            $member->setPtProject($this->projectcatsRepository->findByUid($formValue['projectUid']));
+            $member->setPtUser($this->userRepository->findByUid($formValue['ptUser']));
+            $this->projectteamRepository->add($member);
+            
+       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($member);
+        
+            $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        $persistenceManager->persistAll();
+        
         }
 
-        $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $teamMember->getPtProject()));
+        $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $member->getPtProject()));
     }
 
     //**************************************************************************

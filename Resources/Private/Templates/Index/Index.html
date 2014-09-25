@@ -4,96 +4,113 @@
 <f:section name="main">
     <div class="pat-stage">
 
-        <h2>Inbox</h2>
-        <div class="pat-stage-frame pat-bg-70-30 clearfix">
-            <div class="pat-stage-left">
-                <div class="pat-stage-inside">
-                <h4>Tickets</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>InBox</h2>
                 </div>
-                <div class="pat-list">
-                    <div class="pat-list-item even clearfix">
-                        <div class="pat-list-cell cell-first cell-100">
-                            zeile 1
-                        </div>
-                        <div class="pat-list-cell">
-                            zeile 1
-                        </div>
-                    </div>
-                    
-                    <div class="pat-list-item odd clearfix">
-                        <div class="pat-list-cell cell-first cell-100">
-                            zeile 1
-                        </div>
-                        <div class="pat-list-cell">
-                            zeile 1
-                        </div>
-                    </div>
-                    
-                    <div class="pat-list-item even clearfix">
-                        <div class="pat-list-cell cell-first cell-100">
-                            zeile 1
-                        </div>
-                        <div class="pat-list-cell">
-                            zeile 1
-                        </div>
-                    </div>
-                    
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="panel  panel-default">
+            <div class="row">
+                
+                <div class="col-md-8">
+                    <h4>My Tickets</h4>
+                    <div class="pat-list">
+                    <f:for each="{openTickets}" as="ticket" iteration="iter">
+                        <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticket.uid}" >
+                            <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                                <div class="pat-list-cell cell-first cell-50">
+                                    {ticket.ticketNummer}
+                                </div>
+
+                                <div class="pat-list-cell cell-75">
+                                    <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                                </div>
+                                <div class="pat-list-cell cell-75">
+                                    {ticket.ticketTyp.statusText}
+                                </div>
+                                <div class="pat-list-cell cell-400">
+                                    {ticket.ticketTitel}
+                                </div>
+                                <div class="pat-list-cell cell-200">
+                                    {ticket.ticketProject.projectTitel}
+                                </div>
+                            </div>
+                        </f:link.action>
+                    </f:for>
+
+                </div>
                 </div>
                 
-            </div>
-            
-            <div class="pat-stage-right">
-                <div class="pat-stage-inside">
-                    <h4>Trend</h4>
+                <div class="col-md-4">
+                    <h4>overall Trend</h4>
                     <div class="hidden chartDate">{statArray.date}</div>
                     <div class="hidden chartTicket">{statArray.ticket}</div>
                     <div class="hidden chartTime">{statArray.time}</div>
                     <div class="hidden chartAge">{statArray.age}</div>
-                    
+
                     <canvas id="myChart" width="319" height="200"></canvas>
-                     <br />
+                    <br />
                     &nbsp;&nbsp;
                     <f:image src="EXT:projects_and_tasks/Resources/Public/Images/graph-legend.png" width="268" height="16" alt="legend" />
-                   
+
                     <div class="pat-spacer"></div>
                     <h4>My Summary</h4>
                     <div class="pat-form-wrap">
                         <label class="w100">Open Tickets:</label>
                         {countOpenTickets}
                     </div>
-                    
+
                     <div class="pat-form-wrap">
                         <label class="w100">Open Time:</label>
                         <vh:time time="{openTime}"  />
                     </div>
-                    
+
                     <div class="pat-form-wrap">
                         <label class="w100">Age:</label>
                         {openAge} days
                     </div>
                     <div class="pat-spacer"></div>
-                    
+
                     <h4>Projects</h4>
-                    Project | open Ticket | open Time
+                    <f:for each="{projectMemberships}" as="member">
+                        <div class="pat-form-wrap">
+                            <f:link.action action="projectIndex" controller="Project" arguments="{uid: member.ptProject.uid}">
+                                {member.ptProject.projectTitel}
+                            </f:link.action>
+                        </div>
+                    </f:for>
+
                     <div class="pat-spacer"></div>
+
+                    <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
+
+                        <input id="button" type="submit" name="submit" value="abmelden" class="button"/>
+
+                        <div class="felogin-hidden">
+                            <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
+                            <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
+                            <input type="hidden" name="logintype" value="logout"/>
+                            <input type="hidden" name="id" value="{currentPid}"/>
+                            <input type="hidden" name="redirect_url" value="{currentPid}"/>
+                            <input type="hidden" name="pid" value="{storagePid}"/>
+                            <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
+                        </div>
+
+                    </form> 
+                </div>
+                
                 </div>
             </div>
         </div>
-        <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
+        
+        
+        
+        
 
-            <input id="button" type="submit" name="submit" value="abmelden" class="button"/>
-
-            <div class="felogin-hidden">
-                <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
-                <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
-                <input type="hidden" name="logintype" value="logout"/>
-                <input type="hidden" name="id" value="{currentPid}"/>
-                <input type="hidden" name="redirect_url" value="{currentPid}"/>
-                <input type="hidden" name="pid" value="{storagePid}"/>
-                <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
-            </div>
-
-        </form> 
     </div>
 
 

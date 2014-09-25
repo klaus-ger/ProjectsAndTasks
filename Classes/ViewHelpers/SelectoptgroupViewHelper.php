@@ -11,12 +11,13 @@ class SelectoptgroupViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
      * @param array $options The option Array
      * @param string $fieldname  The fieldname
      * @param int $actual The actual value
+     * @param string $class  The fieldname
      * 
-     * @return string the HTML <img>-Tag of the gravatar
+     * 
      */
-    public function render($options, $fieldname, $actual) {
+    public function render($options, $fieldname, $actual, $class) {
         
-        $field = '<select name = "' . $fieldname . '">';
+        $field = '<select name = "' . $fieldname . '" class="' . $class . '">';
         $field.= '<option value = "">-- Category --</option>';
         foreach ($options as $opt) {
             //cehck if field is selected

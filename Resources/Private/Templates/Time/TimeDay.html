@@ -1,0 +1,107 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="main">
+    <div class="pat-stage">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Booked Time {date}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                                <f:link.action action="timeMonth">
+                                    Actual Month
+                                </f:link.action>
+                                </li>
+
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                <f:link.action action="timeDay">
+                                    Day
+                                </f:link.action>
+                                </li>
+                            </ul>
+
+                            <ul class="pull-right">
+
+                            </ul>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <h5>&nbsp;&nbsp;Internal Time</h5>
+
+                            <f:for each="{workNotesInternal}" as="custom" iteration="iterCustom">
+                                <div class="pat-list-item clearfix {f:if(condition: '{iterCustom.isEven} == 1', then: ' even', else: ' odd')}">
+                                    <div class="pat-list-cell cell-first cell-100">
+                                        {custom.trStart} - {custom.trEnd}
+                                    </div>
+
+                                    <div class="pat-list-cell cell-200">
+                                        {custom.trTicket.ticketProject.projectTitel}
+                                    </div>
+                                    <div class="pat-list-cell cell-300">
+                                        {custom.trTicket.ticketTitel}
+                                    </div>
+
+                                    <div class="pat-list-cell cell-400">
+                                        {custom.trTicket.ticketText}
+                                    </div>
+                                    <div class="pat-list-cell cell-100">
+                                        <vh:time time="{custom.trTime}" />
+                                    </div>
+
+
+                                </div>
+
+                            </f:for>
+                            <br /><br />
+                            <h5>&nbsp;&nbsp;Custom Time</h5>
+                            <f:for each="{workNotesCustom}" as="custom" iteration="iterCustom">
+                                <div class="pat-list-item clearfix {f:if(condition: '{iterCustom.isEven} == 1', then: ' even', else: ' odd')}">
+                                    <div class="pat-list-cell cell-first cell-100">
+                                        {custom.trStart} - {custom.trEnd}
+                                        
+                                    </div>
+
+                                    <div class="pat-list-cell cell-200">
+                                        {custom.trTicket.ticketProject.projectTitel}
+                                    </div>
+                                    <div class="pat-list-cell cell-300">
+                                        {custom.trTicket.ticketTitel}
+                                    </div>
+
+                                    <div class="pat-list-cell cell-400">
+                                        {custom.trTicket.ticketText}
+                                    </div>
+                                    <div class="pat-list-cell cell-100">
+                                        <vh:time time="{custom.trTime}" />
+                                    </div>
+
+
+                                </div>
+
+                            </f:for>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+        </div><!-- end main Frame -->
+
+</f:section>

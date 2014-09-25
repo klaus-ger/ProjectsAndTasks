@@ -3,14 +3,10 @@
 $TCA['tx_projectsandtasks_domain_model_milestones'] = array(
     'ctrl' => $TCA['tx_projectsandtasks_domain_model_milestones']['ctrl'],
     'interface' => array(
-        'showRecordFieldList' => '    calender_date
-                                    , calender_user
-                                    , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]'
+        'showRecordFieldList' => '    '
     ),
     'types' => array(
-        '1' => array('showitem' => '  calender_date
-                                     , calender_user
-                                     , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]
+        '1' => array('showitem' => ' 
                                      ')
     ),
     'palettes' => array(

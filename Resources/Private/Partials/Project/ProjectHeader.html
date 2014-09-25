@@ -1,69 +1,91 @@
 {namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
-<h2>{project.projectTitel}</h2>
-        
-        
-        <div class="stage-navi">
-            <div class="stage-navi-navi">
-                <ul>
-                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{project.projectTitel}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <ul class="pull-left">
+
+                        <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
                         <f:link.action action="projectIndex" arguments="{uid: project.uid}">
                             <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_home.png" width="17" height="17" alt="Home" />
                         </f:link.action>
-                    </li>
-                    <li class="{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                        </li>
+                        <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
                         <f:link.action action="projectDetail" arguments="{uid: project.uid}">
                             Details
                         </f:link.action>
-                    </li>
-                    <li class="{f:if(condition: '{mainmenu} == 3', then: ' active')}">
+                        </li>
+                        <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
                         <f:link.action action="projectMilestoneListAll" arguments="{uid: project.uid}">
                             Milestones
                         </f:link.action>
-                    </li>
-                    <li class="{f:if(condition: '{mainmenu} == 4', then: ' active')}">
+                        </li>
+                        <li class="panel-link{f:if(condition: '{mainmenu} == 4', then: ' active')}">
                         <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
                             Tickets
                         </f:link.action>
-                    </li>
-                     <li class="{f:if(condition: '{mainmenu} == 7', then: ' active')}">
+                        </li>
+                        <li class="panel-link{f:if(condition: '{mainmenu} == 7', then: ' active')}">
                         <f:link.action action="projectSprintListOpen" arguments="{uid: project.uid}">
                             Sprints
                         </f:link.action>
-                    </li>
-                    <li class="{f:if(condition: '{mainmenu} == 5', then: ' active')}">
+                        </li>
+                        <li class="panel-link{f:if(condition: '{mainmenu} == 5', then: ' active')}">
                         <f:link.action action="projectDocumentIndex" arguments="{uid: project.uid}">
                             Documents
                         </f:link.action>
-                    </li>
-                    <li class="{f:if(condition: '{mainmenu} == 8', then: ' active')}">
-                    <f:link.action action="projectTeamList" arguments="{uid: project.uid}" >
+                        </li>
+                        <li class="panel-link{f:if(condition: '{mainmenu} == 8', then: ' active')}">
+                        <f:link.action action="projectTeamList" arguments="{uid: project.uid}" >
                             Team
                         </f:link.action>
-                    </li>
-                </ul>
-                <ul class="right">
-                    <li>
+                        </li>
+                    </ul>
+
+                    <ul class="pull-right">
+                        <li class="panel-link">
                         <f:link.action action="projectEdit" arguments="{uid: project.uid}">
                             <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Project edit" />
                         </f:link.action>
-                    </li>
-                    <li>
-                        <f:link.action action="index">
+                        </li>
+                        <li class="panel-link">
+                        <f:link.action action="allProjectsByCat">
                             <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Project close" />
                         </f:link.action>
-                    </li>
-                </ul>
-               
-            </div>
-            <div class="stage-navi-text">
-                <f:format.nl2br>{project.projectShort}</f:format.nl2br>
-                <div class="stage-navi-text-right">
-                    
-                    Budget Time: {project.projectBudgetTime} h<br />
-                    Plan Open: <vh:time time="{projectHours.plan.open}"  /><br />
-                    Worked Total: <vh:time time="{projectHours.work}"  />
+                        </li>
+                    </ul>
+
                 </div>
-                <div class="clear"></div>
+
+                <div class="panel-body">
+                    <div class="col-md-12">&nbsp;</div>
+                    <div class="col-md-7">
+                        <f:format.nl2br>{project.projectShort}</f:format.nl2br>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
+
+                        <div class="pull-right">
+                            Budget Time: {project.projectBudgetTime} h<br />
+                            Plan Open: <vh:time time="{projectHours.plan.open}"  /><br />
+                            Worked Total: <vh:time time="{projectHours.work}"  />
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
             </div>
-            
         </div>
+
+    </div>
+</div>

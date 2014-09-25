@@ -1,46 +1,55 @@
 {namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
 
 <div class="pat-list">
-    <f:for each="{milestones}" as="ms" iteration="iter">
-        <f:link.action action="projectMilestonesEdit" controller="Project" arguments="{uid: ms.uid}">
-            <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                <div class="pat-list-cell cell-first cell-50">
-                    {ms.msOrder}
+    <f:if condition="{milestones}">
+        <f:then>
+            <f:for each="{milestones}" as="ms" iteration="iter">
+                <f:link.action action="projectMilestonesEdit" controller="Project" arguments="{uid: ms.uid}">
+                    <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                        <div class="pat-list-cell cell-first cell-50">
+                            {ms.msOrder}
+                        </div>
+
+                        <div class="pat-list-cell cell-100">
+                            <f:format.date format="d.m.Y">{ms.msStart}</f:format.date>
+                        </div>
+
+                        <div class="pat-list-cell cell-bold  cell-600">
+                            {ms.msTitel}
+                        </div>
+                        <div class="pat-list-cell cell-100">
+                            <f:format.date format="d.m.Y">{ms.msEnd}</f:format.date>
+                        </div>
+                        <div class="pat-list-cell cell-100">
+                            Status: {ms.msStatus.statusText}
+                        </div>
+                        <div class="pat-list-cell cell-100">
+                            Tickets open: {ms.msTicketOpen}
+
+                        </div>
+
+                </f:link.action>
+                <div class="pat-list-cell cell-50">
+                    <f:if condition="{iter.isFirst} == 0">
+                        <f:link.action action="projectMilestonesMoveUp" controller="Project" arguments="{milestone: ms}">
+                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_up.png" width="17" height="17" alt="new Category" />
+                        </f:link.action>
+                    </f:if>
+                    &nbsp;&nbsp;
+                    <f:if condition="{iter.isLast} == 0" >
+                        <f:link.action action="projectMilestonesMoveDown" controller="Project" arguments="{milestone: ms}">
+                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_down.png" width="17" height="17" alt="new Category" />
+                        </f:link.action>
+                    </f:if>
+                </div>
                 </div>
 
-                <div class="pat-list-cell cell-100">
-                    <f:format.date format="d.m.Y">{ms.msStart}</f:format.date>
-                </div>
-                
-                <div class="pat-list-cell cell-bold  cell-600">
-                    {ms.msTitel}
-                </div>
-                <div class="pat-list-cell cell-100">
-                    <f:format.date format="d.m.Y">{ms.msEnd}</f:format.date>
-                </div>
-                <div class="pat-list-cell cell-100">
-                    Status: {ms.msStatus.statusText}
-                </div>
-                <div class="pat-list-cell cell-100">
-                    Tickets open: {ms.msTicketOpen}
-                  
-                </div>
-                
-            </f:link.action>
-        <div class="pat-list-cell cell-100">
-            <f:if condition="{iter.isFirst} == 0">
-                <f:link.action action="projectMilestonesMoveUp" controller="Project" arguments="{milestone: ms}">
-                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_up.png" width="17" height="17" alt="new Category" />
-                </f:link.action>
-            </f:if>
-            &nbsp;&nbsp;
-            <f:if condition="{iter.isLast} == 0" >
-                <f:link.action action="projectMilestonesMoveDown" controller="Project" arguments="{milestone: ms}">
-                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_down.png" width="17" height="17" alt="new Category" />
-                </f:link.action>
-            </f:if>
+            </f:for>
+        </f:then>
+        <f:else>
+            <div class="pat-list-item clearfix">
+                No data found.
             </div>
-            </div>
-        
-    </f:for>
+        </f:else>
+    </f:if>
 </div>

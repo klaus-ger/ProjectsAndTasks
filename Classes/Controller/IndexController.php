@@ -53,6 +53,12 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $statisticRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectteamRepository   
+     * @inject
+     */
+    protected $projectteamRepository;
+
+    /**
      * Initializes the current action 
      * @return void 
      */
@@ -76,8 +82,9 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->redirect('adminIndex', 'Admin');
         }
 
-
         $openTickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
+
+        //Block My Summary
         $countOpenTickets = count($openTickets);
 
         $openTime = 0;
@@ -89,10 +96,91 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $ticketage = $actualTime - $ticketdate;
             $ticketAgeTotal = $ticketAgeTotal + $ticketage;
         }
-        $averageTicketAge = $ticketAgeTotal / $countOpenTickets;
-        $averageAge = $averageTicketAge / 3600 / 24;
+        if ($countOpenTickets > 0) {
+            $averageTicketAge = $ticketAgeTotal / $countOpenTickets;
+            $averageAge = $averageTicketAge / 3600 / 24;
 
-        //write stats
+            //Stat Data
+            $this->writeStats($countOpenTickets, $openTime, $averageAge);
+            $statArray = $this->loadStatData();
+        }
+
+
+        //Block my Projekts
+        $meberships = $this->projectteamRepository->findByPtUser($this->user->getUid());
+
+
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($meberships, 'dokument');
+
+        $this->view->assign('projectMemberships', $meberships);
+        $this->view->assign('countOpenTickets', $countOpenTickets);
+        $this->view->assign('openTickets', $openTickets);
+        $this->view->assign('openTime', $openTime);
+        $this->view->assign('openAge', round($averageAge, 2));
+        $this->view->assign('statArray', $statArray);
+    }
+
+    /**
+     * 
+     * load statistic data
+     * 
+     */
+    public function loadStatData() {
+        $stats = $this->statisticRepository->findLastStatForGraph();
+
+        //find max value
+        $max = 1;
+        foreach ($stats as $stat) {
+            if ($stat->getStatsTickets() > $max) {
+                $max = $stat->getStatsTickets();
+            }
+            if ($stat->getStatsOpentime() / 3600 > $max) {
+                $max = $stat->getStatsOpentime() / 3600;
+            }
+            if ($stat->getStatsAge() > $max) {
+                $max = $stat->getStatsAge();
+            }
+        }
+        //reorder result
+        $li = 10;
+        foreach ($stats as $orderedstat) {
+            $orderdStat[$li] = $orderedstat;
+            $li = $li - 1;
+        }
+        sort($orderdStat);
+
+        //write % stst array
+        $li = 10;
+        $statArray['date'] = '';
+        $statArray['ticket'] = '';
+        $statArray['time'] = '';
+        $statArray['age'] = '';
+        foreach ($orderdStat as $stat) {
+            $time = $stat->getStatsOpentime() / 3600;
+            $statArray['date'][] = date('d.m.', $stat->getStatsDate()->getTimestamp());
+            $statArray['ticket'][] = round($stat->getStatsTickets() * 100 / $max);
+            $statArray['time'][] = round($time * 100 / $max);
+            $statArray['age'][] = round($stat->getStatsAge() * 100 / $max);
+
+            $li = $li - 1;
+        }
+
+
+        $statArray['date'] = implode(',', $statArray['date']);
+        $statArray['ticket'] = implode(',', $statArray['ticket']);
+        $statArray['time'] = implode(',', $statArray['time']);
+        $statArray['age'] = implode(',', $statArray['age']);
+        ;
+
+        return $statArray;
+    }
+
+    /**
+     * write statistic Data (one per day)
+     * 
+     * will be later removed to scheduler script
+     */
+    public function writeStats($countOpenTickets, $openTime, $averageAge) {
         $stats = $this->statisticRepository->findLast();
         if ($stats[0]) {
             //aktual date 
@@ -120,55 +208,8 @@ class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
             $this->statisticRepository->add($newStat);
         }
-
-        //find statics
-        $stats = $this->statisticRepository->findLastStatForGraph();
-        
-        //find max value
-        $max = 0;
-        foreach ($stats as $stat) {
-            if( $stat->getStatsTickets() > $max) {
-                $max = $stat->getStatsTickets();
-            }
-            if( $stat->getStatsOpentime()/3600 > $max) {
-                $max = $stat->getStatsOpentime()/3600;
-            }
-            if( $stat->getStatsAge() > $max) {
-                $max = $stat->getStatsAge();
-            }
-        }
-        
-        //write % stst array
-        $li = 0;
-        $statArray['date'] = '';
-        $statArray['ticket'] = '';
-        $statArray['time'] ='';
-        $statArray['age'] = '';
-        foreach ($stats as $stat) {
-            $time = $stat->getStatsOpentime()/3600;
-            $statArray['date'][$li]   = date('d.m.', $stat->getStatsDate()->getTimestamp());
-            $statArray['ticket'][$li] = round($stat->getStatsTickets() *100/$max);
-            $statArray['time'][$li]   = round($time*100/$max);
-            $statArray['age'][$li]    = round($stat->getStatsAge()*100/$max);
-
-            $li++;
-            if ($li == 10) {
-                break;
-            }
-        }
-        $statArray['date'] = implode(',', $statArray['date']); 
-        $statArray['ticket'] = implode(',', $statArray['ticket']);
-        $statArray['time'] = implode(',', $statArray['time']);
-        $statArray['age'] = implode(',', $statArray['age']);; 
-
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($statArray, 'dokument');
-
-
-        $this->view->assign('countOpenTickets', $countOpenTickets);
-        $this->view->assign('openTime', $openTime);
-        $this->view->assign('openAge', round($averageAge, 2));
-        $this->view->assign('statArray', $statArray);
     }
 
 }
+
 ?>

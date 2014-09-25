@@ -3,87 +3,180 @@
 <f:section name="main">
     <div class="pat-stage">
 
-
-        <h2>Ticket Details</h2>
-        <div class="pat-list">
-            <div class="pat-list-item clearfix">
-                <div class="ticket-no">
-                    {ticket.ticketNummer}
-                </div>
-
-                <div class="ticket-date">
-                    <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
-                </div>
-                <div class="ticket-titel">
-                    {ticket.ticketTitel}
-                </div>
-                <div class="ticket-text">
-                    {ticket.ticketText}
-                </div>
-                <div class="ticket-project">
-                    Projekt {ticket.ticketProject.projectTitel}
-                </div>
-                <div class="ticket-status">
-                    {ticket.ticketStatus.statusText}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>open Tickets assigned to me</h2>
                 </div>
             </div>
         </div>
-        <f:link.action action="index" class="button">
-            Ticket schließen
-        </f:link.action>
-        <f:link.action action="ticketEdit" arguments="{uid: ticket.uid}" class="button">
-            editieren
-        </f:link.action>
 
-        <br />
-        <h2>Response</h2>
-        <div class="pat-list">
-            <f:for each="{responses}" as="single" iteration="iter">
-                <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                    <div class="ticket-date">
-                        <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link active">
+                                    Ticket Details
+                                </li>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                                <f:link.action action="ticketListDate">
+                                    Open by Date
+                                </f:link.action>
+                                </li>
+
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                <f:link.action action="ticketListScheduled">
+                                    Open by Deadline
+                                </f:link.action>
+                                </li>
+
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 4', then: ' active')}">
+                                <f:link.action action="ticketListProject" >
+                                    Open by Project
+                                </f:link.action>
+                                </li>
+
+
+
+                            </ul>
+
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="ticketEdit" arguments="{uid: ticket.uid}" class="button">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Ticket edit" />
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link">
+                                <f:link.action action="ticketListDate" class="button">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket close" />
+                                </f:link.action>
+                                </li>
+                            </ul>
+
+
+
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="col-md-7">
+                                <table class="table">
+                                    <tr>
+                                        <td><b>{ticket.ticketProject.projectTitel}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{ticket.ticketNummer} | <b>{ticket.ticketTitel}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><f:format.html>{ticket.ticketText}</f:format.html></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td>Start</td>
+                                        <td>
+                                    <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scheduled</td>
+                                        <td>
+                                    <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Assigned</td>
+                                        <td>
+                                            {ticket.ticketAssigned.username}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td>
+                                            {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Time Budget</td>
+                                        <td>
+                                    <vh:time time="{ticket.ticketScheduleTime}"  />
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Worked</td>
+                                        <td>
+                                    <vh:time time="{worktime}"  />
+                                    </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="panel-footer clearfix">
+                            <div class="col-md-11">
+                                <h5>Notes</h5>
+                            </div>
+                            
+                            <div class="col-md-1">
+                                <f:link.action action="ticketResponseNew" arguments="{uid: ticket.uid}" class="button">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Note" class="pull-right"/>
+                                </f:link.action>
+                            </div>
+                            <div class="col-md-12">
+                                <f:if condition="{responses}">
+                                    <f:then>
+                                        <div class="pat-list">
+                                            <f:for each="{responses}" as="single" iteration="iter">
+                                                <f:link.action action="ticketResponseEdit" controller="Ticket" arguments="{uid: single.uid}">
+                                                    <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                                                        <div class="pat-list-cell cell-first cell-100">
+                                                            <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
+                                                        </div>
+                                                        <div class="pat-list-cell cell-bold cell-700">
+                                                            {single.trTitel}  
+                                                        </div>
+                                                        <div class="pat-list-cell cell-100">
+                                                            {single.trOwner.username}
+                                                        </div>
+                                                        <div class="pat-list-cell cell-100">
+                                                            {single.trTyp.statusText}
+                                                        </div>
+                                                        <div class="pat-list-cell cell-50">
+                                                            <vh:time time="{single.trTime}" />
+                                                        </div>
+                                                        <div class="clear"></div>
+                                                        <div class="pat-list-cell cell-first cell-100">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="pat-list-cell cell-700">
+                                                            <f:format.nl2br>{single.trText}</f:format.nl2br>
+                                                        </div>
+
+                                                    </div>
+                                                </f:link.action>
+                                            </f:for>
+                                        </div>
+                                    </f:then>
+                                    <f:else>
+                                        No notes found.
+                                    </f:else>
+                                </f:if>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <div class="ticket-titel">
-                      {single.trTitel}  
-                    </div>
-                    <div class="ticket-text">
-                       {single.trText} 
-                    </div>
-                    <div class="ticket-status">
-                        {single.trTime}
-                    </div>
-                    
                 </div>
-            </f:for>
+
+            </div>
         </div>
-
-        <br />
-        <h2>New Response</h2>
-        <f:form action="ticketResponseSave" name="response" object="{response}">
-
-            <f:form.hidden property="trTicket" value="{ticket.uid}" />
-
-            <label> Titel</label>
-            <f:form.textfield property="trTitel" value="{response.trTitel}" class="textfield-large"/><br />
-
-
-            <label>Datum</label>
-            <input type="date" name="tx_projectsandtasks_pat[response][trDate]" value="{f:format.date(format : 'Y-m-d', date : response.trDate)}">
-
-            <label>Start</label>
-            <input type="time" name="tx_projectsandtasks_pat[response][trStart]" value="{response.trStart}">
-            <label>Ende</label>
-            <input type="time" name="tx_projectsandtasks_pat[response][trEnd]" value="{response.trEnd}">
-
-            <label>Text</label>
-            <f:form.textarea cols="50" rows="10" property="trText" value="{response.trText}" class="textarea"  />
-
-            <br />
-
-
-            <f:form.submit value="save" />
-        </f:form>
     </div>
-
-
+    
 </f:section>

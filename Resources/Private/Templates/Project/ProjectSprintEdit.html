@@ -5,49 +5,76 @@
 
         <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
 
-
-
-        <br />
-
-        <h3>Edit Sprint</h3>
-        <div class="stage-list clearfix">
-            <div class="stage-sub-navi">
-                                    <ul>
-                        <li class="{f:if(condition: '{submenu} == 1', then: ' active')}">
-                            <f:link.action action="projectSprintListOpen" arguments="{uid: project.uid}">
-                                open
-                            </f:link.action>
-                        </li>
-                        <li class="{f:if(condition: '{submenu} == 2', then: ' active')}">
-                            <f:link.action action="projectSprintListAll" arguments="{uid: project.uid}">
-                                all
-                            </f:link.action>
-                        </li>
-                        <li class="{f:if(condition: '{submenu} == 3', then: ' active')}">
-                            <f:link.action action="projectSprintListClosed" arguments="{uid: project.uid}">
-                                achived
-                            </f:link.action>
-                        </li>
-                    </ul>
-                    <ul class="right">
-                        <li>
-                        <f:link.action action="projectSprintNew" arguments="{uid: project.uid}">
-                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
-                        </f:link.action></li>
-                    </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Sprints</h4>
+                </div>
             </div>
-
-            <f:form action="projectSprintSave" name="sprint" object="{sprint}">
-
-                <f:render partial="Project/ProjectSprintForm" arguments="{_all}"/>
-
-                <f:form.submit value="create" class="button"/>
-            </f:form>
-
-
         </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link active">
+                                    Sprint edit
+                                </li>
+                                <li class="panel-link">
+                                <f:link.action action="projectSprintListOpen" arguments="{uid: project.uid}">
+                                    open
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link">
+                                    all
+                                    <!--
+                                    <f:link.action action="projectSprintListAll" arguments="{uid: project.uid}">
+                                        all
+                                    </f:link.action>
+                                    -->
+                                </li>
+                                <li class="panel-link">
+                                    achived
+                                    <!--
+                                    <f:link.action action="projectSprintListClosed" arguments="{uid: project.uid}">
+                                        achived
+                                    </f:link.action>
+                                    -->
+                                </li>
+                            </ul>
+
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="projectSprintNew" arguments="{uid: project.uid}">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
+                                </f:link.action>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="panel-body">
+                            <h3> &nbsp;</h3>
+                            <f:form action="projectSprintSave" name="sprint" object="{sprint}" class="form-horizontal" >
+
+                                <f:render partial="Project/ProjectSprintForm" arguments="{_all}"/>
+
+                            </f:form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
 
     </div>
 
 
 </f:section>
+

@@ -7,128 +7,154 @@
         <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
 
 
-
-        <br />
-
-        <h3>Ticketdetails</h3>
-        <div class="pat-stage-frame clearfix">
-            <div class="stage-sub-navi">
-                <ul>
-                    <li class="active">
-                    <f:link.action action="projectTicketDetail" arguments="{uid: ticket.uid}">
-                        Ticket
-                    </f:link.action>
-                    </li>
-                    <li>
-                    <f:link.action action="projectResponseNew" arguments="{uid: ticket.uid}">
-                        new Note
-                    </f:link.action>
-                    </li>
-
-
-                </ul>
-                <ul class="right">
-                    <li>
-                    <f:link.action action="projectTicketEdit" arguments="{uid: ticket.uid}">
-                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Ticket edit" />
-                    </f:link.action>
-                    </li>
-                    <li>
-                    <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
-                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket close" />
-                    </f:link.action>
-                    </li>
-                </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Ticket Details</h4>
+                </div>
             </div>
+        </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link active">
+                                <f:link.action action="projectTicketDetail" arguments="{uid: ticket.uid}">
+                                    Ticket
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link">
+                                <f:link.action action="projectResponseNew" arguments="{uid: ticket.uid}">
+                                    new Note
+                                </f:link.action>
+                                </li>
+                            </ul>
 
-            <!-- ticket details -->
-            <div class="pat-bg-70-30 clearfix">
-                <div class="pat-stage-left">
-                    <div class="pat-stage-inside">
-                        <div class="pat-form-wrap">
-                            {ticket.ticketNummer} | {ticket.ticketTitel}
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="projectTicketEdit" arguments="{uid: ticket.uid}">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_edit.png" width="17" height="17" alt="Ticket edit" />
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link">
+                                <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket close" />
+                                </f:link.action>
+                                </li>
+                            </ul>
+
                         </div>
-                        <div class="pat-form-wrap">
-                            {ticket.ticketText}
+
+                        <div class="panel-body">
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="col-md-7">
+                                <table class="table">
+                                    <tr>
+                                        <td>{ticket.ticketNummer} | <b>{ticket.ticketTitel}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><f:format.html>{ticket.ticketText}</f:format.html></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td>Start</td>
+                                        <td>
+                                    <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scheduled</td>
+                                        <td>
+                                    <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Assigned</td>
+                                        <td>
+                                            {ticket.ticketAssigned.username}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td>
+                                            {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Time Budget</td>
+                                        <td>
+                                    <vh:time time="{ticket.ticketScheduleTime}"  />
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Worked</td>
+                                        <td>
+                                    <vh:time time="{worktime}"  />
+                                    </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="panel-footer clearfix">
+                            <div class="col-md-12">
+                                <h5>Notes</h5>
+                                <f:if condition="{responses}">
+                                    <f:then>
+                                <div class="pat-list">
+                                    <f:for each="{responses}" as="single" iteration="iter">
+                                        <f:link.action action="projectResponseEdit" controller="Project" arguments="{uid: single.uid}">
+                                            <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                                                <div class="pat-list-cell cell-first cell-100">
+                                                    <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
+                                                </div>
+                                                <div class="pat-list-cell cell-bold cell-700">
+                                                    {single.trTitel}  
+                                                </div>
+                                                <div class="pat-list-cell cell-100">
+                                                    {single.trOwner.username}
+                                                </div>
+                                                <div class="pat-list-cell cell-100">
+                                                    {single.trTyp.statusText}
+                                                </div>
+                                                <div class="pat-list-cell cell-50">
+                                                    <vh:time time="{single.trTime}" />
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="pat-list-cell cell-first cell-100">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="pat-list-cell cell-700">
+                                                    <f:format.nl2br>{single.trText}</f:format.nl2br>
+                                                </div>
+
+                                            </div>
+                                        </f:link.action>
+                                    </f:for>
+                                </div>
+                                    </f:then>
+                                    <f:else>
+                                        No notes found.
+                                    </f:else>
+                                </f:if>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="pat-stage-right">
-                <div class="pat-stage-inside">
-                    
-                    <div class="pat-form-wrap">
-                        <label class="w100">Start:</label>
-                        <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
-                    </div>
-                    
-                    <div class="pat-form-wrap">
-                        <label class="w100">Scheduled:</label>&nbsp;
-                        <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
-                    </div>
-                    
-                    <div class="pat-form-wrap">
-                        <label class="w100">Assigned:</label>
-                        {ticket.ticketAssigned.username}&nbsp;
-                    </div>
-                    
-                    <div class="pat-form-wrap">
-                        <label class="w100">Status:</label>
-                        {ticket.ticketTyp.statusText} - {ticket.ticketStatus.statusText}
-                    </div>
-                    
-                    <div class="pat-form-wrap">
-                        <label class="w100">Time Budget:</label>
-                        <vh:time time="{ticket.ticketScheduleTime}"  />
-                    </div>
-                    
-                    <div class="pat-form-wrap">
-                        <label class="w100">Worked:</label>
-                        <vh:time time="{worktime}"  />
-                    </div>
-               </div>
-            </div>
-           </div>
-            <!----->
 
-            <div class="pat-stage-inside">
-                <h4>Notes</h4>
-            </div>
-            <div class="pat-list">
-                <f:for each="{responses}" as="single" iteration="iter">
-                    <f:link.action action="projectResponseEdit" controller="Project" arguments="{uid: single.uid}">
-                        <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                            <div class="pat-list-cell cell-first cell-100">
-                                <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
-                            </div>
-                            <div class="pat-list-cell cell-bold cell-700">
-                                {single.trTitel}  
-                            </div>
-                            <div class="pat-list-cell cell-100">
-                                {single.trOwner.username}
-                            </div>
-                            <div class="pat-list-cell cell-100">
-                                {single.trTyp.statusText}
-                            </div>
-                            <div class="pat-list-cell cell-100">
-                                <vh:time time="{single.trTime}" />
-                            </div>
-                            <div class="clear"></div>
-                            <div class="pat-list-cell cell-first cell-100">
-                                &nbsp;
-                            </div>
-                            <div class="pat-list-cell cell-700">
-                                <f:format.nl2br>{single.trText}</f:format.nl2br>
-                            </div>
-                            
-                        </div>
-                    </f:link.action>
-                </f:for>
             </div>
         </div>
-        <!-- -->
-    </div>
 
+    </div>
+       
 
 </f:section>
