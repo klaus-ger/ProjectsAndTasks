@@ -446,6 +446,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_boardtopic (
     deleted tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     hidden tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     
+    bt_cat int(11) DEFAULT '0' NOT NULL,
     bt_title varchar(255) DEFAULT '' NOT NULL,
     bt_text text,
     bt_image varchar(255) DEFAULT '' NOT NULL,
@@ -479,6 +480,7 @@ CREATE TABLE tx_projectsandtasks_domain_model_boardmessage (
     deleted tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     hidden tinyint(4) unsigned DEFAULT '0' NOT NULL, 
     
+    bm_topic int(11) DEFAULT '0' NOT NULL,
     bm_title varchar(255) DEFAULT '' NOT NULL,
     bm_text text,
     bm_image varchar(255) DEFAULT '' NOT NULL,

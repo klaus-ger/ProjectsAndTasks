@@ -68,6 +68,25 @@ class Boardtopic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $btUser;
+    
+    /**
+     * User
+     * @var \int
+     * 
+     */
+    protected $btCat;
+    
+    /**
+     * Count Messages - not stored in DB!
+     * @var \int
+     */
+    protected $btMessages;
+    
+     /**
+     * Count Messages - not stored in DB!
+     * @var \T3developer\ProjectsAndTasks\Domain\Model\Boardmessage
+     */
+    protected $btLastMessage;
 
     public function getBtTitle() {
         return $this->btTitle;
@@ -108,6 +127,30 @@ class Boardtopic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setBtUser($btUser) {
         $this->btUser = $btUser;
     }
+    public function getBtCat() {
+        return $this->btCat;
+    }
+
+    public function setBtCat($btCat) {
+        $this->btCat = $btCat;
+    }
+
+    public function getBtMessages() {
+        return $this->btMessages;
+    }
+
+    public function setBtMessages($btMessages) {
+        $this->btMessages = $btMessages;
+    }
+
+    public function getBtLastMessage() {
+        return $this->btLastMessage;
+    }
+
+    public function setBtLastMessage($btLastMessage) {
+        $this->btLastMessage = $btLastMessage;
+    }
+
 
 
 }

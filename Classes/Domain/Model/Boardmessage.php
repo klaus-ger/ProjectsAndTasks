@@ -64,10 +64,17 @@ class Boardmessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     /**
      * user
-     * @var \int
+     * @var \T3developer\ProjectsAndTasks\Domain\Model\User
      * 
      */
     protected $bmUser;
+    
+    /**
+     * Topic
+     * @var \int
+     * 
+     */
+    protected $bmTopic;
 
     public function getBmTitle() {
         return $this->bmTitle;
@@ -108,6 +115,14 @@ class Boardmessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setBmUser($bmUser) {
         $this->bmUser = $bmUser;
     }
+    public function getBmTopic() {
+        return $this->bmTopic;
+    }
+
+    public function setBmTopic($bmTopic) {
+        $this->bmTopic = $bmTopic;
+    }
+
 
 
 }

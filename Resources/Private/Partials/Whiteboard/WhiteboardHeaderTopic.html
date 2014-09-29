@@ -1,8 +1,6 @@
 <ul class="pull-left">
     <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-    <f:link.action action="ticketListDate">
-        Responsive mail templates
-    </f:link.action>
+    Topic: {topic.btTitle}
 </li>
 
 
@@ -14,7 +12,7 @@
 
 <ul class="pull-right">
     <li class="panel-link">
-    <f:link.action action="projectMilestonesNew" arguments="{uid: project.uid}">
+    <f:link.action action="whiteboardOverview" >
         <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="new Ticket" />
     </f:link.action>
 </li>

@@ -89,6 +89,12 @@ if (!defined('TYPO3_MODE'))
         
      'Whiteboard'=> ' whiteboardOverview
                     , whiteboardShowTopic
+                    , whiteboardCatAdd
+                    , whiteboardCatSave
+                    , whiteboardTopicAdd
+                    , whiteboardTopicSave
+                    , whiteboardMessageSave
+                    , whiteboardMessageEdit
                     ',
             
      'Settings'=>   ' settingsProjectCat
@@ -184,7 +190,13 @@ if (!defined('TYPO3_MODE'))
                     , companySave ',
         
      'Whiteboard'=> ' whiteboardOverview
-                    , whiteboardShowTopic',
+                    , whiteboardShowTopic
+                    , whiteboardCatAdd
+                    , whiteboardCatSave
+                    , whiteboardTopicAdd
+                    , whiteboardTopicSave
+                    , whiteboardMessageSave
+                    , whiteboardMessageEdit',
             
      'Settings'=>   ' settingsProjectCat
                     , settingsProjectCatNew

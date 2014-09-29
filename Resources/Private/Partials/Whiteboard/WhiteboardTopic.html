@@ -1,96 +1,62 @@
 <div class="pat-list">
-
-
-    <div class="pat-list-item clearfix even ">
+    <f:for each="{messages}" as="message" iteration="iter">
+         <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')} ">
         <div class="col-md-2">
-            10.5.2014 - klaus
+            <f:format.date format="d.m.Y">{message.bmDate}</f:format.date> - {message.bmUser.username}
         </div>
 
 
         <div class="col-md-8">
             <div class="col-md-12">
-                <b>responsive mail templates</b>
+                <b>{message.bmTitle}</b>
             </div>
             <div class="col-md-12">
                 <p style="line-height:22px;">
-                    Some responsive mail templates in the net:
-                    <br />
-                    • Antwort: http://internations.github.io/antwort/
-                    <br />
-                    • zurb: http://zurb.com/playground/responsive-email-templates
+                <f:format.nl2br>{message.bmText}</f:format.nl2br>
                 </p>
             </div>
         </div>
 
     </div>
 
-    <div class="pat-list-item clearfix odd ">
-        <div class="col-md-2">
-            21.5.2014 - stephan
-        </div>
+    </f:for>
 
-
-        <div class="col-md-8">
-            <div class="col-md-12">
-                <b>zurb is cool</b>
-            </div>
-            <div class="col-md-12">
-                <p style="line-height:22px;">
-                    I work normally with zurb, what is now ink.<br />They have an inline styler which works great
-                </p>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="pat-list-item clearfix odd ">
-        <div class="col-md-2">
-            19.6.2014 - klaus
-        </div>
-
-
-        <div class="col-md-8">
-            <div class="col-md-12">
-                <b>zurb & standalone fluid template</b>
-            </div>
-            <div class="col-md-12">
-                <p style="line-height:22px;">
-                    I tested ink in the last project (event booking) as a standalone fluid template. It great, but for simple mails a bit overstyled, even the simpels template from them;)
-                </p>
-            </div>
-        </div>
-
-    </div>
     
+
+    
+
+   
+
     <div class="pat-list-item clearfix even ">
-       
+
         <div class="col-md-2">
             <b><h4>Write a note</h4></b>
         </div>
 
 
         <div class="col-md-8">
-<f:form action="projectTicketSave" name="ticket" object="{ticket}" class="form-horizontal" >
-    <div class="form-group">
-        
-        <div class="col-sm-10">
-            <f:form.textfield property="ticketTitel" value="{ticket.ticketTitel}" class="form-control" placeholder="Title"/>
-        </div>
-    </div>
+            <f:form action="whiteboardMessageSave" name="newmessage" object="{newmessage}" class="form-horizontal" >
+                
+                <f:form.hidden property="bmTopic" value="{newmessage.bmTopic}" />
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <f:form.textfield property="bmTitle" value="{newmessage.bmTitle}" class="form-control" placeholder="Title"/>
+                    </div>
+                </div>
 
-    <div class="form-group">
-        
-        <div class="col-sm-10">
-            <f:form.textarea cols="50" rows="10" property="ticketText" value="{ticket.ticketText}" class="form-control"/>
-        </div>
-    </div>
+                <div class="form-group">
 
-    
-    <div class="col-sm-10">
-        <f:form.submit value="   send    " class="btn btn-primary"/>
-    </div>
-</f:form>
-</div>
-        
+                    <div class="col-sm-10">
+                        <f:form.textarea cols="50" rows="10" property="bmText" value="{newmessage.bmText}" class="form-control"/>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-10">
+                    <f:form.submit value="   send    " class="btn btn-primary"/>
+                </div>
+            </f:form>
+        </div>
+
     </div>
 </div>

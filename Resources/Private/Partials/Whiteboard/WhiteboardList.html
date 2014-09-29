@@ -4,156 +4,63 @@
     <div class="pat-list-item clearfix ">
         <b>&nbsp; </b>
     </div>
-
-    <div class="pat-list-item clearfix ">
-        <div class="pat-list-cell cell-bold cell-700">
-            Lost & Found
-        </div>
-    </div>
-
-    <div class="pat-list-item clearfix even">
-        <f:link.action action="whiteboardShowTopic" controller="Whiteboard" arguments="{uid: ticket.uid}">
-            <div class="pat-list-cell cell-first cell-50">
-                &nbsp;
-            </div>
-
-            <div class="pat-list-cell cell-75">
-                19.1.2014
-            </div>
-
-            <div class="pat-list-cell cell-bold cell-400">
-                html5 Templates - free web resources
-            </div>
-            <div class="pat-list-cell cell-50">
-                <span class="badge">4</span>
-            </div>
-            <div class="pat-list-cell cell-400">
-                27.4.2014 Also a good resources ... 
-            </div>
-            <div class="pat-list-cell cell-100">
-                (klaus)
-            </div>
-        </f:link.action>
-
-
-    </div>
-    <div class="pat-list-item clearfix even">
-        <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticket.uid}">
-            <div class="pat-list-cell cell-first cell-50">
-                &nbsp;
-            </div>
-
-            <div class="pat-list-cell cell-75">
-                11.2.2014
-            </div>
-
-            <div class="pat-list-cell cell-bold cell-400">
-                Bootstrap issues - version 3
-            </div>
-            <div class="pat-list-cell cell-50">
-                <span class="badge">11</span>
-            </div>
-            <div class="pat-list-cell cell-400">
-                29.6.2014 pull right of columns 
-            </div>
-            <div class="pat-list-cell cell-100">
-                (stephan)
-            </div>
-        </f:link.action>
-
-
-    </div>
-    <div class="pat-list-item clearfix even">
-        <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticket.uid}">
-            <div class="pat-list-cell cell-first cell-50">
-                &nbsp;
-            </div>
-
-            <div class="pat-list-cell cell-75">
-                10.5.2014
-            </div>
-
-            <div class="pat-list-cell cell-bold cell-400">
-                responsive mail templates
-            </div>
-            <div class="pat-list-cell cell-50">
-                <span class="badge">3</span>
-            </div>
-            <div class="pat-list-cell cell-400">
-                9.8.2014 ink from zurb foundation 
-            </div>
-            <div class="pat-list-cell cell-100">
-                (klaus)
-            </div>
-        </f:link.action>
-
-
-    </div>
     
-    
-    <!--------------------------------------------->
-    <div class="pat-list-item clearfix ">
-        <b>&nbsp; </b>
-    </div>
-
-    <div class="pat-list-item clearfix ">
-        <div class="pat-list-cell cell-bold cell-700">
-            PAT System - Bugs
+    <f:for each="{board}" as="cat">
+        <div class="pat-list-item clearfix ">
+            <div class="pat-list-cell cell-bold cell-700">
+                {cat.cat.bcTitle}
+            </div>
         </div>
-    </div>
 
-    <div class="pat-list-item clearfix even">
-        <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticket.uid}">
+        <f:for each="{cat.topics}" as="topic" iteration="iter">
+            <div class="pat-list-item clearfix even">
+                <f:link.action action="whiteboardShowTopic" controller="Whiteboard" arguments="{topicUid: topic.uid}">
+                    <div class="pat-list-cell cell-first cell-50">
+                        &nbsp;
+                    </div>
+
+                    <div class="pat-list-cell cell-75">
+                        <f:format.date format="d.m.Y">{topic.btDate}</f:format.date>
+                    </div>
+
+                    <div class="pat-list-cell cell-bold cell-400">
+                        {topic.btTitle}
+                    </div>
+                    <div class="pat-list-cell cell-50">
+                        <span class="badge">{topic.btMessages}</span>
+                    </div>
+                    <div class="pat-list-cell cell-400">
+                        <f:format.date format="d.m.Y">{topic.btLastMessage.bmDate}</f:format.date> {topic.btLastMessage.bmTitle} 
+                    </div>
+                    <div class="pat-list-cell cell-100">
+                        {topic.btLastMessage.bmUser.username}
+                    </div>
+                </f:link.action>
+
+
+            </div>
+        </f:for>
+
+        <div class="pat-list-item clearfix even">
             <div class="pat-list-cell cell-first cell-50">
                 &nbsp;
             </div>
 
             <div class="pat-list-cell cell-75">
-                15.12.2013
-            </div>
-
-            <div class="pat-list-cell cell-bold cell-400">
-                Project View - cuonting tickets
-            </div>
-            <div class="pat-list-cell cell-50">
-                <span class="badge">2</span>
-            </div>
-            <div class="pat-list-cell cell-400">
-                28.12.2013 Should be solved ... 
-            </div>
-            <div class="pat-list-cell cell-100">
-                (klaus)
-            </div>
-        </f:link.action>
-
-
-    </div>
-    <div class="pat-list-item clearfix even">
-        <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticket.uid}">
-            <div class="pat-list-cell cell-first cell-50">
                 &nbsp;
             </div>
 
-            <div class="pat-list-cell cell-75">
-                18.2.2014
-            </div>
-
-            <div class="pat-list-cell cell-bold cell-400">
-                Graph View on Strartpage
-            </div>
-            <div class="pat-list-cell cell-50">
-                <span class="badge">7</span>
-            </div>
             <div class="pat-list-cell cell-400">
-                10.8.2014 it sucks - have we another solution ?
+                <f:link.action action="whiteboardTopicAdd" arguments="{catUid: cat.cat.uid}">
+                    add Topic ...
+                </f:link.action>
             </div>
-            <div class="pat-list-cell cell-100">
-                (stephan)
-            </div>
-        </f:link.action>
 
+        </div>
 
-    </div>
+    </f:for>
+
+  
 
 </div>
 

@@ -111,6 +111,15 @@ $TCA['tx_projectsandtasks_domain_model_boardtopic'] = array(
                 'size' => 100,
             )
         ),
+         'bt_cat' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        
         
     ),
 );

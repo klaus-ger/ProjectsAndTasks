@@ -111,6 +111,14 @@ $TCA['tx_projectsandtasks_domain_model_boardmessage'] = array(
                 'size' => 100,
             )
         ),
+         'bm_topic' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
     ),
 );
 ?>

@@ -31,7 +31,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CompanyRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class BoardtopicRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
     //protected $defaultOrderings = array('cyShort' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 

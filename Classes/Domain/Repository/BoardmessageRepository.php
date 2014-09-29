@@ -36,6 +36,41 @@ class BoardmessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     //protected $defaultOrderings = array('cyShort' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
     
+       /**
+     * find Messages by Topic
+     * 
+     * @param int $topicUid 
+     * @return object
+     */
+    public function countByTopic($topicUid) {
+        $query = $this->createQuery();
+
+        $query->matching(
+                $query->equals('bmTopic', $topicUid)
+                
+        );
+
+        return $query->execute()->count();
+    }
+    
+     /**
+     * Find last Message by Topic
+     * 
+     * @param int $topicUid
+     */
+    public function findLastMessageByTopic($topicUid ){
+        $orderings = array('bmDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
+        $query->setLimit(1);
+                
+		$query->matching(
+			$query->equals('bmTopic', $topicUid)
+                           
+		);
+
+		return $query->execute();
+    }
 }
 
 ?>
