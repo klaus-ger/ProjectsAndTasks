@@ -8,8 +8,8 @@ A TYPO3 Extension for Projects and Tasks
 ###Version History
 
 #####Version 0.2.2 | 29-8-2014
-*Whiteboard section is now working
-*smaller bugfixes
+* Whiteboard section is now working
+* smaller bugfixes
 
 #####Update Installation:
 > Deactivate the Extension in EXT Manager 
