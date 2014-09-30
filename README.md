@@ -12,10 +12,10 @@ A TYPO3 Extension for Projects and Tasks
 * smaller bugfixes
 
 #####Update Installation:
-> Deactivate the Extension in EXT Manager 
-> update Sorce Code in Extension Folder
-> activate Extension in EXT Manager
-> Thats all!
+* Deactivate the Extension in EXT Manager 
+* update Sorce Code in Extension Folder
+* activate Extension in EXT Manager
+* Thats all!
 
 
 
