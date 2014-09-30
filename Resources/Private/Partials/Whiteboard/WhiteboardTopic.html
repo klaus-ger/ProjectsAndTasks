@@ -1,31 +1,41 @@
+
 <div class="pat-list">
+    <div class="col-md-12">&nbsp;</div>
+    
     <f:for each="{messages}" as="message" iteration="iter">
-         <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')} ">
-        <div class="col-md-2">
-            <f:format.date format="d.m.Y">{message.bmDate}</f:format.date> - {message.bmUser.username}
+        <div class="col-md-12">
+            <f:if condition="{iter.isFirst} == 0">
+                <hr />
+            </f:if>
         </div>
-
-
-        <div class="col-md-8">
-            <div class="col-md-12">
-                <b>{message.bmTitle}</b>
+        
+            <div class="col-md-2">
+                <f:format.date format="d.m.Y">{message.bmDate}</f:format.date> - {message.bmUser.username}
+                <br />
+                <f:if condition="{loggedInUser.uid}=={message.bmUser.uid}">
+                    <f:link.action action="whiteboardMessageEdit" arguments="{message: message}">
+                        edit
+                    </f:link.action>
+                    
+                </f:if>
             </div>
-            <div class="col-md-12">
-                <p style="line-height:22px;">
-                <f:format.nl2br>{message.bmText}</f:format.nl2br>
-                </p>
+
+
+            <div class="col-md-8">
+                <div class="col-md-12">
+                    <b>{message.bmTitle}</b>
+                </div>
+                <div class="col-md-12">
+                    <p style="line-height:22px;">
+                    <f:format.nl2br>{message.bmText}</f:format.nl2br>
+                    </p>
+                </div>
             </div>
-        </div>
 
-    </div>
-
+           
     </f:for>
 
-    
 
-    
-
-   
 
     <div class="pat-list-item clearfix even ">
 
@@ -36,7 +46,7 @@
 
         <div class="col-md-8">
             <f:form action="whiteboardMessageSave" name="newmessage" object="{newmessage}" class="form-horizontal" >
-                
+
                 <f:form.hidden property="bmTopic" value="{newmessage.bmTopic}" />
                 <div class="form-group">
                     <div class="col-sm-10">

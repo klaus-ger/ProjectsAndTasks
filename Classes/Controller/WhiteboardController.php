@@ -159,6 +159,7 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
 
         $this->view->assign('topic', $topic);
         $this->view->assign('cat', $this->boardcatRepository->findByUid($catUid));
+        
     }
 
     /**
@@ -196,13 +197,15 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         $this->view->assign('topic', $topic);
         $this->view->assign('messages', $messages);
         $this->view->assign('newmessage', $newmessage);
+        $this->view->assign('loggedInUser', $this->user);
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($companies);
     }
     
     
      /**
      * Save a message (Edit and new)
-      * @param \T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $newmessage
+     * 
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $newmessage
      */
     public function whiteboardMessageSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $newmessage) {
         
@@ -220,10 +223,13 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
     }
 
     /**
-     * Shows the Whiteboard Topic Page
+     * Shows a Form to edit a Message
+     * 
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $message
      */
-    public function whiteboardMessageEditAction() {
+    public function whiteboardMessageEditAction(\T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $message) {
     
+        $this->view->assign('newmessage', $message);
     }
 }
 
