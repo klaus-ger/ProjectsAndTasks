@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 
+ *  (c) 2013 Klaus Heuer <klaus.heuer@t3-developer.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -84,22 +84,22 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         $person = $this->userRepository->findByUid($personID);
         $companies = $this->companyRepository->findAll();
-        
+
         $this->view->assign('mainmenu', '1');
         $this->view->assign('person', $person);
         $this->view->assign('companies', $companies);
     }
 
-        /**
+    /**
      * Shows the PErson create Form
      */
     public function personNewAction() {
         $companies = $this->companyRepository->findAll();
-        
+
         $this->view->assign('mainmenu', '1');
         $this->view->assign('companies', $companies);
     }
-    
+
     /**
      * Save the person
      * @param \T3developer\ProjectsAndTasks\Domain\Model\User $person Description
