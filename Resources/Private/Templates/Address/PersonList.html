@@ -18,7 +18,7 @@
                         <div class="panel-heading clearfix">
                             <ul class="pull-left">
                                 <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-                                <f:link.action action="settingsProjectCat">
+                                <f:link.action action="personList">
                                     Persons
                                 </f:link.action>
                                 </li>
@@ -33,7 +33,7 @@
                             <ul class="pull-right">
                                 <li class="panel-link">
                                 <f:link.action action="personNew">
-                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Person" />
                                 </f:link.action>
                                 </li>
                             </ul>
@@ -50,15 +50,15 @@
 
 
                                     <f:link.action action="personEdit" arguments="{person: person.uid}">
-                                        <div class="list-item cat-no">
-                                            {cat.main.catOrder}
+                                        <div class="pat-list-cell cell-first cell-50">
+                                            
                                         </div>
-                                        <div class="list-item cat-titel">
-                                            {person.firstName} {person.lastName} ({person.username})
+                                        <div class="pat-list-cell cell-200">
+                                            {person.firstName} {person.lastName}
                                         </div>
                                     </f:link.action>
-                                    <div class="list-item project-status">
-                                        {company.cyPLZ} {company.cyCity}
+                                    <div class="pat-list-cell cell-200">
+                                        {person.username}
                                     </div>
 
 

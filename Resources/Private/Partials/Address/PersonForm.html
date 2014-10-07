@@ -1,62 +1,76 @@
-
-
-<div class="form-left">
-    <div class="input-wrap left-half">
-        <label>First Name</label>
-        <f:form.textfield property="firstName" value="{person.firstName}" class="left-half"/>
+<div class="col-md-7">
+    
+    <div class="form-group">
+        <label for="First Name" class="col-sm-2 control-label">First Name</label>
+        <div class="col-sm-7">
+            <f:form.textfield property="firstName" value="{person.firstName}" class="form-control"/>
+        </div>
     </div>
-
-    <div class="input-wrap left-half">
-        <label class="small">Last Name</label>
-        <f:form.textfield property="lastName" value="{person.lastName}" class="left-half"/>
+    
+    <div class="form-group">
+        <label for="Last Name" class="col-sm-2 control-label">Last Name</label>
+        <div class="col-sm-7">
+            <f:form.textfield property="lastName" value="{person.lastName}" class="form-control"/>
+        </div>
     </div>
-
-    <div class="input-wrap left-fullwidth">
-        <label>Street</label>
-        <f:form.textfield property="address" value="{person.address}" class="left-large"/>
+    
+    <div class="form-group">
+        <label for="Street" class="col-sm-2 control-label">Street</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="address" value="{person.address}" class="form-control"/>
+        </div>
     </div>
-
-    <div class="input-wrap left-large">
-        <label>City</label>
-        <f:form.textfield property="city" value="{person.city}" class="left-large"/>
+    
+    <div class="form-group">
+        <label for="City" class="col-sm-2 control-label">ZIP / City</label>
+        <div class="col-sm-2">
+            <f:form.textfield property="zip" value="{person.zip}" class="form-control"/>
+        </div>
+        <div class="col-sm-8">
+            <f:form.textfield property="city" value="{person.city}" class="form-control"/>
+        </div>
     </div>
-
-    <div class="input-wrap left-small">
-        <label class="small">ZIP</label>
-        <f:form.textfield property="zip" value="{person.zip}" class=""/>
+    
+    <div class="form-group">
+        <label for="Company" class="col-sm-2 control-label">Company</label>
+        <div class="col-sm-10">
+               <f:form.select property="company" options="{companies}" optionValueField="uid" optionLabelField="cyShort" prependOptionLabel="-- Company --" class="form-control"/>
+        </div>
     </div>
-    <div class="input-wrap left-fullwidth">
-        <label>Company</label>
-        <f:form.select property="company" options="{companies}" optionValueField="uid" optionLabelField="cyShort" prependOptionLabel="-- Company --" /><br />
-    </div>
-    <!--
-    <div class="input-wrap left-fullwidth">
-        <label>Comment</label>
-        <f:form.textarea cols="50" rows="10" property="cyComment" value="{person.cyComment}" class="project-shorttext"  />
-    </div>
-    -->
+    
 </div>
 
-<div class="form-right">
-    <div class="input-wrap right">
-        <label class="small">Tel</label>
-        <f:form.textfield property="telephone" value="{person.telephone}" class="right"/>
-    </div>
+<div class="col-md-1"></div>
 
-    <div class="input-wrap right">
-        <label class="small">web</label>
-        <f:form.textfield property="web" value="{person.web}" class="right"/>
+<div class="col-md-4">
+    <div class="form-group">
+        <label for="Street" class="col-sm-2 control-label">Tel</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="telephone" value="{person.telephone}" class="form-control"/>
+        </div>
     </div>
-
-    <div class="input-wrap right">
-        <label class="small">mail</label>
-        <f:form.textfield property="email" value="{person.email}" class="right"/>
+    
+    <div class="form-group">
+        <label for="Web" class="col-sm-2 control-label">Web</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="web" value="{person.web}" class="form-control"/>
+        </div>
     </div>
-    <!--
-    <div class="input-wrap right">
-        <label class="small">Customer</label>
-        <f:form.checkbox property="cyCustomer" value="1" checked="{person.cyCustomer} ==1" class="radio"/>
-         
+    
+    <div class="form-group">
+        <label for="Mail" class="col-sm-2 control-label">E-Mail</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="email" value="{person.email}" class="form-control"/>
+        </div>
     </div>
-    -->
+    
+    <div class="form-group">
+        <label for="Mail" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10">
+            <f:form.submit value="save" class="btn btn-primary"/>
+        </div>
+    </div>
+    
+    
+    
 </div>

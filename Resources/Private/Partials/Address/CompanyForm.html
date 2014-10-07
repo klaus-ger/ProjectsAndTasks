@@ -1,57 +1,85 @@
-
-
-<div class="form-left">
-    <div class="input-wrap left-large">
-        <label>Company</label>
-        <f:form.textfield property="cyName" value="{company.cyName}" class="left-large"/>
+<div class="col-md-7">
+    
+    <div class="form-group">
+        <label for="Company" class="col-sm-2 control-label">Company</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="cyName" value="{company.cyName}" class="form-control"/>
+        </div>
     </div>
     
-    <div class="input-wrap left-small">
-        <label class="small">Short</label>
-       <f:form.textfield property="cyShort" value="{company.cyShort}" class=""/>
-    </div>
-
-    <div class="input-wrap left-fullwidth">
-        <label>Street</label>
-        <f:form.textfield property="cyStreet" value="{company.cyStreet}" class="left-large"/>
+    <div class="form-group">
+        <label for="CompanyShort" class="col-sm-2 control-label">Company Short</label>
+        <div class="col-sm-7">
+            <f:form.textfield property="cyShort" value="{company.cyShort}" class="form-control"/>
+        </div>
     </div>
     
-    <div class="input-wrap left-large">
-        <label>City</label>
-        <f:form.textfield property="cyCity" value="{company.cyCity}" class="left-large"/>
+    <div class="form-group">
+        <label for="Street" class="col-sm-2 control-label">Street</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="cyStreet" value="{company.cyStreet}" class="form-control"/>
+        </div>
     </div>
     
-     <div class="input-wrap left-small">
-        <label class="small">ZIP</label>
-       <f:form.textfield property="cyPlz" value="{company.cyPlz}" class=""/>
+    <div class="form-group">
+        <label for="City" class="col-sm-2 control-label">ZIP / City</label>
+        <div class="col-sm-2">
+            <f:form.textfield property="cyPlz" value="{company.cyPlz}" class="form-control"/>
+        </div>
+        <div class="col-sm-8">
+            <f:form.textfield property="cyCity" value="{company.cyCity}" class="form-control"/>
+        </div>
     </div>
-
-    <div class="input-wrap left-fullwidth">
-        <label>Comment</label>
-        <f:form.textarea cols="50" rows="10" property="cyComment" value="{company.cyComment}" class="project-shorttext"  />
+    
+    <div class="form-group">
+        <label for="Comment" class="col-sm-2 control-label">Comment</label>
+        <div class="col-sm-10">
+             <f:form.textarea cols="50" rows="10" property="cyComment" value="{company.cyComment}" class="form-control"/>
+        </div>
     </div>
+    
 </div>
 
-<div class="form-right">
-    <div class="input-wrap right">
-        <label class="small">Tel</label>
-         <f:form.textfield property="cyTelephone" value="{company.cyTelephone}" class="right"/>
-    </div>
-    
-    <div class="input-wrap right">
-        <label class="small">web</label>
-         <f:form.textfield property="cyWeb" value="{company.cyWeb}" class="right"/>
-    </div>
-    
-    <div class="input-wrap right">
-        <label class="small">mail</label>
-         <f:form.textfield property="cyMail" value="{company.cyMail}" class="right"/>
-    </div>
-    
-    <div class="input-wrap right">
-        <label class="small">Customer</label>
-        <f:form.checkbox property="cyCustomer" value="1" checked="{company.cyCustomer} ==1" class="radio"/>
-         
-    </div>
+<div class="col-md-1"></div>
 
+<div class="col-md-4">
+    
+    <div class="form-group">
+        <label for="Tel" class="col-sm-2 control-label">Tel</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="cyTelephone" value="{company.cyTelephone}" class="form-control"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="web" class="col-sm-2 control-label">web</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="cyWeb" value="{company.cyWeb}" class="form-control"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="mail" class="col-sm-2 control-label">E-Mail</label>
+        <div class="col-sm-10">
+            <f:form.textfield property="cyMail" value="{company.cyMail}" class="form-control"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="Customer" class="col-sm-2 control-label">Customer</label>
+        <div class="col-sm-10">
+            <label class="checkbox-inline">
+            <f:form.checkbox property="cyCustomer" value="1" checked="{company.cyCustomer} ==1" />
+            </label>
+        </div>
+    </div>
+    
+        <div class="form-group">
+        <label for="Mail" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10">
+            <f:form.submit value="save" class="btn btn-primary"/>
+        </div>
+    </div>
+    
 </div>
+
