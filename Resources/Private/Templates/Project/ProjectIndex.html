@@ -2,18 +2,94 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-    <div class="pat-stage">
-        
-        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
 
+    <div class="pat-stage">
+        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
     </div>
-    
+
     <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-    Milestone List: Milestone Beschreibung, offene Tasks, wenn Milestone erledigt durchgestrichen anzeigen.<br />
-    rechte Spalte: Team Member
-        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <div class="col-md-12">
+                            <h5>Summary</h5>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <br />
+                            <b>Next Milestone: {nextMilestone.msTitel}</b><br >
+                            <f:for each="{nextMilestonesTickets}" as="msticket">
+                                    <div class="pat-list-cell cell-first cell-50">
+                                        {msticket.ticketNummer}
+                                    </div>
+
+                                    <div class="pat-list-cell cell-75">
+                                        <f:format.date format="d.m.Y">{msticket.ticketDate}</f:format.date>
+                                    </div>
+                                    <div class="pat-list-cell cell-500">
+                                        {msticket.ticketTitel}
+                                    </div>
+                                    <div class="pat-list-cell cell-50">
+                                        {msticket.ticketAssigned.username}
+                                    </div>
+                                    <br />
+                                </f:for> 
+                            <br/>
+                            <hr />
+
+                            <f:if condition="{ticketsWithoutMS}">
+                                <b>Tickets without Milestones</b><br>
+                                <f:for each="{ticketsWithoutMS}" as="ticket">
+                                    <div class="pat-list-cell cell-first cell-50">
+                                        {ticket.ticketNummer}
+                                    </div>
+
+                                    <div class="pat-list-cell cell-75">
+                                        <f:format.date format="d.m.Y">{ticket.ticketDate}</f:format.date>
+                                    </div>
+                                    <div class="pat-list-cell cell-500">
+                                        {ticket.ticketTitel}
+                                    </div>
+                                    <div class="pat-list-cell cell-50">
+                                        {ticket.ticketAssigned.username}
+                                    </div>
+                                    <br />
+                                </f:for>
+                                <hr />
+                            </f:if>
+
+                            <b>Team Member:</b>
+                            <f:for each="{projectteam}" as="member" iteration="iter">
+                                {member.ptUser.firstName} {member.ptUser.lastName}
+                                <f:if condition="{iter.isLast} == 0">| </f:if>
+                            </f:for>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <div class="col-md-12">
+                            <h5>Progress</h5>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <br />
+                            {ticketsSummary.open} Tickets open, {ticketsSummary.all} Tickets total.
+                            <hr />
+                        </div>
+                        <div class="col-md-12">
+                            Notes
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </f:section>
