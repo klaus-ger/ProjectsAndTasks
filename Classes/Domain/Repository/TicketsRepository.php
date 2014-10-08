@@ -48,8 +48,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
-    
-    
+
     /**
      * findOpenTickets ordered by scheduel
      * @param int $userId Description
@@ -61,9 +60,9 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         $query->setOrderings($orderings);
         $query->matching(
                 $query->logicalAnd(array(
-                $query->equals('ticketStatus.statusBehaviour', 0),
-                $query->equals('ticketAssigned', $userId)
-                    ))
+                    $query->equals('ticketStatus.statusBehaviour', 0),
+                    $query->equals('ticketAssigned', $userId)
+                ))
         );
 
         return $query->execute();
@@ -72,7 +71,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     /**
      * findOpenTickets
      * @param int $userId Description
-         * 
+     * 
      * @return object
      */
     public function findOpenTicketsByUser($userId) {
@@ -80,17 +79,32 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         $query->matching(
                 $query->logicalAnd(array(
-                $query->equals('ticketStatus.statusBehaviour', 0),
-                $query->equals('ticketAssigned', $userId)
-                    ))
+                    $query->equals('ticketStatus.statusBehaviour', 0),
+                    $query->equals('ticketAssigned', $userId)
+                ))
         );
 
         return $query->execute();
     }
-    
+
+    /**
+     * count ALL Tickets by Project
+     * 
+     * @param int $project ProjectUid
+     * @return object
+     */
+    public function countTicketsByProject($project) {
+        $query = $this->createQuery();
+
+        $query->matching(
+                $query->equals('ticketProject', $project)
+        );
+
+        return $query->execute()->count();
+    }
     
     /**
-     * findOpenTickets by Project
+     * count OpenTickets by Project
      * 
      * @param int $project ProjectUid
      * @return object
@@ -100,15 +114,15 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         $query->matching(
                 $query->logicalAnd(array(
-                    $query->lessThan('ticketStatus', '4'),
+                    $query->equals('ticketStatus.statusBehaviour', 0),
                     $query->equals('ticketProject', $project)
                 ))
         );
 
         return $query->execute()->count();
     }
-    
-        /**
+
+    /**
      * findOpenTickets by Milestone
      * 
      * @param int $milestone Milestone
@@ -127,7 +141,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         return $query->execute()->count();
     }
 
-            /**
+    /**
      * findOpenTickets by Project
      * 
      * @param int $project ProjectUid
@@ -135,7 +149,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return object
      */
     public function findTicketsByProjectAndStatusOrderDate($project, $status) {
-       $orderings = array('ticketDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+        $orderings = array('ticketDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
         $query = $this->createQuery();
         //$query->setDefaultOrderings(array('ticketMilestone' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
         $query->setOrderings($orderings);
@@ -148,8 +162,8 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
-    
-                /**
+
+    /**
      * findOpenTickets by Project
      * 
      * @param int $project ProjectUid
@@ -157,7 +171,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return object
      */
     public function findTicketsByProjectAndStatusOrderUid($project, $status) {
-       
+
         $query = $this->createQuery();
         $query->matching(
                 $query->logicalAnd(array(
@@ -168,7 +182,8 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
-        /**
+
+    /**
      * findOpenTickets by Project
      * 
      * @param int $project ProjectUid
@@ -176,7 +191,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return object
      */
     public function findTicketsByProjectAndStatus($project, $status) {
-       $orderings = array('ticketMilestone.msOrder' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+        $orderings = array('ticketMilestone.msOrder' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
         $query = $this->createQuery();
         //$query->setDefaultOrderings(array('ticketMilestone' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
         $query->setOrderings($orderings);
@@ -189,8 +204,8 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
-    
-          /**
+
+    /**
      * find OpenTickets by Project and Milestone
      * 
      * @param int $project ProjectUid
@@ -200,7 +215,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return object
      */
     public function findTicketsByProjectMsAndStatus($project, $milestone, $status) {
-       $orderings = array('ticketMilestone.msOrder' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+        $orderings = array('ticketMilestone.msOrder' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
         $query = $this->createQuery();
         //$query->setDefaultOrderings(array('ticketMilestone' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
         //$query->setOrderings($orderings);
@@ -214,8 +229,8 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
-    
-              /**
+
+    /**
      * find OpenTickets by Project and Sprint
      * 
      * @param int $project ProjectUid
@@ -225,7 +240,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return object
      */
     public function findTicketsByProjectSprintAndStatus($project, $sprint, $status) {
-       
+
         $query = $this->createQuery();
         $query->matching(
                 $query->logicalAnd(array(
@@ -237,7 +252,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
-    
+
     /**
      * find OpenTickets by Day (Calender Function)
      * 
@@ -248,7 +263,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return object
      */
     public function findPerDayandStatus($start, $end, $status) {
-       
+
         $query = $this->createQuery();
 
         $query->matching(
@@ -261,8 +276,8 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
-    
-       /**
+
+    /**
      * find OpenTickets befor actual day (Calender Function)
      * 
      * @param int $start timestamp Start Day
@@ -271,7 +286,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return object
      */
     public function findPerDelayedandStatus($start, $status) {
-       
+
         $query = $this->createQuery();
 
         $query->matching(
@@ -284,6 +299,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
+
 }
 
 ?>
