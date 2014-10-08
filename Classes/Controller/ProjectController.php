@@ -82,7 +82,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $ticketresponseRepository;
 
-
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\CompanyRepository   
      * @inject
@@ -94,19 +93,18 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @inject
      */
     protected $statusRepository;
-    
-        /**
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\DocumentsRepository   
      * @inject
      */
     protected $documentsRepository;
-    
-            /**
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\FileRepository   
      * @inject
      */
     protected $fileRepository;
-
 
     /**
      * @var \T3developer\ProjectsAndTasks\Utility\Pdf  
@@ -170,14 +168,14 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->arguments['response']
                     ->getPropertyMappingConfiguration()->allowProperties('trStart')
                     ->forProperty('trStart');
-                   // ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
+            // ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
         }
         if (isset($this->arguments['response'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
             $this->arguments['response']
                     ->getPropertyMappingConfiguration()->allowProperties('trEnd')
                     ->forProperty('trEnd');
-                  //  ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
+            //  ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
         }
         if (isset($this->arguments['milestone'])) {
             // $propertyMappingConfiguration->allowProperties('ticketDate');
@@ -214,13 +212,13 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * Ordered by Category
      */
     public function allProjectsByCatAction() {
-        
+
         $catArray = array();
-        
+
         //search all projects without cat
         $projectsWithoutCat = $this->projectsRepository->findByProjectCatAndStatus(0, 0);
-        if($projectsWithoutCat[0] != 0){
-            foreach($projectsWithoutCat as $proWithoutCat){
+        if ($projectsWithoutCat[0] != 0) {
+            foreach ($projectsWithoutCat as $proWithoutCat) {
                 $proWithoutCat->setOpenTickets($this->ticketsRepository->countOpenTicketsByProject($proWithoutCat->getUid()));
             }
         }
@@ -301,10 +299,28 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         $project = $this->projectsRepository->findByUid($projectuid);
-        $tickets = $this->ticketsRepository->findByTicketProject($project->getUid());
+        $projectteam = $this->projectteamRepository->findByPtProject($projectuid);
+
+        $ticketsWithoutMS = $this->ticketsRepository->findTicketsByProjectMsAndStatus($projectuid, 0, 0);
+
+        //search for the first open milestones with tickets
+        $milestones = $this->milestonesRepository->findByMsProject($projectuid);
+        foreach ($milestones as $mile) {
+            $tickets = $this->ticketsRepository->findTicketsByProjectMsAndStatus($projectuid, $mile->getUid(), 0);
+            if ($tickets[0] != '') {
+                $nextMilestone = $mile;
+                $nextMilestonesTickets = $tickets;
+                break;
+            }
+        }
+        
 
         $this->view->assign('project', $project);
-        $this->view->assign('tickets', $tickets);
+        $this->view->assign('nextMilestone', $nextMilestone);
+        $this->view->assign('nextMilestonesTickets', $nextMilestonesTickets);
+        $this->view->assign('ticketsWithoutMS', $ticketsWithoutMS);
+        $this->view->assign('projectteam', $projectteam);
+        $this->view->assign('ticketsSummary', $this->calculateTicketSummary($projectuid));
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', 1);
     }
@@ -798,7 +814,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
         $persistenceManager->persistAll();
-        
+
         $this->redirect('projectTicketDetail', 'Project', NULL, array('uid' => $ticket->getUid()));
     }
 
@@ -1006,8 +1022,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('mainmenu', '7');
         $this->view->assign('submenu', '1');
     }
-    
-     /**
+
+    /**
      * Shows the Sprint Index Page
      */
     public function projectSprintEditAction() {
@@ -1017,7 +1033,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($this->request->hasArgument('sprintId')) {
             $sprintId = $this->request->getArgument('sprintId');
         }
-        
+
         $project = $this->projectsRepository->findByUid($projectuid);
         $sprint = $this->sprintRepository->findByUid($sprintId);
 
@@ -1055,8 +1071,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($this->request->hasArgument('uid')) {
             $projectuid = $this->request->getArgument('uid');
         }
-        
-        
+
+
         $project = $this->projectsRepository->findByUid($projectuid);
 
         $this->view->assign('documents', $this->documentsRepository->findByDocProject($projectuid));
@@ -1101,19 +1117,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     $newFileReference->setFile($newFile);
 
                     $newDocument->addFile($newFileReference);
-                   
                 }
             }
 
             $this->documentsRepository->add($newDocument);
         }
-        
-       
-       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newDocument, 'dokument');
+
+
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newDocument, 'dokument');
         $this->redirect('projectDocumentIndex', 'Project', NULL, array('uid' => $newDocument->getDocProject()));
     }
-
-    
 
     //**************************************************************************
     // Project Team Actions 
@@ -1146,8 +1159,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('submenu', '1');
     }
 
-
-
     /**
      * projectCotractList
      * Shows a List of all OPEN Project Contracts
@@ -1171,23 +1182,22 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \T3developer\ProjectsAndTasks\Domain\Model\Projectteam $teamMember
      */
     public function projectTeamSaveAction() {
-        if($this->request->hasArgument('teamMember')){
+        if ($this->request->hasArgument('teamMember')) {
             $formValue = $this->request->getArgument('teamMember');
         }
-         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($formValue);
-        if($formValue['ptUser'] == null) {
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($formValue);
+        if ($formValue['ptUser'] == null) {
             $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $formValue['projectUid']));
         } else {
-            $member =  new \T3developer\ProjectsAndTasks\Domain\Model\Projectteam;
+            $member = new \T3developer\ProjectsAndTasks\Domain\Model\Projectteam;
             $member->setPtProject($this->projectcatsRepository->findByUid($formValue['projectUid']));
             $member->setPtUser($this->userRepository->findByUid($formValue['ptUser']));
             $this->projectteamRepository->add($member);
-            
-       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($member);
-        
+
+            // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($member);
+
             $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-        $persistenceManager->persistAll();
-        
+            $persistenceManager->persistAll();
         }
 
         $this->redirect('projectTeamList', 'Project', NULL, array('uid' => $member->getPtProject()));
@@ -1198,8 +1208,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     //**************************************************************************
     /**
      * Find Planed hours and efforts
+     * 
+     * @param int $projectID 
+     * @return array $time 
      */
-    public function calculateProjectHours($projectID) {
+    private function calculateProjectHours($projectID) {
         $tickets = $this->ticketsRepository->findByTicketProject($projectID);
 
         //calculate Plan Effort
@@ -1228,6 +1241,20 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $time['work'] = $worktime;
 
         return ($time);
+    }
+
+    /**
+     * Calculate Ticket Summary by Status for a Project
+     * 
+     * @param int $projectID 
+     * @return array $tickets 
+     */
+    private function calculateTicketSummary($projectID) {
+
+        $tickets['all'] = $this->ticketsRepository->countTicketsByProject($projectID);
+        $tickets['open'] = $this->ticketsRepository->countOpenTicketsByProject($projectID);
+
+        return ($tickets);
     }
 
 }
