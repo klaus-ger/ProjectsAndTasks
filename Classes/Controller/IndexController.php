@@ -32,31 +32,8 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class IndexController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
 
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
-     * @inject
-     */
-    protected $userRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketsRepository   
-     * @inject
-     */
-    protected $ticketsRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatisticRepository   
-     * @inject
-     */
-    protected $statisticRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectteamRepository   
-     * @inject
-     */
-    protected $projectteamRepository;
 
     /**
      * Initializes the current action 
