@@ -50,16 +50,34 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     protected $ticketsRepository;
 
     /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatisticRepository   
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketresponseRepository   
      * @inject
      */
-    protected $statisticRepository;
+    protected $ticketresponseRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectsRepository   
+     * @inject
+     */
+    protected $projectsRepository;
 
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectteamRepository   
      * @inject
      */
     protected $projectteamRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatusRepository   
+     * @inject
+     */
+    protected $statusRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatisticRepository   
+     * @inject
+     */
+    protected $statisticRepository;
 
     /**
      * Initializes - check the logged in User
