@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 
+ *  (c) 2014 Klaus Heuer <klaus.heuer@t3-developer.com> 
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,91 +26,15 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * ************************************************************* */
 
 /**
+ * The Project controller - serves the project section
  *
- *
+ * @version 0.1
+ * @copyright Copyright belongs to the respective authors
  * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
-class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
-     * @inject
-     */
-    protected $userRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\SprintsRepository   
-     * @inject
-     */
-    protected $sprintRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectsRepository   
-     * @inject
-     */
-    protected $projectsRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectteamRepository   
-     * @inject
-     */
-    protected $projectteamRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectcatsRepository   
-     * @inject
-     */
-    protected $projectcatsRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\MilestonesRepository   
-     * @inject
-     */
-    protected $milestonesRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketsRepository   
-     * @inject
-     */
-    protected $ticketsRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketresponseRepository   
-     * @inject
-     */
-    protected $ticketresponseRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\CompanyRepository   
-     * @inject
-     */
-    protected $companyRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatusRepository   
-     * @inject
-     */
-    protected $statusRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\DocumentsRepository   
-     * @inject
-     */
-    protected $documentsRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\FileRepository   
-     * @inject
-     */
-    protected $fileRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Utility\Pdf  
-     * @inject
-     */
-    protected $pdfUtility;
+class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
 
     /**
      * Initializes the current action 
@@ -118,93 +42,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function initializeAction() {
 
-        $user = $GLOBALS['TSFE']->fe_user->user;
-        if ($user == NULL) {
-            $this->redirect('logIn', 'Login');
-        } else {
-            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-            $this->settings['username'] = $this->user->getUsername();
-        }
-
-
-        // this configures the parsing
-        if (isset($this->arguments['project'])) {
-            // $propertyMappingConfiguration->allowProperties('projectDate');
-            $this->arguments['project']
-                    ->getPropertyMappingConfiguration()->allowProperties('projectDate')
-                    ->forProperty('projectDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
-            $this->arguments['project']
-                    ->getPropertyMappingConfiguration()->allowProperties('projectCat')
-                    ->forProperty('projectCat')
-            ;
-        }
-        if (isset($this->arguments['ticket'])) {
-            // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['ticket']
-                    ->getPropertyMappingConfiguration()->allowProperties('ticketDate')
-                    ->forProperty('ticketDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
-        }
-        if (isset($this->arguments['ticket'])) {
-            // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['ticket']
-                    ->getPropertyMappingConfiguration()->allowProperties('ticketScheduleDate')
-                    ->forProperty('ticketScheduleDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
-        }
-        // this configures the parsing
-        if (isset($this->arguments['response'])) {
-            // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['response']
-                    ->getPropertyMappingConfiguration()->allowProperties('trDate')
-                    //->getPropertyMappingConfiguration()->allowProperties('trStart')
-                    //->getPropertyMappingConfiguration()->allowProperties('trEnd')
-                    ->forProperty('trDate')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
-        }
-        if (isset($this->arguments['response'])) {
-            // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['response']
-                    ->getPropertyMappingConfiguration()->allowProperties('trStart')
-                    ->forProperty('trStart');
-            // ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
-        }
-        if (isset($this->arguments['response'])) {
-            // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['response']
-                    ->getPropertyMappingConfiguration()->allowProperties('trEnd')
-                    ->forProperty('trEnd');
-            //  ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
-        }
-        if (isset($this->arguments['milestone'])) {
-            // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['milestone']
-                    ->getPropertyMappingConfiguration()->allowProperties('msStart')
-                    ->forProperty('msStart')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
-        }
-        if (isset($this->arguments['milestone'])) {
-            // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['milestone']
-                    ->getPropertyMappingConfiguration()->allowProperties('msEnd')
-                    ->forProperty('msEnd')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
-        }
-        if (isset($this->arguments['sprint'])) {
-            // $propertyMappingConfiguration->allowProperties('ticketDate');
-            $this->arguments['sprint']
-                    ->getPropertyMappingConfiguration()->allowProperties('sprintStart')
-                    ->forProperty('sprintStart')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
-        }
-        if (isset($this->arguments['sprint'])) {
-            // sprint->allowProperties('ticketDate');
-            $this->arguments['sprint']
-                    ->getPropertyMappingConfiguration()->allowProperties('sprintEnd')
-                    ->forProperty('sprintEnd')
-                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
-        }
+        $this->getUserRights();
+        $this->configureParsing();
     }
 
     /**
@@ -313,7 +152,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 break;
             }
         }
-        
+
 
         $this->view->assign('project', $project);
         $this->view->assign('nextMilestone', $nextMilestone);
@@ -1255,6 +1094,89 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $tickets['open'] = $this->ticketsRepository->countOpenTicketsByProject($projectID);
 
         return ($tickets);
+    }
+
+    /**
+     * configures the parsing in initialize Action
+     */
+    private function configureParsing() {
+        if (isset($this->arguments['project'])) {
+            // $propertyMappingConfiguration->allowProperties('projectDate');
+            $this->arguments['project']
+                    ->getPropertyMappingConfiguration()->allowProperties('projectDate')
+                    ->forProperty('projectDate')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
+            $this->arguments['project']
+                    ->getPropertyMappingConfiguration()->allowProperties('projectCat')
+                    ->forProperty('projectCat')
+            ;
+        }
+        if (isset($this->arguments['ticket'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['ticket']
+                    ->getPropertyMappingConfiguration()->allowProperties('ticketDate')
+                    ->forProperty('ticketDate')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
+        }
+        if (isset($this->arguments['ticket'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['ticket']
+                    ->getPropertyMappingConfiguration()->allowProperties('ticketScheduleDate')
+                    ->forProperty('ticketScheduleDate')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
+        }
+        // this configures the parsing
+        if (isset($this->arguments['response'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['response']
+                    ->getPropertyMappingConfiguration()->allowProperties('trDate')
+                    //->getPropertyMappingConfiguration()->allowProperties('trStart')
+                    //->getPropertyMappingConfiguration()->allowProperties('trEnd')
+                    ->forProperty('trDate')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
+        }
+        if (isset($this->arguments['response'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['response']
+                    ->getPropertyMappingConfiguration()->allowProperties('trStart')
+                    ->forProperty('trStart');
+            // ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
+        }
+        if (isset($this->arguments['response'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['response']
+                    ->getPropertyMappingConfiguration()->allowProperties('trEnd')
+                    ->forProperty('trEnd');
+            //  ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\StringConverter',  \TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter);
+        }
+        if (isset($this->arguments['milestone'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['milestone']
+                    ->getPropertyMappingConfiguration()->allowProperties('msStart')
+                    ->forProperty('msStart')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
+        }
+        if (isset($this->arguments['milestone'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['milestone']
+                    ->getPropertyMappingConfiguration()->allowProperties('msEnd')
+                    ->forProperty('msEnd')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
+        }
+        if (isset($this->arguments['sprint'])) {
+            // $propertyMappingConfiguration->allowProperties('ticketDate');
+            $this->arguments['sprint']
+                    ->getPropertyMappingConfiguration()->allowProperties('sprintStart')
+                    ->forProperty('sprintStart')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
+        }
+        if (isset($this->arguments['sprint'])) {
+            // sprint->allowProperties('ticketDate');
+            $this->arguments['sprint']
+                    ->getPropertyMappingConfiguration()->allowProperties('sprintEnd')
+                    ->forProperty('sprintEnd')
+                    ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd-m-Y');
+        }
     }
 
 }
