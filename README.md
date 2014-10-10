@@ -7,6 +7,9 @@ A TYPO3 Extension for Projects and Tasks
 
 ###Version History
 
+#####last Changes
+* move logged-out to header
+
 #####Version 0.2.4 | 8-10-2014
 * Add Project Summary on Project Page
 
