@@ -3,15 +3,59 @@
 <f:section name="main">
     <div class="pat-stage">
 
-        
-        <h2>Ticket bearbeiten</h2>
-        
-        <f:form action="ticketSave" name="ticket" object="{ticket}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Ticket edit</h4>
+                </div>
+            </div>
+        </div>
 
-           <f:render partial="Ticket/TicketForm" arguments="{_all}"/>
 
-            <f:form.submit value="save" />
-        </f:form>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link active">
+                                    Project: {ticket.ticketProject.projectTitel}
+                                </li>
+                            </ul>
+
+                            <ul class="pull-right">
+
+                                <li class="panel-link">
+                                <f:link.action action="ticketListDate">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="back to list" />
+                                </f:link.action>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="panel-body">
+                            <h3> &nbsp;</h3>
+                            <f:form action="ticketSave" name="ticket" object="{ticket}" class="form-horizontal">
+                                <f:render partial="Ticket/TicketForm" arguments="{_all}"/>
+                            </f:form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
     </div>
 
 
