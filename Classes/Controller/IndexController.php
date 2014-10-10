@@ -34,14 +34,22 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
-
 class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
+
+    /**
+     * Initializes the current action 
+     * @return void 
+     */
+    public function initializeAction() {
+
+        $this->getUserRights();
+    }
 
     /**
      * Index Action: Shows a list of all User
      */
     public function indexAction() {
-      
+
         $openTickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
 
         //Block My Summary
