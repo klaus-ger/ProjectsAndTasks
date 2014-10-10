@@ -62,10 +62,46 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     protected $projectsRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\MilestonesRepository   
+     * @inject
+     */
+    protected $milestonesRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectcatsRepository   
+     * @inject
+     */
+    protected $projectcatsRepository;
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectteamRepository   
      * @inject
      */
     protected $projectteamRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\SprintsRepository   
+     * @inject
+     */
+    protected $sprintRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\DocumentsRepository   
+     * @inject
+     */
+    protected $documentsRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\FileRepository   
+     * @inject
+     */
+    protected $fileRepository;
+
+    /**
+     * @var \T3developer\ProjectsAndTasks\Utility\Pdf  
+     * @inject
+     */
+    protected $pdfUtility;
 
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatusRepository   
@@ -74,17 +110,23 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     protected $statusRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\CompanyRepository   
+     * @inject
+     */
+    protected $companyRepository;
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatisticRepository   
      * @inject
      */
     protected $statisticRepository;
 
     /**
-     * Initializes - check the logged in User
+     * getUserRights Function - set the logged in User to $this->user
      * 
      * @return void 
      */
-    public function initializeAction() {
+    public function getUserRights() {
         $user = $GLOBALS['TSFE']->fe_user->user;
 
         if ($user == NULL) {
