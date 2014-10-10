@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 
+ *  (c) 2014 Klaus Heuer <klaus.heuer@t3-developer.com> 
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,43 +26,18 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * ************************************************************* */
 
 /**
+ * The Ticket controller - serves the ticket section pages
  *
- *
+ * @version 0.1
+ * @copyright Copyright belongs to the respective authors
  * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
-class TicketController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
-     * @inject
-     */
-    protected $userRepository;
+class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
 
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketsRepository   
-     * @inject
-     */
-    protected $ticketsRepository;
 
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketresponseRepository   
-     * @inject
-     */
-    protected $ticketresponseRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectsRepository   
-     * @inject
-     */
-    protected $projectsRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatusRepository   
-     * @inject
-     */
-    protected $statusRepository;
 
     /**
      * Initializes the current action 
