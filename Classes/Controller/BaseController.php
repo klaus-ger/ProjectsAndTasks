@@ -35,7 +35,6 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
-
 class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
     /**
@@ -61,6 +60,22 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * @inject
      */
     protected $projectteamRepository;
+
+    /**
+     * Initializes - check the logged in User
+     * 
+     * @return void 
+     */
+    public function initializeAction() {
+        $user = $GLOBALS['TSFE']->fe_user->user;
+
+        if ($user == NULL) {
+            $this->redirect('logIn', 'Login');
+        } else {
+            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+            $this->settings['username'] = $this->user->getUsername();
+        }
+    }
 
 }
 
