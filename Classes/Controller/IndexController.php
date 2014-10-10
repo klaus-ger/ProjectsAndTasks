@@ -26,39 +26,22 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * ************************************************************* */
 
 /**
+ * The Index controller - serves the in-box page
  *
- *
+ * @version 0.1
+ * @copyright Copyright belongs to the respective authors
  * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
+
 class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
-
-
-    /**
-     * Initializes the current action 
-     * @return void 
-     */
-    public function initializeAction() {
-        $user = $GLOBALS['TSFE']->fe_user->user;
-
-        if ($user == NULL) {
-            $this->redirect('logIn', 'Login');
-        } else {
-            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-            $this->settings['username'] = $this->user->getUsername();
-        }
-    }
 
     /**
      * Index Action: Shows a list of all User
      */
     public function indexAction() {
-        //if loged in User is admin -> redirect to admin panel
-        if ($this->user->getUsername() == 'admin') {
-            $this->redirect('adminIndex', 'Admin');
-        }
-
+      
         $openTickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
 
         //Block My Summary
@@ -102,7 +85,7 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
      * load statistic data
      * 
      */
-    public function loadStatData() {
+    private function loadStatData() {
         $stats = $this->statisticRepository->findLastStatForGraph();
 
         //find max value
@@ -157,7 +140,7 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
      * 
      * will be later removed to scheduler script
      */
-    public function writeStats($countOpenTickets, $openTime, $averageAge) {
+    private function writeStats($countOpenTickets, $openTime, $averageAge) {
         $stats = $this->statisticRepository->findLast();
         if ($stats[0]) {
             //aktual date 
