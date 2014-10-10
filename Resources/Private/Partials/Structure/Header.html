@@ -28,48 +28,76 @@
                 </f:link.action>
                 </li>
                 <li {f:if(condition: '{topmenu} == 1', then: 'class="active"')}>
-                <f:link.action action="allProjectsByCat" controller="Project">
-                    Projects
-                </f:link.action>
-                </li>
-                <li>
-                <f:link.action action="ticketListDate" controller="Ticket">
-                    Tickets
-                </f:link.action>
-                </li>
-                <li>
-                <f:link.action action="timeMonth" controller="Time">
-                    Time
-                </f:link.action>
-                </li>
-                <li>
+            <f:link.action action="allProjectsByCat" controller="Project">
+                Projects
+            </f:link.action>
+            </li>
+            <li>
+            <f:link.action action="ticketListDate" controller="Ticket">
+                Tickets
+            </f:link.action>
+            </li>
+            <li>
+            <f:link.action action="timeMonth" controller="Time">
+                Time
+            </f:link.action>
+            </li>
+            <li>
 
-                <f:link.action action="personList" controller="Address">
-                    Address
-                </f:link.action>
-                </li>
-                <li>
-                <f:link.action action="whiteboardOverview" controller="Whiteboard">
-                    Whiteboard
-                </f:link.action>
-                </li>
-            </ul>
+            <f:link.action action="personList" controller="Address">
+                Address
+            </f:link.action>
+            </li>
+            <li>
+            <f:link.action action="whiteboardOverview" controller="Whiteboard">
+                Whiteboard
+            </f:link.action>
+            </li>
+        </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                <f:link.action action="settingsProjectCat" controller="Settings">
-                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_settings.png" width="17" height="17" alt="Settings" />
-                </f:link.action>
-                </li>
-            </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+            <f:link.action action="settingsProjectCat" controller="Settings">
+                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_settings.png" width="17" height="17" alt="Settings" />
+            </f:link.action>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
             
-            <ul class="nav navbar-nav navbar-right">
-               <p class="navbar-text navbar-right">Hi {settings.username}! &nbsp;&nbsp;</p>
-            </ul>
-            
-            
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+            <li class="dropdown">
+                <a id="dropuser" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+                    Hi {settings.username}!
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropuser" role="menu">
+                    <li role="presentation">
+                        <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
+
+                        <input id="button" type="submit" name="submit" value="abmelden" role="menuitem" class="btn btn-primary btn-xs pull-right"/>
+
+                        <div class="felogin-hidden">
+                            <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
+                            <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
+                            <input type="hidden" name="logintype" value="logout"/>
+                            <input type="hidden" name="id" value="{currentPid}"/>
+                            <input type="hidden" name="redirect_url" value="{currentPid}"/>
+                            <input type="hidden" name="pid" value="{storagePid}"/>
+                            <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
+                        </div>
+
+                    </form> 
+                    </li>
+                </ul>
+            </li>
+
+
+        </ul>
+
+
+
+    </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
 </nav>
 
 
