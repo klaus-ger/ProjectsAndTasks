@@ -69,6 +69,27 @@ class ProjectsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
         return $query->execute();
     }
+    
+            /**
+     * find Projects by Status and owner
+     * 
+     * @param int $status status uid
+     * @param int $owner 
+             * 
+     * @return object
+     */
+    public function findByProjectByStatusAndOwnser($status, $owner) {
+        $query = $this->createQuery();
+
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('projectStatus.statusBehaviour', $status),
+                    $query->equals('projectOwner', $owner)
+                    ))
+        );
+
+        return $query->execute();
+    }
 }
 
 ?>

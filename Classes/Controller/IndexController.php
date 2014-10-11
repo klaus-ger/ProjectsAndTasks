@@ -50,14 +50,97 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
      */
     public function indexAction() {
 
+        //Open Tickets of the logged in user
         $openTickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
+        
+        //Block overall trend
+        $this->findGlobalTrend();
+        $statArray = $this->loadStatisticData();
 
         //Block My Summary
+        $mySummary = $this->findMySummary($openTickets);
+
+        //Block my Projekts
+        $myProjects = $this->projectsRepository->findByProjectByStatusAndOwnser(0, $this->user->getUid());
+        $meberships = $this->projectteamRepository->findByPtUser($this->user->getUid());
+
+
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($meberships, 'dokument');
+        $this->view->assign('openTickets', $openTickets);
+        $this->view->assign('myProjects', $myProjects);
+        $this->view->assign('projectMemberships', $meberships);
+        $this->view->assign('mySummary', $mySummary);
+        $this->view->assign('statArray', $statArray);
+    }
+
+    /**
+     * find global Trend
+     * 
+     * Find the global statistic Data for all user - if the data for the actual date
+     * is not create, we do so.
+     */
+    private function findGlobalTrend() {
+
+        $lastStatistikData = $this->statisticRepository->findLast();
+
+        if ($lastStatistikData[0]) {
+
+            $acutalDate = date('d-m-Y');
+            $lastStatiststicDate = date('d-m-Y', $lastStatistikData[0]->getStatsDate()->getTimestamp());
+
+            if ($acutalDate != $lastStatiststicDate) {
+                $this->createActualStatisticData();
+            }
+        } else {
+            //We have a blank system and never stored statistic data before
+            $this->createActualStatisticData();
+        }
+    }
+    
+    /**
+     * find My Summary
+     * 
+     * returns an array of a summary for the loged in user
+     */
+    private function findMySummary($openTickets){
+        
+        $openTime = 0;
+        $actualTime = time();
+        $ticketAgeTotal = 0;
         $countOpenTickets = count($openTickets);
+
+        foreach ($openTickets as $openTi) {
+            $openTime = $openTime + $openTi->getTicketScheduleTime();
+            $ticketdate = $openTi->getTicketDate()->getTimestamp();
+            $ticketage = $actualTime - $ticketdate;
+            $ticketAgeTotal = $ticketAgeTotal + $ticketage;
+        }
+         if ($countOpenTickets > 0) {
+            $averageTicketAge = $ticketAgeTotal / $countOpenTickets;
+            $averageAge = $averageTicketAge / 3600 / 24;
+         }
+        
+        $mySummary['openTickets'] = $countOpenTickets;
+        $mySummary['openTime'] = $openTime;
+        $mySummary['averageAge'] = round($averageAge, 2);
+        
+        return($mySummary);
+    }
+
+    /**
+     * create Global Actual Statistic Data
+     * 
+     * This action is done only once per day.
+     */
+    private function createActualStatisticData() {
+
+        $openTickets = $this->ticketsRepository->findOpenTickets();
 
         $openTime = 0;
         $actualTime = time();
         $ticketAgeTotal = 0;
+        $countOpenTickets = count($openTickets);
+
         foreach ($openTickets as $openTi) {
             $openTime = $openTime + $openTi->getTicketScheduleTime();
             $ticketdate = $openTi->getTicketDate()->getTimestamp();
@@ -68,24 +151,15 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
             $averageTicketAge = $ticketAgeTotal / $countOpenTickets;
             $averageAge = $averageTicketAge / 3600 / 24;
 
-            //Stat Data
-            $this->writeStats($countOpenTickets, $openTime, $averageAge);
-            $statArray = $this->loadStatData();
+            $newStat = new \T3developer\ProjectsAndTasks\Domain\Model\Statistic;
+            $newStat->setStatsDate(time());
+            $newStat->setStatsTickets($countOpenTickets);
+            $newStat->setStatsOpentime($openTime);
+            $newStat->setStatsAge($averageAge);
+
+            $this->statisticRepository->add($newStat);
+            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
         }
-
-
-        //Block my Projekts
-        $meberships = $this->projectteamRepository->findByPtUser($this->user->getUid());
-
-
-        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($meberships, 'dokument');
-
-        $this->view->assign('projectMemberships', $meberships);
-        $this->view->assign('countOpenTickets', $countOpenTickets);
-        $this->view->assign('openTickets', $openTickets);
-        $this->view->assign('openTime', $openTime);
-        $this->view->assign('openAge', round($averageAge, 2));
-        $this->view->assign('statArray', $statArray);
     }
 
     /**
@@ -93,7 +167,7 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
      * load statistic data
      * 
      */
-    private function loadStatData() {
+    private function loadStatisticData() {
         $stats = $this->statisticRepository->findLastStatForGraph();
 
         //find max value
@@ -143,40 +217,7 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
         return $statArray;
     }
 
-    /**
-     * write statistic Data (one per day)
-     * 
-     * will be later removed to scheduler script
-     */
-    private function writeStats($countOpenTickets, $openTime, $averageAge) {
-        $stats = $this->statisticRepository->findLast();
-        if ($stats[0]) {
-            //aktual date 
-            $acutalString = date('d-m-Y');
-            $lastString = date('d-m-Y', $stats[0]->getStatsDate()->getTimestamp());
 
-
-            if ($acutalString == $lastString) {
-                
-            } else {
-                $newStat = new \T3developer\ProjectsAndTasks\Domain\Model\Statistic;
-                $newStat->setStatsDate(time());
-                $newStat->setStatsTickets($countOpenTickets);
-                $newStat->setStatsOpentime($openTime);
-                $newStat->setStatsAge($averageAge);
-
-                $this->statisticRepository->add($newStat);
-            }
-        } else {
-            $newStat = new \T3developer\ProjectsAndTasks\Domain\Model\Statistic;
-            $newStat->setStatsDate(time());
-            $newStat->setStatsTickets($countOpenTickets);
-            $newStat->setStatsOpentime($openTime);
-            $newStat->setStatsAge($averageAge);
-
-            $this->statisticRepository->add($newStat);
-        }
-    }
 
 }
 
