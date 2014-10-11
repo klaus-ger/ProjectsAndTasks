@@ -32,6 +32,10 @@ This Extension is still under development!
 
 ###Screenshoots
 
+InBox
+<p align="center" >
+  <img src="https://raw.github.com/klaus-ger/ProjectsAndTasks/master/doc/inbox.png" >
+</p>
 Project Ticket List
 <p align="center" >
   <img src="https://raw.github.com/klaus-ger/ProjectsAndTasks/master/doc/projectview.png" >
@@ -39,5 +43,9 @@ Project Ticket List
 Ticket View
 <p align="center" >
   <img src="https://raw.github.com/klaus-ger/ProjectsAndTasks/master/doc/ticketview.png" >
+</p>
+Whiteboard
+<p align="center" >
+  <img src="https://raw.github.com/klaus-ger/ProjectsAndTasks/master/doc/whiteboard.png" >
 </p>
 
