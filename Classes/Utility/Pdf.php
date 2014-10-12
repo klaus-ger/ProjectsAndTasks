@@ -30,7 +30,7 @@ namespace T3developer\ProjectsAndTasks\Utility;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF {
+class Pdf extends \T3developer\ProjectsAndTasks\Utility\Tcpdf\TCPDF  {
 
     const DEFAULT_DIRECOTRY_FONTS = 'EXT:projects_and_tasks/Classes/Utility/Tcpdf/fonts/';
     const DEFAULT_DIRECOTRY_IMAGE = 'EXT:projects_and_tasks/Classes/Utility/Tcpdf/custombg/';
