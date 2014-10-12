@@ -105,10 +105,24 @@ class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \T3developer\ProjectsAndTasks\Domain\Model\User $person Description
      */
     public function personSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\User $person) {
+        $plainPassword = $person->getPasswordInput();
+        
+        if ($plainPassword != '') {
+            if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('saltedpasswords')) {
+                if (\TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility::isUsageEnabled('FE')) {
+                    $objSalt = \TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::getSaltingInstance(NULL);
+                    if (is_object($objSalt)) {
+                        $saltedPassword = $objSalt->getHashedPassword($plainPassword);
+                        $person->setPassword($saltedPassword);
+                    }
+                }
+            }
+        }
+       
         if ($person->getUid()) {
             $this->userRepository->update($person);
         } else {
-            $person->setUsergroup($this->settings['adressusergroup']);
+            $person->setUsergroup($this->settings['usergroup']);
             $this->userRepository->add($person);
         }
 

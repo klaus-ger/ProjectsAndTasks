@@ -58,7 +58,7 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $lastName;
 
-      /**
+    /**
      * Full Name, not stored, for select fields
      * @var \string 
      */
@@ -107,6 +107,14 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $company;
 
     /**
+     * Password Input: not stored in the DB!
+     * 
+     * The controller salted the enry and stored the salted pw in password field
+     * @var \string
+     */
+    protected $passwordInput;
+
+    /**
      * Passwod
      * @var \string
      */
@@ -140,15 +148,15 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         return $this->lastName;
     }
 
-    
     public function setLastName($lastName) {
         $this->lastName = $lastName;
     }
 
-     public function getFullName() {
+    public function getFullName() {
         $name = $this->lastName . ', ' . $this->firstName;
         return $name;
     }
+
     public function getTelephone() {
         return $this->telephone;
     }
@@ -211,6 +219,14 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setUsergroup($usergroup) {
         $this->usergroup = $usergroup;
+    }
+
+    public function getPasswordInput() {
+        return $this->passwordInput;
+    }
+
+    public function setPasswordInput($passwordInput) {
+        $this->passwordInput = $passwordInput;
     }
 
 }
