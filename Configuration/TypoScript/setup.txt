@@ -77,9 +77,7 @@ plugin.tx_projectsandtasks {
     }
     settings {
         storagePid      = {$plugin.tx_projectsandtasks.persistence.storagePid}
-        baseUrl         = {$plugin.tx_projectsandtasks.settings.baseUrl}
-        feusergroup     = {$plugin.tx_projectsandtasks.persistence.feusergroup}
-        adressusergroup = {$plugin.tx_projectsandtasks.persistence.adressusergroup}
+        usergroup       = {$plugin.tx_projectsandtasks.persistence.usergroup}
     }
 
 
