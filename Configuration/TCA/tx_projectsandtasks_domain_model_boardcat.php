@@ -1,7 +1,25 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_contracts'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_contracts']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Whiteboard Category',
+        'label' => 'bc_title',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'bc_title',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
         'showRecordFieldList' => '    calender_date
                                     , calender_user
@@ -39,8 +57,8 @@ $TCA['tx_projectsandtasks_domain_model_contracts'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_contracts',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_contracts.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_contracts.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_boardcat',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_boardcat.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_boardcat.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -71,8 +89,7 @@ $TCA['tx_projectsandtasks_domain_model_contracts'] = array(
                 'eval' => 'trim',
             )
         ),
-
-        'contract_typ' => array(
+        'bc_title' => array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
@@ -80,8 +97,7 @@ $TCA['tx_projectsandtasks_domain_model_contracts'] = array(
                 'size' => 30,
             )
         ),
-
-        'contract_titel' => array(
+        'bc_text' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -90,40 +106,6 @@ $TCA['tx_projectsandtasks_domain_model_contracts'] = array(
             )
         ),
         
-        'contract_project' => array(
-            'exclude' => 0,
-            'label' => 'Status',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        
-        'contract_status' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        
-             'contract_value' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-                'contract_description' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
     ),
 );
 ?>

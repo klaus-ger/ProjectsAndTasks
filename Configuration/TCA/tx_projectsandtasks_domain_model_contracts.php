@@ -1,12 +1,35 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_tickets'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_tickets']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Contracts',
+        'label' => 'contract_titel',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'cruser_id' => 'cruser_id',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'projects_titel',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
-        'showRecordFieldList' => '   '
+        'showRecordFieldList' => '    calender_date
+                                    , calender_user
+                                    , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]'
     ),
     'types' => array(
-        '1' => array('showitem' => '  
+        '1' => array('showitem' => '  calender_date
+                                     , calender_user
+                                     , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]
                                      ')
     ),
     'palettes' => array(
@@ -35,8 +58,8 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_tickets',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_tickets.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_tickets.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_contracts',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_contracts.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_contracts.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -67,16 +90,8 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'eval' => 'trim',
             )
         ),
-        'ticket_project' => array(
-            'exclude' => 0,
-            'label' => 'Project',
-            'config' => array(
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim',
-            )
-        ),
-        'ticket_titel' => array(
+
+        'contract_typ' => array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
@@ -84,7 +99,8 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'size' => 30,
             )
         ),
-        'ticket_date' => array(
+
+        'contract_titel' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -92,25 +108,17 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'size' => 100,
             )
         ),
-        'ticket_status' => array(
+        
+        'contract_project' => array(
             'exclude' => 0,
             'label' => 'Status',
             'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
-                'foreign_table_where' => 'ORDER BY status_text',
+                'type' => 'input',
+                'size' => 100,
             )
         ),
-        'ticket_typ' => array(
-            'exclude' => 0,
-            'label' => 'Status',
-            'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
-                'foreign_table_where' => 'ORDER BY status_text',
-            )
-        ),
-        'ticket_text' => array(
+        
+        'contract_status' => array(
             'exclude' => 0,
             'label' => 'Text',
             'config' => array(
@@ -118,7 +126,8 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'size' => 100,
             )
         ),
-        'ticket_schedule_date' => array(
+        
+             'contract_value' => array(
             'exclude' => 0,
             'label' => 'Text',
             'config' => array(
@@ -126,51 +135,9 @@ $TCA['tx_projectsandtasks_domain_model_tickets'] = array(
                 'size' => 100,
             )
         ),
-        'ticket_schedule_time' => array(
+                'contract_description' => array(
             'exclude' => 0,
             'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'ticket_milestone' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_milestones',
-                'foreign_table_where' => 'ORDER BY ms_order',
-            )
-        ),
-        'ticket_sprint' => array(
-            'exclude' => 0,
-            'label' => 'Sprint',
-            'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_sprints',
-                'foreign_table_where' => 'ORDER BY uid',
-            )
-        ),
-        'ticket_custom_id' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'ticket_owner' => array(
-            'exclude' => 0,
-            'label' => 'Owner',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-         'ticket_assigned' => array(
-            'exclude' => 0,
-            'label' => 'Owner',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,

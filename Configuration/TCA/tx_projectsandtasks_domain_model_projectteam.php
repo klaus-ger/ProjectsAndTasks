@@ -1,16 +1,31 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_boardcat'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_boardcat']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Projectteam',
+        'label' => 'pt_project',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'cruser_id' => 'cruser_id',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'pt_project',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
-        'showRecordFieldList' => '    calender_date
-                                    , calender_user
-                                    , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]'
+        'showRecordFieldList' => '    '
     ),
     'types' => array(
-        '1' => array('showitem' => '  calender_date
-                                     , calender_user
-                                     , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]
+        '1' => array('showitem' => '  
                                      ')
     ),
     'palettes' => array(
@@ -39,8 +54,8 @@ $TCA['tx_projectsandtasks_domain_model_boardcat'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_boardcat',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_boardcat.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_boardcat.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_projectteam',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_projectteam.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_projectteam.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -71,22 +86,28 @@ $TCA['tx_projectsandtasks_domain_model_boardcat'] = array(
                 'eval' => 'trim',
             )
         ),
-        'bc_title' => array(
+        'pt_project' => array(
             'exclude' => 0,
-            'label' => 'Titel',
-            'config' => array(
-                'type' => 'text',
-                'size' => 30,
-            )
-        ),
-        'bc_text' => array(
-            'exclude' => 0,
-            'label' => 'Date',
+            'label' => 'Project',
             'config' => array(
                 'type' => 'input',
-                'size' => 100,
+                'size' => 30,
+                'eval' => 'trim',
             )
         ),
+        
+         'pt_user' => array(
+            'exclude' => 0,
+            'label' => 'Project',
+            'config' => array(
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+            )
+        ),
+        
+        
+        
         
     ),
 );

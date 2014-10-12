@@ -1,7 +1,26 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_ticketresponse'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_ticketresponse']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Note',
+        'label' => 'tr_titel',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'cruser_id' => 'cruser_id',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'ticket_titel',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
         'showRecordFieldList' => '    ticketresponse_text'
     ),

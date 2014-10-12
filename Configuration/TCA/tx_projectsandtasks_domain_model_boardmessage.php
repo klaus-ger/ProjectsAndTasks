@@ -1,7 +1,25 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_boardmessage'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_boardmessage']['ctrl'],
+return array(
+     'ctrl' => array(
+        'title' => 'Whiteboard Message',
+        'label' => 'bm_title',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'bt_title',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
         'showRecordFieldList' => '    calender_date
                                     , calender_user

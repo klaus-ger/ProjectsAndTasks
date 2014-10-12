@@ -1,7 +1,25 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_sprints'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_sprints']['ctrl'],
+return array(
+   'ctrl' => array(
+        'title' => 'Company',
+        'label' => 'cy_short',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'cat_titel',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
         'showRecordFieldList' => '    calender_date
                                     , calender_user
@@ -39,8 +57,8 @@ $TCA['tx_projectsandtasks_domain_model_sprints'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_sprints',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_sprints.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_sprints.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_company',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_company.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_company.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -71,16 +89,7 @@ $TCA['tx_projectsandtasks_domain_model_sprints'] = array(
                 'eval' => 'trim',
             )
         ),
-        'sprint_project' => array(
-            'exclude' => 0,
-            'label' => 'Project',
-            'config' => array(
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim',
-            )
-        ),
-        'sprint_titel' => array(
+        'cy_name' => array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
@@ -88,15 +97,7 @@ $TCA['tx_projectsandtasks_domain_model_sprints'] = array(
                 'size' => 30,
             )
         ),
-                'sprint_text' => array(
-            'exclude' => 0,
-            'label' => 'Titel',
-            'config' => array(
-                'type' => 'text',
-                'size' => 30,
-            )
-        ),
-        'sprint_start' => array(
+        'cy_short' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -104,23 +105,70 @@ $TCA['tx_projectsandtasks_domain_model_sprints'] = array(
                 'size' => 100,
             )
         ),
-        'sprint_end' => array(
-            'exclude' => 0,
-            'label' => 'Date',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-                 'sprint_status' => array(
+        'cy_street' => array(
             'exclude' => 0,
             'label' => 'Status',
             'config' => array(
-                'type' => 'text',
-                'size' => 30,
+                'type' => 'input',
+                'size' => 100,
             )
         ),
-        
+        'cy_plz' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'cy_city' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'cy_web' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'cy_mail' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'cy_telephone' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'cy_customer' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'cy_comment' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
     ),
 );
 ?>

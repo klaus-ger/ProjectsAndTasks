@@ -1,7 +1,26 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_boardtopic'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_boardtopic']['ctrl'],
+return array(
+     'ctrl' => array(
+        'title' => 'Projects',
+        'label' => 'project_titel',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'cruser_id' => 'cruser_id',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'projects_titel',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
         'showRecordFieldList' => '    calender_date
                                     , calender_user
@@ -39,8 +58,8 @@ $TCA['tx_projectsandtasks_domain_model_boardtopic'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_boardtopic',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_boardtopic.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_boardtopic.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_projects',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_projects.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_projects.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -71,7 +90,7 @@ $TCA['tx_projectsandtasks_domain_model_boardtopic'] = array(
                 'eval' => 'trim',
             )
         ),
-        'bt_title' => array(
+        'project_titel' => array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
@@ -79,7 +98,7 @@ $TCA['tx_projectsandtasks_domain_model_boardtopic'] = array(
                 'size' => 30,
             )
         ),
-        'bt_text' => array(
+        'project_date' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -87,40 +106,63 @@ $TCA['tx_projectsandtasks_domain_model_boardtopic'] = array(
                 'size' => 100,
             )
         ),
-        'bt_image' => array(
+        'project_status' => array(
             'exclude' => 0,
-            'label' => 'Date',
+            'label' => 'Status',
+            'config' => array(
+                'type' => 'select',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
+                'foreign_table_where' => 'ORDER BY status_text',
+            )
+        ),
+        'project_text' => array(
+            'exclude' => 0,
+            'label' => 'Text',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
             )
         ),
-        'bt_date' => array(
+        'project_short' => array(
             'exclude' => 0,
-            'label' => 'Date',
+            'label' => 'Text',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
             )
         ),
-        'bt_user' => array(
+        'project_owner' => array(
             'exclude' => 0,
-            'label' => 'Date',
+            'label' => 'Text',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
             )
         ),
-         'bt_cat' => array(
+        'project_cat' => array(
             'exclude' => 0,
-            'label' => 'Date',
+            'label' => 'Text',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
             )
         ),
-        
-        
+        'project_client' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'project_budget_time' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
     ),
 );
 ?>

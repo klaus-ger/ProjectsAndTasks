@@ -1,7 +1,25 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_company'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_company']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Whiteboard Topic',
+        'label' => 'bt_title',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'bt_title',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
         'showRecordFieldList' => '    calender_date
                                     , calender_user
@@ -39,8 +57,8 @@ $TCA['tx_projectsandtasks_domain_model_company'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_company',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_company.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_company.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_boardtopic',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_boardtopic.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_boardtopic.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -71,7 +89,7 @@ $TCA['tx_projectsandtasks_domain_model_company'] = array(
                 'eval' => 'trim',
             )
         ),
-        'cy_name' => array(
+        'bt_title' => array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
@@ -79,7 +97,7 @@ $TCA['tx_projectsandtasks_domain_model_company'] = array(
                 'size' => 30,
             )
         ),
-        'cy_short' => array(
+        'bt_text' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -87,70 +105,40 @@ $TCA['tx_projectsandtasks_domain_model_company'] = array(
                 'size' => 100,
             )
         ),
-        'cy_street' => array(
+        'bt_image' => array(
             'exclude' => 0,
-            'label' => 'Status',
+            'label' => 'Date',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
             )
         ),
-        'cy_plz' => array(
+        'bt_date' => array(
             'exclude' => 0,
-            'label' => 'Text',
+            'label' => 'Date',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
             )
         ),
-        'cy_city' => array(
+        'bt_user' => array(
             'exclude' => 0,
-            'label' => 'Text',
+            'label' => 'Date',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
             )
         ),
-        'cy_web' => array(
+         'bt_cat' => array(
             'exclude' => 0,
-            'label' => 'Text',
+            'label' => 'Date',
             'config' => array(
                 'type' => 'input',
                 'size' => 100,
             )
         ),
-        'cy_mail' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'cy_telephone' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'cy_customer' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'cy_comment' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
+        
+        
     ),
 );
 ?>

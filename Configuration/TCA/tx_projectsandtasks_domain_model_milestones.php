@@ -1,16 +1,30 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_projectcats'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_projectcats']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Milestones',
+        'label' => 'ms_titel',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'ms_titel',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
-        'showRecordFieldList' => '    calender_date
-                                    , calender_user
-                                    , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]'
+        'showRecordFieldList' => '    '
     ),
     'types' => array(
-        '1' => array('showitem' => '  calender_date
-                                     , calender_user
-                                     , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]
+        '1' => array('showitem' => ' 
                                      ')
     ),
     'palettes' => array(
@@ -39,8 +53,8 @@ $TCA['tx_projectsandtasks_domain_model_projectcats'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_projectcats',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_projectcats.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_projectcats.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_milestones',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_milestones.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_milestones.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -71,8 +85,7 @@ $TCA['tx_projectsandtasks_domain_model_projectcats'] = array(
                 'eval' => 'trim',
             )
         ),
-
-        'cat_title' => array(
+        'ms_project' => array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
@@ -80,8 +93,7 @@ $TCA['tx_projectsandtasks_domain_model_projectcats'] = array(
                 'size' => 30,
             )
         ),
-
-        'cat_parent' => array(
+        'ms_titel' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -89,8 +101,7 @@ $TCA['tx_projectsandtasks_domain_model_projectcats'] = array(
                 'size' => 100,
             )
         ),
-        
-        'cat_order' => array(
+        'ms_text' => array(
             'exclude' => 0,
             'label' => 'Status',
             'config' => array(
@@ -98,8 +109,39 @@ $TCA['tx_projectsandtasks_domain_model_projectcats'] = array(
                 'size' => 100,
             )
         ),
-        
-        
+        'ms_start' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'ms_end' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        'ms_status' => array(
+            'exclude' => 0,
+            'label' => 'Status',
+            'config' => array(
+                'type' => 'select',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
+                'foreign_table_where' => 'ORDER BY status_text',
+            )
+        ),
+         'ms_order' => array(
+            'exclude' => 0,
+            'label' => 'Text',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
     ),
 );
 ?>

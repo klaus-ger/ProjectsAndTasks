@@ -1,12 +1,30 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_milestones'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_milestones']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Status',
+        'label' => 'status_text',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'status_text',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
-        'showRecordFieldList' => '    '
+        'showRecordFieldList' => 'status_typ, status_text, status_behaviour'
     ),
     'types' => array(
-        '1' => array('showitem' => ' 
+        '1' => array('showitem' => 'status_typ, status_text, status_behaviour
                                      ')
     ),
     'palettes' => array(
@@ -35,8 +53,8 @@ $TCA['tx_projectsandtasks_domain_model_milestones'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_milestones',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_milestones.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_milestones.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_status.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_status.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -67,63 +85,36 @@ $TCA['tx_projectsandtasks_domain_model_milestones'] = array(
                 'eval' => 'trim',
             )
         ),
-        'ms_project' => array(
+
+         'status_typ' => array(
             'exclude' => 0,
-            'label' => 'Titel',
+            'label' => 'Status Typ: 1 projekte, 2 Tickets',
             'config' => array(
                 'type' => 'text',
                 'size' => 30,
             )
         ),
-        'ms_titel' => array(
+        
+        'status_text' => array(
             'exclude' => 0,
-            'label' => 'Date',
+            'label' => 'Status text',
             'config' => array(
-                'type' => 'input',
-                'size' => 100,
+                'type' => 'text',
+                'size' => 30,
             )
         ),
-        'ms_text' => array(
+
+                'status_behaviour' => array(
             'exclude' => 0,
-            'label' => 'Status',
+            'label' => 'Verhalten: 1 offen 2 erledigt',
             'config' => array(
-                'type' => 'input',
-                'size' => 100,
+                'type' => 'text',
+                'size' => 30,
             )
         ),
-        'ms_start' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'ms_end' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
-        'ms_status' => array(
-            'exclude' => 0,
-            'label' => 'Status',
-            'config' => array(
-                'type' => 'select',
-                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
-                'foreign_table_where' => 'ORDER BY status_text',
-            )
-        ),
-         'ms_order' => array(
-            'exclude' => 0,
-            'label' => 'Text',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
-        ),
+        
+     
+        
     ),
 );
 ?>

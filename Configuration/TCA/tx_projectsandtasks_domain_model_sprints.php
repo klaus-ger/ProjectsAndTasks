@@ -1,7 +1,25 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_statistic'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_statistic']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Sprints',
+        'label' => 'sprint_titel',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'ticket_titel',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
         'showRecordFieldList' => '    calender_date
                                     , calender_user
@@ -39,8 +57,8 @@ $TCA['tx_projectsandtasks_domain_model_statistic'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_statistic',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_statistic.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_statistic.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_sprints',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_sprints.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_sprints.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -71,7 +89,16 @@ $TCA['tx_projectsandtasks_domain_model_statistic'] = array(
                 'eval' => 'trim',
             )
         ),
-        'stats_date' => array(
+        'sprint_project' => array(
+            'exclude' => 0,
+            'label' => 'Project',
+            'config' => array(
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+            )
+        ),
+        'sprint_titel' => array(
             'exclude' => 0,
             'label' => 'Titel',
             'config' => array(
@@ -79,8 +106,15 @@ $TCA['tx_projectsandtasks_domain_model_statistic'] = array(
                 'size' => 30,
             )
         ),
-
-        'stats_tickets' => array(
+                'sprint_text' => array(
+            'exclude' => 0,
+            'label' => 'Titel',
+            'config' => array(
+                'type' => 'text',
+                'size' => 30,
+            )
+        ),
+        'sprint_start' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -88,7 +122,7 @@ $TCA['tx_projectsandtasks_domain_model_statistic'] = array(
                 'size' => 100,
             )
         ),
-        'stats_opentime' => array(
+        'sprint_end' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
@@ -96,12 +130,12 @@ $TCA['tx_projectsandtasks_domain_model_statistic'] = array(
                 'size' => 100,
             )
         ),
-        'stats_age' => array(
+                 'sprint_status' => array(
             'exclude' => 0,
-            'label' => 'Date',
+            'label' => 'Status',
             'config' => array(
-                'type' => 'input',
-                'size' => 100,
+                'type' => 'text',
+                'size' => 30,
             )
         ),
         

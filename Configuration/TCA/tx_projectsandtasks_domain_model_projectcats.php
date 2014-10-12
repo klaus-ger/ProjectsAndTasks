@@ -1,12 +1,34 @@
 <?php
 
-$TCA['tx_projectsandtasks_domain_model_status'] = array(
-    'ctrl' => $TCA['tx_projectsandtasks_domain_model_status']['ctrl'],
+return array(
+    'ctrl' => array(
+        'title' => 'Project Categories',
+        'label' => 'cat_title',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'dividers2tabs' => TRUE,
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+        'origUid' => 't3_origuid',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden',
+        ),
+        'searchFields' => 'cat_titel',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
+    ),
     'interface' => array(
-        'showRecordFieldList' => 'status_typ, status_text, status_behaviour'
+        'showRecordFieldList' => '    calender_date
+                                    , calender_user
+                                    , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]'
     ),
     'types' => array(
-        '1' => array('showitem' => 'status_typ, status_text, status_behaviour
+        '1' => array('showitem' => '  calender_date
+                                     , calender_user
+                                     , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]
                                      ')
     ),
     'palettes' => array(
@@ -35,8 +57,8 @@ $TCA['tx_projectsandtasks_domain_model_status'] = array(
                 'items' => array(
                     array('', 0),
                 ),
-                'foreign_table' => 'tx_projectsandtasks_domain_model_status',
-                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_status.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_status.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_projectsandtasks_domain_model_projectcats',
+                'foreign_table_where' => 'AND tx_projectsandtasks_domain_model_projectcats.uid=###REC_FIELD_l18n_parent### AND tx_projectsandtasks_domain_model_projectcats.sys_language_uid IN (-1,0)',
             )
         ),
         'l18n_diffsource' => array(
@@ -68,34 +90,33 @@ $TCA['tx_projectsandtasks_domain_model_status'] = array(
             )
         ),
 
-         'status_typ' => array(
+        'cat_title' => array(
             'exclude' => 0,
-            'label' => 'Status Typ: 1 projekte, 2 Tickets',
-            'config' => array(
-                'type' => 'text',
-                'size' => 30,
-            )
-        ),
-        
-        'status_text' => array(
-            'exclude' => 0,
-            'label' => 'Status text',
+            'label' => 'Titel',
             'config' => array(
                 'type' => 'text',
                 'size' => 30,
             )
         ),
 
-                'status_behaviour' => array(
+        'cat_parent' => array(
             'exclude' => 0,
-            'label' => 'Verhalten: 1 offen 2 erledigt',
+            'label' => 'Date',
             'config' => array(
-                'type' => 'text',
-                'size' => 30,
+                'type' => 'input',
+                'size' => 100,
             )
         ),
         
-     
+        'cat_order' => array(
+            'exclude' => 0,
+            'label' => 'Status',
+            'config' => array(
+                'type' => 'input',
+                'size' => 100,
+            )
+        ),
+        
         
     ),
 );
