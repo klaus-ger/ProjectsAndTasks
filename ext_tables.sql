@@ -114,7 +114,8 @@ CREATE TABLE tx_projectsandtasks_domain_model_tickets (
     ticket_schedule_date varchar(255) DEFAULT '' NOT NULL,
     ticket_schedule_time varchar(255) DEFAULT '' NOT NULL,
     ticket_status int(11) unsigned DEFAULT '0' NOT NULL, 
-    ticket_typ int(11) unsigned DEFAULT '0' NOT NULL,  
+    ticket_typ int(11) unsigned DEFAULT '0' NOT NULL, 
+    ticket_images int(11) unsigned DEFAULT '0' NOT NULL, 
     ticket_text text,
     ticket_custom_id varchar(10) DEFAULT '' NOT NULL,
     ticket_owner int(11) unsigned DEFAULT '0' NOT NULL,
@@ -287,7 +288,8 @@ CREATE TABLE tx_projectsandtasks_domain_model_ticketresponse (
     tr_end varchar(100) DEFAULT '' NOT NULL,
     tr_time int(11) unsigned DEFAULT '0' NOT NULL,
     tr_owner int(11) unsigned DEFAULT '0' NOT NULL,
-    
+    tr_images int(11) unsigned DEFAULT '0' NOT NULL,
+
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,
     t3ver_wsid int(11) DEFAULT '0' NOT NULL,

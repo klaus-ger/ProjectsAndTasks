@@ -195,6 +195,18 @@ return array(
                 'size' => 100,
             )
         ),
+        'ticket_images' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lw_drx_intra_marketplace/Resources/Private/Language/locallang_db.xlf:tx_falfeupload_domain_model_entry.files',
+			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', array(
+				'appearance' => array(
+					'createNewRelationLinkTitle' => 'falrel'
+				),
+				'minitems' => 0,
+				'maxitems' => 9,
+			), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+		),
+	
     ),
 );
 ?>

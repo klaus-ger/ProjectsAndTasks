@@ -131,6 +131,31 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $ticketAssigned;
+    
+    /**
+     * File reference for FAL
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\ProjectsAndTasks\Domain\Model\FileReference>
+     * @lazy
+     */
+    protected $ticketImages;
+    
+       /**
+     * Construct
+     */
+    public function __construct() {
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
+     *
+     * @return void
+     */
+    protected function initStorageObjects() {
+        $this->ticketImages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+    
 
     public function getTicketNummer() {
         return '#' . str_pad($this->uid, 4, "0", STR_PAD_LEFT);
@@ -244,7 +269,35 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->ticketAssigned = $ticketAssigned;
     }
 
+ /**
+     * Returns the files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getTicketImages() {
+        return $this->ticketImages;
+    }
 
+    /**
+     * Sets the files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $ticketImages
+     * @return void
+     */
+    public function setTicketImages($ticketImages) {
+        $this->ticketImages = $ticketImages;
+    }
+
+    /**
+     * Adds a file
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $ticketImages
+     *
+     * @return void
+     */
+    public function addTicketImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $ticketImages) {
+       $this->ticketImages->attach($ticketImages);
+    }
 }
 
 ?>

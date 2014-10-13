@@ -646,13 +646,44 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
      */
     public function projectTicketSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Tickets $ticket) {
 
+        if (!empty($_FILES['tx_projectsandtasks_pat'])) {
+
+            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+            $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
+            /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
+            $storage = $storageRepository->findByUid('1');
+
+            for ($index = 0; $index < count($_FILES['tx_projectsandtasks_pat']['name']['file']); $index++) {
+                // setting up file data
+                $fileData = array();
+                $fileData['name'] = $_FILES['tx_projectsandtasks_pat']['name']['file'][$index];
+                $fileData['type'] = $_FILES['tx_projectsandtasks_pat']['type']['file'][$index];
+                $fileData['tmp_name'] = $_FILES['tx_projectsandtasks_pat']['tmp_name']['file'][$index];
+                $fileData['size'] = $_FILES['tx_projectsandtasks_pat']['size']['file'][$index];
+
+                if ($fileData['name']) {
+                    // this will already handle the moving of the file to the storage:
+                    $newFileObject = $storage->addFile(
+                            $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
+                    );
+                    $newFileObject = $storage->getFile($newFileObject->getIdentifier());
+                    $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
+
+                    /** @var \T3developer\ProjectsAndTasks\Domain\Model\FileReference $newFileReference */
+                    $newFileReference = $this->objectManager->get('T3developer\ProjectsAndTasks\Domain\Model\FileReference');
+                    $newFileReference->setFile($newFile);
+
+                    $ticket->addTicketImages($newFileReference);
+                }
+            }
+        }
+        
         if ($ticket->getUid()) {
             $this->ticketsRepository->update($ticket);
         } else {
             $this->ticketsRepository->add($ticket);
         }
-        $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-        $persistenceManager->persistAll();
+        $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
 
         $this->redirect('projectTicketDetail', 'Project', NULL, array('uid' => $ticket->getUid()));
     }

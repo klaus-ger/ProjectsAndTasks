@@ -58,6 +58,15 @@
                                     <tr>
                                         <td><f:format.html>{ticket.ticketText}</f:format.html></td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                    <f:for each="{ticket.ticketImages}" as="file">
+                                        <a href="{file.originalResource.publicUrl}" class="lightbox">
+                                            <f:image src="{file.originalResource.originalFile.uid}" alt="" maxWidth="150" maxHeight="150"/>
+                                        </a>
+                                    </f:for>
+                                    </td>
+                                    </tr>
                                 </table>
 
                             </div>
@@ -110,37 +119,37 @@
                                 <h5>Notes</h5>
                                 <f:if condition="{responses}">
                                     <f:then>
-                                <div class="pat-list">
-                                    <f:for each="{responses}" as="single" iteration="iter">
-                                        <f:link.action action="projectResponseEdit" controller="Project" arguments="{uid: single.uid}">
-                                            <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                                                <div class="pat-list-cell cell-first cell-100">
-                                                    <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
-                                                </div>
-                                                <div class="pat-list-cell cell-bold cell-700">
-                                                    {single.trTitel}  
-                                                </div>
-                                                <div class="pat-list-cell cell-100">
-                                                    {single.trOwner.username}
-                                                </div>
-                                                <div class="pat-list-cell cell-100">
-                                                    {single.trTyp.statusText}
-                                                </div>
-                                                <div class="pat-list-cell cell-50">
-                                                    <vh:time time="{single.trTime}" />
-                                                </div>
-                                                <div class="clear"></div>
-                                                <div class="pat-list-cell cell-first cell-100">
-                                                    &nbsp;
-                                                </div>
-                                                <div class="pat-list-cell cell-700">
-                                                    <f:format.nl2br>{single.trText}</f:format.nl2br>
-                                                </div>
+                                        <div class="pat-list">
+                                            <f:for each="{responses}" as="single" iteration="iter">
+                                                <f:link.action action="projectResponseEdit" controller="Project" arguments="{uid: single.uid}">
+                                                    <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                                                        <div class="pat-list-cell cell-first cell-100">
+                                                            <f:format.date format="d.m.Y">{single.trDate}</f:format.date>
+                                                        </div>
+                                                        <div class="pat-list-cell cell-bold cell-700">
+                                                            {single.trTitel}  
+                                                        </div>
+                                                        <div class="pat-list-cell cell-100">
+                                                            {single.trOwner.username}
+                                                        </div>
+                                                        <div class="pat-list-cell cell-100">
+                                                            {single.trTyp.statusText}
+                                                        </div>
+                                                        <div class="pat-list-cell cell-50">
+                                                            <vh:time time="{single.trTime}" />
+                                                        </div>
+                                                        <div class="clear"></div>
+                                                        <div class="pat-list-cell cell-first cell-100">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="pat-list-cell cell-700">
+                                                            <f:format.nl2br>{single.trText}</f:format.nl2br>
+                                                        </div>
 
-                                            </div>
-                                        </f:link.action>
-                                    </f:for>
-                                </div>
+                                                    </div>
+                                                </f:link.action>
+                                            </f:for>
+                                        </div>
                                     </f:then>
                                     <f:else>
                                         No notes found.
@@ -155,6 +164,6 @@
         </div>
 
     </div>
-       
+
 
 </f:section>
