@@ -193,7 +193,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
             $this->ticketsRepository->add($ticket);
         }
 
-        $this->redirect('index');
+        $this->redirect('ticketListDate');
     }
 
     /**
