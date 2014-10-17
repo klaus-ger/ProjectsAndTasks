@@ -26,19 +26,17 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * ************************************************************* */
 
 /**
+ * The Whiteboard controller - serves the whiteboard pages
  *
- *
+ * @version 0.1
+ * @copyright Copyright belongs to the respective authors
  * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
-class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
-     * @inject
-     */
-    protected $userRepository;
+class WhiteboardController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
+
 
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\BoardcatRepository
@@ -51,7 +49,7 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      * @inject
      */
     protected $boardtopicRepository;
-    
+
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\BoardmessageRepository
      * @inject
@@ -63,14 +61,8 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      * @return void 
      */
     public function initializeAction() {
-        $user = $GLOBALS['TSFE']->fe_user->user;
-
-        if ($user == NULL) {
-            $this->redirect('logIn', 'Login');
-        } else {
-            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-            $this->settings['username'] = $this->user->getUsername();
-        }
+        
+        $this->getUserRights();
 
         // this configures the parsing
         if (isset($this->arguments['topic'])) {
@@ -98,7 +90,7 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
                 $board[$cat->getUid()]['cat'] = $cat;
                 $topics = $this->boardtopicRepository->findByBtCat($cat->getUid());
                 //append live data to topic model
-                foreach($topics as $topic){
+                foreach ($topics as $topic) {
                     $topic->setBtMessages($this->boardmessageRepository->countByTopic($topic->getUid()));
                     $last = $this->boardmessageRepository->findLastMessageByTopic($topic->getUid());
                     $topic->setBtLastMessage($last[0]);
@@ -159,7 +151,6 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
 
         $this->view->assign('topic', $topic);
         $this->view->assign('cat', $this->boardcatRepository->findByUid($catUid));
-        
     }
 
     /**
@@ -177,6 +168,26 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         $this->redirect('whiteboardOverview');
     }
 
+    /**
+     * Deletes a Topic
+     * 
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Boardtopic $topic
+     */
+    public function whiteboardTopicDeleteAction(\T3developer\ProjectsAndTasks\Domain\Model\Boardtopic $topic){
+        
+        //Delete all messages of the topic
+        $messages = $this->boardmessageRepository->findByBmTopic($topic->getuid());
+        foreach($messages as $message){
+            $this->boardmessageRepository->remove($message);
+        }
+        
+        //remove topic
+        $this->boardtopicRepository->remove($topic);
+        
+        $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+        $this->redirect('whiteboardOverview');
+    }
+    
     //**************************************************************************
     // Topic Page
     //**************************************************************************
@@ -193,32 +204,30 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         $messages = $this->boardmessageRepository->findByBmTopic($topicUid);
         $newmessage = $this->objectManager->get('T3developer\ProjectsAndTasks\Domain\Model\Boardmessage');
         $newmessage->setBmTopic($topicUid);
-        
+
         $this->view->assign('topic', $topic);
         $this->view->assign('messages', $messages);
         $this->view->assign('newmessage', $newmessage);
         $this->view->assign('loggedInUser', $this->user);
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($companies);
     }
-    
-    
-     /**
+
+    /**
      * Save a message (Edit and new)
      * 
      * @param \T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $newmessage
      */
     public function whiteboardMessageSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $newmessage) {
-        
-        $newmessage->setBmUser($this->user);
-        $newmessage->setBmDate(time());
-            
+
         if ($newmessage->getUid() > 0) {
             $this->boardmessageRepository->update($newmessage);
         } else {
+            $newmessage->setBmUser($this->user);
+            $newmessage->setBmDate(time());
             $this->boardmessageRepository->add($newmessage);
         }
         $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
-        
+
         $this->redirect('whiteboardShowTopic', NULL, NULL, array('topicUid' => $newmessage->getBmTopic()));
     }
 
@@ -228,9 +237,10 @@ class WhiteboardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      * @param \T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $message
      */
     public function whiteboardMessageEditAction(\T3developer\ProjectsAndTasks\Domain\Model\Boardmessage $message) {
-    
+
         $this->view->assign('newmessage', $message);
     }
+
 }
 
 ?>

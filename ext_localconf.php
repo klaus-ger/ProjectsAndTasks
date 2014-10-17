@@ -93,6 +93,7 @@ if (!defined('TYPO3_MODE'))
                     , whiteboardCatSave
                     , whiteboardTopicAdd
                     , whiteboardTopicSave
+                    , whiteboardTopicDelete
                     , whiteboardMessageSave
                     , whiteboardMessageEdit
                     ',
@@ -195,6 +196,7 @@ if (!defined('TYPO3_MODE'))
                     , whiteboardCatSave
                     , whiteboardTopicAdd
                     , whiteboardTopicSave
+                    , whiteboardTopicDelete
                     , whiteboardMessageSave
                     , whiteboardMessageEdit',
             

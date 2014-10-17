@@ -4,7 +4,7 @@
     <div class="pat-list-item clearfix ">
         <b>&nbsp; </b>
     </div>
-    
+
     <f:for each="{board}" as="cat">
         <div class="pat-list-item clearfix ">
             <div class="pat-list-cell cell-bold cell-700">
@@ -37,7 +37,11 @@
                     </div>
                 </f:link.action>
 
-
+                <div class="pat-list-cell cell-50">
+                    <f:link.action action="whiteboardTopicDelete" arguments="{topic: topic}" onclick="return window.confirm('Delete Topic and all messages?');">
+                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="delete Topic" />
+                    </f:link.action>
+                </div>
             </div>
         </f:for>
 
@@ -60,7 +64,7 @@
 
     </f:for>
 
-  
+
 
 </div>
 
