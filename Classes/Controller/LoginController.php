@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 
+ *  (c) 2014  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,41 +26,22 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * ************************************************************* */
 
 /**
+ * The login controller - serves the login page
  *
- *
+ * @version 0.1
+ * @copyright Copyright belongs to the respective authors
  * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
 class LoginController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-//    /**
-//     * @var \T3developer\T3gists\Domain\Repository\GistsRepository   
-//     * @inject
-//     */
-//    protected $gistsRepository;
 
     /**
-     * Initializes the current action 
-     * @return void 
-     */
-    public function initializeAction() {
-        
-    }
-
-    /**
-     * Index Action: Checks the login Status
-     */
-    public function indexAction() {
-
-    }
-
-    /*
      * Show the login Form
      * 
      * @param \t3developer\ProjectsAndTasks\Domain\Model\User $user
      * @dontvalidate $user
      */
-
     public function logInAction() {
         $user = $GLOBALS['TSFE']->fe_user->user;
 
@@ -72,8 +53,6 @@ class LoginController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'])) {
             $_params = array();
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['felogin']['loginFormOnSubmitFuncs'] as $funcRef) {
-                //list($onSub, $hid) = t3lib_div::callUserFunction($funcRef, $_params, $this);
-                //   TYPO3\CMS\CoreUtility\GeneralUtility::callUserFunction
                 list($onSub, $hid) = \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $_params, $this);
                 $onSubmitAr[] = $onSub;
                 $extraHiddenAr[] = $hid;

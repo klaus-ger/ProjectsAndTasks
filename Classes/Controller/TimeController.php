@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 
+ *  (c) 2014  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,37 +26,15 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * ************************************************************* */
 
 /**
+ * The Time controller - serves the kalender pages
  *
- *
+ * @version 0.1
+ * @copyright Copyright belongs to the respective authors
  * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
-class TimeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
-     * @inject
-     */
-    protected $userRepository;
-    
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketsRepository   
-     * @inject
-     */
-    protected $ticketsRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\TicketresponseRepository   
-     * @inject
-     */
-    protected $ticketresponseRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatusRepository   
-     * @inject
-     */
-    protected $statusRepository;
+class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
 
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatustypRepository   
@@ -65,23 +43,12 @@ class TimeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     protected $statustypRepository;
 
     /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\ProjectcatsRepository   
-     * @inject
-     */
-    protected $projectcatsRepository;
-
-    /**
      * Initializes the current action 
      * @return void 
      */
     public function initializeAction() {
-         $user = $GLOBALS['TSFE']->fe_user->user;
-        if ($user == NULL) {
-            $this->redirect('logIn', 'Login');
-        } else {
-            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-            $this->settings['username'] = $this->user->getUsername();
-        }
+
+        $this->getUserRights();
     }
 
     //**************************************************************************
@@ -113,16 +80,15 @@ class TimeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arrayMonth);
         $this->view->assign('arrayMonth', $arrayMonth);
         $this->view->assign('mainmenu', 1);
-        
     }
 
-        /**
+    /**
      * Shows the booked time for a day
      */
     public function timeDayAction() {
         // TODO:
         //search worktime only for loged in user
-        if($this->request->hasArgument('date')){
+        if ($this->request->hasArgument('date')) {
             $date = $this->request->getArgument('date');
         } else {
             $date = date("d.m.Y");
@@ -132,13 +98,13 @@ class TimeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         $date = explode('.', $date);
         $start = mktime(0, 0, 0, $date[1], $date[0], $date[2]);
         $end = mktime(23, 59, 59, $date[1], $date[0], $date[2]);
-        
+
         //loged in user
         $userID = $GLOBALS['TSFE']->fe_user->user['uid'];
-        
+
         $workNotesCustom = $this->ticketresponseRepository->findPerDate($start, $end, 2);
         $workNotesInternal = $this->ticketresponseRepository->findPerDate($start, $end, 3);
-        
+
         $time['custom'] = 0;
         $time['internal'] = 0;
         if ($workNotesCustom[0]) {
@@ -154,20 +120,21 @@ class TimeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
             }
         }
         $time['total'] = $time['custom'] + $time['internal'];
-        
-        
+
+
         //This gets today's date
-       // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($workNotesInternal);
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($workNotesInternal);
         $this->view->assign('date', $headlineDate);
         $this->view->assign('workNotesInternal', $workNotesInternal);
         $this->view->assign('workNotesCustom', $workNotesCustom);
         $this->view->assign('mainmenu', 2);
     }
+
     /**
      * Search the notes and worktime for a date
      */
     public function searchWorktime($date) {
-        
+
         //expolde the date string format D.M.Y
         $date = explode('.', $date);
 

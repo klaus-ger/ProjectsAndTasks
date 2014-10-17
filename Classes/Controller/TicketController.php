@@ -45,14 +45,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
      */
     public function initializeAction() {
 
-        $user = $GLOBALS['TSFE']->fe_user->user;
-        if ($user == NULL) {
-            $this->redirect('logIn', 'Login');
-        } else {
-            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-            $this->settings['username'] = $this->user->getUsername();
-        }
-
+        $this->getUserRights();
 
         // this configures the parsing
         if (isset($this->arguments['ticket'])) {

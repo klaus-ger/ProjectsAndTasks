@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Klaus Heuer <klaus.heuer@t3-developer.com>
+ *  (c) 2014  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,39 +26,24 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * ************************************************************* */
 
 /**
+ * The Adress controller - serves the adress pages
  *
- *
+ * @version 0.1
+ * @copyright Copyright belongs to the respective authors
  * @package ProjectsAndTasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
-class AddressController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
 
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserRepository   
-     * @inject
-     */
-    protected $userRepository;
-
-    /**
-     * @var \T3developer\ProjectsAndTasks\Domain\Repository\CompanyRepository   
-     * @inject
-     */
-    protected $companyRepository;
 
     /**
      * Initializes the current action 
      * @return void 
      */
     public function initializeAction() {
-        $user = $GLOBALS['TSFE']->fe_user->user;
-
-        if ($user == NULL) {
-            $this->redirect('logIn', 'Login');
-        } else {
-            $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-            $this->settings['username'] = $this->user->getUsername();
-        }
+        
+        $this->getUserRights();
     }
 
     //**************************************************************************
