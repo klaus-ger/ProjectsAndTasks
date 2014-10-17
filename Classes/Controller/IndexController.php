@@ -52,10 +52,11 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
 
         //Open Tickets of the logged in user
         $openTickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
-        
+
         //Block overall trend
-        $this->findGlobalTrend();
+
         $statArray = $this->loadStatisticData();
+        $this->checkStatsitikData();
 
         //Block My Summary
         $mySummary = $this->findMySummary($openTickets);
@@ -79,7 +80,7 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
      * Find the global statistic Data for all user - if the data for the actual date
      * is not create, we do so.
      */
-    private function findGlobalTrend() {
+    private function checkStatsitikData() {
 
         $lastStatistikData = $this->statisticRepository->findLast();
 
@@ -96,14 +97,14 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
             $this->createActualStatisticData();
         }
     }
-    
+
     /**
      * find My Summary
      * 
      * returns an array of a summary for the loged in user
      */
-    private function findMySummary($openTickets){
-        
+    private function findMySummary($openTickets) {
+
         $openTime = 0;
         $actualTime = time();
         $ticketAgeTotal = 0;
@@ -115,15 +116,15 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
             $ticketage = $actualTime - $ticketdate;
             $ticketAgeTotal = $ticketAgeTotal + $ticketage;
         }
-         if ($countOpenTickets > 0) {
+        if ($countOpenTickets > 0) {
             $averageTicketAge = $ticketAgeTotal / $countOpenTickets;
             $averageAge = $averageTicketAge / 3600 / 24;
-         }
-        
+        }
+
         $mySummary['openTickets'] = $countOpenTickets;
         $mySummary['openTime'] = $openTime;
         $mySummary['averageAge'] = round($averageAge, 2);
-        
+
         return($mySummary);
     }
 
@@ -168,6 +169,7 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
      * 
      */
     private function loadStatisticData() {
+
         $stats = $this->statisticRepository->findLastStatForGraph();
 
         //find max value
@@ -216,8 +218,6 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
 
         return $statArray;
     }
-
-
 
 }
 
