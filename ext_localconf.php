@@ -218,6 +218,8 @@ if (!defined('TYPO3_MODE'))
                     , settingsStatusSave
                             
                     , settingsRights
+                    , settingsRightsNew
+                    , settingsRightsEdit
                     , settingsRightsSave'
         )
 );

@@ -93,7 +93,7 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
             $catUid = $this->request->getArgument('category');
         }
         $cat = $this->projectcatsRepository->findByUid($catUid);
-        
+
         $maincats = $this->projectcatsRepository->findByCatParent(0);
 
         $this->view->assign('maincats', $maincats);
@@ -201,13 +201,13 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
      * 
      */
     public function settingsStatusNewAction() {
-        
-        if($this->request->hasArgument('statustyp')){
+
+        if ($this->request->hasArgument('statustyp')) {
             $statustyp = $this->statustypRepository->findByUid($this->request->getArgument('statustyp'));
         }
         $status = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
         $status->setStatusTyp($statustyp);
-        
+
         $this->view->assign('mainmenu', '2');
         $this->view->assign('status', $status);
     }
@@ -250,16 +250,52 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
 
     /**
      * settingsRights  Function
+     * 
+     * Shows a List of all Userright Groups, is no Group exists, we create a blank one.
      */
-    public function settingsRights() {
+    public function settingsRightsAction() {
 
+        $rightsGroups = $this->userrightsRepository->findAll();
+
+        if ($rightsGroups[0] == NULL) {
+            $newGroup = new \T3developer\ProjectsAndTasks\Domain\Model\Userrights;
+            $newGroup->setRightName('admin');
+            $this->userrightsRepository->add($newGroup);
+            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+            $rightsGroups = $this->userrightsRepository->findAll();
+        }
+
+        $this->view->assign('rightsGroups', $rightsGroups);
         $this->view->assign('mainmenu', '3');
     }
 
     /**
      * settingsRights  Function
      */
-    public function settingsRightsSave() {
+    public function settingsRightsNewAction() {
+        
+    }
+
+    /**
+     * settingsRightsEdit  Function
+     * 
+     * Shows a Form to edit an Right Group
+     */
+    public function settingsRightsEditAction() {
+
+        if ($this->request->hasArgument('rightGroup')) {
+            $rightsGroup = $this->request->getArgument('rightGroup');
+            $rightsGroup = $this->userrightsRepository->findByUid($rightsGroup);
+        }
+
+        $this->view->assign('mainmenu', '3');
+        $this->view->assign('rightsGroup', $rightsGroup);
+    }
+
+    /**
+     * settingsRights  Function
+     */
+    public function settingsRightsSaveAction() {
         
     }
 
