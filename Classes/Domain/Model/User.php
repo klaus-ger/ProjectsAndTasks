@@ -120,6 +120,12 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     protected $password;
 
+    /**
+     * Userrights
+     * @var \int
+     */
+    protected $userRights;
+
     public function getUsername() {
         return $this->username;
     }
@@ -227,6 +233,14 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setPasswordInput($passwordInput) {
         $this->passwordInput = $passwordInput;
+    }
+
+    public function getUserRights() {
+        return $this->userRights;
+    }
+
+    public function setUserRights($userRights) {
+        $this->userRights = $userRights;
     }
 
 }

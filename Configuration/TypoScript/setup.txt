@@ -44,6 +44,7 @@ config.tx_extbase{
                         company.mapOnProperty = company
                         password.mapOnProperty = password
                         projects_and_tasks_user.mapOnProperty = projectsAndTasksUser
+                        tx_projectsandtasks_userrights.mapOnProperty = userRights
                         }
                 }
             }
@@ -113,6 +114,6 @@ page {
         responsiveimages =EXT:projects_and_tasks/Resources/Public/Scripts/Libs/jquery.responsiveimages.min.js
         datepicker = EXT:projects_and_tasks/Resources/Public/Scripts/Libs/bootstrap-datepicker.js
         chart = EXT:projects_and_tasks/Resources/Public/Scripts/jquery.chart.min.js
-        main = EXT:projects_and_tasks/Resources/Public/Scripts/main.js
+        main = EXT:projects_and_tasks/Resources/Public/Scripts/main.js      
     }
 }
