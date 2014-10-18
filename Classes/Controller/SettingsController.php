@@ -36,20 +36,18 @@ namespace T3developer\ProjectsAndTasks\Controller;
  */
 class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
 
-
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\StatustypRepository   
      * @inject
      */
     protected $statustypRepository;
 
-
     /**
      * Initializes the current action 
      * @return void 
      */
     public function initializeAction() {
-        
+
         $this->getUserRights();
     }
 
@@ -95,8 +93,10 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
             $catUid = $this->request->getArgument('category');
         }
         $cat = $this->projectcatsRepository->findByUid($catUid);
+        
+        $maincats = $this->projectcatsRepository->findByCatParent(0);
 
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($cat);
+        $this->view->assign('maincats', $maincats);
         $this->view->assign('mainmenu', '1');
         $this->view->assign('category', $cat);
     }
@@ -176,10 +176,10 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
      * Shows a List of all Status
      */
     public function settingsStatusAction() {
-        
-        
+
+
         $statustyp = $this->statustypRepository->findAll();
-        if($statustyp[0] ==''){
+        if ($statustyp[0] == '') {
             $this->importBasicStatusValues();
             $statustyp = $this->statustypRepository->findAll();
         }
@@ -196,12 +196,20 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
 
     /**
      * settingsStatusNewAction
-     * Shows a List of all Status
+     * 
+     * Shows a form for a new Status entry
+     * 
      */
     public function settingsStatusNewAction() {
-
-
+        
+        if($this->request->hasArgument('statustyp')){
+            $statustyp = $this->statustypRepository->findByUid($this->request->getArgument('statustyp'));
+        }
+        $status = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
+        $status->setStatusTyp($statustyp);
+        
         $this->view->assign('mainmenu', '2');
+        $this->view->assign('status', $status);
     }
 
     /**
@@ -225,7 +233,7 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
      * @param \T3developer\ProjectsAndTasks\Domain\Model\Status $status
      */
     public function settingsStatusSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Status $status) {
-        
+
         if ($status->getUid()) {
             $this->statusRepository->update($status);
         } else {
@@ -235,6 +243,29 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
 
         $this->redirect('settingsStatus');
     }
+
+    //**************************************************************************
+    // User Rights functions
+    //**************************************************************************
+
+    /**
+     * settingsRights  Function
+     */
+    public function settingsRights() {
+
+        $this->view->assign('mainmenu', '3');
+    }
+
+    /**
+     * settingsRights  Function
+     */
+    public function settingsRightsSave() {
+        
+    }
+
+    //**************************************************************************
+    // Helper Functions
+    //**************************************************************************
 
     /**
      * importBasicStatusValues
@@ -247,123 +278,118 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
         // 3 = Ticket Typ (bug feature etc)
         // 4 = Milestonestatus
         // 5 = worktime Typ (customer, research, administrative)
-        
         //status behaviour
         // 0 = open
         // 1 = closed
         // 2 = time can be invoiced
         // 3 = internal time
         // 9 = no behaviour
-        
         //check if Status Typs exists
         //Statustyp Projects
         $type1 = $this->statustypRepository->findByUid(1);
-        if(!$type1) {
+        if (!$type1) {
             $type1 = new \T3developer\ProjectsAndTasks\Domain\Model\Statustyp;
-            $type1 ->setStatustypText('Project Status');
+            $type1->setStatustypText('Project Status');
             $this->statustypRepository->add($type1);
-            
+
             $cat1 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat1->setStatusTyp(1);
             $cat1->setStatusText('open');
             $cat1->setStatusBehaviour(0);
             $this->statusRepository->add($cat1);
-            
+
             $cat2 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat2->setStatusTyp(1);
             $cat2->setStatusText('closed');
             $cat2->setStatusBehaviour(1);
             $this->statusRepository->add($cat2);
-            
-            
         }
-        
+
         //Statustyp Tickets
         $type2 = $this->statustypRepository->findByUid(2);
-        if(!$type2) {
+        if (!$type2) {
             $type2 = new \T3developer\ProjectsAndTasks\Domain\Model\Statustyp;
-            $type2 ->setStatustypText('Ticket Status');
+            $type2->setStatustypText('Ticket Status');
             $this->statustypRepository->add($type2);
-            
+
             $cat1 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat1->setStatusTyp(2);
             $cat1->setStatusText('open');
             $cat1->setStatusBehaviour(0);
             $this->statusRepository->add($cat1);
-            
+
             $cat2 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat2->setStatusTyp(2);
             $cat2->setStatusText('done');
             $cat2->setStatusBehaviour(1);
             $this->statusRepository->add($cat2);
         }
-        
+
         //Statustyp Ticket TYP
         $type3 = $this->statustypRepository->findByUid(3);
-        if(!$type3) {
+        if (!$type3) {
             $type3 = new \T3developer\ProjectsAndTasks\Domain\Model\Statustyp;
-            $type3 ->setStatustypText('Ticket Typ');
+            $type3->setStatustypText('Ticket Typ');
             $this->statustypRepository->add($type3);
-            
+
             $cat1 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat1->setStatusTyp(3);
             $cat1->setStatusText('Bug');
             $cat1->setStatusBehaviour(9);
             $this->statusRepository->add($cat1);
-            
+
             $cat2 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat2->setStatusTyp(3);
             $cat2->setStatusText('Feature');
             $cat2->setStatusBehaviour(9);
             $this->statusRepository->add($cat2);
         }
-        
+
         //Statustyp Milestone
         $type4 = $this->statustypRepository->findByUid(4);
-        if(!$type4) {
+        if (!$type4) {
             $type4 = new \T3developer\ProjectsAndTasks\Domain\Model\Statustyp;
-            $type4 ->setStatustypText('Milestone');
+            $type4->setStatustypText('Milestone');
             $this->statustypRepository->add($type4);
-            
+
             $cat1 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat1->setStatusTyp(4);
             $cat1->setStatusText('open');
             $cat1->setStatusBehaviour(0);
             $this->statusRepository->add($cat1);
-            
+
             $cat2 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat2->setStatusTyp(4);
             $cat2->setStatusText('achived');
             $cat2->setStatusBehaviour(1);
             $this->statusRepository->add($cat2);
         }
-        
+
         //Statustyp Worktime typ
         $type5 = $this->statustypRepository->findByUid(5);
-        if(!$type5) {
+        if (!$type5) {
             $type5 = new \T3developer\ProjectsAndTasks\Domain\Model\Statustyp;
-            $type5 ->setStatustypText('Worktime Typ');
+            $type5->setStatustypText('Worktime Typ');
             $this->statustypRepository->add($type5);
-            
+
             $cat1 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat1->setStatusTyp(5);
             $cat1->setStatusText('customer');
             $cat1->setStatusBehaviour(2);
             $this->statusRepository->add($cat1);
-            
+
             $cat2 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat2->setStatusTyp(5);
             $cat2->setStatusText('research');
             $cat2->setStatusBehaviour(3);
             $this->statusRepository->add($cat2);
-            
+
             $cat3 = new \T3developer\ProjectsAndTasks\Domain\Model\Status;
             $cat3->setStatusTyp(5);
             $cat3->setStatusText('administrative');
             $cat3->setStatusBehaviour(3);
             $this->statusRepository->add($cat3);
         }
-        
     }
 
 }
