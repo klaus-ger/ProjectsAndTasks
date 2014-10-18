@@ -4936,6 +4936,9 @@ li.panel-link a {
 .cell-bold {
     font-weight: bold;
 }
+.cell-right {
+    float: right;
+}
 .cell-50 {
     width: 50px;
 }
