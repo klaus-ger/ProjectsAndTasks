@@ -3,68 +3,53 @@
 <f:section name="main">
     <div class="pat-stage">
 
-        <h2>Settings</h2>
-
-        <div class="stage-navi clearfix">
-
-            <div class="stage-navi-navi">
-                <ul>
-                    <li class="{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-                    <f:link.action action="settingsProjectCat">
-                        Project Categories
-                    </f:link.action>
-                    </li>
-                    <li class="{f:if(condition: '{mainmenu} == 2', then: ' active')}">
-                    <f:link.action action="settingsStatus">
-                        Selection Lists
-                    </f:link.action>
-                    </li>
-
-
-
-                </ul>
-                <ul class="right">
-                    <li>
-                    <f:link.action action="settingsProjectCatNew">
-                        <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
-                    </f:link.action>
-                    </li>
-                </ul>
-
-            </div>   
-
-
-            <div class="pat-list">
-                <br />
-                <f:form action="settingsProjectCatSave" name="category" object="{category}">
-
-                    <div class="form-left">
-                        <div class="input-wrap">
-                            <label>Category Name</label>
-                            <f:form.textfield property="catTitle" value="{category.catTitle}" class="textfield-large"/>
-                        </div>
-                    </div>
-                    <div class="form-right">
-                        <div class="input-wrap">
-                            <label>Sub Category of</label><br />
-                            {category.catParent.catTitle}
-                        </div>
-                    </div>
-                    
-                    <br />
-
-                    <f:form.submit value="change" />
-                </f:form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Settings</h2>
+                </div>
             </div>
-
-
-
-
-
-
         </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <ul class="pull-left">
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                                <f:link.action action="settingsProjectCat">
+                                    Project Categories
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                <f:link.action action="settingsStatus">
+                                    Selection Lists
+                                </f:link.action>
+                                </li>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
+                                <f:link.action action="settingsRights" >
+                                    User Rights
+                                </f:link.action>
+                                </li>
+                            </ul>
+
+                            <ul class="pull-right">
+                                <li class="panel-link">
+                                <f:link.action action="settingsProjectCatNew">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
+                                </f:link.action>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                           <f:render partial="Settings/CategoryForm" arguments="{_all}"/>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-
-
 </f:section>

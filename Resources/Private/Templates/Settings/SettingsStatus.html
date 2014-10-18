@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-
+       
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -27,22 +27,32 @@
                                     Selection Lists
                                 </f:link.action>
                                 </li>
-                            </ul>
-
-                            <ul class="pull-right">
-                                <li class="panel-link">
-                                <f:link.action action="settingsStatusNew">
-                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
+                                <f:link.action action="settingsRights" >
+                                    Userrights
                                 </f:link.action>
                                 </li>
                             </ul>
+
+                            <ul class="pull-right">
+                                
+                            </ul>
                         </div>
-                        
+
                         <div class="panel-body">
                             <f:for each="{statuslist}" as="status">
                                 <div class="pat-list-item clearfix even">
-                                    <div class="list-item"><b>{status.typ.statustypText}</b></div>
+                                    <div class="pat-list-cell cell-first cell-600">
+                                        <b>{status.typ.statustypText}</b>
+                                    </div>
+                                    
+                                    <div class="pat-list-cell cell-50 cell-right">
+                                        <f:link.action action="settingsStatusNew" arguments="{statustyp: status.typ}">
+                                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
+                                        </f:link.action>
+                                    </div>
                                 </div>
+
 
                                 <f:for each="{status.status}" as="item" iteration="iter">
                                     <f:link.action action="settingsStatusEdit" arguments="{uid: item.uid}">
@@ -55,13 +65,34 @@
                                                 {item.StatusText}
                                             </div>
                                             <div class="pat-list-cell cell-200">
+                                                <!-- Show fpr Projects -->
+                                                <f:if condition="{item.statusTyp.uid} == 1">
+                                                    <f:if condition="{item.StatusBehaviour} == 0">Behaviour: open</f:if>
+                                                    <f:if condition="{item.StatusBehaviour} == 1">Behaviour: closed</f:if>
+                                                </f:if>
+                                                <!-- Show fpr Tickets -->
+                                                <f:if condition="{item.statusTyp.uid} == 2">
+                                                    <f:if condition="{item.StatusBehaviour} == 0">Behaviour: open</f:if>
+                                                    <f:if condition="{item.StatusBehaviour} == 1">Behaviour: closed</f:if>
+                                                </f:if>
+                                                <!-- Show for Tickettyp -->
+                                                <f:if condition="{item.statusTyp.uid} == 3">
+                                                    -
+                                                </f:if>
+                                                <!-- Show fpr Milestones -->
+                                                <f:if condition="{item.statusTyp.uid} == 4">
+                                                    <f:if condition="{item.StatusBehaviour} == 0">Behaviour: open</f:if>
+                                                    <f:if condition="{item.StatusBehaviour} == 1">Behaviour: closed</f:if>
+                                                </f:if>
+                                                <!-- Show fpr Worktime -->
+                                                <f:if condition="{item.statusTyp.uid} == 5">
+                                                    <f:if condition="{item.StatusBehaviour} == 2">Behaviour: custom time</f:if>
+                                                    <f:if condition="{item.StatusBehaviour} == 3">Behaviour: internal time</f:if>
+                                                </f:if>
 
-                                                <f:if condition="{item.StatusBehaviour} == 0">Behaviour: open</f:if>
-                                                <f:if condition="{item.StatusBehaviour} == 1">Behaviour: closed</f:if>
-                                                <f:if condition="{item.StatusBehaviour} == 2">Behaviour: custom time</f:if>
-                                                <f:if condition="{item.StatusBehaviour} == 3">Behaviour: internal time</f:if>
+
                                             </div>
-                                            
+
                                         </div>
                                     </f:link.action>
                                 </f:for>
@@ -73,7 +104,6 @@
                 </div>
             </div>
         </div>
-        
-
+    </div>
 
 </f:section>

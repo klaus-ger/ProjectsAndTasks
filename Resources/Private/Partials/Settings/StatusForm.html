@@ -1,0 +1,114 @@
+<f:form action="settingsStatusSave" name="status" object="{status}" class="form-horizontal">
+
+    <div class="col-md-12"><h3>&nbsp;</h3></div>
+    <div class="col-md-4">
+
+
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">List: </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">{status.statusTyp.statustypText}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <f:form.textfield property="statusText" value="{status.statusText}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <f:form.submit value="   save    " class="btn btn-primary"/>
+            </div> 
+        </div>
+
+    </div>
+
+    <div class="col-md-1"></div>
+
+    <div class="col-md-7">
+       
+        <div class="form-group">
+            <label for="Behaviour" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">&nbsp;</p>
+            </div>
+        </div>
+        
+        <!-- Show fpr Projects -->
+        <f:if condition="{status.statusTyp.uid} == 1">
+            <div class="form-group">
+                <label for="Behaviour" class="col-sm-2 control-label">Behaviour</label>
+
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <f:form.radio property="statusBehaviour" value="0" checked="{status.statusBehaviour} == 0" /> open
+                    </label>
+                    <label class="checkbox-inline">
+                        <f:form.radio property="statusBehaviour" value="1" checked="{status.statusBehaviour} == 1" /> closed
+                    </label>
+                </div>
+            </div>
+        </f:if>
+
+        <!-- Show for Tickets -->
+        <f:if condition="{status.statusTyp.uid} == 2">
+            <div class="form-group">
+                <label for="Behaviour" class="col-sm-2 control-label">Behaviour</label>
+
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <f:form.radio property="statusBehaviour" value="0" checked="{status.statusBehaviour} == 0" /> open
+                    </label>
+                    <label class="checkbox-inline">
+                        <f:form.radio property="statusBehaviour" value="1" checked="{status.statusBehaviour} == 1" /> closed
+                    </label>
+                </div>
+            </div>
+        </f:if>
+
+        <!-- Show for Tickettyp -->
+        <f:if condition="{status.statusTyp.uid} == 3">
+
+        </f:if>
+
+        <!-- Show for Milestone -->
+        <f:if condition="{status.statusTyp.uid} == 4">
+            <div class="form-group">
+                <label for="Behaviour" class="col-sm-2 control-label">Behaviour</label>
+
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <f:form.radio property="statusBehaviour" value="0" checked="{status.statusBehaviour} == 0" /> open
+                    </label>
+                    <label class="checkbox-inline">
+                        <f:form.radio property="statusBehaviour" value="1" checked="{status.statusBehaviour} == 1" /> closed
+                    </label>
+                </div>
+            </div>
+        </f:if>
+
+        <!-- Show for Worktime -->
+        <f:if condition="{status.statusTyp.uid} == 5">
+            <div class="form-group">
+                <label for="Behaviour" class="col-sm-2 control-label">Behaviour</label>
+
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <f:form.radio property="statusBehaviour" value="2" checked="{status.statusBehaviour} == 2" /> custom time
+                    </label>
+                    <label class="checkbox-inline">
+                        <f:form.radio property="statusBehaviour" value="3" checked="{status.statusBehaviour} == 3" /> internal time
+                    </label>
+                </div>
+
+
+            </div>
+        </f:if>
+
+    </div>
+
+</f:form>

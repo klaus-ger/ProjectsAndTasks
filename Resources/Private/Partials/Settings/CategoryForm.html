@@ -1,16 +1,29 @@
-<div class="form-left">
-    <div class="input-wrap left-fullwidth">
-        <label>Category Name</label>
-        <f:form.textfield property="catTitle" value="{category.catTitle}" class="textfield-large"/>
-        
-    </div>
-    
-</div>
+<f:form action="settingsProjectCatSave" name="category" object="{category}" class="form-horizontal">
 
-<div class="form-right">
-    <div class="input-wrap">
-       <label>Sub Category of</label>
-        <f:form.select property="catParent" value="{category.catParent}" options="{maincats}" optionValueField="uid" optionLabelField="catTitle" prependOptionLabel="-- Main category --" /><br />
+    <div class="col-md-12"><h3>&nbsp;</h3></div>
+    <div class="col-md-7">
+
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Category Name</label>
+            <div class="col-sm-10">
+                <f:form.textfield property="catTitle" value="{category.catTitle}" class="form-control" placeholder="Category"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="subcategory" class="col-sm-2 control-label">Sub Category of</label>
+            <div class="col-sm-10">
+                <f:form.select property="catParent" value="{category.catParent}" options="{maincats}" optionValueField="uid" optionLabelField="catTitle" prependOptionLabel="-- Main category --" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <f:form.submit value="   save    " class="btn btn-primary"/>
+            </div> 
+        </div>
+
     </div>
 
-</div>
+</f:form>

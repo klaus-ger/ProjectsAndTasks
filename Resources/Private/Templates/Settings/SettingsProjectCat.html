@@ -27,6 +27,11 @@
                                     Selection Lists
                                 </f:link.action>
                                 </li>
+                                <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
+                                <f:link.action action="settingsRights" >
+                                    User Rights
+                                </f:link.action>
+                                </li>
                             </ul>
 
                             <ul class="pull-right">
@@ -64,8 +69,10 @@
                                             </f:link.action>
                                         </f:if>
                                     </div>
+                                </div>
 
-                                    <f:for each="{cat.subs}" as="sub" iteration="iter2">
+                                <f:for each="{cat.subs}" as="sub" iteration="iter2">
+                                    <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
                                         <div class="pat-sublist-item clearfix">
                                             <f:link.action action="settingsProjectCatEdit" arguments="{category: sub.uid}">
                                                 <div class="pat-list-cell cell-first cell-50">
@@ -75,6 +82,11 @@
                                                     {sub.catTitle}
                                                 </div>
                                             </f:link.action>
+                                            
+                                            <div class="pat-list-cell cell-100">
+                                                &nbsp;
+                                            </div>
+                                            
                                             <div class="pat-list-cell cell-100">
                                                 <f:if condition="{iter2.isFirst} == 0">
                                                     <f:link.action action="settingsProjectCatUp" arguments="{category: sub}">
@@ -88,11 +100,8 @@
                                                 </f:if>
                                             </div>
                                         </div>
-                                    </f:for>
-
-
-
-                                </div>
+                                    </div>
+                                </f:for>
 
                             </f:for>
 
