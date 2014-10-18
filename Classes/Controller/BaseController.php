@@ -122,6 +122,12 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     protected $statisticRepository;
 
     /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\UserrightsRepository   
+     * @inject
+     */
+    protected $userrightsRepository;
+
+    /**
      * getUserRights Function - set the logged in User to $this->user
      * 
      * @return void 
