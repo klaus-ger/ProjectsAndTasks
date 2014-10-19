@@ -27,44 +27,61 @@
                     InBox
                 </f:link.action>
                 </li>
+                
+                <f:if condition="{settings.showProjectMenu}">
                 <li {f:if(condition: '{topmenu} == 1', then: 'class="active"')}>
-            <f:link.action action="allProjectsByCat" controller="Project">
-                Projects
-            </f:link.action>
-            </li>
-            <li>
-            <f:link.action action="ticketListDate" controller="Ticket">
-                Tickets
-            </f:link.action>
-            </li>
-            <li>
-            <f:link.action action="timeMonth" controller="Time">
-                Time
-            </f:link.action>
-            </li>
-            <li>
-
-            <f:link.action action="personList" controller="Address">
-                Address
-            </f:link.action>
-            </li>
-            <li>
-            <f:link.action action="whiteboardOverview" controller="Whiteboard">
-                Whiteboard
-            </f:link.action>
-            </li>
+                    <f:link.action action="allProjectsByCat" controller="Project">
+                        Projects
+                    </f:link.action>
+                </li>
+                </f:if>
+            
+                <f:if condition="{settings.showTicketMenu}">
+                <li>
+                    <f:link.action action="ticketListDate" controller="Ticket">
+                        Tickets
+                    </f:link.action>
+                </li>
+                </f:if>
+                
+                <f:if condition="{settings.showTimeMenu}">
+                <li>
+                    <f:link.action action="timeMonth" controller="Time">
+                        Time
+                    </f:link.action>
+                </li>
+                </f:if>
+                
+                <f:if condition="{settings.showAddressMenu}">
+                <li>
+                    <f:link.action action="personList" controller="Address">
+                        Address
+                    </f:link.action>
+                </li>
+                </f:if>
+                
+                <f:if condition="{settings.showWhiteboardMenu}">
+                <li>
+                    <f:link.action action="whiteboardOverview" controller="Whiteboard">
+                        Whiteboard
+                    </f:link.action>
+                </li>
+                 </f:if>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
+            <f:if condition="{settings.showSettingMenu}">
             <li>
             <f:link.action action="settingsProjectCat" controller="Settings">
                 <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_settings.png" width="17" height="17" alt="Settings" />
             </f:link.action>
             </li>
+            </f:if>
+            
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            
+
             <li class="dropdown">
                 <a id="dropuser" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
                     Hi {settings.username}!
@@ -74,19 +91,19 @@
                     <li role="presentation">
                         <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
 
-                        <input id="button" type="submit" name="submit" value="abmelden" role="menuitem" class="btn btn-primary btn-xs pull-right"/>
+                            <input id="button" type="submit" name="submit" value="abmelden" role="menuitem" class="btn btn-primary btn-xs pull-right"/>
 
-                        <div class="felogin-hidden">
-                            <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
-                            <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
-                            <input type="hidden" name="logintype" value="logout"/>
-                            <input type="hidden" name="id" value="{currentPid}"/>
-                            <input type="hidden" name="redirect_url" value="{currentPid}"/>
-                            <input type="hidden" name="pid" value="{storagePid}"/>
-                            <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
-                        </div>
+                            <div class="felogin-hidden">
+                                <input type="hidden" id="user" name="user"  placeholder="BENUTZERNAME"/>
+                                <input type="hidden" id="pass" name="pass"  placeholder="PASSWORD"/>
+                                <input type="hidden" name="logintype" value="logout"/>
+                                <input type="hidden" name="id" value="{currentPid}"/>
+                                <input type="hidden" name="redirect_url" value="{currentPid}"/>
+                                <input type="hidden" name="pid" value="{storagePid}"/>
+                                <f:format.html parseFuncTSPath="">{extraHidden}</f:format.html>
+                            </div>
 
-                    </form> 
+                        </form> 
                     </li>
                 </ul>
             </li>
