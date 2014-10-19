@@ -140,7 +140,20 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         } else {
             $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
             $this->settings['username'] = $this->user->getUsername();
+            
+            $this->rights = $this->userrightsRepository->findByUid($this->user->getUserRights());
+            $this->setRightsForViews($this->rights);
         }
+    }
+    
+    private function setRightsForViews($rights){
+        $this->settings['showProjectMenu'] = $rights->getShowProjectMenu();
+        $this->settings['showTicketMenu']  = $rights->getShowTicketMenu();
+        $this->settings['showTimeMenu']    = $rights->getShowTimeMenu();
+        $this->settings['showAddressMenu'] = $rights->getShowAddressMenu();
+        $this->settings['showWhiteboardMenu'] = $rights->getShowWhiteboardMenu();
+        $this->settings['showSettingMenu'] = $rights->getShowSettingMenu();
+        
     }
 
 }
