@@ -69,10 +69,12 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         }
         $person = $this->userRepository->findByUid($personID);
         $companies = $this->companyRepository->findAll();
+        $userRights = $this->userrightsRepository->findAll();
 
         $this->view->assign('mainmenu', '1');
         $this->view->assign('person', $person);
         $this->view->assign('companies', $companies);
+        $this->view->assign('userRights', $userRights);
     }
 
     /**
