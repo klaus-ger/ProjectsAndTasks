@@ -42,53 +42,67 @@ class Userrights extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $rightName;
 
     /**
-     * In Box Menu
-     * @var \int
-     * 
-     */
-    protected $hideInboxMenu;
-
-    /**
      * Project Menu
      * @var \int
      * 
      */
-    protected $hideProjectMenu;
+    protected $showProjectMenu;
 
     /**
      * Ticket Menu
      * @var \int
      * 
      */
-    protected $hideTicketMenu;
+    protected $showTicketMenu;
 
     /**
      * Times Menu
      * @var \int
      * 
      */
-    protected $hideTimeMenu;
+    protected $showTimeMenu;
 
     /**
      * Adress Menu
      * @var \int
      * 
      */
-    protected $hideAddressMenu;
+    protected $showAddressMenu;
 
     /**
      * Whiteboard Menu
      * @var \int
      * 
      */
-    protected $hideWhiteboardMenu;
-
-    /**
-     * Settings Menu
+    protected $showWhiteboardMenu;
+    
+       /**
+     * Whiteboard Menu
      * @var \int
      * 
      */
-    protected $hideSettingMenu;
+    protected $showSettingMenu;
+
+    /**
+     * Construct
+     */
+    public function __construct() {
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes properties.
+     *
+     * @return void
+     */
+    protected function initStorageObjects() {
+        $this->showProjectMenu = TRUE;
+        $this->showTicketMenu = TRUE;
+        $this->showTimeMenu = TRUE;
+        $this->showAddressMenu = TRUE;
+        $this->showWhiteboardMenu = TRUE;
+        $this->showSettingMenu = TRUE;
+    }
 
     public function getRightName() {
         return $this->rightName;
@@ -98,60 +112,52 @@ class Userrights extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->rightName = $rightName;
     }
 
-    public function getHideInboxMenu() {
-        return $this->hideInboxMenu;
+    public function getShowProjectMenu() {
+        return $this->showProjectMenu;
     }
 
-    public function setHideInboxMenu($hideInboxMenu) {
-        $this->hideInboxMenu = $hideInboxMenu;
+    public function setShowProjectMenu($showProjectMenu) {
+        $this->showProjectMenu = $showProjectMenu;
     }
 
-    public function getHideProjectMenu() {
-        return $this->hideProjectMenu;
+    public function getShowTicketMenu() {
+        return $this->showTicketMenu;
     }
 
-    public function setHideProjectMenu($hideProjectMenu) {
-        $this->hideProjectMenu = $hideProjectMenu;
+    public function setShowTicketMenu($showTicketMenu) {
+        $this->showTicketMenu = $showTicketMenu;
     }
 
-    public function getHideTicketMenu() {
-        return $this->hideTicketMenu;
+    public function getShowTimeMenu() {
+        return $this->showTimeMenu;
     }
 
-    public function setHideTicketMenu($hideTicketMenu) {
-        $this->hideTicketMenu = $hideTicketMenu;
+    public function setShowTimeMenu($showTimeMenu) {
+        $this->showTimeMenu = $showTimeMenu;
     }
 
-    public function getHideTimeMenu() {
-        return $this->hideTimeMenu;
+    public function getShowAddressMenu() {
+        return $this->showAddressMenu;
     }
 
-    public function setHideTimeMenu($hideTimeMenu) {
-        $this->hideTimeMenu = $hideTimeMenu;
+    public function setShowAddressMenu($showAddressMenu) {
+        $this->showAddressMenu = $showAddressMenu;
     }
 
-    public function getHideAddressMenu() {
-        return $this->hideAddressMenu;
+    public function getShowWhiteboardMenu() {
+        return $this->showWhiteboardMenu;
     }
 
-    public function setHideAddressMenu($hideAddressMenu) {
-        $this->hideAddressMenu = $hideAddressMenu;
+    public function setShowWhiteboardMenu($showWhiteboardMenu) {
+        $this->showWhiteboardMenu = $showWhiteboardMenu;
     }
 
-    public function getHideWhiteboardMenu() {
-        return $this->hideWhiteboardMenu;
+    public function getShowSettingMenu() {
+        return $this->showSettingMenu;
     }
 
-    public function setHideWhiteboardMenu($hideWhiteboardMenu) {
-        $this->hideWhiteboardMenu = $hideWhiteboardMenu;
-    }
-
-    public function getHideSettingMenu() {
-        return $this->hideSettingMenu;
-    }
-
-    public function setHideSettingMenu($hideSettingMenu) {
-        $this->hideSettingMenu = $hideSettingMenu;
+    public function setShowSettingMenu($showSettingMenu) {
+        $this->showSettingMenu = $showSettingMenu;
     }
 
 }

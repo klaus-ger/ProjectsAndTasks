@@ -95,49 +95,42 @@ return array(
                 'size' => 30,
             )
         ),
-        'hide_inbox_menu' => array(
+        'show_project_menu' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
                 'type' => 'check'
             )
         ),
-        'hide_project_menu' => array(
+        'show_ticket_menu' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
                 'type' => 'check'
             )
         ),
-        'hide_ticket_menu' => array(
+        'show_time_menu' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
                 'type' => 'check'
             )
         ),
-        'hide_time_menu' => array(
+        'show_address_menu' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
                 'type' => 'check'
             )
         ),
-        'hide_address_menu' => array(
+        'show_whiteboard_menu' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(
                 'type' => 'check'
             )
         ),
-        'hide_whiteboard_menu' => array(
-            'exclude' => 0,
-            'label' => 'Date',
-            'config' => array(
-                'type' => 'check'
-            )
-        ),
-        'hide_setting_menu' => array(
+        'show_setting_menu' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(

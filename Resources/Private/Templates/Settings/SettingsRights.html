@@ -36,24 +36,43 @@
 
                             <ul class="pull-right">
                                 <li class="panel-link">
-                                <f:link.action action="settingsProjectCatNew">
-                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
+                                <f:link.action action="settingsRightsNew">
+                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Right Group" />
                                 </f:link.action>
                                 </li>
                             </ul>
                         </div>
                         <div class="panel-body">
-
+                            <div class="pat-list-item clearfix">
+                                <p>&nbsp;&nbsp;Note: the admin group can not be edited!</p>
+                            </div>
+                            
                             <f:for each="{rightsGroups}" as="group" iteration="iter">
                                 <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
-                                    <f:link.action action="settingsRightsEdit" arguments="{rightGroup: group.uid}">
+                                    <f:if condition="{group.uid} == 1">
+                                        <f:then>
+                                           
                                         <div class="pat-list-cell cell-first cell-50">
                                             {group.uid}
                                         </div>
                                         <div class="pat-list-cell cell-bold cell-600">
                                             {group.rightName}
                                         </div>
-                                    </f:link.action>
+                                    
+                                        </f:then>
+                                        <f:else>
+                                           <f:link.action action="settingsRightsEdit" arguments="{rightGroup: group.uid}">
+                                        <div class="pat-list-cell cell-first cell-50">
+                                            {group.uid}
+                                        </div>
+                                        <div class="pat-list-cell cell-bold cell-600">
+                                            {group.rightName}
+                                        </div>
+                                    </f:link.action> 
+                                        </f:else>
+                                    </f:if>
+                                    
+                                    
                                 </div>
                             </f:for>
 

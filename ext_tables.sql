@@ -554,13 +554,12 @@ CREATE TABLE tx_projectsandtasks_domain_model_userrights (
     
     right_name varchar(255) DEFAULT '' NOT NULL,
 
-    hide_inbox_menu tinyint(4) DEFAULT '0' NOT NULL,
-    hide_project_menu tinyint(4) DEFAULT '0' NOT NULL,
-    hide_ticket_menu tinyint(4) DEFAULT '0' NOT NULL,
-    hide_time_menu tinyint(4) DEFAULT '0' NOT NULL,
-    hide_address_menu tinyint(4) DEFAULT '0' NOT NULL,
-    hide_whiteboard_menu tinyint(4) DEFAULT '0' NOT NULL,
-    hide_setting_menu tinyint(4) DEFAULT '0' NOT NULL,
+    show_project_menu tinyint(4) DEFAULT '0' NOT NULL,
+    show_ticket_menu tinyint(4) DEFAULT '0' NOT NULL,
+    show_time_menu tinyint(4) DEFAULT '0' NOT NULL,
+    show_address_menu tinyint(4) DEFAULT '0' NOT NULL,
+    show_whiteboard_menu tinyint(4) DEFAULT '0' NOT NULL,
+    show_setting_menu tinyint(4) DEFAULT '0' NOT NULL,
 
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,

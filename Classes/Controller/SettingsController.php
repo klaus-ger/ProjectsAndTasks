@@ -273,7 +273,10 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
      * settingsRights  Function
      */
     public function settingsRightsNewAction() {
+        $newGroup = new \T3developer\ProjectsAndTasks\Domain\Model\Userrights;
         
+        $this->view->assign('mainmenu', '3');
+        $this->view->assign('rightsGroup', $newGroup);
     }
 
     /**
@@ -293,10 +296,20 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
     }
 
     /**
-     * settingsRights  Function
+     * settingsRights Save  Function
+     * 
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Userrights $rightsGroup
      */
-    public function settingsRightsSaveAction() {
+    public function settingsRightsSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Userrights $rightsGroup) {
         
+        if ($rightsGroup->getUid()) {
+            $this->userrightsRepository->update($rightsGroup);
+        } else {
+            $this->userrightsRepository->add($rightsGroup);
+            // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($category);
+        }
+
+        $this->redirect('settingsRights');
     }
 
     //**************************************************************************
