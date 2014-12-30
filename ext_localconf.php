@@ -184,7 +184,8 @@ if (!defined('TYPO3_MODE'))
                     
                     , writePdfTicketlist',
         
-     'Time'=>       ' timeMonth',
+     'Time'=>       ' timeMonth
+                    , timeDay',
         
      'Address'=>    ' personList
                     , personEdit
