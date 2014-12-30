@@ -43,8 +43,7 @@
                             <f:for each="{workNotesInternal}" as="custom" iteration="iterCustom">
                                 <div class="pat-list-item clearfix {f:if(condition: '{iterCustom.isEven} == 1', then: ' even', else: ' odd')}">
                                     <div class="pat-list-cell cell-first cell-100">
-                                        <f:format.date format="h:i">@{custom.trStart}</f:format.date> - 
-                                        <f:format.date format="h:i">@{custom.trEnd}</f:format.date>
+                                        {custom.trStart} - {custom.trEnd}
                                     </div>
 
                                     <div class="pat-list-cell cell-200">
@@ -73,9 +72,7 @@
                             <f:for each="{workNotesCustom}" as="custom" iteration="iterCustom">
                                 <div class="pat-list-item clearfix {f:if(condition: '{iterCustom.isEven} == 1', then: ' even', else: ' odd')}">
                                     <div class="pat-list-cell cell-first cell-100">
-                                        <f:format.date format="H:i">@{custom.trStart}</f:format.date> - 
-                                        <f:format.date format="H:i">@{custom.trEnd}</f:format.date>
-                                        
+                                        {custom.trStart} - {custom.trEnd}
                                     </div>
 
                                     <div class="pat-list-cell cell-200">

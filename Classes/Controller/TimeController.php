@@ -109,14 +109,15 @@ class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseContro
         $time['internal'] = 0;
         if ($workNotesCustom[0]) {
             foreach ($workNotesCustom as $noteCustom) {
-
                 $time['custom'] = $time['custom'] + $noteCustom->getTrTime();
+                $this->calculateTime($noteCustom);
             }
         }
         if ($workNotesInternal[0]) {
             foreach ($workNotesInternal as $noteInternal) {
 
                 $time['internal'] = $time['internal'] + $noteInternal->getTrTime();
+                $this->calculateTime($noteInternal);
             }
         }
         $time['total'] = $time['custom'] + $time['internal'];
@@ -273,6 +274,33 @@ class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseContro
         return $arrayMonth;
     }
 
+    private function calculateTime($response) {
+        //calculate Start and end Time format
+        if ($response->getTrStart()) {
+            $start = $response->getTrStart();
+            $startH = floor($start / 3600);
+            $startS = $start - ($startH * 3600);
+            $startM = $startS / 60;
+            if ($startH < 10)
+                $startH = '0' . $startH;
+            if ($startM < 10)
+                $startM = '0' . $startM;
+            $response->setTrStart($startH . ':' . $startM);
+        }
+        if ($response->getTrEnd()) {
+            $end = $response->getTrEnd();
+            $endH = floor($end / 3600);
+            $endS = $end - ($endH * 3600);
+            $endM = $endS / 60;
+            if ($endH < 10) {
+                $endH = '0' . $endH;
+            }
+            if ($endM < 10) {
+                $endM = '0' . $endM;
+            }
+            $response->setTrEnd($endH . ':' . $endM);
+        }
+    }
 }
 
 ?>
