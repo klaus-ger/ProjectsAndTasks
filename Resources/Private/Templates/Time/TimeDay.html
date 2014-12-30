@@ -43,20 +43,24 @@
                             <f:for each="{workNotesInternal}" as="custom" iteration="iterCustom">
                                 <div class="pat-list-item clearfix {f:if(condition: '{iterCustom.isEven} == 1', then: ' even', else: ' odd')}">
                                     <div class="pat-list-cell cell-first cell-100">
-                                        {custom.trStart} - {custom.trEnd}
+                                        <f:format.date format="h:i">@{custom.trStart}</f:format.date> - 
+                                        <f:format.date format="h:i">@{custom.trEnd}</f:format.date>
                                     </div>
 
                                     <div class="pat-list-cell cell-200">
                                         {custom.trTicket.ticketProject.projectTitel}
                                     </div>
-                                    <div class="pat-list-cell cell-300">
+                                    <div class="pat-list-cell cell-200">
                                         {custom.trTicket.ticketTitel}
                                     </div>
 
-                                    <div class="pat-list-cell cell-400">
+                                    <div class="pat-list-cell cell-300">
                                         {custom.trTicket.ticketText}
                                     </div>
-                                    <div class="pat-list-cell cell-100">
+                                    <div class="pat-list-cell cell-50">
+                                        &nbsp;
+                                    </div>
+                                    <div class="pat-list-cell cell-50">
                                         <vh:time time="{custom.trTime}" />
                                     </div>
 
@@ -69,21 +73,25 @@
                             <f:for each="{workNotesCustom}" as="custom" iteration="iterCustom">
                                 <div class="pat-list-item clearfix {f:if(condition: '{iterCustom.isEven} == 1', then: ' even', else: ' odd')}">
                                     <div class="pat-list-cell cell-first cell-100">
-                                        {custom.trStart} - {custom.trEnd}
+                                        <f:format.date format="H:i">@{custom.trStart}</f:format.date> - 
+                                        <f:format.date format="H:i">@{custom.trEnd}</f:format.date>
                                         
                                     </div>
 
                                     <div class="pat-list-cell cell-200">
                                         {custom.trTicket.ticketProject.projectTitel}
                                     </div>
-                                    <div class="pat-list-cell cell-300">
+                                    <div class="pat-list-cell cell-200">
                                         {custom.trTicket.ticketTitel}
                                     </div>
 
-                                    <div class="pat-list-cell cell-400">
+                                    <div class="pat-list-cell cell-300">
                                         {custom.trTicket.ticketText}
                                     </div>
-                                    <div class="pat-list-cell cell-100">
+                                    <div class="pat-list-cell cell-50">
+                                        &nbsp;
+                                    </div>
+                                    <div class="pat-list-cell cell-50">
                                         <vh:time time="{custom.trTime}" />
                                     </div>
 
