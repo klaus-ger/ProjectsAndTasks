@@ -703,7 +703,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         //find all notes from ticket and deletes them
         $notes = $this->ticketresponseRepository->findByTrTicket($ticketUid);
         if ($notes[0]) {
-            foreach ($note as $note) {
+            foreach ($notes as $note) {
                 $this->ticketresponseRepository->remove($note);
             }
         }
@@ -835,13 +835,20 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
 
         foreach ($milestones as $mile) {
             $tickets = null;
-            $tickets = $this->ticketsRepository->findTicketsByProjectMsAndStatus($projectuid, $mile->getUid(), 0);
+            $tickets = $this->ticketsRepository->findTicketsByProjectMs($projectuid, $mile->getUid());
+            // open tickets
+            //$tickets = $this->ticketsRepository->findTicketsByProjectMsAndStatus($projectuid, $mile->getUid(), 0);
             if ($tickets[0] != '') {
-                $tickArray[$mile->getUid()]['milestone'] = $mile;
-                $tickArray[$mile->getUid()]['tickets'] = $tickets;
+                foreach($tickets as $ticket){
+                     $tickArray[$mile->getUid()]['milestone'] = $mile;
+                     $tickArray[$mile->getUid()]['ticket'][$ticket->getUid()]['ticket'] = $ticket;
+                     $tickArray[$mile->getUid()]['ticket'][$ticket->getUid()]['notes'] = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
+                }
+                
+                
             }
         }
-
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($tickArray);
         //$tickets = $this->ticketsRepository->findTicketsByProjectAndStatus($project->getUid(), 1);
 
         return $this->pdfUtility->createTodoPdf($tickArray, $project);
