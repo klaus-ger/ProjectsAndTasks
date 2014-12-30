@@ -1,78 +1,23 @@
 $(document).ready(function() {
-    $('.main-section a.internal-link').append(' <span class="glyphicon glyphicon-link"></span>');
-    $('.main-section a.external-link-new-window').append(' <span class="glyphicon glyphicon-globe"></span>');
-    $('.main-section a.mail').append(' <span class="glyphicon glyphicon-envelope"></span>');
+
+    
+    
+   
 });
 
 $(function(){
-
-    // RESPONSIVE IMAGES
-    $("img.lazyload").responsiveimages({}, function() {
-        $(this).load(function() {
-            this.style.opacity = 1;
-        });
-    });
-
-    // MENU
-    $('.navbar-collapse').on('show.bs.collapse', function () {
-        toggleIcon = $('.navbar-toggle-menu .glyphicon');
-        toggleIcon.addClass('glyphicon-remove').removeClass('glyphicon-list');
-    });
-    $('.navbar-collapse').on('hide.bs.collapse', function () {
-        toggleIcon = $('.navbar-toggle-menu .glyphicon');
-        toggleIcon.removeClass('glyphicon-remove').addClass('glyphicon-list');
-    });
-
-    // LIGHTBOX PREPARATION
-    if($('a.lightbox').length > 0){
-        var $lightboxModal = "\
-            <div class='modal fade' id='lightbox' tabindex='-1' role='dialog' aria-hidden='true'>\
-                <div class='modal-dialog modal-lightbox'>\
-                    <div class='modal-content'>\
-                        <div class='modal-body'></div>\
-                    </div>\
-                </div>\
-            </div>\
-        ";
-        $('body').append($lightboxModal);
-        $('.lightbox').click(function(event){
-            event.preventDefault();
-            var $lightbox = $('#lightbox');
-            var $modalBody = $lightbox.find('.modal-body');
-            var $modalDialog = $lightbox.find('.modal-dialog');
-            $modalBody.empty();
-            $modalBody.append('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
-            var $src = $(this).attr("href");
-            var $image = "<img class=\"img-responsive\" src=\"" + $src + "\">";
-
-            // FIX IMAGEWIDTH
-            var img = new Image();
-            img.onload = function(){
-                $modalDialog.width(img.width);
-                $modalDialog.css({ "max-width": '95%' });
-            };
-            img.src = $src;
-
-            $modalBody.append($image);
-            var $title = $(this).attr("title");
-            var $text = $(this).parent().find('.caption').html();
-            if($title || $text){
-                $modalBody.append('<div class="modal-caption"></div>');
-                if($title){
-                    $modalBody.find('.modal-caption').append("<span class=\"modal-caption-title\">" + $title + "</span>");
-                }
-                if($text){
-                    $modalBody.find('.modal-caption').append($text);
-                }
-            }
-            $('#lightbox').modal({show:true});
-        });
+    
+    //add no ddata found to empty tables
+     if($('.pat-list').length){
+        if($('.pat-list').height() < 5) {
+            $('.pat-list').html('<p><br>&nbsp;&nbsp;&nbsp;No data found.</p>');
+        }   
     }
     
     //Datepicker
     $('.datepicker').datepicker();
     
-     //Graph on inbox
+    //Graph on inbox
     var chartDate   = $('.chartDate').text().split(',');
     var chartTime   = $('.chartTime').text().split(',');
     var chartTicket = $('.chartTicket').text().split(',');
@@ -87,7 +32,7 @@ $(function(){
             pointColor : "rgba(220,220,220,1)",
             pointStrokeColor : "#fff",
             data : $('.chartTicket').text().split(',')
-            //data : [78,78,78,79,81,82,84]
+        //data : [78,78,78,79,81,82,84]
         },
         {
             fillColor : "rgba(151,187,205,0.0)",
@@ -117,28 +62,29 @@ $(function(){
     
     var options = {
 				
-	//Boolean - If we show the scale above the chart data			
-	scaleOverlay : false,
+        //Boolean - If we show the scale above the chart data			
+        scaleOverlay : false,
 	
-	//Boolean - If we want to override with a hard coded scale
-	scaleOverride : true,
+        //Boolean - If we want to override with a hard coded scale
+        scaleOverride : true,
 	
-	//** Required if scaleOverride is true **
-	//Number - The number of steps in a hard coded scale
-	scaleSteps : 5,
-	//Number - The value jump in the hard coded scale
-	scaleStepWidth : 20,
-	//Number - The scale starting value
-	scaleStartValue : 0,
+        //** Required if scaleOverride is true **
+        //Number - The number of steps in a hard coded scale
+        scaleSteps : 5,
+        //Number - The value jump in the hard coded scale
+        scaleStepWidth : 20,
+        //Number - The scale starting value
+        scaleStartValue : 0,
         scaleShowLabels : false
     }
-//    console.log(data.labels);
-//    var chartDate = chartDate.split(',');
-//    data.labels = chartDate;
-//    console.log(data.labels);
-if(document.getElementById("myChart")!= undefined){
-    var ctx = document.getElementById("myChart").getContext("2d");
-    var myNewChart = new Chart(ctx).Line(data,  options);
-}
+    //    console.log(data.labels);
+    //    var chartDate = chartDate.split(',');
+    //    data.labels = chartDate;
+    //    console.log(data.labels);
+    if(document.getElementById("myChart")!= undefined){
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myNewChart = new Chart(ctx).Line(data,  options);
+    }
+
 
 });

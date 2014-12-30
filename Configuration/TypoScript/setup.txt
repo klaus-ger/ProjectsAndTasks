@@ -86,34 +86,18 @@ plugin.tx_projectsandtasks {
 
 page {
     includeCSS {
-        #reset                           = EXT:projects_and_tasks/Resources/Public/Stylesheets/reset-min.css
-        #reset.media                     = screen
-        #reset.forceOnTop                = 1
-
-        #tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/pat.css
-        #tx_projectsandtasks_css_1.title = main_stylesheet
-        #tx_projectsandtasks_css_1.media = screen
-
-        tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/pat.css
-        tx_projectsandtasks_css_3       = EXT:projects_and_tasks/Resources/Public/Stylesheets/datepicker.css
-    
-
-
-    }
+        tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/pat.css
+        tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/datepicker.css
+   }
     	
 
-    includeJSlibs {
-        modernizr = EXT:projects_and_tasks/Resources/Public/Scripts/Libs/modernizr-2.6.3.min.js
-        modernizr.forceOnTop = 1
-        wpfix = EXT:projects_and_tasks/Resources/Public/Scripts/Libs/windowsphone-viewportfix.min.js
-    }
+  
     includeJSFooterlibs  {
         jquery = EXT:projects_and_tasks/Resources/Public/Scripts/Libs/jquery-1.10.2.min.js
         jquery.forceOnTop = 1
         theme = EXT:projects_and_tasks/Resources/Public/Scripts/Libs/bootstrap.min.js
-        responsiveimages =EXT:projects_and_tasks/Resources/Public/Scripts/Libs/jquery.responsiveimages.min.js
         datepicker = EXT:projects_and_tasks/Resources/Public/Scripts/Libs/bootstrap-datepicker.js
-        chart = EXT:projects_and_tasks/Resources/Public/Scripts/jquery.chart.min.js
-        main = EXT:projects_and_tasks/Resources/Public/Scripts/main.js      
+        chart = EXT:projects_and_tasks/Resources/Public/Scripts/Libs/jquery.chart.min.js
+        pat = EXT:projects_and_tasks/Resources/Public/Scripts/main.js      
     }
 }
