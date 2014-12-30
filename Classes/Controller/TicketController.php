@@ -149,7 +149,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
         $ticket = $this->ticketsRepository->findByUid($ticketUid);
         $project = $this->projectsRepository->findByUid($ticket->getTicketProject()->getUid());
         $projects = $this->projectsRepository->findAll();
-        $status = $this->statusRepository->findAll();
+        $status = $this->statusRepository->findByStatusTyp(2);
         $milestones = $this->milestonesRepository->findByMsProject($project->getUid());
         $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
         $typ = $this->statusRepository->findByStatusTyp(3);
