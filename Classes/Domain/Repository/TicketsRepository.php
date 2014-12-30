@@ -230,6 +230,30 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
         return $query->execute();
     }
 
+        /**
+     * find OpenTickets by Project and Milestone
+     * 
+     * @param int $project ProjectUid
+     * @param int $status Ticketstatus
+     * @param int $milestone Ticketstatus
+     * 
+     * @return object
+     */
+    public function findTicketsByProjectMs($project, $milestone) {
+        $orderings = array('ticketMilestone.msOrder' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+        $query = $this->createQuery();
+        //$query->setDefaultOrderings(array('ticketMilestone' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
+        //$query->setOrderings($orderings);
+        $query->matching(
+                $query->logicalAnd(array(
+                    
+                    $query->equals('ticketProject', $project),
+                    $query->equals('ticketMilestone', $milestone)
+                ))
+        );
+
+        return $query->execute();
+    }
     /**
      * find OpenTickets by Project and Sprint
      * 
