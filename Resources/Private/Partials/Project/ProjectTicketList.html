@@ -2,36 +2,42 @@
 
 <div class="pat-list">
 
-    
-        <f:for each="{ticketsNullMilestone}" as="ticketNull" iteration="iterNull">
+
+    <f:for each="{ticketsNullMilestone}" as="ticketNull" iteration="iterNull">
+
+        <div class="pat-list-item clearfix {f:if(condition: '{iterNull.isEven} == 1', then: ' even', else: ' odd')}">
             <f:link.action action="projectTicketDetail" controller="Project" arguments="{uid: ticketNull.uid}">
-                <div class="pat-list-item clearfix {f:if(condition: '{iterNull.isEven} == 1', then: ' even', else: ' odd')}">
-                    <div class="pat-list-cell cell-first cell-50">
-                        {ticketNull.ticketNummer}
-                    </div>
-
-                    <div class="pat-list-cell cell-75">
-                        <f:format.date format="d.m.Y">{ticketNull.ticketDate}</f:format.date>
-                    </div>
-                    <div class="pat-list-cell cell-75">
-                        {ticketNull.ticketTyp.statusText}
-                    </div>
-                    <div class="pat-list-cell cell-600">
-                        {ticketNull.ticketTitel}
-                    </div>
-                    <div class="pat-list-cell cell-100">
-                        Status: {ticketNull.ticketStatus.statusText}
-                    </div>
-                    <div class="pat-list-cell cell-50">
-                        <f:format.date format="d.m.Y">{ticketNull.ticketScheduleDate}</f:format.date>
-                    </div>
-                    <div class="pat-list-cell cell-50">
-                        <vh:time time="{ticketNull.ticketScheduleTime}" />
-                    </div>
-
+                <div class="pat-list-cell cell-first cell-50">
+                    {ticketNull.ticketNummer}
                 </div>
-            </f:link.action>  
-        </f:for>
+
+                <div class="pat-list-cell cell-75">
+                    <f:format.date format="d.m.Y">{ticketNull.ticketDate}</f:format.date>
+                </div>
+                <div class="pat-list-cell cell-75">
+                    {ticketNull.ticketTyp.statusText}
+                </div>
+                <div class="pat-list-cell cell-600">
+                    {ticketNull.ticketTitel}
+                </div>
+                <div class="pat-list-cell cell-100">
+                    Status: {ticketNull.ticketStatus.statusText}
+                </div>
+                <div class="pat-list-cell cell-50">
+                    <f:format.date format="d.m.Y">{ticketNull.ticketScheduleDate}</f:format.date>
+                </div>
+                <div class="pat-list-cell cell-50">
+                    <vh:time time="{ticketNull.ticketScheduleTime}" />
+                </div>
+            </f:link.action> 
+
+            <div class="pat-list-cell cell-50">
+                <f:link.action action="projectTicketDelete" arguments="{projectUid: project.uid, ticketUid: ticketNull.uid}" onclick="if(!confirm('Ticket löschen?')) return false;">
+                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket delete" />
+                </f:link.action>
+            </div>
+        </div>
+    </f:for>
 
 
 

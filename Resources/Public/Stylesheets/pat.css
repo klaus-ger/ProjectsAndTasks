@@ -4951,6 +4951,9 @@ li.panel-link a {
 .cell-200 {
     width: 200px;
 }
+.cell-300 {
+    width: 400px;
+}
 .cell-400 {
     width: 400px;
 }
