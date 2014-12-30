@@ -145,14 +145,35 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
         if ($this->request->hasArgument('uid')) {
             $ticketUid = $this->request->getArgument('uid');
         }
-
+        
         $ticket = $this->ticketsRepository->findByUid($ticketUid);
+        $project = $this->projectsRepository->findByUid($ticket->getTicketProject()->getUid());
         $projects = $this->projectsRepository->findAll();
         $status = $this->statusRepository->findAll();
-
+        $milestones = $this->milestonesRepository->findByMsProject($project->getUid());
+        $sprints = $this->sprintRepository->findBySprintProject($project->getUid());
+        $typ = $this->statusRepository->findByStatusTyp(3);
+        
+        //Build assigned to select options:
+        if ($project->getProjectOwner()) {
+            $pteam[0] = $project->getProjectOwner();
+        }
+        $projectteam = $this->projectteamRepository->findByPtProject($project->getUid());
+        if ($projectteam[0]) {
+            $i = 1;
+            foreach ($projectteam as $pmember) {
+                $pteam[$i] = $pmember->getPtUser();
+                $i++;
+            }
+        }
+        
         $this->view->assign('ticket', $ticket);
         $this->view->assign('projects', $projects);
         $this->view->assign('status', $status);
+        $this->view->assign('milestones', $milestones);
+        $this->view->assign('sprints', $sprints);
+        $this->view->assign('typ', $typ);
+        $this->view->assign('projectteam', $pteam);
     }
 
     /**
