@@ -183,9 +183,13 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
             }
             $this->view->assign('cats', $cats);
         }
-
+        
+        //Project User: this must be the loggedIn user otherwise we are not shure that the choosen user has rights to edit projects!
+        $user[] = $this->user;
+                
         $this->view->assign('project', $project);
         $this->view->assign('status', $status);
+        $this->view->assign('user', $user);
     }
 
     /**
