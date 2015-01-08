@@ -75,8 +75,9 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return object
      */
     public function findOpenTicketsByUser($userId) {
+        $orderings = array('ticketDate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
         $query = $this->createQuery();
-
+        $query->setOrderings($orderings);
         $query->matching(
                 $query->logicalAnd(array(
                     $query->equals('ticketStatus.statusBehaviour', 0),
