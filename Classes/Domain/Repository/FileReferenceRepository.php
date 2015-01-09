@@ -25,6 +25,6 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class FileRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class FileReferenceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 }
