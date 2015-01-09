@@ -5110,3 +5110,7 @@ li.panel-link a {
     height: 16px;
     width: 16px;
 }
+.project-document {
+    border: 1px solid #ededed;
+    margin: 10px 0;
+}

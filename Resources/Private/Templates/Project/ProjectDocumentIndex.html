@@ -37,18 +37,25 @@
                             <f:if condition="{documents}">
                                 <f:then>
                                     <f:for each="{documents}" as="doc">
-                                        <div class="pat-list-item clearfix">
-                                            <div class="pat-list-cell cell-200">
-                                                {doc.docDescription}
-                                            </div>
+                                        
+                                            
 
-                                            <div class="pat-list-cell cell-500">
-                                            <f:for each="{doc.files}" as="file">
-                                                <f:image src="{file.originalResource.originalFile.uid}" alt="" maxWidth="500" maxHeight="300"/><br />
-                                            </f:for>
+                                            <div class="col-md-6">
+                                                <div class="col-md-12">
+                                                <h3>{doc.docDescription}</h3>
+                                                <f:link.action action="projectDocumentDelete" arguments="{document: doc}" class="btn btn-primary btn-xs">
+                                                    Dokument löschen
+                                                </f:link.action>
+                                                </div>
+                                                <f:for each="{doc.files}" as="file">
+                                                    <a href="{file.originalResource.publicUrl}" target="_blank">
+                                                        <f:image src="{file.originalResource.originalFile.uid}" alt="" maxWidth="500" maxHeight="300" class="project-document"/>
+                                                    </a>
+                                                </f:for>
                                             </div>
                                             
-                                        </div>
+
+                                       
                                     </f:for>
                                 </f:then>
                                 <f:else>
