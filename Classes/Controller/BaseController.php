@@ -96,6 +96,12 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * @inject
      */
     protected $fileRepository;
+    
+        /**
+     * @var \T3developer\ProjectsAndTasks\Domain\Repository\FileReferenceRepository   
+     * @inject
+     */
+    protected $fileReferenceRepository;
 
     /**
      * @var \T3developer\ProjectsAndTasks\Utility\Pdf  
