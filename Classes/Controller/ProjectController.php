@@ -183,10 +183,10 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
             }
             $this->view->assign('cats', $cats);
         }
-        
+
         //Project User: this must be the loggedIn user otherwise we are not shure that the choosen user has rights to edit projects!
         $user[] = $this->user;
-                
+
         $this->view->assign('project', $project);
         $this->view->assign('status', $status);
         $this->view->assign('user', $user);
@@ -681,7 +681,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
                 }
             }
         }
-        
+
         if ($ticket->getUid()) {
             $this->ticketsRepository->update($ticket);
         } else {
@@ -843,13 +843,11 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
             // open tickets
             //$tickets = $this->ticketsRepository->findTicketsByProjectMsAndStatus($projectuid, $mile->getUid(), 0);
             if ($tickets[0] != '') {
-                foreach($tickets as $ticket){
-                     $tickArray[$mile->getUid()]['milestone'] = $mile;
-                     $tickArray[$mile->getUid()]['ticket'][$ticket->getUid()]['ticket'] = $ticket;
-                     $tickArray[$mile->getUid()]['ticket'][$ticket->getUid()]['notes'] = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
+                foreach ($tickets as $ticket) {
+                    $tickArray[$mile->getUid()]['milestone'] = $mile;
+                    $tickArray[$mile->getUid()]['ticket'][$ticket->getUid()]['ticket'] = $ticket;
+                    $tickArray[$mile->getUid()]['ticket'][$ticket->getUid()]['notes'] = $this->ticketresponseRepository->findByTrTicket($ticket->getUid());
                 }
-                
-                
             }
         }
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($tickArray);
@@ -1005,8 +1003,35 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         }
 
 
+
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newDocument, 'dokument');
         $this->redirect('projectDocumentIndex', 'Project', NULL, array('uid' => $newDocument->getDocProject()));
+    }
+
+    /**
+     * Deletes a Document
+     * 
+     * @param \T3developer\ProjectsAndTasks\Domain\Model\Documents $document
+     */
+    public function projectDocumentDeleteAction(\T3developer\ProjectsAndTasks\Domain\Model\Documents $document) {
+
+         
+        $files = $document->getFiles();
+        
+        foreach ($files as $reference) {
+\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($reference, 'dokument');
+            //remove the file reference
+           // $reference =
+            //        $this->fileReferenceRepository->findByUid($singlefile->getUid());
+            $this->fileReferenceRepository->remove($reference);
+        }
+        
+        //Delete the Documents entry
+        $this->documentsRepository->remove($document);
+        
+        $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+            
+        $this->redirect('projectDocumentIndex', 'Project', NULL, array('uid' => $document->getDocProject()));
     }
 
     //**************************************************************************

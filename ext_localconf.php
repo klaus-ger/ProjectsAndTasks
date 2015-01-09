@@ -67,6 +67,7 @@ if (!defined('TYPO3_MODE'))
                     
                     , projectDocumentIndex
                     , projectDocumentSave
+                    , projectDocumentDelete
                     
                     , projectTeamList
                     , projectTeamNew
@@ -179,6 +180,7 @@ if (!defined('TYPO3_MODE'))
                     
                     , projectDocumentIndex
                     , projectDocumentSave
+                    , projectDocumentDelete
     
                     , projectTeamList
                     
