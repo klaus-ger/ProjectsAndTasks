@@ -1,6 +1,6 @@
 CREATE TABLE fe_users (
     tx_projectsandtasks_userrights int(11) unsigned DEFAULT '0' NOT NULL,
-)
+);
 
 CREATE TABLE tx_projectsandtasks_domain_model_milestones (
     uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
