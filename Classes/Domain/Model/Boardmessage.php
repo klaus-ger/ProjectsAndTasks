@@ -50,7 +50,7 @@ class Boardmessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     /**
      * Image
-     * @var \string
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\ProjectsAndTasks\Domain\Model\FileReference>
      * 
      */
     protected $bmImage;
@@ -68,13 +68,37 @@ class Boardmessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $bmUser;
-    
+
     /**
      * Topic
      * @var \int
      * 
      */
     protected $bmTopic;
+
+    /**
+     * DeleteImage
+     * @var \int
+     * 
+     */
+    protected $bmDeleteImage;
+    
+     /**
+     * Construct
+     */
+    public function __construct() {
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
+     *
+     * @return void
+     */
+    protected function initStorageObjects() {
+        $this->bmImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+    
 
     public function getBmTitle() {
         return $this->bmTitle;
@@ -92,14 +116,6 @@ class Boardmessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->bmText = $bmText;
     }
 
-    public function getBmImage() {
-        return $this->bmImage;
-    }
-
-    public function setBmImage($bmImage) {
-        $this->bmImage = $bmImage;
-    }
-
     public function getBmDate() {
         return $this->bmDate;
     }
@@ -115,6 +131,7 @@ class Boardmessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setBmUser($bmUser) {
         $this->bmUser = $bmUser;
     }
+
     public function getBmTopic() {
         return $this->bmTopic;
     }
@@ -123,7 +140,43 @@ class Boardmessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->bmTopic = $bmTopic;
     }
 
+    public function getBmDeleteImage() {
+        return $this->bmDeleteImage;
+    }
 
+    public function setBmDeleteImage($bmDeleteImage) {
+        $this->bmDeleteImage = $bmDeleteImage;
+    }
+
+    /**
+     * Returns the files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getBmImage() {
+        return $this->bmImage;
+    }
+
+    /**
+     * Sets the files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $bmImage
+     * @return void
+     */
+    public function setBmImage($bmImage) {
+        $this->bmImage = $bmImage;
+    }
+
+    /**
+     * Adds a file
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $files
+     *
+     * @return void
+     */
+    public function addBmImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $files) {
+        $this->bmImage->attach($files);
+    }
 
 }
 

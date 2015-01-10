@@ -1,38 +1,44 @@
 
 <div class="pat-list">
     <div class="col-md-12">&nbsp;</div>
-    
+   
     <f:for each="{messages}" as="message" iteration="iter">
         <div class="col-md-12">
             <f:if condition="{iter.isFirst} == 0">
                 <hr />
             </f:if>
         </div>
-        
-            <div class="col-md-2">
-                <f:format.date format="d.m.Y">{message.bmDate}</f:format.date> - {message.bmUser.username}
-                <br />
-                <f:if condition="{loggedInUser.uid}=={message.bmUser.uid}">
-                    <f:link.action action="whiteboardMessageEdit" arguments="{message: message}">
-                        edit
-                    </f:link.action>
-                    
-                </f:if>
+
+        <div class="col-md-2">
+            <f:format.date format="d.m.Y">{message.bmDate}</f:format.date> - {message.bmUser.username}
+            <br />
+            <f:if condition="{loggedInUser.uid}=={message.bmUser.uid}">
+                <f:link.action action="whiteboardMessageEdit" arguments="{message: message}">
+                    edit
+                </f:link.action>
+
+            </f:if>
+        </div>
+
+
+        <div class="col-md-8">
+            <div class="col-md-12">
+                <b>{message.bmTitle}</b>
             </div>
-
-
-            <div class="col-md-8">
-                <div class="col-md-12">
-                    <b>{message.bmTitle}</b>
-                </div>
-                <div class="col-md-12">
-                    <p style="line-height:22px;">
-                    <f:format.nl2br>{message.bmText}</f:format.nl2br>
-                    </p>
-                </div>
+            <div class="col-md-12">
+                <p style="line-height:22px;">
+                <f:format.nl2br>{message.bmText}</f:format.nl2br>
+                </p>
             </div>
+            
+            <f:for each="{message.bmImage}" as="file">
+                <a href="{file.originalResource.publicUrl}" target="_blank">
+                    <f:image src="{file.originalResource.originalFile.uid}" alt="" maxWidth="500" maxHeight="300" class="project-document"/>
+                </a>
+            </f:for>
+        </div>
 
-           
+
     </f:for>
 
 
@@ -45,7 +51,7 @@
 
 
         <div class="col-md-8">
-            <f:form action="whiteboardMessageSave" name="newmessage" object="{newmessage}" class="form-horizontal" >
+            <f:form action="whiteboardMessageSave" name="newmessage" object="{newmessage}" class="form-horizontal" enctype="multipart/form-data">
 
                 <f:form.hidden property="bmTopic" value="{newmessage.bmTopic}" />
                 <div class="form-group">
@@ -55,9 +61,14 @@
                 </div>
 
                 <div class="form-group">
-
                     <div class="col-sm-10">
                         <f:form.textarea cols="50" rows="10" property="bmText" value="{newmessage.bmText}" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <f:form.upload id="falfeupload-entry-files-1" name="file[0]"  />
                     </div>
                 </div>
 

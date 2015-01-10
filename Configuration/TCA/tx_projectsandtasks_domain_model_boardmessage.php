@@ -1,7 +1,7 @@
 <?php
 
 return array(
-     'ctrl' => array(
+    'ctrl' => array(
         'title' => 'Whiteboard Message',
         'label' => 'bm_title',
         'tstamp' => 'tstamp',
@@ -21,14 +21,10 @@ return array(
         'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('projects_and_tasks') . 'Resources/Public/Icons/tableicon.gif'
     ),
     'interface' => array(
-        'showRecordFieldList' => '    calender_date
-                                    , calender_user
-                                    , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]'
+        'showRecordFieldList' => '    '
     ),
     'types' => array(
-        '1' => array('showitem' => '  calender_date
-                                     , calender_user
-                                     , calender_daynote;;;richtext:rte_transform[flag=rte_enabled|mode=ts_css]
+        '1' => array('showitem' => '  
                                      ')
     ),
     'palettes' => array(
@@ -106,12 +102,15 @@ return array(
             )
         ),
         'bm_image' => array(
-            'exclude' => 0,
-            'label' => 'Date',
-            'config' => array(
-                'type' => 'input',
-                'size' => 100,
-            )
+            'exclude' => 1,
+            'label' => 'LLL:EXT:lw_drx_intra_marketplace/Resources/Private/Language/locallang_db.xlf:tx_falfeupload_domain_model_entry.files',
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', array(
+                'appearance' => array(
+                    'createNewRelationLinkTitle' => 'falrel'
+                ),
+                'minitems' => 0,
+                'maxitems' => 3,
+                    ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
         ),
         'bm_date' => array(
             'exclude' => 0,
@@ -129,7 +128,7 @@ return array(
                 'size' => 100,
             )
         ),
-         'bm_topic' => array(
+        'bm_topic' => array(
             'exclude' => 0,
             'label' => 'Date',
             'config' => array(

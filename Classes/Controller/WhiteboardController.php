@@ -34,9 +34,7 @@ namespace T3developer\ProjectsAndTasks\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @author Klaus Heuer <klaus.heuer@t3-developer.com>
  */
-
 class WhiteboardController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
-
 
     /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\BoardcatRepository
@@ -61,7 +59,7 @@ class WhiteboardController extends \T3developer\ProjectsAndTasks\Controller\Base
      * @return void 
      */
     public function initializeAction() {
-        
+
         $this->getUserRights();
 
         // this configures the parsing
@@ -173,21 +171,21 @@ class WhiteboardController extends \T3developer\ProjectsAndTasks\Controller\Base
      * 
      * @param \T3developer\ProjectsAndTasks\Domain\Model\Boardtopic $topic
      */
-    public function whiteboardTopicDeleteAction(\T3developer\ProjectsAndTasks\Domain\Model\Boardtopic $topic){
-        
+    public function whiteboardTopicDeleteAction(\T3developer\ProjectsAndTasks\Domain\Model\Boardtopic $topic) {
+
         //Delete all messages of the topic
         $messages = $this->boardmessageRepository->findByBmTopic($topic->getuid());
-        foreach($messages as $message){
+        foreach ($messages as $message) {
             $this->boardmessageRepository->remove($message);
         }
-        
+
         //remove topic
         $this->boardtopicRepository->remove($topic);
-        
+
         $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
         $this->redirect('whiteboardOverview');
     }
-    
+
     //**************************************************************************
     // Topic Page
     //**************************************************************************
@@ -228,7 +226,58 @@ class WhiteboardController extends \T3developer\ProjectsAndTasks\Controller\Base
         }
         $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
 
-        $this->redirect('whiteboardShowTopic', NULL, NULL, array('topicUid' => $newmessage->getBmTopic()));
+        //image handling
+        if (!empty($_FILES['tx_projectsandtasks_pat'])) {
+
+            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+            $storageRepository = $this->objectManager->get('TYPO3\CMS\Core\Resource\StorageRepository');
+            /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
+            $storage = $storageRepository->findByUid('1');
+
+            for ($index = 0; $index < count($_FILES['tx_projectsandtasks_pat']['name']['file']); $index++) {
+                // setting up file data
+                $fileData = array();
+                $fileData['name'] = $_FILES['tx_projectsandtasks_pat']['name']['file'][$index];
+                $fileData['type'] = $_FILES['tx_projectsandtasks_pat']['type']['file'][$index];
+                $fileData['tmp_name'] = $_FILES['tx_projectsandtasks_pat']['tmp_name']['file'][$index];
+                $fileData['size'] = $_FILES['tx_projectsandtasks_pat']['size']['file'][$index];
+
+                if ($fileData['name']) {
+                    // this will already handle the moving of the file to the storage:
+                    $newFileObject = $storage->addFile(
+                            $fileData['tmp_name'], $storage->getRootLevelFolder(), $fileData['name']
+                    );
+                    $newFileObject = $storage->getFile($newFileObject->getIdentifier());
+                    $newFile = $this->fileRepository->findByUid($newFileObject->getProperty('uid'));
+
+                    /** @var \T3developer\ProjectsAndTasks\Domain\Model\FileReference $newFileReference */
+                    $newFileReference = $this->objectManager->get('T3developer\ProjectsAndTasks\Domain\Model\FileReference');
+                    $newFileReference->setFile($newFile);
+
+                    $newmessage->addBmImage($newFileReference);
+                    $this->boardmessageRepository->update($newmessage);
+                    $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+                }
+            }
+        }
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newmessage);
+
+        // image delete
+        if ($newmessage->getBmDeleteImage() == 1) {
+            $files = $newmessage->getBmImage();
+
+            foreach ($files as $singlefile) {
+
+                //remove the file reference
+                $reference =
+                        $this->fileReferenceRepository->findByUid($singlefile->getUid());
+                $this->fileReferenceRepository->remove($reference);
+            }
+            $newmessage->setBmImage(null);
+            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+        }
+
+         $this->redirect('whiteboardShowTopic', NULL, NULL, array('topicUid' => $newmessage->getBmTopic()));
     }
 
     /**

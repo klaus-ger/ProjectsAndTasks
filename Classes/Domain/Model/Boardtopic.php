@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 
+ *  (c) 2013 Klaus Heuer <klaus.heuer@t3-developer.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,7 +28,7 @@ namespace T3developer\ProjectsAndTasks\Domain\Model;
 /**
  *
  *
- * @package t3gists
+ * @package projects and tasks
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -50,7 +50,7 @@ class Boardtopic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     /**
      * Image
-     * @var \string
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3developer\ProjectsAndTasks\Domain\Model\FileReference>
      * 
      */
     protected $btImage;
@@ -68,21 +68,21 @@ class Boardtopic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $btUser;
-    
+
     /**
      * User
      * @var \int
      * 
      */
     protected $btCat;
-    
+
     /**
      * Count Messages - not stored in DB!
      * @var \int
      */
     protected $btMessages;
-    
-     /**
+
+    /**
      * Count Messages - not stored in DB!
      * @var \T3developer\ProjectsAndTasks\Domain\Model\Boardmessage
      */
@@ -104,14 +104,6 @@ class Boardtopic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->btText = $btText;
     }
 
-    public function getBtImage() {
-        return $this->btImage;
-    }
-
-    public function setBtImage($btImage) {
-        $this->btImage = $btImage;
-    }
-
     public function getBtDate() {
         return $this->btDate;
     }
@@ -127,6 +119,7 @@ class Boardtopic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setBtUser($btUser) {
         $this->btUser = $btUser;
     }
+
     public function getBtCat() {
         return $this->btCat;
     }
@@ -151,7 +144,35 @@ class Boardtopic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->btLastMessage = $btLastMessage;
     }
 
+    /**
+     * Returns the files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getBtImage() {
+        return $this->$btImage;
+    }
 
+    /**
+     * Sets the files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $btImage
+     * @return void
+     */
+    public function setBtImage($btImage) {
+        $this->btImage = $btImage;
+    }
+
+    /**
+     * Adds a file
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $btImage
+     *
+     * @return void
+     */
+    public function addBtImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $btImage) {
+        $this->btImage->attach($btImage);
+    }
 
 }
 
