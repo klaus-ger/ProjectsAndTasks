@@ -86,5 +86,17 @@ $(function(){
         var myNewChart = new Chart(ctx).Line(data,  options);
     }
 
+     if($(".monthgroup").length){
+         $('.monthgroup').each(function(){
+            var time = 0;
+            $(this).find(".timecell").each(function() {
+                time+= Number($(this).attr("data-time")); 
+            });
+            var hours = time/3600;
+            $(this).find('.monthtime').html(hours + ' h');
+             
+         });
+         
+     }
 
 });

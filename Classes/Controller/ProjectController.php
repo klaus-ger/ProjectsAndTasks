@@ -265,9 +265,25 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         }
         $project = $this->projectsRepository->findByUid($projectuid);
         $status = $this->statusRepository->findByStatusTyp(1);
-
+        
+        $projectTicktes = $this->ticketsRepository->findByTicketProject($project);
+        foreach($projectTicktes as $ticket){
+            $responses = $this->ticketresponseRepository->findByTrTicket($ticket);
+            if($responses[0]){
+                foreach ($responses as $respons){
+                    $index = $respons->getTrDate()->getTimestamp() . str_pad($respons->getUid(), 7, 0, STR_PAD_LEFT);
+                    $month = date('M Y', $respons->getTrDate()->getTimestamp());
+                    $monthTimestamp = mktime(0, 0, 0, date('m',$respons->getTrDate()->getTimestamp() ), 1, date('Y',$respons->getTrDate()->getTimestamp() ));
+                    $list[$monthTimestamp]['respond'][$index]= $respons;
+                    $list[$monthTimestamp]['month']= $month;
+                }
+            }
+        }
+        ksort($list);
+        
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
+        $this->view->assign('list', $list);
         $this->view->assign('status', $status);
         $this->view->assign('mainmenu', 2);
         $this->view->assign('submenu', 2);
@@ -1019,7 +1035,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         $files = $document->getFiles();
         
         foreach ($files as $reference) {
-\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($reference, 'dokument');
+//\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($reference, 'dokument');
             //remove the file reference
            // $reference =
             //        $this->fileReferenceRepository->findByUid($singlefile->getUid());
