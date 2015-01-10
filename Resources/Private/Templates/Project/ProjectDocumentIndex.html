@@ -7,6 +7,7 @@
 
 
         <div class="container">
+        
             <div class="row">
                 <div class="col-md-12">
                     <h4>Documents</h4>
@@ -36,26 +37,28 @@
                         <div class="panel-body">
                             <f:if condition="{documents}">
                                 <f:then>
+
                                     <f:for each="{documents}" as="doc">
                                         
-                                            
+                                       
+                                        
 
-                                            <div class="col-md-6">
-                                                <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <h3>{doc.docDescription}</h3>
                                                 <f:link.action action="projectDocumentDelete" arguments="{document: doc}" class="btn btn-primary btn-xs">
                                                     Dokument löschen
                                                 </f:link.action>
-                                                </div>
-                                                <f:for each="{doc.files}" as="file">
-                                                    <a href="{file.originalResource.publicUrl}" target="_blank">
-                                                        <f:image src="{file.originalResource.originalFile.uid}" alt="" maxWidth="500" maxHeight="300" class="project-document"/>
-                                                    </a>
-                                                </f:for>
                                             </div>
-                                            
+                                            <f:for each="{doc.files}" as="file">
+                                                <a href="{file.originalResource.publicUrl}" target="_blank">
+                                                    <f:image src="{file.originalResource.originalFile.uid}" alt="" maxWidth="500" maxHeight="300" class="project-document"/>
+                                                </a>
+                                            </f:for>
+                                        </div>
 
-                                       
+
+
                                     </f:for>
                                 </f:then>
                                 <f:else>
