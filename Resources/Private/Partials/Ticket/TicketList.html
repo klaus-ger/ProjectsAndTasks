@@ -1,3 +1,5 @@
+{namespace vh=T3developer\ProjectsAndTasks\ViewHelpers}
+<f:layout name="Default" />
 <f:for each="{tickets}" as="ticket" iteration="iter">
 
     <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
@@ -24,18 +26,22 @@
             <div class="pat-list-cell cell-100">
                 <f:format.date format="d.m.Y">{ticket.ticketScheduleDate}</f:format.date>
             </div>
-            <div class="pat-list-cell cell-50">
-                &nbsp;
-            </div>
+            
             <div class="pat-list-cell cell-50">
                 <vh:time time="{ticket.ticketScheduleTime}" />
             </div>
+            
+            <div class="clearfix"></div>
+            
+            <div class="pat-list-cell cell-first cell-200">
+                &nbsp;
+            </div>
+            
+            <div class="pat-list-cell cell-first cell-500">
+                <small>{ticket.ticketProject.projectTitel}</small>
+            </div>
         </f:link.action>
-        <div class="pat-list-cell cell-50">
-            <f:link.action action="projectTicketDelete" arguments="{projectUid: project.uid, ticketUid: ticket.uid}" onclick="if(!confirm('Ticket löschen?')) return false;">
-                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="17" height="17" alt="Ticket delete" />
-            </f:link.action>
-        </div>
+        
 
 
 
