@@ -279,7 +279,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
                 }
             }
         }
-        ksort($list);
+        krsort($list);
         
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
