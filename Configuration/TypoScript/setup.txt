@@ -78,7 +78,10 @@ plugin.tx_projectsandtasks {
     }
     settings {
         storagePid      = {$plugin.tx_projectsandtasks.persistence.storagePid}
-        usergroup       = {$plugin.tx_projectsandtasks.persistence.usergroup}
+        admingroup      = {$plugin.tx_projectsandtasks.settings.usergroup}
+        internalgroup   = {$plugin.tx_projectsandtasks.settings.internalgroup}
+        externalgroup   = {$plugin.tx_projectsandtasks.settings.externalgroup}
+        showWhiteboard  = {$plugin.tx_projectsandtasks.settings.showWhiteboard}
     }
 
 
@@ -86,8 +89,10 @@ plugin.tx_projectsandtasks {
 
 page {
     includeCSS {
-        tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/pat.css
-        tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/datepicker.css
+        tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/bootstrap.min.css
+        tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/bootstrap-theme.min.css
+        tx_projectsandtasks_css_3       = EXT:projects_and_tasks/Resources/Public/Stylesheets/pat.css
+        tx_projectsandtasks_css_4       = EXT:projects_and_tasks/Resources/Public/Stylesheets/datepicker.css
    }
     	
 

@@ -1873,7 +1873,7 @@ input.btn-block[type="submit"], input.btn-block[type="reset"], input.btn-block[t
 }
 @font-face {
     font-family: "Glyphicons Halflings";
-    src: url("../../typo3conf/ext/bootstrap_package/Resources/Public/Fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../../typo3conf/ext/bootstrap_package/Resources/Public/Fonts/glyphicons-halflings-regular.woff") format("woff"), url("../../typo3conf/ext/bootstrap_package/Resources/Public/Fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../../typo3conf/ext/bootstrap_package/Resources/Public/Fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+    src: url("../Fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../Fonts/glyphicons-halflings-regular.woff") format("woff"), url("../Fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../Fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
 }
 .glyphicon {
     -moz-osx-font-smoothing: grayscale;
@@ -4886,16 +4886,24 @@ th.visible-print, td.visible-print {
     margin: 0;
     padding: 0;
 }
+
 li.panel-link {
     border-right: 1px solid rgba(0, 0, 0, 0.2);
     display: block;
     float: left;
     list-style-type: none;
-    padding: 10px 15px;
+    padding: 10px 10px;
 }
 .pull-right li.panel-link {
     border-left: 1px solid rgba(0, 0, 0, 0.2);
     border-right: medium none;
+
+}
+@media (max-width: 768px) {
+    .li.panel-link {
+        padding: 10px 15px;
+    }
+    
 }
 .panel-link.active {
     background-color: #fff;
@@ -4906,6 +4914,8 @@ li.panel-link {
 li.panel-link a {
     color: #828282;
     font-weight: bold;
+}a .panel-link{
+   color: #828282; 
 }
 .panel .table td {
     border-top: medium none;
@@ -4966,6 +4976,11 @@ li.panel-link a {
 .cell-700 {
     width: 700px;
 }
+@media (max-width: 768px) {
+    .cell-400, .cell-500, .cell-600 {
+        width: 100%;
+}
+
 .timetable {
     margin: 30px 0 0 30px;
 }
