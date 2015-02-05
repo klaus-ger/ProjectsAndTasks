@@ -144,24 +144,7 @@ class Boardtopic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->btLastMessage = $btLastMessage;
     }
 
-    /**
-     * Returns the files
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-     */
-    public function getBtImage() {
-        return $this->$btImage;
-    }
-
-    /**
-     * Sets the files
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $btImage
-     * @return void
-     */
-    public function setBtImage($btImage) {
-        $this->btImage = $btImage;
-    }
+  
 
     /**
      * Adds a file
