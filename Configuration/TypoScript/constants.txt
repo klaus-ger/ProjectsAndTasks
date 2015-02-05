@@ -2,8 +2,14 @@
 plugin.tx_projectsandtasks {
     settings {
   
-     # cat=plugin.tx_projectsandtasks//a; type=string; label= Usergroup: UID of FE Usergroup
-        usergroup = 
+     # cat=plugin.tx_projectsandtasks/#010/a; type=string; label= Usergroup: UID of FE Admins
+        admingroup = 
+     # cat=plugin.tx_projectsandtasks/#020/a; type=string; label= Usergroup: UID of FE Internal Users
+        internalgroup = 
+     # cat=plugin.tx_projectsandtasks/#030/a; type=string; label= Usergroup: UID of FE External Users
+        externalgroup = 
+     # cat=plugin.tx_projectsandtasks/#040/a; type=boolean; label= User Whiteboard
+        showWhiteboard = true
     }
     persistence {
         # cat=plugin.tx_projectsandtasks//a; type=string; label=Default storage PID

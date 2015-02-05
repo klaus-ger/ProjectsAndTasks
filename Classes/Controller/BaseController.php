@@ -96,8 +96,8 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
      * @inject
      */
     protected $fileRepository;
-    
-        /**
+
+    /**
      * @var \T3developer\ProjectsAndTasks\Domain\Repository\FileReferenceRepository   
      * @inject
      */
@@ -146,21 +146,41 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
         } else {
             $this->user = $this->userRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
             $this->settings['username'] = $this->user->getUsername();
-            
-            $this->rights = $this->userrightsRepository->findByUid($this->user->getUserRights());
-            $this->setRightsForViews($this->rights);
+
+//            $rights = $this->userrightsRepository->findByUid($this->user->getUserRights());
+//
+//            if (!$rights) {
+//               $rights = $this->buildDefaultRights();
+//            }
+//            $this->setRightsForViews($rights);
         }
     }
-    
-    private function setRightsForViews($rights){
-        $this->settings['showProjectMenu'] = $rights->getShowProjectMenu();
-        $this->settings['showTicketMenu']  = $rights->getShowTicketMenu();
-        $this->settings['showTimeMenu']    = $rights->getShowTimeMenu();
-        $this->settings['showAddressMenu'] = $rights->getShowAddressMenu();
-        $this->settings['showWhiteboardMenu'] = $rights->getShowWhiteboardMenu();
-        $this->settings['showSettingMenu'] = $rights->getShowSettingMenu();
-        
-    }
+
+//    private function setRightsForViews($rights) {
+//        $this->settings['showProjectMenu'] = $rights->getShowProjectMenu();
+//        $this->settings['showTicketMenu'] = $rights->getShowTicketMenu();
+//        $this->settings['showTimeMenu'] = $rights->getShowTimeMenu();
+//        $this->settings['showAddressMenu'] = $rights->getShowAddressMenu();
+//        $this->settings['showWhiteboardMenu'] = $rights->getShowWhiteboardMenu();
+//        $this->settings['showSettingMenu'] = $rights->getShowSettingMenu();
+//    }
+
+//    private function buildDefaultRights() {
+//        $rights = new \T3developer\ProjectsAndTasks\Domain\Model\Userrights;
+//        $rights->setRightName('admin');
+//        //Menus
+//        $rights->setShowProjectMenu(1);
+//        $rights->setShowTicketMenu(1);
+//        $rights->setShowTimeMenu(1);
+//        $rights->setShowAddressMenu(1);
+//        $rights->setShowWhiteboardMenu(1);
+//        $rights->setShowSettingMenu(1);
+//        
+//        $this->userrightsRepository->add($rights);
+//        $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+//        
+//        return ($rights);
+//    }
 
 }
 
