@@ -41,53 +41,37 @@
                         <div class="panel-body">
 
                             <h5>&nbsp;&nbsp;Booked Time Sheet</h5>
-                            <div class="timetable">
-                                <div class="timetable-row clearfix">
-                                    <div class="timetable-cell-header clearfix timetable-border">
-                                        <div class="timetable-cell-date">
-                                            &nbsp;
-                                        </div>
-                                    </div>
-                                    <div class="timetable-cell-header clearfix timetable-border">
-                                        <div class="timetable-cell-date">
-                                            Mo
-                                        </div>
-                                    </div>
-                                    <div class="timetable-cell-header clearfix timetable-border">
-                                        <div class="timetable-cell-date">
-                                            Di
-                                        </div>
-                                    </div>
-                                    <div class="timetable-cell-header clearfix timetable-border">
-                                        <div class="timetable-cell-date">
-                                            Mi
-                                        </div>
-                                    </div>
-                                    <div class="timetable-cell-header clearfix timetable-border">
-                                        <div class="timetable-cell-date">
-                                            Do
-                                        </div>
-                                    </div>
-                                    <div class="timetable-cell-header clearfix timetable-border">
-                                        <div class="timetable-cell-date">
-                                            Fr
-                                        </div>
-                                    </div>
-                                    <div class="timetable-cell-header clearfix timetable-border">
-                                        <div class="timetable-cell-date">
-                                            Sa
-                                        </div>
-                                    </div>
-                                    <div class="timetable-cell-header clearfix timetable-border">
-                                        <div class="timetable-cell-date">
-                                            So
-                                        </div>
-                                    </div>
+                            <div class="row">
+                                
+                                <div class="col-md-2">
+                                    
                                 </div>
-                                <f:for each="{arrayMonth}" as="week" iteration="iter">
-                                    <div class="timetable-row clearfix">
-                                        <div class="timetable-cell clear">
-
+                                 <div class="col-md-1 text-center">
+                                    Mo
+                                </div>
+                                 <div class="col-md-1 text-center">
+                                    Di
+                                </div>
+                                 <div class="col-md-1 text-center">
+                                    Mi
+                                </div>
+                                 <div class="col-md-1 text-center">
+                                    Do
+                                </div>
+                                 <div class="col-md-1 text-center">
+                                    Fr
+                                </div>
+                                 <div class="col-md-1 text-center">
+                                    Sa
+                                </div>
+                                <div class="col-md-1 text-center">
+                                    So
+                                </div>
+                            </div>
+                            
+                            <f:for each="{arrayMonth}" as="week" iteration="iter">
+                                    <div class="row">
+                                        <div class="col-md-2 text-right">
                                             <div class="timetable-cell-date">
                                                 Date 
                                             </div>
@@ -101,32 +85,36 @@
                                         </div>
 
                                         <f:for each="{week}" as="day">
-                                            <div class="timetable-cell clearfix">
+                                            <div class="col-md-1 bg-warning">
                                                 <div class="timetable-cell-date">
                                                     <f:link.action action="timeDay" arguments="{date: day.date}">
                                                         &nbsp;{day.date}
                                                     </f:link.action>
                                                 </div>
                                                 <div class="timetable-cell-time timetable-border">
-                                                    <div>&nbsp;
+                                                    <div class="text-right">&nbsp;
                                                         <f:if condition="{day.bookedtime.custom} >0">
                                                             <vh:time time="{day.bookedtime.custom}"  />
                                                         </f:if>
+                                                        &nbsp;&nbsp;
                                                     </div>
-                                                    <div>
+                                                    <div class="text-right">&nbsp;
                                                         <f:if condition="{day.bookedtime.internal} >0">
                                                             <vh:time time="{day.bookedtime.internal}"  />
                                                         </f:if>
+                                                        &nbsp;&nbsp;
                                                     </div>
                                                 </div>
-                                                <div class="timetable-cell-total">
+                                                <div class="text-right">
                                                     <f:if condition="{day.bookedtime.total} >0">
-                                                        <vh:time time="{day.bookedtime.total}"  />
+                                                        <b><vh:time time="{day.bookedtime.total}"  /></b>
                                                     </f:if>
+                                                    &nbsp;&nbsp;
                                                 </div>
                                             </div>
                                         </f:for>
                                     </div>
+                                <div class="row"><p>&nbsp;</p></div>
                                 </f:for>
 
 
@@ -139,7 +127,7 @@
                 </div>
 
             </div>
-        </div>
+
 
 
     </div><!-- end main Frame -->
