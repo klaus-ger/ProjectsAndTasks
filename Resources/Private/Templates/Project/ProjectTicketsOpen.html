@@ -3,7 +3,7 @@
 <f:section name="main">
     <div class="pat-stage">
 
-        <f:render partial="Project/ProjectHeader" arguments="{_all}"/>
+        <f:render partial="Project/ProjectHeader" arguments="{project: project, mainmenu: '4'}"/>
 
         <div class="container">
             <div class="row">
@@ -19,47 +19,67 @@
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <ul class="pull-left">
-                                <li class="panel-link active">
                                 <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
-                                    Open by Milestone <span class="sub-navi-small"></span>
+                                    <li class="panel-link active">
+                                        <span class="hidden-xs">Open&nbsp;</span>by Milestone 
+                                    </li>
                                 </f:link.action>
-                                </li>
-                                <li class="panel-link">
-                                <f:link.action action="projectTicketsOpenNo" arguments="{uid: project.uid}">
-                                    Open By Date 
-                                </f:link.action>
-                                </li>
-                                <li class="panel-link">
-                                <f:link.action action="projectTicketsClose" arguments="{uid: project.uid}">
-                                    closed
-                                </f:link.action>
-                                </li>
-                                <li class="panel-link">
-                                <f:link.action action="projectTicketsAll" arguments="{uid: project.uid}">
-                                    all
-                                </f:link.action>
-                                </li>
 
+                                <f:link.action action="projectTicketsOpenNo" arguments="{uid: project.uid}">
+                                    <li class="panel-link">
+                                        <span class="hidden-xs">Open&nbsp;</span>by Date 
+                                    </li>
+                                </f:link.action>
+
+                                <f:link.action action="projectTicketsClose" arguments="{uid: project.uid}">
+                                    <li class="panel-link">
+                                        closed
+                                    </li>
+                                </f:link.action>
+
+                                <f:link.action action="projectTicketsAll" arguments="{uid: project.uid}">
+                                    <li class="panel-link">
+                                        all
+                                    </li>
+                                </f:link.action>
+
+                                <span class="hidden-sm hidden-md hidden-lg">
+                                    <f:link.action action="writePdfTicketlist" arguments="{uid: project.uid}">
+                                        <li class="panel-link">
+                                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                                            <span class="hidden-xs">&nbsp; pdf</span>
+                                        </li>
+                                    </f:link.action>
+
+                                    <f:link.action action="projectTicketNew" arguments="{uid: project.uid}">
+                                        <li class="panel-link">
+                                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                            
+                                        </li>
+                                    </f:link.action>
+                                </span>
 
                             </ul>
 
-                            <ul class="pull-right">
-                                <li class="panel-link">
+                            <ul class="pull-right hidden-xs">
                                 <f:link.action action="writePdfTicketlist" arguments="{uid: project.uid}">
-                                    pdf
+                                    <li class="panel-link">
+                                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                                        <span class="hidden-xs">&nbsp; pdf</span>
+                                    </li>
                                 </f:link.action>
-                                </li>
-                                <li class="panel-link">
+
                                 <f:link.action action="projectTicketNew" arguments="{uid: project.uid}">
-                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Ticket" />
+                                    <li class="panel-link">
+                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                    </li>
                                 </f:link.action>
-                                </li>
                             </ul>
 
                         </div>
 
                         <div class="panel-body">
-                             <f:render partial="Project/ProjectTicketListPerMilestone" arguments="{_all}"/>
+                            <f:render partial="Project/TicketSection/ProjectTicketListPerMilestone" arguments="{_all}"/>
                         </div>
                     </div>
                 </div>
@@ -68,7 +88,7 @@
         </div>
 
 
-       
+
 
     </div>
 
