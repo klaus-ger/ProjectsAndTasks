@@ -44,22 +44,24 @@
                 </li>
                
                 
-                
+                <f:security.ifHasRole role="pat-intern">
                 <li>
                     <f:link.action action="timeMonth" controller="Time">
                         Time
                     </f:link.action>
                 </li>
+                </f:security.ifHasRole>
                 
                 
-                
+                <f:security.ifHasRole role="pat-intern">
                 <li>
                     <f:link.action action="personList" controller="Address">
                         Address
                     </f:link.action>
                 </li>
+                </f:security.ifHasRole>
                 
-                
+                <f:security.ifHasRole role="pat-intern">
                 <f:if condition="{settings.showWhiteboard}">
                 <li>
                     <f:link.action action="whiteboardOverview" controller="Whiteboard">
@@ -67,10 +69,11 @@
                     </f:link.action>
                 </li>
                 </f:if>
+                </f:security.ifHasRole>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <f:security.ifHasRole role="pat admin">
+            <f:security.ifHasRole role="pat-admin">
             <li>
             <f:link.action action="settingsProjectCat" controller="Settings">
                 <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_settings.png" width="17" height="17" alt="Settings" />
@@ -81,13 +84,14 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
+         
 
             <li class="dropdown">
                 <a id="dropuser" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
                     Hi {settings.username}!
                     <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="dropuser" role="menu">
+                <ul class="dropdown-menu" aria-labelledby="dropdown" role="menu">
                     <li role="presentation">
                         <form class="" action="{f:uri.action(controller:settings.loginRedirectController, action:settings.loginRedirectAction)}" method="post" onsubmit="{onSubmit}">
 
@@ -113,7 +117,7 @@
 
 
 
-    </div><!-- /.navbar-collapse -->
+    </d iv><!-- /.navbar-collapse -->
 </div><!-- /.container-fluid -->
 </nav>
 
