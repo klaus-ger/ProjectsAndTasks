@@ -65,75 +65,14 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading clearfix">
-                            <div class="col-md-12">
-                                <h5>Overall Trend (all users)</h5>
-                            </div>
-                        </div>
-
-                        <div class="panel-body" style="margin-left:20px;">
-                            <br />
-
-                            <div class="hidden chartDate">{statArray.date}</div>
-                            <div class="hidden chartTicket">{statArray.ticket}</div>
-                            <div class="hidden chartTime">{statArray.time}</div>
-                            <div class="hidden chartAge">{statArray.age}</div>
-
-                            <canvas id="myChart" width="319" height="200"></canvas>
-                            <br />
-                            &nbsp;&nbsp;
-                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/graph-legend.png" width="268" height="16" alt="legend" />
-                        </div>
-
-                    </div>
-                
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading clearfix">
-                            <div class="col-md-12">
-                                <h5>My Summary</h5>
-                            </div>
-                        </div>
-
-                        <div class="panel-body" style="margin-left:20px;">
-                            <br />
-                            <p><b>Open Tickets:</b> {mySummary.openTickets} </p>
-                            <p><b>Open Time:</b> <vh:time time="{mySummary.openTime}"  /></p>
-                            <p><b>Ticket Age:</b> {mySummary.averageAge} days</p>
-                        </div>
-
-                    </div>
-                
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading clearfix">
-                            <div class="col-md-12">
-                                <h5>My Projects</h5>
-                            </div>
-                        </div>
-
-                        <div class="panel-body" style="margin-left:20px;">
-                            <br />
-                            <f:for each="{myProjects}" as="project">
-                                <div class="pat-form-wrap">
-                                    <f:link.action action="projectIndex" controller="Project" arguments="{uid: project.uid}">
-                                        <p> {project.projectTitel} 
-                                    </f:link.action>(leader)</p>
-                                </div>
-                            </f:for>
-                            <f:for each="{projectMemberships}" as="member">
-                                <div class="pat-form-wrap">
-                                    <f:link.action action="projectIndex" controller="Project" arguments="{uid: member.ptProject.uid}">
-                                        <p>{member.ptProject.projectTitel}</p>
-                                    </f:link.action>
-                                </div>
-                            </f:for>
-                            <br>
-                        </div>
-
-                    </div>
+                    <f:security.ifHasRole role="pat-intern">
+                        <f:render partial="Index/WidgetGraph" arguments="{_all}"/>
+                    </f:security.ifHasRole>
+                    
+                    <f:render partial="Index/WidgetMySummary" arguments="{_all}"/>
+                    
+                    <f:render partial="Index/WidgetMyProjects" arguments="{_all}"/>
+                    
                 </div>
 
        
