@@ -75,13 +75,55 @@ class Userrights extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * 
      */
     protected $showWhiteboardMenu;
-    
-       /**
+
+    /**
      * Whiteboard Menu
      * @var \int
      * 
      */
     protected $showSettingMenu;
+
+    /**
+     * Section Project Details
+     * @var \int
+     * 
+     */
+    protected $showProjectsSectionDetails;
+
+    /**
+     * Section Project Milestanoe
+     * @var \int
+     * 
+     */
+    protected $showProjectsSectionMilestones;
+
+    /**
+     * Section Project Tickets
+     * @var \int
+     * 
+     */
+    protected $showProjectsSectionTickes;
+
+    /**
+     * Section Project Sprints
+     * @var \int
+     * 
+     */
+    protected $showProjectsSectionSprints;
+
+    /**
+     * Section Project Documents
+     * @var \int
+     * 
+     */
+    protected $showProjectsSectionDocuments;
+
+    /**
+     * Section Project Team
+     * @var \int
+     * 
+     */
+    protected $showProjectsSectionTeam;
 
     /**
      * Construct
@@ -102,6 +144,13 @@ class Userrights extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         $this->showAddressMenu = TRUE;
         $this->showWhiteboardMenu = TRUE;
         $this->showSettingMenu = TRUE;
+
+        $this->showProjectsSectionDetails = TRUE;
+        $this->showProjectsSectionMilestones = TRUE;
+        $this->showProjectsSectionTickes = TRUE;
+        $this->showProjectsSectionSprints = TRUE;
+        $this->showProjectsSectionDocuments = TRUE;
+        $this->showProjectsSectionTeam = TRUE;
     }
 
     public function getRightName() {
@@ -158,6 +207,54 @@ class Userrights extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
     public function setShowSettingMenu($showSettingMenu) {
         $this->showSettingMenu = $showSettingMenu;
+    }
+
+    public function getShowProjectsSectionDetails() {
+        return $this->showProjectsSectionDetails;
+    }
+
+    public function setShowProjectsSectionDetails($showProjectsSectionDetails) {
+        $this->showProjectsSectionDetails = $showProjectsSectionDetails;
+    }
+
+    public function getShowProjectsSectionMilestones() {
+        return $this->showProjectsSectionMilestones;
+    }
+
+    public function setShowProjectsSectionMilestones($showProjectsSectionMilestones) {
+        $this->showProjectsSectionMilestones = $showProjectsSectionMilestones;
+    }
+
+    public function getShowProjectsSectionTickes() {
+        return $this->showProjectsSectionTickes;
+    }
+
+    public function setShowProjectsSectionTickes($showProjectsSectionTickes) {
+        $this->showProjectsSectionTickes = $showProjectsSectionTickes;
+    }
+
+    public function getShowProjectsSectionSprints() {
+        return $this->showProjectsSectionSprints;
+    }
+
+    public function setShowProjectsSectionSprints($showProjectsSectionSprints) {
+        $this->showProjectsSectionSprints = $showProjectsSectionSprints;
+    }
+
+    public function getShowProjectsSectionDocuments() {
+        return $this->showProjectsSectionDocuments;
+    }
+
+    public function setShowProjectsSectionDocuments($showProjectsSectionDocuments) {
+        $this->showProjectsSectionDocuments = $showProjectsSectionDocuments;
+    }
+
+    public function getShowProjectsSectionTeam() {
+        return $this->showProjectsSectionTeam;
+    }
+
+    public function setShowProjectsSectionTeam($showProjectsSectionTeam) {
+        $this->showProjectsSectionTeam = $showProjectsSectionTeam;
     }
 
 }
