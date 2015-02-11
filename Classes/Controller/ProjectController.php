@@ -51,48 +51,56 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
      * Ordered by Category
      */
     public function allProjectsByCatAction() {
-
-        $catArray = array();
-
-        //search all projects without cat
-        $projectsWithoutCat = $this->projectsRepository->findByProjectCatAndStatus(0, 0);
-        if ($projectsWithoutCat[0] != 0) {
-            foreach ($projectsWithoutCat as $proWithoutCat) {
-                $proWithoutCat->setOpenTickets($this->ticketsRepository->countOpenTicketsByProject($proWithoutCat->getUid()));
+        $userProjects = array();
+        
+        //search Projects for user, admin see all projects
+        if($this->user->getPatGroup() == 'pat-admin'){
+            $userProjects = $this->projectsRepository->findByProjectByStatus(0);
+        }
+        
+        if(($this->user->getPatGroup() == 'pat-intern') || ($this->user->getPatGroup() == 'pat-extern')) {
+            $userProjects = $this->projectsRepository->findByProjectOwner($this->user);
+            $projectsTeamMember = $this->projectteamRepository->findByPtUser($this->user);
+            foreach($projectsTeamMember as $team){
+                $userProjects[] = $team->getPtProject();
             }
         }
-
-        //Search projects with cats
-        $cats = $this->projectcatsRepository->findByCatParent(0);
-        $i = 0;
-        foreach ($cats as $cat) {
-            $catArray[$i] = $cat;
-            $subcats = $this->projectcatsRepository->findByCatParent($cat->getUid());
-            foreach ($subcats as $sub) {
-                $i++;
-                $catArray[$i] = $sub;
-            }
-            $i++;
+        
+        //append open tickets to projects
+        foreach($userProjects as $project){
+            $project->setOpenTickets($this->ticketsRepository->countOpenTicketsByProject($project->getUid()));
         }
-
-        foreach ($catArray as $ca) {
-            $projects = null;
-            $projects = $this->projectsRepository->findByProjectCatAndStatus($ca->getUid(), 0);
-            if ($projects[0] != '') {
-                $projektArray[$ca->getUid()]['cat'] = $ca;
-                foreach ($projects as $project) {
-                    $project->setOpenTickets($this->ticketsRepository->countOpenTicketsByProject($project->getUid()));
-                    $projektArray[$ca->getUid()]['pro'][$project->getUid()] = $project;
+        
+        //group Projects to cats
+        foreach($userProjects as $project){
+            if($project->getProjectCat() == NULL){
+                $projectsWithoutCat[] = $project;
+            } else {
+                $category = $project->getProjectCat();
+                // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($projektArray);
+                if($category->getCatParent() == NULL){
+                  $catOrder = str_pad($category->getCatOrder(), 4, '0', STR_PAD_LEFT) . ' - 0000';
+                  $projektArray[$catOrder]['cat'] =  $category;
+                  $projektArray[$catOrder]['pro'][$project->getUid()] = $project;
+                } else {
+                    $topCategory = $category->getCatParent();
+                    $catOrder = str_pad($topCategory->getCatOrder(), 4, '0', STR_PAD_LEFT)  . ' - ' . str_pad($category->getCatOrder(), 4, '0', STR_PAD_LEFT);
+                    $projektArray[$catOrder]['cat'] =  $category;
+                    $projektArray[$catOrder]['pro'][$project->getUid()] = $project;
                 }
             }
         }
-        //    \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($projektArray);
-
-
+        
+        if(is_array($projektArray)){
+            ksort($projektArray);
+        }
+        
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($projektArray);
+       
         $this->view->assign('projectsByCat', $projektArray);
         $this->view->assign('projectsWithoutCat', $projectsWithoutCat);
         $this->view->assign('mainmenu', 1);
-        $this->view->assign('topmenu', 1);
+        $this->view->assign('topmenu', 2);
     }
 
     /**
@@ -100,14 +108,34 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
      * Ordered by Num
      */
     public function allProjectsByNumAction() {
-        $projects = $this->projectsRepository->findByProjectByStatus(0);
-
-        foreach ($projects as $project) {
+        $userProjects = array();
+        
+         //search Projects for user, admin see all projects
+        if($this->user->getPatGroup() == 'pat-admin'){
+            $userProjects = $this->projectsRepository->findByProjectByStatus(0);
+        }
+        
+        if(($this->user->getPatGroup() == 'pat-intern') || ($this->user->getPatGroup() == 'pat-extern')) {
+            $userProjects = $this->projectsRepository->findByProjectOwner($this->user);
+            $projectsTeamMember = $this->projectteamRepository->findByPtUser($this->user);
+            foreach($projectsTeamMember as $team){
+                $userProjects[] = $team->getPtProject();
+            }
+        }
+        
+        //append open tickets to projects
+        foreach($userProjects as $project){
             $project->setOpenTickets($this->ticketsRepository->countOpenTicketsByProject($project->getUid()));
             $projectArray[$project->getUid()] = $project;
         }
+
+        if(is_array($projektArray)){
+            ksort($projektArray);
+        }
+        
         $this->view->assign('projects', $projectArray);
         $this->view->assign('mainmenu', 2);
+        $this->view->assign('topmenu', 2);
     }
 
     /**
@@ -115,14 +143,32 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
      * Ordered by Num
      */
     public function allProjectsByArchiveAction() {
-        $projects = $this->projectsRepository->findByProjectByStatus(1);
+        $userProjects = array();
+        
+        //$projects = $this->projectsRepository->findByProjectByStatus(1);
+         //search Projects for user, admin see all projects
+        if($this->user->getPatGroup() == 'pat-admin'){
+            $userProjects = $this->projectsRepository->findByProjectByStatus(1);
+        }
+        
+        if(($this->user->getPatGroup() == 'pat-intern') || ($this->user->getPatGroup() == 'pat-extern')) {
+            $userProjects = $this->projectsRepository->findByProjectOwner($this->user);
+            $projectsTeamMember = $this->projectteamRepository->findByPtUser($this->user);
+            foreach($projectsTeamMember as $team){
+                if($team->getPtProject()->getProjectStatus()->getUid() == 1){
+                    $userProjects[] = $team->getPtProject();
+                }
+                
+            }
+        }
 
-        foreach ($projects as $project) {
+        foreach ($userProjects as $project) {
             $project->setOpenTickets($this->ticketsRepository->countOpenTicketsByProject($project->getUid()));
             $projectArray[$project->getUid()] = $project;
         }
         $this->view->assign('projects', $projectArray);
         $this->view->assign('mainmenu', 3);
+        $this->view->assign('topmenu', 2);
     }
 
     //**************************************************************************
@@ -1103,7 +1149,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
     /**
      * save Project Team
      * 
-     * @param \T3developer\ProjectsAndTasks\Domain\Model\Projectteam $teamMember
+     * 
      */
     public function projectTeamSaveAction() {
         if ($this->request->hasArgument('teamMember')) {
@@ -1118,7 +1164,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
             $member->setPtUser($this->userRepository->findByUid($formValue['ptUser']));
             $this->projectteamRepository->add($member);
 
-            // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($member);
+             \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($member);
 
             $persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
             $persistenceManager->persistAll();
