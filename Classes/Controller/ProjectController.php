@@ -271,6 +271,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', 2);
         $this->view->assign('submenu', 1);
+        $this->view->assign('topmenu', 2);
     }
 
     /**
@@ -325,7 +326,8 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
                 }
             }
         }
-        if($list[0]){
+        
+        if(is_array($list)){
             krsort($list);
         }
         
@@ -335,6 +337,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         $this->view->assign('status', $status);
         $this->view->assign('mainmenu', 2);
         $this->view->assign('submenu', 2);
+        $this->view->assign('topmenu', 2);
     }
 
     /**
