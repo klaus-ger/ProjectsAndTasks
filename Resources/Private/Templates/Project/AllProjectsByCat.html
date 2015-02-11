@@ -48,7 +48,7 @@
                         <div class="panel-body">
                             <!-- Projects without cat -->
                             <f:if condition="{projectsWithoutCat}">
-                            <div class="pat-list-item clearfix even">
+                                <div class="pat-list-item clearfix even">
                                     <div class="list-item"><b>Projects without Category</b></div>
                                 </div>
                             </f:if>
@@ -77,14 +77,16 @@
                                     </div>
                                 </f:link.action>
                             </f:for>
-                            
-                            <!-- Projects with cats -->
-                            <f:for each="{projectsByCat}" as="catpro">
-                                <div class="pat-list-item clearfix even">
-                                    <div class="list-item"><b>{catpro.cat.catParent.catTitle} {catpro.cat.catTitle}</b></div>
-                                </div>
 
-                                <f:for each="{catpro.pro}" as="mainpro" iteration="iter">
+                            <!-- Projects with cats -->
+                            <f:for each="{projectsByCat}" as="category">
+                               
+                                    
+                                    <div class="pat-list-item clearfix even">
+                                        <div class="list-item"><b>{category.cat.catParent.catTitle} {category.cat.catTitle}</b></div>
+                                    </div>
+                                    
+                                    <f:for each="{category.pro}" as="mainpro" iteration="iter">
                                     <f:link.action action="projectIndex" arguments="{uid: mainpro.uid}">
                                         <div class="pat-list-item clearfix">
                                             <div class="pat-list-cell cell-first cell-50">
@@ -108,8 +110,9 @@
                                         </div>
                                     </f:link.action>
                                 </f:for>
-
-
+                                    
+                                
+                                
                             </f:for>
 
                         </div>
@@ -124,7 +127,7 @@
 
 
 
-       
-</div><!-- end main Frame -->
+
+    </div><!-- end main Frame -->
 
 </f:section>
