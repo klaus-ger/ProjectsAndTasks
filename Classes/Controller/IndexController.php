@@ -72,6 +72,7 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
         $this->view->assign('projectMemberships', $meberships);
         $this->view->assign('mySummary', $mySummary);
         $this->view->assign('statArray', $statArray);
+        $this->view->assign('topmenu', 1);
     }
 
     /**
@@ -111,10 +112,12 @@ class IndexController extends \T3developer\ProjectsAndTasks\Controller\BaseContr
         $countOpenTickets = count($openTickets);
 
         foreach ($openTickets as $openTi) {
-            $openTime = $openTime + $openTi->getTicketScheduleTime();
-            $ticketdate = $openTi->getTicketDate()->getTimestamp();
-            $ticketage = $actualTime - $ticketdate;
-            $ticketAgeTotal = $ticketAgeTotal + $ticketage;
+            if ($openTi->getTicketDate()) {
+                $openTime = $openTime + $openTi->getTicketScheduleTime();
+                $ticketdate = $openTi->getTicketDate()->getTimestamp();
+                $ticketage = $actualTime - $ticketdate;
+                $ticketAgeTotal = $ticketAgeTotal + $ticketage;
+            }
         }
         if ($countOpenTickets > 0) {
             $averageTicketAge = $ticketAgeTotal / $countOpenTickets;
