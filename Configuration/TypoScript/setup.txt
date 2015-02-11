@@ -86,8 +86,15 @@ plugin.tx_projectsandtasks {
 
 
 }
+page >
+page = PAGE
 
 page {
+    10 < styles.content.get
+
+
+    meta.viewport            = width=device-width, initial-scale=1.0
+
     includeCSS {
         tx_projectsandtasks_css_1       = EXT:projects_and_tasks/Resources/Public/Stylesheets/bootstrap.min.css
         tx_projectsandtasks_css_2       = EXT:projects_and_tasks/Resources/Public/Stylesheets/bootstrap-theme.min.css
