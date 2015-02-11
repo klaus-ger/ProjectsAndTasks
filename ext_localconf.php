@@ -183,6 +183,9 @@ if (!defined('TYPO3_MODE'))
                     , projectDocumentDelete
     
                     , projectTeamList
+                    , projectTeamNew
+                    , projectTeamDelete
+                    , projectTeamSave
                     
                     , writePdfTicketlist',
         
