@@ -16,33 +16,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
+                        
                         <div class="panel-heading clearfix">
-                            <ul class="pull-left">
-                                <li class="panel-link{f:if(condition: '{submenu} == 1', then: ' active')}">
-                                <f:link.action action="projectDetail" arguments="{uid: project.uid}">
-                                    Description
-                                </f:link.action>
-                                </li>
-                                <li class="panel-link{f:if(condition: '{submenu} == 2', then: ' active')}">
-                                <f:link.action action="projectDetailEvaluation" arguments="{uid: project.uid}">
-                                    Time & Costs
-                                </f:link.action>
-                                
-                                <!--
-                                </li>
-                                <li class="panel-link{f:if(condition: '{submenu} == 3', then: ' active')}">
-                                <f:link.action action="projectDetailCosts" arguments="{uid: project.uid}">
-                                    Offers & Invoices
-                                </f:link.action>
-                                </li>
-                                -->
-                                
-                            </ul>
-
-                            <ul class="pull-right">
-                                
-                            </ul>
-
+                            <f:render partial="Project/ProjectDetailPanelHeader" arguments="{_all}"/>
                         </div>
 
                         <div class="panel-body">
