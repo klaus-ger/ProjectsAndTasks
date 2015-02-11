@@ -125,6 +125,12 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @var \int
      */
     protected $userRights;
+    
+    /**
+     * PatGroup - not stored in DB
+     * @var \string
+     */
+    protected $patGroup;
 
     public function getUsername() {
         return $this->username;
@@ -242,6 +248,16 @@ class User extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function setUserRights($userRights) {
         $this->userRights = $userRights;
     }
+    
+    public function getPatGroup() {
+        return $this->patGroup;
+    }
+
+    public function setPatGroup($patGroup) {
+        $this->patGroup = $patGroup;
+    }
+
+
 
 }
 
