@@ -1,0 +1,31 @@
+<ul class="pull-left">
+    
+    <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+        <f:link.action action="allProjectsByCat">
+            Projects by Kategory
+        </f:link.action>
+    </li>
+
+    <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+        <f:link.action action="allProjectsByNum">
+            Projects by Number
+        </f:link.action>
+    </li>
+
+    <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
+        <f:link.action action="allProjectsByArchive" arguments="{uid: project.uid}">
+            Archive
+        </f:link.action>
+    </li>
+
+</ul>
+
+<f:security.ifHasRole role="pat-intern">
+<ul class="pull-right">
+    <li class="panel-link">
+        <f:link.action action="projectNew">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        </f:link.action>
+    </li>
+</ul>
+</f:security.ifHasRole>

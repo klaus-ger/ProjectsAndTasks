@@ -15,35 +15,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
+                        
                         <div class="panel-heading clearfix">
-                            <ul class="pull-left">
-                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-                                <f:link.action action="allProjectsByCat">
-                                    Projects by Kategory
-                                </f:link.action>
-                                </li>
-                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
-                                <f:link.action action="allProjectsByNum">
-                                    Projects by Number
-                                </f:link.action>
-                                </li>
-
-                                <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
-                                <f:link.action action="allProjectsByArchive" arguments="{uid: project.uid}">
-                                    Archive
-                                </f:link.action>
-                                </li>
-
-                            </ul>
-
-                            <ul class="pull-right">
-                                <li class="panel-link">
-                                <f:link.action action="projectNew">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </f:link.action>
-                                </li>
-                            </ul>
+                            <f:render partial="Project/PojectListPanelHeader" arguments="{_all}"/>
                         </div>
+                        
                         <div class="panel-body">
                             <!-- Projects without cat -->
                             <f:for each="{projects}" as="project" iteration="iterWO">
