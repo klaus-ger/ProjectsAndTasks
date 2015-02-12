@@ -31,10 +31,14 @@
                                 <div class="col-md-10">
                                     <h3>{singlemonth.month}</h3>
                                 </div>
+                                    
                                 <div class="col-md-2">
+                                    <f:security.ifHasRole role="pat-intern">
                                     <div style="margin-top:25px;">
-                                        <b>Time Summary: <span class="monthtime"></span></b>
+                                        <b>Time Summary: 
+                                            <span class="monthtime"></span></b>
                                     </div>
+                                    </f:security.ifHasRole>
                                 </div>
                                 
                                 <div class="col-md-12">
@@ -57,7 +61,9 @@
                                         </div>
                                         
                                         <div class="pat-list-cell cell-50 timecell" data-time="{item.trTime}">
+                                            <f:security.ifHasRole role="pat-intern">
                                             <vh:time time="{item.trTime}" />
+                                            </f:security.ifHasRole>
                                         </div>
                                         
                                         <div class="clearfix"></div>

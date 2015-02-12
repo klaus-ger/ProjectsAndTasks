@@ -5,13 +5,13 @@
         </li>
     </f:link.action>
     
-    <f:security.ifHasRole role="pat-intern">
+    
     <f:link.action action="projectDetailEvaluation" arguments="{uid: project.uid}">
         <li class="panel-link{f:if(condition: '{submenu} == 2', then: ' active')}">
-            Time & Costs
+            Progress
         </li>
     </f:link.action>
-    </f:security.ifHasRole>
+    
 
 <!--
 </li>

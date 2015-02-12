@@ -100,20 +100,26 @@
                 </div>
 
                 <div class="panel-body">
+                    
                     <div class="col-md-12">&nbsp;</div>
+                    
                     <div class="col-md-7">
                         <f:format.nl2br>{project.projectShort}</f:format.nl2br>
                     </div>
+                    
                     <div class="col-md-3"></div>
+                    
                     <div class="col-md-2">
-
+                        <f:security.ifHasRole role="pat-intern">
                         <div class="pull-right">
                             Budget Time: {project.projectBudgetTime} h<br />
                             Plan Open: <vh:time time="{projectHours.plan.open}"  /><br />
                             Worked Total: <vh:time time="{projectHours.work}"  />
                         </div>
                         <div class="clear"></div>
+                        </f:security.ifHasRole>
                     </div>
+                    
                     <div class="col-md-12">&nbsp;</div>
                 </div>
             </div>
