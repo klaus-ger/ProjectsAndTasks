@@ -4,8 +4,9 @@
     <f:if condition="{milestones}">
         <f:then>
             <f:for each="{milestones}" as="ms" iteration="iter">
-                <f:link.action action="projectMilestonesEdit" controller="Project" arguments="{uid: ms.uid}">
-                    <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                
+                <div class="pat-list-item clearfix {f:if(condition: '{iter.isEven} == 1', then: ' even', else: ' odd')}">
+                    <f:link.action action="projectMilestonesEdit" controller="Project" arguments="{uid: ms.uid}">
                         <div class="pat-list-cell cell-first cell-50">
                             {ms.msOrder}
                         </div>
@@ -25,23 +26,25 @@
                         </div>
                         <div class="pat-list-cell cell-100">
                             Tickets open: {ms.msTicketOpen}
-
                         </div>
 
-                </f:link.action>
-                <div class="pat-list-cell cell-50">
-                    <f:if condition="{iter.isFirst} == 0">
-                        <f:link.action action="projectMilestonesMoveUp" controller="Project" arguments="{milestone: ms}">
-                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_up.png" width="17" height="17" alt="new Category" />
-                        </f:link.action>
-                    </f:if>
-                    &nbsp;&nbsp;
-                    <f:if condition="{iter.isLast} == 0" >
-                        <f:link.action action="projectMilestonesMoveDown" controller="Project" arguments="{milestone: ms}">
-                            <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_down.png" width="17" height="17" alt="new Category" />
-                        </f:link.action>
-                    </f:if>
-                </div>
+                    </f:link.action>
+                
+                    <div class="pat-list-cell cell-50">
+                        <f:security.ifHasRole role="pat-intern">
+                        <f:if condition="{iter.isFirst} == 0">
+                            <f:link.action action="projectMilestonesMoveUp" controller="Project" arguments="{milestone: ms}">
+                                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_up.png" width="17" height="17" alt="new Category" />
+                            </f:link.action>
+                        </f:if>
+                        &nbsp;&nbsp;
+                        <f:if condition="{iter.isLast} == 0" >
+                            <f:link.action action="projectMilestonesMoveDown" controller="Project" arguments="{milestone: ms}">
+                                <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_down.png" width="17" height="17" alt="new Category" />
+                            </f:link.action>
+                        </f:if>
+                        </f:security.ifHasRole>
+                    </div>
                 </div>
 
             </f:for>
