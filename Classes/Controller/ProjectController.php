@@ -208,6 +208,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         $this->view->assign('ticketsSummary', $this->calculateTicketSummary($projectuid));
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('mainmenu', 1);
+        $this->view->assign('topmenu', 2);
     }
 
     /**
@@ -380,6 +381,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
 
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 1);
+        $this->view->assign('topmenu', 2);
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestonesArray);
@@ -405,6 +407,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
 
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 2);
+        $this->view->assign('topmenu', 2);
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestonesArray);
@@ -430,6 +433,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
 
         $this->view->assign('mainmenu', 3);
         $this->view->assign('submenu', 3);
+        $this->view->assign('topmenu', 2);
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($projectuid));
         $this->view->assign('milestones', $milestonesArray);
