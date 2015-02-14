@@ -27,7 +27,9 @@
                     <f:format.date format="d.m.Y">{ticketNull.ticketScheduleDate}</f:format.date>
                 </div>
                 <div class="pat-list-cell cell-50">
+                    <f:security.ifHasRole role="pat-intern">
                     <vh:time time="{ticketNull.ticketScheduleTime}" />
+                    </f:security.ifHasRole>
                 </div>
             </f:link.action> 
 

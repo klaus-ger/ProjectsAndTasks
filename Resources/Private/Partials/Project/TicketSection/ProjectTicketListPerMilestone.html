@@ -38,9 +38,15 @@
                 <div class="pat-list-cell cell-50">
                     &nbsp;
                 </div>
+ 
+                
                 <div class="pat-list-cell cell-50">
-                    <vh:time time="{ticketNull.ticketScheduleTime}" />
+                    <f:security.ifHasRole role="pat-intern">
+                        <vh:time time="{ticketNull.ticketScheduleTime}" />
+                    </f:security.ifHasRole>
                 </div>
+                
+                
             </f:link.action>
             <div class="pat-list-cell cell-50">
                 <f:link.action action="projectTicketDelete" arguments="{projectUid: project.uid, ticketUid: ticketNull.uid}" onclick="if(!confirm('Ticket löschen?')) return false;">
@@ -92,9 +98,14 @@
                     <div class="pat-list-cell cell-50">
                         &nbsp;
                     </div>
+                    
                     <div class="pat-list-cell cell-50">
+                        <f:security.ifHasRole role="pat-intern">
                         <vh:time time="{ticket.ticketScheduleTime}" />
+                        </f:security.ifHasRole>
                     </div>
+                    
+                    
                 </f:link.action>
                 <div class="pat-list-cell cell-50">
                     <f:link.action action="projectTicketDelete" arguments="{projectUid: project.uid, ticketUid: ticket.uid}" onclick="if(!confirm('Ticket löschen?')) return false;">
