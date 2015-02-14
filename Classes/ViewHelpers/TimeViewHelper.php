@@ -24,7 +24,7 @@ class TimeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
         
         $time = $time/3600;
         
-        return $time . ' h';
+        return round($time,2) . ' h';
        
     }
  
