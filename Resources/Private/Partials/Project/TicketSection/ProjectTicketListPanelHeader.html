@@ -1,0 +1,57 @@
+<ul class="pull-left">
+    <f:link.action action="projectTicketsOpen" arguments="{uid: project.uid}">
+        <li class="panel-link {f:if(condition: '{submenu} == 1', then: ' active')}">
+            <span class="hidden-xs">Open&nbsp;</span>by Milestone 
+        </li>
+    </f:link.action>
+
+    <f:link.action action="projectTicketsOpenNo" arguments="{uid: project.uid}">
+        <li class="panel-link {f:if(condition: '{submenu} == 2', then: ' active')}">
+            <span class="hidden-xs">Open&nbsp;</span>by Date 
+        </li>
+    </f:link.action>
+
+    <f:link.action action="projectTicketsClose" arguments="{uid: project.uid}">
+        <li class="panel-link {f:if(condition: '{submenu} == 3', then: ' active')}">
+            closed
+        </li>
+    </f:link.action>
+
+    <f:link.action action="projectTicketsAll" arguments="{uid: project.uid}">
+        <li class="panel-link {f:if(condition: '{submenu} == 4', then: ' active')}">
+            all
+        </li>
+    </f:link.action>
+
+    <span class="hidden-sm hidden-md hidden-lg">
+        <f:link.action action="writePdfTicketlist" arguments="{uid: project.uid}">
+            <li class="panel-link">
+                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                <span class="hidden-xs">&nbsp; pdf</span>
+            </li>
+        </f:link.action>
+
+        <f:link.action action="projectTicketNew" arguments="{uid: project.uid}">
+            <li class="panel-link">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+
+            </li>
+        </f:link.action>
+    </span>
+
+</ul>
+
+<ul class="pull-right hidden-xs">
+    <f:link.action action="writePdfTicketlist" arguments="{uid: project.uid}">
+        <li class="panel-link">
+            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+            <span class="hidden-xs">&nbsp; pdf</span>
+        </li>
+    </f:link.action>
+
+    <f:link.action action="projectTicketNew" arguments="{uid: project.uid}">
+        <li class="panel-link">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        </li>
+    </f:link.action>
+</ul>
