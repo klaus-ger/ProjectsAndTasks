@@ -36,13 +36,12 @@ namespace T3developer\ProjectsAndTasks\Controller;
  */
 class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseController {
 
-
     /**
      * Initializes the current action 
      * @return void 
      */
     public function initializeAction() {
-        
+
         $this->getUserRights();
     }
 
@@ -57,6 +56,7 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         $persons = $this->userRepository->findAll();
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($companies);
         $this->view->assign('mainmenu', '1');
+        $this->view->assign('topmenu', '5');
         $this->view->assign('persons', $persons);
     }
 
@@ -69,9 +69,10 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         }
         $person = $this->userRepository->findByUid($personID);
         $companies = $this->companyRepository->findAll();
-        $userRights = $this->userrightsRepository->findAll();
+
 
         $this->view->assign('mainmenu', '1');
+        $this->view->assign('topmenu', '5');
         $this->view->assign('person', $person);
         $this->view->assign('companies', $companies);
         $this->view->assign('userRights', $userRights);
@@ -84,6 +85,7 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         $companies = $this->companyRepository->findAll();
 
         $this->view->assign('mainmenu', '1');
+        $this->view->assign('topmenu', '5');
         $this->view->assign('companies', $companies);
     }
 
@@ -93,7 +95,7 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
      */
     public function personSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\User $person) {
         $plainPassword = $person->getPasswordInput();
-        
+
         if ($plainPassword != '') {
             if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('saltedpasswords')) {
                 if (\TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility::isUsageEnabled('FE')) {
@@ -105,11 +107,89 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
                 }
             }
         }
-       
+
+        //Set userrights
+        $usergroups = explode(',', $person->getUsergroup());
+
+        //admin
+        if ($person->getUserRights() == 1) {
+
+            if (array_search($this->settings['admingroup'], $usergroups, false) === FALSE) {
+                $usergroups[] = $this->settings['admingroup'];
+            }
+            if (array_search($this->settings['internalgroup'], $usergroups, false) === FALSE) {
+                $usergroups[] = $this->settings['internalgroup'];
+            }
+            $removekey = array_search($this->settings['externalgroup'], $usergroups);
+            if ($removekey !== false) {
+                unset($usergroups[$removekey]);
+            }
+            unset($removekey);
+        }
+        //internal
+        if ($person->getUserRights() == 2) {
+            if (array_search($this->settings['internalgroup'], $usergroups, false) === FALSE) {
+                $usergroups[] = $this->settings['internalgroup'];
+            }
+            $removekey = array_search($this->settings['admingroup'], $usergroups);
+            if ($removekey !== false) {
+                unset($usergroups[$removekey]);
+            }
+            unset($removekey);
+
+            $removekey = array_search($this->settings['externalgroup'], $usergroups);
+            if ($removekey !== false) {
+                unset($usergroups[$removekey]);
+            }
+            unset($removekey);
+        }
+
+        //external
+        if ($person->getUserRights() == 3) {
+            if (array_search($this->settings['externalgroup'], $usergroups, false) === FALSE) {
+                $usergroups[] = $this->settings['externalgroup'];
+            }
+            $removekey = array_search($this->settings['admingroup'], $usergroups);
+            if ($removekey !== false) {
+                unset($usergroups[$removekey]);
+            }
+            unset($removekey);
+
+            $removekey = array_search($this->settings['internalgroup'], $usergroups);
+            if ($removekey !== false) {
+                unset($usergroups[$removekey]);
+            }
+            unset($removekey);
+        }
+
+        //no pat group
+        if ($person->getUserRights() == 0) {
+            $removekey = array_search($this->settings['admingroup'], $usergroups);
+            if ($removekey !== false) {
+                unset($usergroups[$removekey]);
+            }
+            unset($removekey);
+
+            $removekey = array_search($this->settings['internalgroup'], $usergroups);
+            if ($removekey !== false) {
+                unset($usergroups[$removekey]);
+            }
+            unset($removekey);
+
+            $removekey = array_search($this->settings['externalgroup'], $usergroups);
+            if ($removekey !== false) {
+                unset($usergroups[$removekey]);
+            }
+            unset($removekey);
+        }
+
+        $FEgroups = implode(',', $usergroups);
+        $person->setUsergroup($FEgroups);
+
+
         if ($person->getUid()) {
             $this->userRepository->update($person);
         } else {
-            $person->setUsergroup($this->settings['usergroup']);
             $this->userRepository->add($person);
         }
 
@@ -127,6 +207,7 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         $companies = $this->companyRepository->findAll();
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($companies);
         $this->view->assign('mainmenu', '2');
+        $this->view->assign('topmenu', '5');
         $this->view->assign('companies', $companies);
     }
 
@@ -140,6 +221,7 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
         $company = $this->companyRepository->findByUid($companyID);
 
         $this->view->assign('mainmenu', '2');
+        $this->view->assign('topmenu', '5');
         $this->view->assign('company', $company);
     }
 
@@ -149,6 +231,7 @@ class AddressController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
     public function companyNewAction() {
 
         $this->view->assign('mainmenu', '2');
+        $this->view->assign('topmenu', '5');
     }
 
     /**
