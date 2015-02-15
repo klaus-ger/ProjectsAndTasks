@@ -16,31 +16,7 @@
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <ul class="pull-left">
-                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
-                                <f:link.action action="settingsProjectCat">
-                                    Project Categories
-                                </f:link.action>
-                                </li>
-                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
-                                <f:link.action action="settingsStatus">
-                                    Selection Lists
-                                </f:link.action>
-                                </li>
-                                <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
-                                <f:link.action action="settingsRights" >
-                                    User Rights
-                                </f:link.action>
-                                </li>
-                            </ul>
-
-                            <ul class="pull-right">
-                                <li class="panel-link">
-                                <f:link.action action="settingsProjectCatNew">
-                                    <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_add.png" width="17" height="17" alt="new Category" />
-                                </f:link.action>
-                                </li>
-                            </ul>
+                            <f:render partial="Settings/SettingsMenu" arguments="{_all}"/>
                         </div>
                         <div class="panel-body">
 

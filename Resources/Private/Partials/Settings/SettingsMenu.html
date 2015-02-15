@@ -1,0 +1,27 @@
+<ul class="pull-left">
+    
+    <f:link.action action="settingsProjectCat">
+        <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+            Project Categories
+        </li>
+    </f:link.action>
+
+    <f:link.action action="settingsStatus">
+        <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+            Option Lists
+        </li>
+    </f:link.action>
+
+</ul>
+
+<ul class="pull-right">
+    <f:if condition="{mainmenu} == 1">
+    <li class="panel-link">
+        <f:link.action action="settingsProjectCatNew">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        </f:link.action>
+    </li>
+    </f:if>
+    
+    
+</ul>
