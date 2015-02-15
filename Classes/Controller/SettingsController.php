@@ -244,73 +244,7 @@ class SettingsController extends \T3developer\ProjectsAndTasks\Controller\BaseCo
         $this->redirect('settingsStatus');
     }
 
-    //**************************************************************************
-    // User Rights functions
-    //**************************************************************************
-
-    /**
-     * settingsRights  Function
-     * 
-     * Shows a List of all Userright Groups, is no Group exists, we create a blank one.
-     */
-    public function settingsRightsAction() {
-
-        $rightsGroups = $this->userrightsRepository->findAll();
-
-        if ($rightsGroups[0] == NULL) {
-            $newGroup = new \T3developer\ProjectsAndTasks\Domain\Model\Userrights;
-            $newGroup->setRightName('admin');
-            $this->userrightsRepository->add($newGroup);
-            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
-            $rightsGroups = $this->userrightsRepository->findAll();
-        }
-
-        $this->view->assign('rightsGroups', $rightsGroups);
-        $this->view->assign('mainmenu', '3');
-    }
-
-    /**
-     * settingsRights  Function
-     */
-    public function settingsRightsNewAction() {
-        $newGroup = new \T3developer\ProjectsAndTasks\Domain\Model\Userrights;
-        
-        $this->view->assign('mainmenu', '3');
-        $this->view->assign('rightsGroup', $newGroup);
-    }
-
-    /**
-     * settingsRightsEdit  Function
-     * 
-     * Shows a Form to edit an Right Group
-     */
-    public function settingsRightsEditAction() {
-
-        if ($this->request->hasArgument('rightGroup')) {
-            $rightsGroup = $this->request->getArgument('rightGroup');
-            $rightsGroup = $this->userrightsRepository->findByUid($rightsGroup);
-        }
-
-        $this->view->assign('mainmenu', '3');
-        $this->view->assign('rightsGroup', $rightsGroup);
-    }
-
-    /**
-     * settingsRights Save  Function
-     * 
-     * @param \T3developer\ProjectsAndTasks\Domain\Model\Userrights $rightsGroup
-     */
-    public function settingsRightsSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Userrights $rightsGroup) {
-        
-        if ($rightsGroup->getUid()) {
-            $this->userrightsRepository->update($rightsGroup);
-        } else {
-            $this->userrightsRepository->add($rightsGroup);
-            // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($category);
-        }
-
-        $this->redirect('settingsRights');
-    }
+    
 
     //**************************************************************************
     // Helper Functions
