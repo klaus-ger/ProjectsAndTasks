@@ -21,7 +21,7 @@
                         <div class="panel-heading clearfix">
                             <ul class="pull-left">
                                 <li class="panel-link{f:if(condition: '{submenu} == 1', then: ' active')}">
-                                <f:link.action action="projectContractList" arguments="{uid: project.uid}">
+                                <f:link.action action="projectTeamList" arguments="{uid: project.uid}">
                                     Team
                                 </f:link.action>
                                 </li>
@@ -58,10 +58,14 @@
 
                                     <div class="pat-list-cell cell-200">
                                         Tel: {member.ptUser.telephone}
-                                    </div><div class="pat-list-cell cell-50">
+                                    </div>
+                                    
+                                    <div class="pat-list-cell cell-50">
+                                        <f:security.ifHasRole role="pat-intern">
                                         <f:link.action action="projectTeamDelete" arguments="{uid: project.uid, memberUid: member.uid}">
                                             <f:image src="EXT:projects_and_tasks/Resources/Public/Images/icon_close.png" width="14" height="14" alt="delete Project Member" />
                                         </f:link.action>
+                                        </f:security.ifHasRole>
                                     </div>
                                 </div>
                             </f:for>
@@ -70,9 +74,10 @@
 
                         </div>
 
-                        <div class="panel-footer clearfix">
+                       <f:security.ifHasRole role="pat-intern">
+                       <div class="panel-footer clearfix">
                             <h5>Add Member</h5>
-                            <f:form action="projectTeamSave"  name="teamMember" object="{teamMember}" class="form-horizontal" >
+                                <f:form action="projectTeamSave"  name="teamMember" object="{teamMember}" class="form-horizontal" >
 
                                 <f:form.hidden property="projectUid" value="{project.uid}" />
 
@@ -84,20 +89,17 @@
 
                                         </div>
                                     </div>
-
                                 </div>
 
-
-
-
                                 <div class="col-md-2"></div>
+                                
                                 <div class="col-md-1 pull-right">
                                     <f:form.submit value="   save    " class="btn btn-primary"/>
                                 </div>
-
-
                             </f:form>
                         </div>
+                        </f:security.ifHasRole>
+                        
                     </div>
                 </div>
 
