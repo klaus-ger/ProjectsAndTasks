@@ -138,6 +138,49 @@ return array(
             )
         ),
         
+        'show_projects_section_detail' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'check'
+            )
+        ),
+        'show_projects_section_milestones' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'check'
+            )
+        ),
+        'show_projects_section_tickes' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'check'
+            )
+        ),
+        'show_projects_section_sprints' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'check'
+            )
+        ),
+        'show_projects_section_documents' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'check'
+            )
+        ),
+        'show_projects_section_team' => array(
+            'exclude' => 0,
+            'label' => 'Date',
+            'config' => array(
+                'type' => 'check'
+            )
+        ),
+        
     ),
 );
 ?>
