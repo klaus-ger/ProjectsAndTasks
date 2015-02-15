@@ -81,7 +81,7 @@
     <div class="form-group">
         <label for="Mail" class="col-sm-2 control-label">Right Group</label>
         <div class="col-sm-10">
-            <f:form.select property="userRights" options="{userRights}" optionValueField="uid" optionLabelField="rightName" prependOptionLabel="-- User rights --" class="form-control"/>
+            <f:form.select property="userRights" options="{0: '--User Rights --', 1: 'admin', 2: 'internal', 3: 'external'}" class="form-control"/>
       
             
         </div>
