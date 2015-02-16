@@ -34,16 +34,17 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
 class TicketresponseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
-           /**
+    /**
      * find Ticketresponse by actual day (Calender Function)
      * 
      * @param int $start timestamp Start Day
      * @param int $end timestamp End Day
      * @param int $statusBehaviour status Behaviour, 2= custom time, 3 = internal time
+     * @param int $userId
      * 
      * @return object
      */
-    public function findPerDate($start, $end, $statusBehaviour) {
+    public function findPerDate($start, $end, $statusBehaviour, $userId) {
        
         $query = $this->createQuery();
 
@@ -52,7 +53,8 @@ class TicketresponseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     $query->greaterThan('trTime', 0),
                     $query->lessThan('trDate', $end),
                     $query->greaterThan('trDate', $start),
-                    $query->equals('trTyp.statusBehaviour', $statusBehaviour)
+                    $query->equals('trTyp.statusBehaviour', $statusBehaviour),
+                    $query->equals('trOwner', $userId)
                 ))
         );
 
