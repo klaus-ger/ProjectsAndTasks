@@ -123,9 +123,6 @@ class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseContro
         $start = mktime(0, 0, 0, $date[1], $date[0], $date[2]);
         $end = mktime(23, 59, 59, $date[1], $date[0], $date[2]);
 
-        //loged in user
-        $userID = $GLOBALS['TSFE']->fe_user->user['uid'];
-
         $workNotesCustom = $this->ticketresponseRepository->findPerDate($start, $end, 2, $this->user);
         $workNotesInternal = $this->ticketresponseRepository->findPerDate($start, $end, 3, $this->user);
 
@@ -147,12 +144,22 @@ class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseContro
         $time['total'] = $time['custom'] + $time['internal'];
 
 
-        //This gets today's date
+        //buid the date navigation
+        $todayTimestamp  = mktime(0, 0, 0, $date[1], $date[0], $date[2]);
+        $yesterday = $todayTimestamp - 86400;
+        $tomorrow = $todayTimestamp + 86400;
+        
+        $dayNavi['actual'] = $todayTimestamp;
+        $dayNavi['next'] = date("d.m.Y", $tomorrow);
+        $dayNavi['prev'] = date("d.m.Y", $yesterday);
+        
         // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($workNotesInternal);
         $this->view->assign('date', $headlineDate);
         $this->view->assign('workNotesInternal', $workNotesInternal);
         $this->view->assign('workNotesCustom', $workNotesCustom);
+        $this->view->assign('dayNavi', $dayNavi);
         $this->view->assign('mainmenu', 2);
+        $this->view->assign('topmenu', 4);
     }
 
     /**
