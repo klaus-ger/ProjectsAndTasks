@@ -5,7 +5,7 @@ namespace T3developer\ProjectsAndTasks\Controller;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014  
+ *  (c) 2014  Klaus Heuer <klaus.heuer@t3-developer.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -59,11 +59,13 @@ class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseContro
      * Shows the List of Project cats
      */
     public function timeMonthAction() {
-        //search worktime only for loged in user
-        //
-        //This gets today's date
-        $date = time();
-
+        if($this->request->hasArgument('date')){
+            $date = $this->request->getArgument('date');
+        } else {
+            //This gets first day of the actual month
+            $date = mktime(0, 0, 0, date("m"), 1,   date("Y"));
+        }
+        
         $arrayMonth = $this->getMonthArray($date);
 
         foreach ($arrayMonth as $key => $week) {
@@ -76,18 +78,40 @@ class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseContro
                 }
             }
         }
-
+        
+        //build month naviagtion
+        $actualMonth = date('m', $date);
+        $actualYear = date('Y', $date);
+        
+        //next month
+        if($actualMonth + 1 > 12) {
+            $nextMonth =  mktime(0, 0, 0, 1, 1, $actualYear+1);
+        } else {
+            $nextMonth =  mktime(0, 0, 0, $actualMonth+1, 1, $actualYear);
+        }
+        
+        //prev month
+        if($actualMonth + 1 < 1) {
+            $prevMonth =  mktime(0, 0, 0, 12, 1, $actualYear-1);
+        } else {
+            $prevMonth =  mktime(0, 0, 0, $actualMonth-1, 1, $actualYear);
+        }
+        $monthNavi['actual'] = $date;
+        $monthNavi['next'] = $nextMonth;
+        $monthNavi['prev'] = $prevMonth;
+        
         //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arrayMonth);
         $this->view->assign('arrayMonth', $arrayMonth);
+        $this->view->assign('monthNavi', $monthNavi);
         $this->view->assign('mainmenu', 1);
+        $this->view->assign('topmenu', 4);
     }
 
     /**
      * Shows the booked time for a day
      */
     public function timeDayAction() {
-        // TODO:
-        //search worktime only for loged in user
+        
         if ($this->request->hasArgument('date')) {
             $date = $this->request->getArgument('date');
         } else {
@@ -102,8 +126,8 @@ class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseContro
         //loged in user
         $userID = $GLOBALS['TSFE']->fe_user->user['uid'];
 
-        $workNotesCustom = $this->ticketresponseRepository->findPerDate($start, $end, 2);
-        $workNotesInternal = $this->ticketresponseRepository->findPerDate($start, $end, 3);
+        $workNotesCustom = $this->ticketresponseRepository->findPerDate($start, $end, 2, $this->user);
+        $workNotesInternal = $this->ticketresponseRepository->findPerDate($start, $end, 3, $this->user);
 
         $time['custom'] = 0;
         $time['internal'] = 0;
@@ -143,8 +167,8 @@ class TimeController extends \T3developer\ProjectsAndTasks\Controller\BaseContro
         $start = mktime(0, 0, 0, $date[1], $date[0], $date[2]);
         $end = mktime(23, 59, 59, $date[1], $date[0], $date[2]);
 
-        $workNotesCustom = $this->ticketresponseRepository->findPerDate($start, $end, 2);
-        $workNotesInternal = $this->ticketresponseRepository->findPerDate($start, $end, 3);
+        $workNotesCustom = $this->ticketresponseRepository->findPerDate($start, $end, 2, $this->user);
+        $workNotesInternal = $this->ticketresponseRepository->findPerDate($start, $end, 3, $this->user);
 
         $time['custom'] = 0;
         $time['internal'] = 0;

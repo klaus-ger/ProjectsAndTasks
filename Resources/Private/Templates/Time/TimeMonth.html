@@ -19,21 +19,33 @@
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <ul class="pull-left">
-                                <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
                                 <f:link.action action="timeMonth">
-                                    Actual Month
+                                    <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+                                        Month
+                                    </li>
                                 </f:link.action>
-                                </li>
-
-                                <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                
                                 <f:link.action action="timeDay">
-                                    Day
+                                    <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+                                        Day
+                                    </li>
                                 </f:link.action>
-                                </li>
                             </ul>
 
                             <ul class="pull-right">
-
+                                <f:link.action action="timeMonth" arguments="{date: monthNavi.prev}">
+                                <li class="panel-link">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                </li>
+                                </f:link.action>
+                                <li class="panel-link">
+                                    <f:format.date format="M Y">@{monthNavi.actual}</f:format.date>
+                                </li>
+                                <f:link.action action="timeMonth" arguments="{date: monthNavi.next}">
+                                <li class="panel-link">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                </li>
+                                </f:link.action>
                             </ul>
 
                         </div>
@@ -85,7 +97,7 @@
                                         </div>
 
                                         <f:for each="{week}" as="day">
-                                            <div class="col-md-1 bg-warning">
+                                            <div class="col-md-1 timetable-row">
                                                 <div class="timetable-cell-date">
                                                     <f:link.action action="timeDay" arguments="{date: day.date}">
                                                         &nbsp;{day.date}
