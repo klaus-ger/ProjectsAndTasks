@@ -119,6 +119,9 @@ li.panel-link a {
     .timetable {
         margin: 30px 0 0 30px;
     }
+    .timetable-row {
+        background-color: #fafafa;
+    }
     .timetable-cell, .timetable-cell-header {
         float: left;
         height: 130px;
