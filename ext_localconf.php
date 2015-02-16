@@ -110,11 +110,7 @@ if (!defined('TYPO3_MODE'))
                     , settingsStatusNew
                     , settingsStatusEdit
                     , settingsStatusSave
-                    
-                    , settingsRights
-                    , settingsRightsNew
-                    , settingsRightsEdit
-                    , settingsRightsSave'
+                    '
                     
     ), array(
     'Index' =>      ' index',
@@ -222,11 +218,7 @@ if (!defined('TYPO3_MODE'))
                     , settingsStatusNew
                     , settingsStatusEdit
                     , settingsStatusSave
-                            
-                    , settingsRights
-                    , settingsRightsNew
-                    , settingsRightsEdit
-                    , settingsRightsSave'
+                    '
         )
 );
 ?>
