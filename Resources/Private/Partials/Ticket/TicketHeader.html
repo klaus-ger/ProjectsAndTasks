@@ -1,23 +1,22 @@
 <ul class="pull-left">
-    <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+
     <f:link.action action="ticketListDate">
-        Open by Date
+        <li class="panel-link{f:if(condition: '{mainmenu} == 1', then: ' active')}">
+            Open by Date
+        </li>
     </f:link.action>
-</li>
 
-<li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
-<f:link.action action="ticketListScheduled">
-    Open by Deadline
-</f:link.action>
-</li>
+    <f:link.action action="ticketListScheduled">
+        <li class="panel-link{f:if(condition: '{mainmenu} == 2', then: ' active')}">
+            Open by Deadline
+        </li>
+    </f:link.action>
 
-<li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
-<f:link.action action="ticketListProject" >
-    Open by Project
-</f:link.action>
-</li>
-
-
+    <f:link.action action="ticketListProject" >
+        <li class="panel-link{f:if(condition: '{mainmenu} == 3', then: ' active')}">
+            Open by Project
+        </li>
+    </f:link.action>
 
 </ul>
 
