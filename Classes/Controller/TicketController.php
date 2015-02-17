@@ -81,18 +81,9 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
         }
     }
 
-    /**
-     * Index Action: Shows a list of all User
-     */
-    public function indexAction() {
-
-        $tickets = $this->ticketsRepository->findOpenTicketsByUser($this->user->getUid());
-
-        $this->view->assign('tickets', $tickets);
-    }
 
     /**
-     * Index Action: Shows a list of all User
+     * Shows a list of all tickets of the user
      */
     public function ticketListDateAction() {
 
@@ -100,10 +91,11 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
 
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '1');
+        $this->view->assign('topmenu', 3);
     }
 
     /**
-     * Index Action: Shows a list of all User
+     * Shows a list of all tickets of the user
      */
     public function ticketListScheduledAction() {
 
@@ -111,10 +103,11 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
 
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '2');
+        $this->view->assign('topmenu', 3);
     }
 
     /**
-     * Index Action: Shows a list of all User
+     * Shows a list of all tickets of the user
      */
     public function ticketListProjectAction() {
 
@@ -122,6 +115,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
 
         $this->view->assign('tickets', $tickets);
         $this->view->assign('mainmenu', '3');
+        $this->view->assign('topmenu', 3);
     }
 
     /**
@@ -136,6 +130,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
         $this->view->assign('ticket', $ticket);
         $this->view->assign('projects', $projects);
         $this->view->assign('status', $status);
+        $this->view->assign('topmenu', 3);
     }
 
     /**
@@ -174,6 +169,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
         $this->view->assign('sprints', $sprints);
         $this->view->assign('typ', $typ);
         $this->view->assign('projectteam', $pteam);
+        $this->view->assign('topmenu', 3);
     }
 
     /**
@@ -193,6 +189,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
         $this->view->assign('projects', $projects);
         $this->view->assign('status', $status);
         $this->view->assign('responses', $responses);
+        $this->view->assign('topmenu', 3);
     }
 
     /**
@@ -228,6 +225,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
         $this->view->assign('projects', $projects);
         $this->view->assign('status', $status);
         $this->view->assign('responses', $responses);
+        $this->view->assign('topmenu', 3);
     }
 
     /**
@@ -274,6 +272,7 @@ class TicketController extends \T3developer\ProjectsAndTasks\Controller\BaseCont
         $this->view->assign('response', $response);
         $this->view->assign('ticket', $ticket);
         $this->view->assign('project', $project);
+        $this->view->assign('topmenu', 3);
     }
 
     /**
