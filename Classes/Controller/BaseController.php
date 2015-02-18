@@ -148,6 +148,35 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
 
     /**
+     * Ticket Edit Permission
+     * 
+     * Checks if a user is admin, ticket owner or project owner
+     * @param int $ticketUid
+     * @return boolean
+     */
+    public function getTicketEditPermission($ticketUid){
+        //check if user is allowed to change ticket
+        $ticketEditPermission = false;
+        $ticket = $this->ticketsRepository->findByUid($ticketUid);
+        
+        //admin
+        if($this->user->getPatGroup() == 'pat-admin') {
+            return true;
+        }
+        
+        //project owner
+        if($this->user == $ticket->getTicketProject()->getProjectOwner()){
+            return true;
+        }
+        
+        //ticket owner
+        if($this->user == $ticket->getTicketAssigned()) {
+            return true;
+        }
+        
+    }
+
+    /**
      * set the pat-Usergroupname to the user
      * the usergroups mus defined as (case-sensitive spelling!)
      * pat-admin

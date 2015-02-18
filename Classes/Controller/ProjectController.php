@@ -632,13 +632,15 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
                 $worktime = $worktime + $note->getTrTime();
             }
         }
-
+        
+        $this->view->assign('ticketEditPermission', $this->getTicketEditPermission($ticket->getUid()));
         $this->view->assign('ticket', $ticket);
         $this->view->assign('worktime', $worktime);
         $this->view->assign('project', $project);
         $this->view->assign('projectHours', $this->calculateProjectHours($project->getUid()));
         $this->view->assign('responses', $responses);
         $this->view->assign('mainmenu', '4');
+        $this->view->assign('topmenu', 2);
     }
 
     /**
@@ -881,7 +883,7 @@ class ProjectController extends \T3developer\ProjectsAndTasks\Controller\BaseCon
     public function projectResponseSaveAction(\T3developer\ProjectsAndTasks\Domain\Model\Ticketresponse $response) {
         //calculating worktime
 
-        if ($response->getTrStart()) {
+        if ($response->getTrStart() ) {
             $start = explode(':', $response->getTrStart());
             $startTime = ($start[0] * 3600) + ($start[1] * 60);
             $response->setTrStart($startTime);
