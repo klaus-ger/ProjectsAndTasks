@@ -34,7 +34,26 @@ namespace T3developer\ProjectsAndTasks\Domain\Repository;
 class ProjectteamRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
     //protected $defaultOrderings = array('cyShort' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+    
+      /**
+     * ckeck if a user is teammember
+     * 
+     * @param int $projectUid Project UID
+     * @param int $userUid user uid
+     * @return int
+     */
+    public function checkProjektTeamMember($projectUid, $userUid) {
+        $query = $this->createQuery();
 
+        $query->matching(
+                $query->logicalAnd(array(
+                    $query->equals('ptProject', $projectUid),
+                    $query->equals('ptUser', $userUid)
+                ))
+        );
+
+        return $query->execute()->count();
+    }
     
 }
 
